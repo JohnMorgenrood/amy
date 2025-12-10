@@ -2,52 +2,61 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
-import { Award, ChevronUp, ChevronDown, X, ZoomIn } from 'lucide-react'
+import { Award, ChevronUp, ChevronDown, X, Download, FileText, Lock } from 'lucide-react'
 
-// Certificate data - add your certificates here
+// Certificate data
 const certificates = [
   {
     id: 1,
-    title: 'VTCT Level 3 Diploma in Theatrical, Special Effects & Media Makeup',
-    issuer: 'VTCT International',
+    title: 'ITEC Media Make Up Diploma',
+    issuer: 'ITEC International',
     year: '2018',
-    image: '/assets/certificates/certificate-1.jpg',
+    file: '/assets/certificates/AMY ITEC-MEDIA MAKE UP DIPLOMA.pdf',
   },
   {
     id: 2,
-    title: 'Professional Makeup Artistry',
-    issuer: 'Makeup Training Institution',
+    title: 'Special Effects Diploma',
+    issuer: 'Face to Face',
     year: '2017',
-    image: '/assets/certificates/certificate-2.jpg',
+    file: '/assets/certificates/AMY FACEtoFACE-SPECIAL EFFECTS DIPLOMA.pdf',
   },
   {
     id: 3,
-    title: 'Special Effects & Prosthetics',
-    issuer: 'SFX Academy',
-    year: '2019',
-    image: '/assets/certificates/certificate-3.jpg',
+    title: 'Prosthetics Certificate',
+    issuer: 'Face to Face',
+    year: '2017',
+    file: '/assets/certificates/AMY FACEtoFACE-PROSTHETICS CERTIF.pdf',
   },
   {
     id: 4,
-    title: 'Airbrush Makeup Certification',
-    issuer: 'Airbrush Academy',
-    year: '2020',
-    image: '/assets/certificates/certificate-4.jpg',
+    title: 'Make Up Artistry Certificate',
+    issuer: 'Face to Face',
+    year: '2016',
+    file: '/assets/certificates/AMY FACEtoFACE-MAKE UP ARTISTRY CERTIF.pdf',
   },
-  // Add more certificates as needed
+  {
+    id: 5,
+    title: 'Coverderm Training Certificate',
+    issuer: 'Coverderm',
+    year: '2019',
+    file: '/assets/certificates/AMY COVERDERM TRAINING.pdf',
+  },
 ]
+
+const DOWNLOAD_PASSWORD = '1801'
 
 export function Certificates() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [direction, setDirection] = useState(0)
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
-  const [lightboxImage, setLightboxImage] = useState('')
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false)
+  const [selectedFile, setSelectedFile] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState(false)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
   // Auto-rotate through certificates
   useEffect(() => {
-    if (!isAutoPlaying || isLightboxOpen) return
+    if (!isAutoPlaying || isPasswordModalOpen) return
     
     const interval = setInterval(() => {
       setDirection(1)
@@ -55,7 +64,7 @@ export function Certificates() {
     }, 4000)
 
     return () => clearInterval(interval)
-  }, [isAutoPlaying, isLightboxOpen])
+  }, [isAutoPlaying, isPasswordModalOpen])
 
   const navigate = (newDirection: number) => {
     setDirection(newDirection)
@@ -68,15 +77,35 @@ export function Certificates() {
     }
   }
 
-  const openLightbox = (image: string) => {
-    setLightboxImage(image)
-    setIsLightboxOpen(true)
+  const openPasswordModal = (file: string) => {
+    setSelectedFile(file)
+    setIsPasswordModalOpen(true)
     setIsAutoPlaying(false)
+    setPassword('')
+    setPasswordError(false)
   }
 
-  const closeLightbox = () => {
-    setIsLightboxOpen(false)
-    setLightboxImage('')
+  const closePasswordModal = () => {
+    setIsPasswordModalOpen(false)
+    setSelectedFile('')
+    setPassword('')
+    setPasswordError(false)
+  }
+
+  const handleDownload = () => {
+    if (password === DOWNLOAD_PASSWORD) {
+      // Create download link
+      const link = document.createElement('a')
+      link.href = selectedFile
+      link.download = selectedFile.split('/').pop() || 'certificate.pdf'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      closePasswordModal()
+    } else {
+      setPasswordError(true)
+      setPassword('')
+    }
   }
 
   // Variants for the 3D card stack effect
@@ -179,32 +208,54 @@ export function Certificates() {
                   animate="center"
                   exit="exit"
                   className="absolute inset-0 cursor-pointer group"
-                  onClick={() => openLightbox(certificates[activeIndex].image)}
+                  onClick={() => openPasswordModal(certificates[activeIndex].file)}
                   onMouseEnter={() => setIsAutoPlaying(false)}
                   onMouseLeave={() => setIsAutoPlaying(true)}
                 >
-                  <div className="relative w-full h-full border border-gold-500/20 bg-dark-900 overflow-hidden">
-                    <Image
-                      src={certificates[activeIndex].image}
-                      alt={certificates[activeIndex].title}
-                      fill
-                      className="object-cover"
-                    />
-                    
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-dark-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="flex items-center gap-2 text-cream-100">
-                        <ZoomIn className="w-6 h-6" />
-                        <span className="text-sm tracking-wider">View Certificate</span>
+                  <div className="relative w-full h-full border border-gold-500/20 bg-gradient-to-br from-dark-900 via-dark-900 to-dark-800 overflow-hidden">
+                    {/* Certificate Visual Design */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
+                      {/* Decorative border */}
+                      <div className="absolute inset-4 border border-gold-500/20" />
+                      <div className="absolute inset-6 border border-gold-500/10" />
+                      
+                      {/* Certificate Icon */}
+                      <div className="mb-4 p-4 bg-gold-500/10 border border-gold-500/30">
+                        <FileText className="w-12 h-12 text-gold-400" />
+                      </div>
+                      
+                      {/* Certificate Title */}
+                      <h4 className="font-display text-xl text-cream-100 text-center mb-2">
+                        {certificates[activeIndex].title}
+                      </h4>
+                      <p className="text-gold-500/60 text-xs tracking-[0.2em] uppercase">
+                        {certificates[activeIndex].issuer}
+                      </p>
+                      
+                      {/* Watermark */}
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03]">
+                        <span className="font-display text-[120px] text-cream-100 rotate-[-30deg] whitespace-nowrap select-none">
+                          AMY MORGENROOD
+                        </span>
                       </div>
                     </div>
-
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent opacity-60" />
+                    
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-dark-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <div className="flex items-center gap-3 px-6 py-3 bg-gold-500/20 border border-gold-500/40">
+                        <Download className="w-5 h-5 text-gold-400" />
+                        <span className="text-sm tracking-wider text-cream-100">Download PDF</span>
+                      </div>
+                    </div>
                     
                     {/* Award badge */}
                     <div className="absolute top-4 right-4 p-2 bg-gold-500/20 backdrop-blur-sm border border-gold-500/30">
                       <Award className="w-5 h-5 text-gold-400" />
+                    </div>
+                    
+                    {/* Lock icon */}
+                    <div className="absolute bottom-4 right-4 p-2 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20">
+                      <Lock className="w-4 h-4 text-gold-500/60" />
                     </div>
                   </div>
                 </motion.div>
@@ -288,22 +339,22 @@ export function Certificates() {
         </div>
       </div>
 
-      {/* Lightbox */}
+      {/* Password Modal */}
       <AnimatePresence>
-        {isLightboxOpen && (
+        {isPasswordModalOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-dark-950/95 backdrop-blur-sm p-4"
-            onClick={closeLightbox}
+            onClick={closePasswordModal}
           >
             <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               className="absolute top-6 right-6 p-3 border border-gold-500/30 text-cream-300 hover:border-gold-500/50 hover:text-gold-400 transition-all duration-300"
-              onClick={closeLightbox}
+              onClick={closePasswordModal}
             >
               <X className="w-6 h-6" />
             </motion.button>
@@ -313,15 +364,56 @@ export function Certificates() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: 'spring', damping: 25 }}
-              className="relative w-full max-w-4xl aspect-[4/3]"
+              className="relative w-full max-w-md p-8 bg-dark-900 border border-gold-500/20"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image
-                src={lightboxImage}
-                alt="Certificate"
-                fill
-                className="object-contain"
-              />
+              {/* Lock Icon */}
+              <div className="flex justify-center mb-6">
+                <div className="p-4 bg-gold-500/10 border border-gold-500/30">
+                  <Lock className="w-8 h-8 text-gold-400" />
+                </div>
+              </div>
+              
+              <h3 className="font-display text-2xl text-cream-100 text-center mb-2">
+                Protected Download
+              </h3>
+              <p className="text-cream-300/60 text-sm text-center mb-8">
+                Enter password to download this certificate
+              </p>
+              
+              {/* Password Input */}
+              <div className="space-y-4">
+                <div>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value)
+                      setPasswordError(false)
+                    }}
+                    onKeyDown={(e) => e.key === 'Enter' && handleDownload()}
+                    placeholder="Enter password"
+                    className={`w-full px-4 py-3 bg-dark-800/50 border text-cream-100 placeholder-cream-500/40 focus:outline-none focus:border-gold-500/50 transition-colors ${
+                      passwordError ? 'border-red-500/50' : 'border-gold-500/20'
+                    }`}
+                  />
+                  {passwordError && (
+                    <p className="mt-2 text-red-400 text-xs">
+                      Incorrect password. Please try again.
+                    </p>
+                  )}
+                </div>
+                
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleDownload}
+                  className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-cream-100 text-dark-950 text-xs tracking-[0.15em] uppercase hover:bg-gold-400 transition-colors duration-300"
+                >
+                  <Download className="w-4 h-4" />
+                  Download Certificate
+                </motion.button>
+              </div>
             </motion.div>
           </motion.div>
         )}
