@@ -5,60 +5,61 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 
-// Types
-interface Product {
+// Types for Blanka Products
+interface BlankaProduct {
   id: number
-  brand: string
   name: string
-  price: string
-  price_sign: string | null
-  currency: string | null
-  image_link: string
-  product_link: string
-  website_link: string
-  description: string
-  rating: number | null
-  category: string | null
+  sku: string
+  branded_box_available: boolean
+  available_inventory: number
+  suggested_cost: string
+  cost: string
+  weight: number
+  color_code: string
+  color_name: string
   product_type: string
-  tag_list: string[]
-  created_at: string
-  updated_at: string
-  product_api_url: string
-  api_featured_image: string
-  product_colors: Array<{
-    hex_value: string
-    colour_name: string
-  }>
+  image: string
+  categories: string[]
+  is_expiring: boolean
+  description: string
+  product_notes: string | null
+  benefits: string
+  application: string
+  ingredients: string
+  expires_at: string | null
+  product_base: string | null
 }
 
 interface CartItem {
-  product: Product
+  product: BlankaProduct
   quantity: number
 }
 
 // Cart Context
 interface CartContextType {
   items: CartItem[]
-  addToCart: (product: Product) => void
+  addToCart: (product: BlankaProduct) => void
   removeFromCart: (productId: number) => void
   updateQuantity: (productId: number, quantity: number) => void
   clearCart: () => void
   totalItems: number
   subtotal: number
-  markup: number
   total: number
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
-const MARKUP_AMOUNT = 3 // $3 USD markup per item
+// Calculate markup - we sell at suggested retail price, profit is suggested - cost
+function getRetailPrice(product: BlankaProduct): number {
+  return parseFloat(product.suggested_cost) || 0
+}
 
 function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const savedCart = localStorage.getItem('amy-cart')
+    const savedCart = localStorage.getItem('amy-blanka-cart')
     if (savedCart) {
       try {
         setItems(JSON.parse(savedCart))
@@ -70,10 +71,10 @@ function CartProvider({ children }: { children: ReactNode }) {
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('amy-cart', JSON.stringify(items))
+    localStorage.setItem('amy-blanka-cart', JSON.stringify(items))
   }, [items])
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: BlankaProduct) => {
     setItems(prev => {
       const existing = prev.find(item => item.product.id === product.id)
       if (existing) {
@@ -108,13 +109,11 @@ function CartProvider({ children }: { children: ReactNode }) {
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
   
   const subtotal = items.reduce((sum, item) => {
-    const price = parseFloat(item.product.price) || 0
+    const price = getRetailPrice(item.product)
     return sum + price * item.quantity
   }, 0)
-
-  const markup = items.reduce((sum, item) => sum + MARKUP_AMOUNT * item.quantity, 0)
   
-  const total = subtotal + markup
+  const total = subtotal // Add shipping later
 
   return (
     <CartContext.Provider value={{
@@ -125,7 +124,6 @@ function CartProvider({ children }: { children: ReactNode }) {
       clearCart,
       totalItems,
       subtotal,
-      markup,
       total
     }}>
       {children}
@@ -141,29 +139,20 @@ function useCart() {
   return context
 }
 
-// Filter Constants
-const productTypes = [
-  'lipstick', 'foundation', 'mascara', 'eyeshadow', 'eyeliner',
-  'blush', 'bronzer', 'nail_polish', 'lip_liner'
-]
-
-const brands = [
-  'maybelline', 'nyx', "l'oreal", 'revlon', 'covergirl',
-  'milani', 'e.l.f.', 'wet n wild', 'physicians formula'
-]
-
-// Fallback images for when API images fail
-const fallbackImages = [
-  'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop',
+// Categories for filtering
+const categories = [
+  { value: '', label: 'All Products' },
+  { value: 'skincare', label: 'Skincare' },
+  { value: 'face', label: 'Face' },
+  { value: 'lips', label: 'Lips' },
+  { value: 'eyes', label: 'Eyes' },
+  { value: 'tools', label: 'Tools & Accessories' },
+  { value: 'organic', label: 'Organic' },
 ]
 
 // Cart Sidebar Component
 function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const { items, removeFromCart, updateQuantity, clearCart, subtotal, markup, total, totalItems } = useCart()
+  const { items, removeFromCart, updateQuantity, clearCart, subtotal, total, totalItems } = useCart()
 
   return (
     <AnimatePresence>
@@ -228,11 +217,9 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                       exit={{ opacity: 0, y: -20 }}
                       className="flex gap-4 bg-white/5 rounded-xl p-4"
                     >
-                      <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                      <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-white/10">
                         <Image
-                          src={item.product.api_featured_image?.startsWith('//') 
-                            ? `https:${item.product.api_featured_image}` 
-                            : item.product.api_featured_image || fallbackImages[0]}
+                          src={item.product.image}
                           alt={item.product.name}
                           fill
                           className="object-cover"
@@ -241,9 +228,8 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-white font-medium truncate">{item.product.name}</h3>
-                        <p className="text-white/60 text-sm capitalize">{item.product.brand}</p>
                         <p className="text-[#D4AF37] font-semibold mt-1">
-                          ${((parseFloat(item.product.price) || 0) + MARKUP_AMOUNT).toFixed(2)}
+                          ${getRetailPrice(item.product).toFixed(2)}
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <button
@@ -284,8 +270,8 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                     <span>${subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-white/60">
-                    <span>Service Fee</span>
-                    <span>${markup.toFixed(2)}</span>
+                    <span>Shipping</span>
+                    <span>Calculated at checkout</span>
                   </div>
                   <div className="flex justify-between text-white text-lg font-bold pt-2 border-t border-white/10">
                     <span>Total</span>
@@ -315,30 +301,127 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
   )
 }
 
+// Product Detail Modal
+function ProductModal({ product, isOpen, onClose, onAddToCart }: { 
+  product: BlankaProduct | null
+  isOpen: boolean
+  onClose: () => void
+  onAddToCart: () => void
+}) {
+  if (!product) return null
+
+  const retailPrice = getRetailPrice(product)
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+          />
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-4xl md:max-h-[90vh] bg-[#1a1a1a] rounded-2xl z-50 overflow-hidden flex flex-col"
+          >
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 rounded-full transition-colors z-10"
+            >
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="flex flex-col md:flex-row overflow-y-auto">
+              {/* Image */}
+              <div className="relative w-full md:w-1/2 aspect-square flex-shrink-0 bg-gradient-to-br from-white/5 to-white/10">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
+              </div>
+
+              {/* Details */}
+              <div className="p-6 md:p-8 flex-1 overflow-y-auto">
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {product.categories.slice(0, 3).map((cat) => (
+                    <span key={cat} className="px-3 py-1 bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-medium rounded-full capitalize">
+                      {cat.replace('-', ' ')}
+                    </span>
+                  ))}
+                </div>
+
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{product.name}</h2>
+                
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="text-3xl font-bold text-[#D4AF37]">${retailPrice.toFixed(2)}</span>
+                  {product.available_inventory > 0 && (
+                    <span className="text-green-400 text-sm">In Stock</span>
+                  )}
+                </div>
+
+                <div className="prose prose-invert prose-sm mb-6">
+                  <p className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
+                </div>
+
+                {product.benefits && (
+                  <div className="mb-6">
+                    <h3 className="text-white font-semibold mb-2">Benefits</h3>
+                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.benefits }} />
+                  </div>
+                )}
+
+                {product.application && (
+                  <div className="mb-6">
+                    <h3 className="text-white font-semibold mb-2">How to Use</h3>
+                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.application }} />
+                  </div>
+                )}
+
+                {product.ingredients && (
+                  <div className="mb-6">
+                    <h3 className="text-white font-semibold mb-2">Ingredients</h3>
+                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.ingredients }} />
+                  </div>
+                )}
+
+                <button
+                  onClick={onAddToCart}
+                  className="w-full py-4 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold rounded-xl hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all"
+                >
+                  Add to Cart - ${retailPrice.toFixed(2)}
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  )
+}
+
 // Product Card Component
-function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: () => void }) {
+function ProductCard({ product, onAddToCart, onViewDetails }: { 
+  product: BlankaProduct
+  onAddToCart: () => void
+  onViewDetails: () => void
+}) {
   const [imageError, setImageError] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
-  const getImageUrl = () => {
-    if (imageError) {
-      return fallbackImages[product.id % fallbackImages.length]
-    }
-    // Try api_featured_image first (usually more reliable)
-    if (product.api_featured_image) {
-      const img = product.api_featured_image
-      return img.startsWith('//') ? `https:${img}` : img
-    }
-    // Fallback to image_link
-    if (product.image_link) {
-      const img = product.image_link
-      return img.startsWith('//') ? `https:${img}` : img
-    }
-    return fallbackImages[product.id % fallbackImages.length]
-  }
+  const retailPrice = getRetailPrice(product)
 
-  const price = parseFloat(product.price) || 0
-  const finalPrice = price + MARKUP_AMOUNT
+  const fallbackImage = 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop'
 
   return (
     <motion.div
@@ -352,9 +435,12 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
       className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 transition-all duration-300 group"
     >
       {/* Image */}
-      <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-white/5 to-white/10">
+      <div 
+        className="relative aspect-square overflow-hidden bg-gradient-to-br from-white/5 to-white/10 cursor-pointer"
+        onClick={onViewDetails}
+      >
         <Image
-          src={getImageUrl()}
+          src={imageError ? fallbackImage : product.image}
           alt={product.name}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -369,66 +455,71 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/60 flex items-center justify-center"
+              className="absolute inset-0 bg-black/60 flex items-center justify-center gap-2"
             >
               <motion.button
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.8, opacity: 0 }}
-                onClick={onAddToCart}
-                className="px-6 py-3 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold rounded-full hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all"
+                onClick={(e) => { e.stopPropagation(); onAddToCart() }}
+                className="px-5 py-2.5 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold rounded-full hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all text-sm"
               >
                 Add to Cart
+              </motion.button>
+              <motion.button
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ delay: 0.05 }}
+                onClick={onViewDetails}
+                className="p-2.5 bg-white/20 hover:bg-white/30 rounded-full transition-colors"
+              >
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
               </motion.button>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Rating Badge */}
-        {product.rating && product.rating > 0 && (
-          <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1">
-            <svg className="w-3 h-3 text-[#D4AF37]" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            <span className="text-white text-xs font-medium">{product.rating.toFixed(1)}</span>
+        {/* Stock Badge */}
+        {product.available_inventory <= 0 && (
+          <div className="absolute top-3 right-3 bg-red-500/90 backdrop-blur-sm px-2 py-1 rounded-full">
+            <span className="text-white text-xs font-medium">Low Stock</span>
           </div>
+        )}
+
+        {/* Color Swatch */}
+        {product.color_code && (
+          <div 
+            className="absolute bottom-3 left-3 w-6 h-6 rounded-full border-2 border-white shadow-lg"
+            style={{ backgroundColor: product.color_code }}
+            title={product.color_name}
+          />
         )}
       </div>
 
       {/* Info */}
       <div className="p-4">
-        <p className="text-[#D4AF37] text-xs font-medium uppercase tracking-wider mb-1">
-          {product.brand}
-        </p>
-        <h3 className="text-white font-medium line-clamp-2 mb-2 min-h-[2.5rem]">
+        <div className="flex flex-wrap gap-1 mb-2">
+          {product.categories.slice(0, 2).map((cat) => (
+            <span key={cat} className="text-[#D4AF37] text-xs font-medium uppercase tracking-wider">
+              {cat.replace('-', ' ')}
+            </span>
+          ))}
+        </div>
+        
+        <h3 
+          className="text-white font-medium line-clamp-2 mb-3 min-h-[2.5rem] cursor-pointer hover:text-[#D4AF37] transition-colors"
+          onClick={onViewDetails}
+        >
           {product.name}
         </h3>
-        
-        {/* Colors */}
-        {product.product_colors && product.product_colors.length > 0 && (
-          <div className="flex gap-1 mb-3 flex-wrap">
-            {product.product_colors.slice(0, 6).map((color, idx) => (
-              <div
-                key={idx}
-                className="w-4 h-4 rounded-full border border-white/20"
-                style={{ backgroundColor: color.hex_value }}
-                title={color.colour_name}
-              />
-            ))}
-            {product.product_colors.length > 6 && (
-              <span className="text-white/40 text-xs">+{product.product_colors.length - 6}</span>
-            )}
-          </div>
-        )}
 
         {/* Price & Action */}
         <div className="flex items-center justify-between">
-          <div>
-            <span className="text-2xl font-bold text-white">${finalPrice.toFixed(2)}</span>
-            {price > 0 && (
-              <span className="text-white/40 text-sm line-through ml-2">${price.toFixed(2)}</span>
-            )}
-          </div>
+          <span className="text-2xl font-bold text-white">${retailPrice.toFixed(2)}</span>
           <button
             onClick={onAddToCart}
             className="p-2 bg-[#D4AF37]/20 hover:bg-[#D4AF37] rounded-full transition-colors group/btn"
@@ -445,37 +536,31 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
 
 // Main Shop Page
 function ShopContent() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<BlankaProduct[]>([])
+  const [filteredProducts, setFilteredProducts] = useState<BlankaProduct[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isDemo, setIsDemo] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedType, setSelectedType] = useState<string>('')
-  const [selectedBrand, setSelectedBrand] = useState<string>('')
+  const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [notification, setNotification] = useState<string | null>(null)
+  const [selectedProduct, setSelectedProduct] = useState<BlankaProduct | null>(null)
   
   const { addToCart, totalItems } = useCart()
 
-  // Fetch products
+  // Fetch products from our API route
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true)
-        const response = await fetch('https://makeup-api.herokuapp.com/api/v1/products.json')
+        const response = await fetch('/api/products')
         if (!response.ok) throw new Error('Failed to fetch products')
-        const data: Product[] = await response.json()
+        const data = await response.json()
         
-        // Filter products that have valid data and price
-        const validProducts = data.filter(p => 
-          p.name && 
-          p.brand && 
-          parseFloat(p.price) > 0 &&
-          (p.image_link || p.api_featured_image)
-        ).slice(0, 100) // Limit to 100 products for performance
-        
-        setProducts(validProducts)
-        setFilteredProducts(validProducts)
+        setProducts(data.results || [])
+        setFilteredProducts(data.results || [])
+        setIsDemo(data.isDemo || false)
       } catch (err) {
         setError('Failed to load products. Please try again later.')
         console.error(err)
@@ -494,32 +579,30 @@ function ShopContent() {
       const query = searchQuery.toLowerCase()
       filtered = filtered.filter(p =>
         p.name.toLowerCase().includes(query) ||
-        p.brand.toLowerCase().includes(query) ||
-        p.product_type.toLowerCase().includes(query)
+        p.description.toLowerCase().includes(query) ||
+        p.categories.some(c => c.toLowerCase().includes(query))
       )
     }
 
-    if (selectedType) {
-      filtered = filtered.filter(p => p.product_type === selectedType)
-    }
-
-    if (selectedBrand) {
-      filtered = filtered.filter(p => p.brand.toLowerCase() === selectedBrand.toLowerCase())
+    if (selectedCategory) {
+      filtered = filtered.filter(p => 
+        p.categories.includes(selectedCategory)
+      )
     }
 
     setFilteredProducts(filtered)
-  }, [products, searchQuery, selectedType, selectedBrand])
+  }, [products, searchQuery, selectedCategory])
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: BlankaProduct) => {
     addToCart(product)
     setNotification(`${product.name} added to cart!`)
     setTimeout(() => setNotification(null), 2000)
+    setSelectedProduct(null)
   }
 
   const clearFilters = () => {
     setSearchQuery('')
-    setSelectedType('')
-    setSelectedBrand('')
+    setSelectedCategory('')
   }
 
   return (
@@ -531,7 +614,7 @@ function ShopContent() {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-[#D4AF37] text-black px-6 py-3 rounded-full font-medium shadow-lg"
+            className="fixed top-4 left-1/2 -translate-x-1/2 z-[60] bg-[#D4AF37] text-black px-6 py-3 rounded-full font-medium shadow-lg"
           >
             {notification}
           </motion.div>
@@ -540,6 +623,14 @@ function ShopContent() {
 
       {/* Cart Sidebar */}
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+
+      {/* Product Modal */}
+      <ProductModal 
+        product={selectedProduct}
+        isOpen={!!selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+        onAddToCart={() => selectedProduct && handleAddToCart(selectedProduct)}
+      />
 
       {/* Header */}
       <header className="sticky top-0 z-40 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/10">
@@ -565,36 +656,57 @@ function ShopContent() {
         </div>
       </header>
 
+      {/* Demo Mode Banner */}
+      {isDemo && (
+        <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border-b border-amber-500/30">
+          <div className="max-w-7xl mx-auto px-4 py-3 text-center">
+            <p className="text-amber-200 text-sm">
+              🎨 <span className="font-semibold">Demo Mode</span> - Showing sample products. Connect Blanka API for live inventory.
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Hero Banner */}
-      <section className="relative py-20 px-4 overflow-hidden">
+      <section className="relative py-16 md:py-20 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/10 to-transparent" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10 mb-6"
+          >
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            <span className="text-white/70 text-sm">Clean Beauty • Cruelty-Free • White Label</span>
+          </motion.div>
+          
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
             className="text-4xl md:text-6xl font-bold text-white mb-4"
           >
-            Professional <span className="text-[#D4AF37]">Makeup</span>
+            Premium <span className="text-[#D4AF37]">Beauty</span> Products
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.2 }}
             className="text-xl text-white/70 mb-8"
           >
-            Curated beauty products recommended by Amy Morgenrood
+            Curated skincare & makeup by Amy Morgenrood
           </motion.p>
           
           {/* Search Bar */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.3 }}
             className="relative max-w-xl mx-auto"
           >
             <input
               type="text"
-              placeholder="Search products, brands..."
+              placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-full text-white placeholder-white/50 focus:outline-none focus:border-[#D4AF37] transition-colors"
@@ -606,53 +718,39 @@ function ShopContent() {
         </div>
       </section>
 
-      {/* Filters */}
+      {/* Category Pills */}
       <section className="max-w-7xl mx-auto px-4 mb-8">
-        <div className="flex flex-wrap items-center gap-4">
-          {/* Product Type Filter */}
-          <select
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-            className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-[#D4AF37] transition-colors"
-          >
-            <option value="">All Types</option>
-            {productTypes.map(type => (
-              <option key={type} value={type} className="bg-[#1a1a1a]">
-                {type.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-              </option>
-            ))}
-          </select>
-
-          {/* Brand Filter */}
-          <select
-            value={selectedBrand}
-            onChange={(e) => setSelectedBrand(e.target.value)}
-            className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-[#D4AF37] transition-colors"
-          >
-            <option value="">All Brands</option>
-            {brands.map(brand => (
-              <option key={brand} value={brand} className="bg-[#1a1a1a]">
-                {brand.replace(/\b\w/g, l => l.toUpperCase())}
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-wrap items-center gap-3">
+          {categories.map((cat) => (
+            <button
+              key={cat.value}
+              onClick={() => setSelectedCategory(cat.value)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                selectedCategory === cat.value
+                  ? 'bg-[#D4AF37] text-black'
+                  : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
 
           {/* Clear Filters */}
-          {(searchQuery || selectedType || selectedBrand) && (
+          {(searchQuery || selectedCategory) && (
             <button
               onClick={clearFilters}
-              className="px-4 py-2 text-[#D4AF37] hover:text-white transition-colors flex items-center gap-2"
+              className="px-4 py-2 text-[#D4AF37] hover:text-white transition-colors flex items-center gap-2 text-sm"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
-              Clear Filters
+              Clear
             </button>
           )}
 
           {/* Results Count */}
-          <span className="ml-auto text-white/60">
-            {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''} found
+          <span className="ml-auto text-white/60 text-sm">
+            {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
           </span>
         </div>
       </section>
@@ -703,6 +801,7 @@ function ShopContent() {
                   key={product.id}
                   product={product}
                   onAddToCart={() => handleAddToCart(product)}
+                  onViewDetails={() => setSelectedProduct(product)}
                 />
               ))}
             </AnimatePresence>
