@@ -41,8 +41,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: ['var(--font-playfair)', 'serif'],
-        sans: ['var(--font-inter)', 'sans-serif'],
+        display: ['var(--font-cormorant)', 'Cormorant Garamond', 'serif'],
+        sans: ['var(--font-outfit)', 'Outfit', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
