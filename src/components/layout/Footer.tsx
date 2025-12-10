@@ -61,7 +61,7 @@ export function Footer() {
             </Link>
             <p className="text-cream-300/70 text-sm leading-relaxed mb-8 font-light">
               Professional makeup artist with 8+ years onset experience. 
-              Internationally qualified (VTCT) specializing in Film, SFX, 
+              Internationally qualified (ITEC) specializing in Film, SFX, 
               Beauty, Airbrush & Hair Styling.
             </p>
             <div className="flex items-center gap-3">

@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     'bridal makeup cape town',
     'editorial makeup artist',
     'fashion makeup artist',
-    'VTCT qualified makeup artist'
+    'ITEC qualified makeup artist'
   ],
   authors: [{ name: 'Amy Morgenrood' }],
   creator: 'Amy Morgenrood',

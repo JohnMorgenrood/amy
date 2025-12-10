@@ -205,7 +205,7 @@ export function Hero() {
                 <div className="flex items-center gap-4">
                   <Award className="w-5 h-5 text-gold-500" />
                   <div>
-                    <p className="text-xs tracking-[0.2em] uppercase text-cream-100">VTCT Certified</p>
+                    <p className="text-xs tracking-[0.2em] uppercase text-cream-100">ITEC Certified</p>
                     <p className="text-[10px] tracking-wider uppercase text-cream-500/60 mt-0.5">International Qualification</p>
                   </div>
                 </div>

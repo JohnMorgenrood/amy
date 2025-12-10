@@ -17,7 +17,7 @@ import {
 const achievements = [
   { icon: Film, label: 'Productions', value: '50+' },
   { icon: Calendar, label: 'Years Experience', value: '8+' },
-  { icon: Award, label: 'VTCT Certified', value: 'Yes' },
+  { icon: Award, label: 'ITEC Certified', value: 'Yes' },
   { icon: Star, label: 'Client Rating', value: '5.0' },
 ]
 
@@ -36,7 +36,7 @@ const skills = [
 
 const timeline = [
   { year: '2016', event: 'Started professional makeup career' },
-  { year: '2018', event: 'Obtained VTCT International Qualification' },
+  { year: '2018', event: 'Obtained ITEC International Qualification' },
   { year: '2020', event: 'Joined Call a Crew roster' },
   { year: '2022', event: 'Worked on "The Woman King"' },
   { year: '2024', event: '50+ productions completed' },
@@ -152,7 +152,7 @@ export function About() {
                 in the film and television industry.
               </p>
               <p className="text-cream-300/75 leading-relaxed font-light">
-                Internationally qualified with a <span className="text-cream-100">VTCT certification</span>, 
+                Internationally qualified with a <span className="text-cream-100">ITEC certification</span>, 
                 I specialize in creating stunning looks for film productions, special effects, 
                 beauty editorials, and more. My work has been featured in major productions 
                 including <span className="text-gold-400">"The Woman King"</span> starring Viola Davis.
