@@ -99,7 +99,7 @@ export function About() {
               {/* Main Image */}
               <div className="relative aspect-[4/5] overflow-hidden border border-gold-500/20">
                 <Image
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=750&fit=crop"
+                  src="/assets/about/Amy Morgenrood.jpg"
                   alt="Amy Morgenrood - Professional Makeup Artist"
                   fill
                   className="object-cover"
