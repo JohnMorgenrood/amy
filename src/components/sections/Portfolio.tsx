@@ -3,9 +3,10 @@
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper/modules'
-import { ExternalLink, Eye, Heart, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ExternalLink, Eye, Heart, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
@@ -127,7 +128,14 @@ const portfolioItems = [
   },
 ]
 
-const categories = ['All', 'Beauty', 'SFX', 'Film', 'Bridal', 'Editorial', 'TVC']
+const categories = [
+  { name: 'All', slug: '' },
+  { name: 'Beauty', slug: 'beauty' },
+  { name: 'SFX', slug: 'sfx' },
+  { name: 'Film', slug: 'film' },
+  { name: 'Bridal', slug: 'bridal' },
+  { name: 'Editorial', slug: 'editorial' },
+]
 
 export function Portfolio() {
   const [activeCategory, setActiveCategory] = useState('All')
@@ -144,6 +152,11 @@ export function Portfolio() {
   const filteredItems = activeCategory === 'All' 
     ? portfolioItems 
     : portfolioItems.filter(item => item.category === activeCategory)
+  
+  const getCategorySlug = (categoryName: string) => {
+    const cat = categories.find(c => c.name === categoryName)
+    return cat?.slug || categoryName.toLowerCase()
+  }
 
   return (
     <section 
@@ -192,20 +205,37 @@ export function Portfolio() {
           >
             {categories.map((category) => (
               <motion.button
-                key={category}
-                onClick={() => setActiveCategory(category)}
+                key={category.name}
+                onClick={() => setActiveCategory(category.name)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={`px-6 py-2.5 text-xs tracking-[0.15em] uppercase transition-all duration-500 ${
-                  activeCategory === category
+                  activeCategory === category.name
                     ? 'bg-gold-500/10 text-gold-400 border border-gold-500/30'
                     : 'bg-transparent text-cream-500/50 hover:text-cream-100 border border-cream-500/10 hover:border-cream-500/20'
                 }`}
               >
-                {category}
+                {category.name}
               </motion.button>
             ))}
           </motion.div>
+          
+          {/* View Category Link */}
+          {activeCategory !== 'All' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center mt-6"
+            >
+              <Link
+                href={`/portfolio/${getCategorySlug(activeCategory)}`}
+                className="inline-flex items-center gap-2 text-gold-500/80 hover:text-gold-400 text-sm transition-colors"
+              >
+                <span>View all {activeCategory} work</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+          )}
         </div>
 
         {/* Portfolio Slider */}
@@ -335,17 +365,27 @@ export function Portfolio() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
-          className="text-center mt-20"
+          className="text-center mt-20 space-y-6"
         >
-          <a
-            href="https://instagram.com/amyb_mup"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 text-cream-500/50 hover:text-gold-400 transition-colors duration-300 group text-xs tracking-[0.2em] uppercase"
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-3 px-8 py-3 bg-gold-500/10 border border-gold-500/30 text-gold-400 hover:bg-gold-500/20 transition-all duration-300 text-xs tracking-[0.2em] uppercase"
           >
-            <span>Follow on Instagram</span>
-            <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
+            <span>View Full Portfolio</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          
+          <div className="block">
+            <a
+              href="https://instagram.com/amyb_mup"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 text-cream-500/50 hover:text-gold-400 transition-colors duration-300 group text-xs tracking-[0.2em] uppercase"
+            >
+              <span>Follow on Instagram</span>
+              <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
         </motion.div>
       </motion.div>
     </section>
