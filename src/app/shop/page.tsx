@@ -417,7 +417,6 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
   onViewDetails: () => void
 }) {
   const [imageError, setImageError] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
 
   const retailPrice = getRetailPrice(product)
 
@@ -429,10 +428,7 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      whileHover={{ y: -5 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 transition-all duration-300 group"
+      className="bg-white/5 backdrop-blur-sm rounded-xl md:rounded-2xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 transition-all duration-300 flex flex-col"
     >
       {/* Image */}
       <div 
@@ -443,57 +439,32 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
           src={imageError ? fallbackImage : product.image}
           alt={product.name}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          className="object-cover transition-transform duration-500 hover:scale-105"
           unoptimized
           onError={() => setImageError(true)}
         />
         
-        {/* Quick Add Overlay */}
-        <AnimatePresence>
-          {isHovered && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/60 flex items-center justify-center gap-2"
-            >
-              <motion.button
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-                onClick={(e) => { e.stopPropagation(); onAddToCart() }}
-                className="px-5 py-2.5 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold rounded-full hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all text-sm"
-              >
-                Add to Cart
-              </motion.button>
-              <motion.button
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-                transition={{ delay: 0.05 }}
-                onClick={onViewDetails}
-                className="p-2.5 bg-white/20 hover:bg-white/30 rounded-full transition-colors"
-              >
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </motion.button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Quick View Button - Always visible on mobile, hover on desktop */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 md:opacity-0 md:hover:opacity-100 transition-opacity">
+          <button
+            onClick={onViewDetails}
+            className="absolute bottom-3 left-1/2 -translate-x-1/2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full hover:bg-white/30 transition-colors"
+          >
+            Quick View
+          </button>
+        </div>
 
         {/* Stock Badge */}
         {product.available_inventory <= 0 && (
-          <div className="absolute top-3 right-3 bg-red-500/90 backdrop-blur-sm px-2 py-1 rounded-full">
-            <span className="text-white text-xs font-medium">Low Stock</span>
+          <div className="absolute top-2 right-2 md:top-3 md:right-3 bg-red-500/90 backdrop-blur-sm px-2 py-1 rounded-full">
+            <span className="text-white text-[10px] md:text-xs font-medium">Low Stock</span>
           </div>
         )}
 
         {/* Color Swatch */}
         {product.color_code && (
           <div 
-            className="absolute bottom-3 left-3 w-6 h-6 rounded-full border-2 border-white shadow-lg"
+            className="absolute top-2 left-2 md:top-3 md:left-3 w-5 h-5 md:w-6 md:h-6 rounded-full border-2 border-white shadow-lg"
             style={{ backgroundColor: product.color_code }}
             title={product.color_name}
           />
@@ -501,32 +472,33 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
       </div>
 
       {/* Info */}
-      <div className="p-4">
-        <div className="flex flex-wrap gap-1 mb-2">
-          {product.categories.slice(0, 2).map((cat) => (
-            <span key={cat} className="text-[#D4AF37] text-xs font-medium uppercase tracking-wider">
-              {cat.replace('-', ' ')}
-            </span>
-          ))}
+      <div className="p-3 md:p-4 flex flex-col flex-1">
+        {/* Category */}
+        <div className="mb-1 md:mb-2">
+          <span className="text-[#D4AF37] text-[10px] md:text-xs font-medium uppercase tracking-wider line-clamp-1">
+            {product.categories[0]?.replace('-', ' ') || 'Beauty'}
+          </span>
         </div>
         
+        {/* Product Name */}
         <h3 
-          className="text-white font-medium line-clamp-2 mb-3 min-h-[2.5rem] cursor-pointer hover:text-[#D4AF37] transition-colors"
+          className="text-white text-sm md:text-base font-medium line-clamp-2 mb-2 md:mb-3 flex-1 cursor-pointer hover:text-[#D4AF37] transition-colors"
           onClick={onViewDetails}
         >
           {product.name}
         </h3>
 
-        {/* Price & Action */}
-        <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-white">${retailPrice.toFixed(2)}</span>
+        {/* Price & Add Button */}
+        <div className="flex items-center justify-between gap-2 mt-auto">
+          <span className="text-lg md:text-xl font-bold text-white">${retailPrice.toFixed(2)}</span>
           <button
-            onClick={onAddToCart}
-            className="p-2 bg-[#D4AF37]/20 hover:bg-[#D4AF37] rounded-full transition-colors group/btn"
+            onClick={(e) => { e.stopPropagation(); onAddToCart(); }}
+            className="flex items-center gap-1.5 px-3 py-1.5 md:px-4 md:py-2 bg-[#D4AF37] hover:bg-[#F4D03F] text-black text-xs md:text-sm font-bold rounded-full transition-colors"
           >
-            <svg className="w-5 h-5 text-[#D4AF37] group-hover/btn:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
+            <span className="hidden sm:inline">Add</span>
           </button>
         </div>
       </div>
@@ -546,6 +518,7 @@ function ShopContent() {
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [notification, setNotification] = useState<string | null>(null)
   const [selectedProduct, setSelectedProduct] = useState<BlankaProduct | null>(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   
   const { addToCart, totalItems } = useCart()
 
@@ -633,26 +606,96 @@ function ShopContent() {
       />
 
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-white">Amy&apos;s</span>
-            <span className="text-2xl font-bold text-[#D4AF37]">Beauty Shop</span>
-          </Link>
-          
-          <button
-            onClick={() => setIsCartOpen(true)}
-            className="relative p-3 bg-white/5 hover:bg-white/10 rounded-full transition-colors"
-          >
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-            </svg>
-            {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-black text-xs font-bold rounded-full flex items-center justify-center">
-                {totalItems}
-              </span>
+      <header className="sticky top-0 z-40 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 py-3 md:py-4">
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+              <span className="text-lg md:text-2xl font-bold text-white">Amy&apos;s</span>
+              <span className="text-lg md:text-2xl font-bold text-[#D4AF37]">Beauty</span>
+            </Link>
+            
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-6">
+              <Link href="/" className="text-white/70 hover:text-white transition-colors text-sm font-medium">
+                Home
+              </Link>
+              <Link href="/#services" className="text-white/70 hover:text-white transition-colors text-sm font-medium">
+                Services
+              </Link>
+              <Link href="/#portfolio" className="text-white/70 hover:text-white transition-colors text-sm font-medium">
+                Portfolio
+              </Link>
+              <Link href="/shop" className="text-[#D4AF37] text-sm font-medium">
+                Shop
+              </Link>
+              <Link href="/#contact" className="text-white/70 hover:text-white transition-colors text-sm font-medium">
+                Contact
+              </Link>
+            </nav>
+
+            {/* Right Side - Cart & Mobile Menu */}
+            <div className="flex items-center gap-2 md:gap-4">
+              {/* Cart Button */}
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative p-2 md:p-3 bg-white/5 hover:bg-white/10 rounded-full transition-colors"
+              >
+                <svg className="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-black text-xs font-bold rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors"
+              >
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {isMobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation Menu */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.nav
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="md:hidden overflow-hidden"
+              >
+                <div className="flex flex-col gap-1 pt-4 pb-2">
+                  <Link href="/" className="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+                    Home
+                  </Link>
+                  <Link href="/#services" className="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+                    Services
+                  </Link>
+                  <Link href="/#portfolio" className="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+                    Portfolio
+                  </Link>
+                  <Link href="/shop" className="px-4 py-3 text-[#D4AF37] bg-[#D4AF37]/10 rounded-lg">
+                    Shop
+                  </Link>
+                  <Link href="/#contact" className="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+                    Contact
+                  </Link>
+                </div>
+              </motion.nav>
             )}
-          </button>
+          </AnimatePresence>
         </div>
       </header>
 
@@ -793,7 +836,7 @@ function ShopContent() {
         ) : (
           <motion.div 
             layout
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6"
           >
             <AnimatePresence mode="popLayout">
               {filteredProducts.map(product => (
