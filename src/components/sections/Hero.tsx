@@ -108,7 +108,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-base sm:text-lg text-cream-400/60 font-light max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed"
+              className="text-base sm:text-lg text-cream-300/75 font-light max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed"
             >
               Professional makeup artistry for Film, SFX, Beauty & Beyond. 
               Internationally qualified with 8+ years of onset experience 

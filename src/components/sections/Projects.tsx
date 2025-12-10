@@ -126,7 +126,7 @@ export function Projects() {
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
             Movies & Productions
           </h2>
-          <p className="text-cream-500/60 text-lg max-w-2xl mx-auto font-light">
+          <p className="text-cream-300/80 text-lg max-w-2xl mx-auto font-light">
             Featured in major film and television productions, bringing characters to life 
             through the art of makeup.
           </p>
@@ -230,7 +230,7 @@ export function Projects() {
                       {project.title}
                     </h3>
 
-                    <p className="text-cream-500/50 text-sm font-light mb-6 line-clamp-2">
+                    <p className="text-cream-300/70 text-sm font-light mb-6 line-clamp-2">
                       {project.description}
                     </p>
 

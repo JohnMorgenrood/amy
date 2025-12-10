@@ -86,7 +86,7 @@ export function Testimonials() {
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
             Client Love
           </h2>
-          <p className="text-cream-500/60 text-lg max-w-2xl mx-auto font-light">
+          <p className="text-cream-300/80 text-lg max-w-2xl mx-auto font-light">
             Don't just take my word for it. Here's what clients have to say about working with me.
           </p>
         </motion.div>
@@ -130,7 +130,7 @@ export function Testimonials() {
                   <Quote className="w-8 h-8 text-gold-500/20 mb-8" />
 
                   {/* Content */}
-                  <p className="text-cream-500/70 leading-relaxed mb-8 font-light italic">
+                  <p className="text-cream-200/80 leading-relaxed mb-8 font-light italic">
                     "{testimonial.content}"
                   </p>
 

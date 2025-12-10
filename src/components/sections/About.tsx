@@ -145,19 +145,19 @@ export function About() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="space-y-6">
-              <p className="text-cream-100/80 text-lg leading-relaxed font-light">
+              <p className="text-cream-200/90 text-lg leading-relaxed font-light">
                 Hello! I'm <span className="text-gold-400">Amy Morgenrood</span>, 
                 a professional makeup artist based in Cape Town with over{' '}
                 <span className="text-gold-400">8 years of onset experience</span> 
                 in the film and television industry.
               </p>
-              <p className="text-cream-500/60 leading-relaxed font-light">
+              <p className="text-cream-300/75 leading-relaxed font-light">
                 Internationally qualified with a <span className="text-cream-100">VTCT certification</span>, 
                 I specialize in creating stunning looks for film productions, special effects, 
                 beauty editorials, and more. My work has been featured in major productions 
                 including <span className="text-gold-400">"The Woman King"</span> starring Viola Davis.
               </p>
-              <p className="text-cream-500/60 leading-relaxed font-light">
+              <p className="text-cream-300/75 leading-relaxed font-light">
                 Whether it's transforming actors into characters, creating breathtaking bridal looks, 
                 or executing complex SFX makeup, I bring passion, precision, and creativity to every project. 
                 I'm proud to be represented by Call a Crew and have an established presence on IMDb.
@@ -177,7 +177,7 @@ export function About() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.05 }}
-                    className="px-4 py-2 bg-dark-900/50 border border-gold-500/10 text-xs tracking-wide text-cream-500/60 hover:border-gold-500/30 hover:text-cream-100 transition-all duration-300 cursor-default"
+                    className="px-4 py-2 bg-dark-900/50 border border-gold-500/10 text-xs tracking-wide text-cream-300/70 hover:border-gold-500/30 hover:text-cream-100 transition-all duration-300 cursor-default"
                   >
                     {skill}
                   </motion.span>

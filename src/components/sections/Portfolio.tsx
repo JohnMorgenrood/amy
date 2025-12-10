@@ -120,7 +120,7 @@ export function Portfolio() {
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
               Featured Work
             </h2>
-            <p className="text-cream-500/60 text-lg max-w-2xl mx-auto font-light">
+            <p className="text-cream-300/80 text-lg max-w-2xl mx-auto font-light">
               A curated selection of my best makeup artistry spanning film, television, 
               beauty editorials, and special effects.
             </p>

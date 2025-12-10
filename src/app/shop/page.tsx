@@ -151,7 +151,7 @@ export default function ShopPage() {
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
               Professional Beauty Shop
             </h1>
-            <p className="font-display text-cream-500/60 text-xl max-w-2xl mx-auto mb-10 font-light italic">
+            <p className="font-display text-cream-300/80 text-xl max-w-2xl mx-auto mb-10 font-light italic">
               Shop the same professional-grade products I use on film sets and with my clients. 
               Curated collection coming soon.
             </p>
@@ -187,7 +187,7 @@ export default function ShopPage() {
                 </div>
                 <div>
                   <h3 className="text-xs tracking-[0.1em] uppercase text-cream-100">{feature.title}</h3>
-                  <p className="font-display text-sm text-cream-500/50 font-light italic mt-0.5">{feature.description}</p>
+                  <p className="font-display text-sm text-cream-300/70 font-light italic mt-0.5">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -355,7 +355,7 @@ export default function ShopPage() {
           <h3 className="font-display text-2xl sm:text-3xl font-light text-cream-100 mb-4">
             Be the First to Know
           </h3>
-          <p className="font-display text-cream-500/50 max-w-xl mx-auto mb-10 italic">
+          <p className="font-display text-cream-300/70 max-w-xl mx-auto mb-10 italic">
             Subscribe to get exclusive early access, special discounts, and pro tips 
             when the shop officially launches.
           </p>

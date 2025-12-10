@@ -109,7 +109,7 @@ export function Services() {
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
             Professional Services
           </h2>
-          <p className="text-cream-500/60 text-lg max-w-2xl mx-auto font-light">
+          <p className="text-cream-300/80 text-lg max-w-2xl mx-auto font-light">
             From film sets to wedding venues, I bring expertise and creativity to every project. 
             Each service is tailored to meet your unique vision.
           </p>
@@ -148,7 +148,7 @@ export function Services() {
                 <h3 className="font-display text-xl font-light text-cream-100 mb-4 group-hover:text-gold-400 transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-cream-500/50 text-sm leading-relaxed mb-8 font-light">
+                <p className="text-cream-300/70 text-sm leading-relaxed mb-8 font-light">
                   {service.description}
                 </p>
 
@@ -163,7 +163,7 @@ export function Services() {
                         x: activeService === service.id ? 0 : -5
                       }}
                       transition={{ delay: idx * 0.1 }}
-                      className="flex items-center gap-3 text-xs tracking-wide text-cream-500/60"
+                      className="flex items-center gap-3 text-xs tracking-wide text-cream-300/70"
                     >
                       <span className="w-1 h-1 bg-gold-500/50" />
                       {feature}
@@ -197,7 +197,7 @@ export function Services() {
           transition={{ delay: 0.6 }}
           className="text-center mt-20 pt-16 border-t border-gold-500/10"
         >
-          <p className="text-cream-500/50 mb-8 text-sm tracking-wide">
+          <p className="text-cream-300/70 mb-8 text-sm tracking-wide">
             Need something specific? Let's discuss your project requirements.
           </p>
           <motion.a

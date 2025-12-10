@@ -59,7 +59,7 @@ export function Footer() {
                 Makeup Artist
               </span>
             </Link>
-            <p className="text-cream-500/50 text-sm leading-relaxed mb-8 font-light">
+            <p className="text-cream-300/70 text-sm leading-relaxed mb-8 font-light">
               Professional makeup artist with 8+ years onset experience. 
               Internationally qualified (VTCT) specializing in Film, SFX, 
               Beauty, Airbrush & Hair Styling.
@@ -104,7 +104,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-cream-500/50 hover:text-cream-100 transition-colors duration-300 text-sm font-light"
+                    className="text-cream-300/70 hover:text-cream-100 transition-colors duration-300 text-sm font-light"
                   >
                     {link.name}
                   </Link>
@@ -123,7 +123,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-cream-500/50 hover:text-cream-100 transition-colors duration-300 text-sm font-light"
+                    className="text-cream-300/70 hover:text-cream-100 transition-colors duration-300 text-sm font-light"
                   >
                     {link.name}
                   </Link>
@@ -141,7 +141,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+27847017012"
-                  className="flex items-center gap-3 text-cream-500/50 hover:text-cream-100 transition-colors duration-300 text-sm font-light group"
+                  className="flex items-center gap-3 text-cream-300/70 hover:text-cream-100 transition-colors duration-300 text-sm font-light group"
                 >
                   <Phone className="w-4 h-4" />
                   <span>084 701 7012</span>
@@ -150,7 +150,7 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:bookings@makeupbyamy.co.za"
-                  className="flex items-center gap-3 text-cream-500/50 hover:text-cream-100 transition-colors duration-300 text-sm font-light group"
+                  className="flex items-center gap-3 text-cream-300/70 hover:text-cream-100 transition-colors duration-300 text-sm font-light group"
                 >
                   <Mail className="w-4 h-4" />
                   <span>bookings@makeupbyamy.co.za</span>

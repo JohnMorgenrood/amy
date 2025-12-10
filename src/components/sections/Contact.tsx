@@ -127,7 +127,7 @@ export function Contact() {
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
             Book Your Session
           </h2>
-          <p className="text-cream-500/60 text-lg max-w-2xl mx-auto font-light">
+          <p className="text-cream-300/80 text-lg max-w-2xl mx-auto font-light">
             Ready to transform your vision into reality? Let's discuss your project and create something beautiful together.
           </p>
         </motion.div>
@@ -223,7 +223,7 @@ export function Contact() {
                 <Sparkles className="w-4 h-4 text-gold-500/80" />
                 <h4 className="text-xs tracking-[0.15em] uppercase text-cream-100">Quick Response</h4>
               </div>
-              <p className="text-sm text-cream-500/60 font-light">
+              <p className="text-sm text-cream-300/70 font-light">
                 I typically respond to inquiries within 24 hours. For urgent bookings, 
                 please call directly.
               </p>
