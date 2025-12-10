@@ -238,7 +238,7 @@ export function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-3"
           >
-            <div className="p-8 bg-dark-900/50 border border-gold-500/10">
+            <div className="p-8 bg-dark-900/70 border border-gold-500/30">
               {isSubmitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -265,7 +265,7 @@ export function Contact() {
                   <div className="grid sm:grid-cols-2 gap-6">
                     {/* Name */}
                     <div>
-                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
+                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
                         Your Name *
                       </label>
                       <input
@@ -273,14 +273,14 @@ export function Contact() {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all font-light"
+                        className="w-full px-4 py-3 bg-dark-800/80 border border-gold-500/30 text-cream-100 placeholder-cream-400/50 focus:outline-none focus:border-gold-500/50 transition-all font-light"
                         placeholder="Jane Doe"
                       />
                     </div>
 
                     {/* Email */}
                     <div>
-                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
+                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
                         Email Address *
                       </label>
                       <input
@@ -288,53 +288,53 @@ export function Contact() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all font-light"
+                        className="w-full px-4 py-3 bg-dark-800/80 border border-gold-500/30 text-cream-100 placeholder-cream-400/50 focus:outline-none focus:border-gold-500/50 transition-all font-light"
                         placeholder="jane@example.com"
                       />
                     </div>
 
                     {/* Phone */}
                     <div>
-                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
+                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
                         Phone Number
                       </label>
                       <input
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all font-light"
+                        className="w-full px-4 py-3 bg-dark-800/80 border border-gold-500/30 text-cream-100 placeholder-cream-400/50 focus:outline-none focus:border-gold-500/50 transition-all font-light"
                         placeholder="084 000 0000"
                       />
                     </div>
 
                     {/* Date */}
                     <div>
-                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
+                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
                         Preferred Date
                       </label>
                       <input
                         type="date"
                         value={formData.date}
                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                        className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all font-light"
+                        className="w-full px-4 py-3 bg-dark-800/80 border border-gold-500/30 text-cream-100 placeholder-cream-400/50 focus:outline-none focus:border-gold-500/50 transition-all font-light"
                       />
                     </div>
                   </div>
 
                   {/* Service Type */}
                   <div>
-                    <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
+                    <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
                       Service Type *
                     </label>
                     <select
                       required
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 focus:outline-none focus:border-gold-500/30 transition-all appearance-none cursor-pointer font-light"
+                      className="w-full px-4 py-3 bg-dark-800/80 border border-gold-500/30 text-cream-100 focus:outline-none focus:border-gold-500/50 transition-all appearance-none cursor-pointer font-light"
                     >
-                      <option value="" className="bg-dark-950">Select a service</option>
+                      <option value="" className="bg-dark-800">Select a service</option>
                       {serviceTypes.map((service) => (
-                        <option key={service} value={service} className="bg-dark-950">
+                        <option key={service} value={service} className="bg-dark-800">
                           {service}
                         </option>
                       ))}
@@ -343,7 +343,7 @@ export function Contact() {
 
                   {/* Message */}
                   <div>
-                    <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
+                    <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
                       Tell me about your project *
                     </label>
                     <textarea
@@ -351,7 +351,7 @@ export function Contact() {
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all resize-none font-light"
+                      className="w-full px-4 py-3 bg-dark-800/80 border border-gold-500/30 text-cream-100 placeholder-cream-400/50 focus:outline-none focus:border-gold-500/50 transition-all resize-none font-light"
                       placeholder="Describe your project, event date, number of people, location, and any specific requirements..."
                     />
                   </div>
