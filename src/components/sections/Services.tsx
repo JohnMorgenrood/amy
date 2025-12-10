@@ -87,9 +87,7 @@ export function Services() {
       className="relative py-32 overflow-hidden"
     >
       {/* Background */}
-      <div className="absolute inset-0 bg-dark-900">
-        <div className="absolute inset-0 bg-gradient-to-b from-dark-800 via-transparent to-dark-800 opacity-50" />
-      </div>
+      <div className="absolute inset-0 bg-dark-950" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -104,15 +102,14 @@ export function Services() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-gold-400 text-sm font-medium uppercase tracking-[0.2em] mb-4"
+            className="inline-block text-gold-500/80 text-xs tracking-[0.3em] uppercase mb-6"
           >
             What I Do
           </motion.span>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="text-white">Professional </span>
-            <span className="gradient-text">Services</span>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
+            Professional Services
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-cream-500/60 text-lg max-w-2xl mx-auto font-light">
             From film sets to wedding venues, I bring expertise and creativity to every project. 
             Each service is tailored to meet your unique vision.
           </p>
@@ -131,44 +128,44 @@ export function Services() {
               onMouseLeave={() => setActiveService(null)}
               className="group relative"
             >
-              <div className="relative h-full p-8 rounded-3xl bg-dark-700/50 border border-white/5 hover:border-white/10 transition-all duration-500 overflow-hidden">
+              <div className="relative h-full p-8 bg-dark-900/50 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-500 overflow-hidden">
                 {/* Gradient Background on Hover */}
                 <motion.div
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: activeService === service.id ? 0.1 : 0 }}
-                  className={`absolute inset-0 bg-gradient-to-br ${service.gradient}`}
+                  animate={{ opacity: activeService === service.id ? 0.05 : 0 }}
+                  className={`absolute inset-0 bg-gradient-to-br from-gold-500/20 to-transparent`}
                 />
 
                 {/* Icon */}
                 <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 shadow-lg`}
+                  whileHover={{ scale: 1.05 }}
+                  className={`relative w-12 h-12 border border-gold-500/30 flex items-center justify-center mb-8`}
                 >
-                  <service.icon className="w-7 h-7 text-white" />
+                  <service.icon className="w-5 h-5 text-gold-500/80" />
                 </motion.div>
 
                 {/* Content */}
-                <h3 className="font-display text-xl font-bold text-white mb-3 group-hover:text-gold-400 transition-colors">
+                <h3 className="font-display text-xl font-light text-cream-100 mb-4 group-hover:text-gold-400 transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                <p className="text-cream-500/50 text-sm leading-relaxed mb-8 font-light">
                   {service.description}
                 </p>
 
                 {/* Features */}
-                <ul className="space-y-2 mb-6">
+                <ul className="space-y-3 mb-8">
                   {service.features.map((feature, idx) => (
                     <motion.li
                       key={idx}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ 
-                        opacity: activeService === service.id ? 1 : 0.7,
+                        opacity: activeService === service.id ? 1 : 0.5,
                         x: activeService === service.id ? 0 : -5
                       }}
                       transition={{ delay: idx * 0.1 }}
-                      className="flex items-center gap-2 text-sm text-gray-300"
+                      className="flex items-center gap-3 text-xs tracking-wide text-cream-500/60"
                     >
-                      <Check className="w-4 h-4 text-gold-400" />
+                      <span className="w-1 h-1 bg-gold-500/50" />
                       {feature}
                     </motion.li>
                   ))}
@@ -179,14 +176,14 @@ export function Services() {
                   href="#contact"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: activeService === service.id ? 1 : 0 }}
-                  className="inline-flex items-center gap-2 text-gold-400 text-sm font-medium group/link"
+                  className="inline-flex items-center gap-2 text-gold-400/80 text-xs tracking-[0.15em] uppercase group/link"
                 >
                   <span>Book This Service</span>
-                  <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
                 </motion.a>
 
                 {/* Corner Accent */}
-                <div className={`absolute -top-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-br ${service.gradient} opacity-10 blur-3xl group-hover:opacity-20 transition-opacity duration-500`} />
+                <div className="absolute -top-20 -right-20 w-40 h-40 bg-gold-500/5 blur-3xl group-hover:bg-gold-500/10 transition-all duration-700" />
               </div>
             </motion.div>
           ))}
@@ -198,19 +195,19 @@ export function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
-          className="text-center mt-16"
+          className="text-center mt-20 pt-16 border-t border-gold-500/10"
         >
-          <p className="text-gray-400 mb-6">
+          <p className="text-cream-500/50 mb-8 text-sm tracking-wide">
             Need something specific? Let's discuss your project requirements.
           </p>
           <motion.a
             href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary inline-flex items-center gap-2"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="btn-primary inline-flex items-center gap-3"
           >
             <span>Get Custom Quote</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3 h-3" />
           </motion.a>
         </motion.div>
       </div>

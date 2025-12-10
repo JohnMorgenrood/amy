@@ -98,12 +98,12 @@ export function Projects() {
     <section 
       id="projects" 
       ref={containerRef}
-      className="relative py-32 overflow-hidden bg-dark-800"
+      className="relative py-32 overflow-hidden bg-dark-950"
     >
       {/* Background Gradient */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rose-500/50 to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -119,15 +119,14 @@ export function Projects() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-gold-400 text-sm font-medium uppercase tracking-[0.2em] mb-4"
+            className="inline-block text-gold-500/80 text-xs tracking-[0.3em] uppercase mb-6"
           >
             Filmography
           </motion.span>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="text-white">Movies & </span>
-            <span className="gradient-text">Productions</span>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
+            Movies & Productions
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-cream-500/60 text-lg max-w-2xl mx-auto font-light">
             Featured in major film and television productions, bringing characters to life 
             through the art of makeup.
           </p>
@@ -172,7 +171,7 @@ export function Projects() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="group relative rounded-3xl overflow-hidden bg-dark-700 border border-white/5 hover:border-gold-500/30 transition-all duration-500"
+                  className="group relative overflow-hidden bg-dark-900/50 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-500"
                 >
                   {/* Image */}
                   <div className="relative aspect-video">
@@ -182,7 +181,7 @@ export function Projects() {
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/50 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/60 to-transparent" />
                     
                     {/* Play Button Overlay */}
                     <motion.div
@@ -191,47 +190,47 @@ export function Projects() {
                       className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     >
                       <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-14 h-14 bg-cream-100/20 backdrop-blur-sm flex items-center justify-center cursor-pointer border border-cream-100/20"
                       >
-                        <Play className="w-6 h-6 text-white ml-1" />
+                        <Play className="w-5 h-5 text-cream-100 ml-0.5" />
                       </motion.div>
                     </motion.div>
 
                     {/* Rating Badge */}
                     {project.rating && (
-                      <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/20 border border-green-500/30">
-                        <Star className="w-4 h-4 text-green-400 fill-green-400" />
-                        <span className="text-sm font-medium text-green-400">{project.rating}</span>
+                      <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1 bg-dark-950/80 backdrop-blur-sm border border-gold-500/20">
+                        <Star className="w-3 h-3 text-gold-400 fill-gold-400" />
+                        <span className="text-xs text-gold-400">{project.rating}</span>
                       </div>
                     )}
 
                     {/* Type Badge */}
-                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-gold-500/20 border border-gold-500/30">
-                      <span className="text-sm font-medium text-gold-400">{project.type}</span>
+                    <div className="absolute top-4 left-4 px-3 py-1 bg-dark-950/80 backdrop-blur-sm border border-gold-500/20">
+                      <span className="text-[10px] tracking-[0.1em] uppercase text-gold-400/80">{project.type}</span>
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="p-6">
-                    <div className="flex items-center gap-3 text-gray-400 text-sm mb-3">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
+                    <div className="flex items-center gap-3 text-cream-500/40 text-xs tracking-wide mb-4">
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="w-3 h-3" />
                         {project.year}
                       </span>
-                      <span className="w-1 h-1 rounded-full bg-gray-600" />
-                      <span className="flex items-center gap-1">
-                        <Film className="w-4 h-4" />
+                      <span className="w-px h-3 bg-gold-500/20" />
+                      <span className="flex items-center gap-1.5">
+                        <Film className="w-3 h-3" />
                         {project.role}
                       </span>
                     </div>
 
-                    <h3 className="font-display text-2xl font-bold text-white mb-2 group-hover:text-gold-400 transition-colors">
+                    <h3 className="font-display text-xl font-light text-cream-100 mb-3 group-hover:text-gold-400 transition-colors duration-300">
                       {project.title}
                     </h3>
 
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+                    <p className="text-cream-500/50 text-sm font-light mb-6 line-clamp-2">
                       {project.description}
                     </p>
 
@@ -240,10 +239,10 @@ export function Projects() {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-gold-400 hover:text-gold-300 text-sm font-medium group/link"
+                      className="inline-flex items-center gap-2 text-gold-400/80 hover:text-gold-400 text-xs tracking-[0.15em] uppercase group/link transition-colors duration-300"
                     >
                       <span>View on IMDb</span>
-                      <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+                      <ExternalLink className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                     </a>
                   </div>
                 </motion.div>
@@ -252,11 +251,11 @@ export function Projects() {
           </Swiper>
 
           {/* Navigation Buttons */}
-          <button className="projects-prev absolute left-0 top-1/3 -translate-y-1/2 z-20 p-3 rounded-full glass border border-white/10 hover:border-gold-500/50 transition-all hidden lg:block">
-            <ChevronLeft className="w-6 h-6 text-white" />
+          <button className="projects-prev absolute left-0 top-1/3 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300 hidden lg:block">
+            <ChevronLeft className="w-5 h-5 text-cream-100" />
           </button>
-          <button className="projects-next absolute right-0 top-1/3 -translate-y-1/2 z-20 p-3 rounded-full glass border border-white/10 hover:border-gold-500/50 transition-all hidden lg:block">
-            <ChevronRight className="w-6 h-6 text-white" />
+          <button className="projects-next absolute right-0 top-1/3 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300 hidden lg:block">
+            <ChevronRight className="w-5 h-5 text-cream-100" />
           </button>
         </motion.div>
 
@@ -266,23 +265,23 @@ export function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="mt-16 p-8 rounded-2xl glass border border-white/10"
+          className="mt-20 p-8 bg-dark-900/50 border border-gold-500/10"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="flex items-center gap-3">
-              <Award className="w-8 h-8 text-gold-400" />
+            <div className="flex items-center gap-4">
+              <Award className="w-6 h-6 text-gold-500/80" />
               <div>
-                <h4 className="font-display text-lg font-semibold text-white">Industry Profiles</h4>
-                <p className="text-sm text-gray-400">View my professional credentials</p>
+                <h4 className="text-xs tracking-[0.15em] uppercase text-cream-100">Industry Profiles</h4>
+                <p className="text-xs text-cream-500/50 font-light mt-1">View my professional credentials</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
               <a
                 href="https://www.imdb.com/name/nm12345678/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-full bg-[#f5c518]/20 border border-[#f5c518]/30 text-[#f5c518] font-medium hover:bg-[#f5c518]/30 transition-colors"
+                className="px-6 py-2.5 bg-[#f5c518]/10 border border-[#f5c518]/30 text-[#f5c518] text-xs tracking-[0.1em] uppercase hover:bg-[#f5c518]/20 transition-colors duration-300"
               >
                 IMDb
               </a>
@@ -290,7 +289,7 @@ export function Projects() {
                 href="https://www.callacrew.co.za/crew/amy-morgenrood"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors"
+                className="px-6 py-2.5 bg-dark-950/50 border border-gold-500/20 text-cream-100 text-xs tracking-[0.1em] uppercase hover:border-gold-500/40 transition-colors duration-300"
               >
                 Call a Crew
               </a>
@@ -298,7 +297,7 @@ export function Projects() {
                 href="https://www.metacritic.com/person/amy-morgenrood"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors hidden sm:block"
+                className="px-6 py-2.5 bg-dark-950/50 border border-gold-500/20 text-cream-100 text-xs tracking-[0.1em] uppercase hover:border-gold-500/40 transition-colors duration-300 hidden sm:block"
               >
                 Metacritic
               </a>

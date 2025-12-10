@@ -53,18 +53,18 @@ export function Hero() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+            transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
             className="w-[600px] h-[600px] rounded-full border border-gold-500/10"
           />
           <motion.div
             animate={{ rotate: -360 }}
-            transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-rose-500/10"
+            transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-gold-500/5"
           />
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full border border-gold-500/5"
+            transition={{ duration: 100, repeat: Infinity, ease: 'linear' }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full border border-gold-600/5"
           />
         </div>
       </motion.div>
@@ -85,10 +85,10 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8"
+              className="inline-flex items-center gap-3 px-5 py-2 border border-gold-500/20 mb-10"
             >
-              <Sparkles className="w-4 h-4 text-gold-400" />
-              <span className="text-sm text-gray-300">Cape Town Based | Available Worldwide</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-500"></span>
+              <span className="text-xs tracking-[0.2em] uppercase text-gold-500/80">Cape Town Based · Available Worldwide</span>
             </motion.div>
 
             {/* Main Heading */}
@@ -96,11 +96,11 @@ export function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6"
+              className="font-display text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight leading-[1.1] mb-8"
             >
-              <span className="text-white">Transform Your</span>
+              <span className="text-cream-200">Transform Your</span>
               <br />
-              <span className="gradient-text">Vision Into Art</span>
+              <span className="gradient-text font-normal italic">Vision Into Art</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -108,12 +108,12 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-lg sm:text-xl text-gray-400 max-w-xl mx-auto lg:mx-0 mb-8"
+              className="text-base sm:text-lg text-cream-400/60 font-light max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed"
             >
               Professional makeup artistry for Film, SFX, Beauty & Beyond. 
               Internationally qualified with 8+ years of onset experience 
               creating stunning looks for productions like{' '}
-              <span className="text-gold-400">The Woman King</span> and more.
+              <span className="text-gold-500">The Woman King</span> and more.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -153,7 +153,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-6"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-8 pt-10 border-t border-gold-500/10"
             >
               {stats.map((stat, index) => (
                 <motion.div
@@ -164,12 +164,11 @@ export function Hero() {
                   className="text-center lg:text-left"
                 >
                   <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
-                    <stat.icon className="w-4 h-4 text-gold-400" />
-                    <span className="text-2xl sm:text-3xl font-bold text-white">
+                    <span className="text-3xl sm:text-4xl font-display font-light text-cream-200">
                       {stat.value}
                     </span>
                   </div>
-                  <span className="text-xs sm:text-sm text-gray-500">{stat.label}</span>
+                  <span className="text-xs tracking-[0.15em] uppercase text-gold-500/60">{stat.label}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -185,11 +184,11 @@ export function Hero() {
             {/* Main Image */}
             <motion.div
               animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative aspect-[3/4] rounded-3xl overflow-hidden"
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+              className="relative aspect-[3/4] overflow-hidden"
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent z-10" />
-              <div className="absolute inset-0 animated-border rounded-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
+              <div className="absolute inset-0 border border-gold-500/20" />
               <Image
                 src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&h=800&fit=crop"
                 alt="Amy Morgenrood - Professional Makeup Artist"
@@ -199,17 +198,15 @@ export function Hero() {
               />
               {/* Floating Badge */}
               <motion.div
-                animate={{ y: [0, -5, 0], rotate: [0, 2, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute bottom-8 left-8 z-20 glass rounded-2xl px-6 py-4"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute bottom-8 left-8 z-20 bg-dark-900/90 backdrop-blur-sm border border-gold-500/20 px-6 py-4"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-gold-500 to-rose-500 flex items-center justify-center">
-                    <Award className="w-6 h-6 text-dark-900" />
-                  </div>
+                <div className="flex items-center gap-4">
+                  <Award className="w-5 h-5 text-gold-500" />
                   <div>
-                    <p className="font-medium text-white">VTCT Certified</p>
-                    <p className="text-sm text-gray-400">International Qualification</p>
+                    <p className="text-xs tracking-[0.2em] uppercase text-cream-100">VTCT Certified</p>
+                    <p className="text-[10px] tracking-wider uppercase text-cream-500/60 mt-0.5">International Qualification</p>
                   </div>
                 </div>
               </motion.div>
@@ -217,12 +214,12 @@ export function Hero() {
 
             {/* Floating Small Images */}
             <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute -top-10 -left-10 w-32 h-32 rounded-2xl overflow-hidden border-2 border-gold-500/30 shadow-xl shadow-gold-500/20"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              className="absolute -top-10 -left-10 w-32 h-40 overflow-hidden border border-gold-500/20"
             >
               <Image
-                src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=200&h=200&fit=crop"
+                src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=200&h=250&fit=crop"
                 alt="Makeup work"
                 fill
                 className="object-cover"
@@ -230,12 +227,12 @@ export function Hero() {
             </motion.div>
 
             <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-              className="absolute -bottom-6 -right-6 w-40 h-40 rounded-2xl overflow-hidden border-2 border-rose-500/30 shadow-xl shadow-rose-500/20"
+              animate={{ y: [0, -15, 0] }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+              className="absolute -bottom-6 -right-6 w-36 h-44 overflow-hidden border border-gold-500/20"
             >
               <Image
-                src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=200&h=200&fit=crop"
+                src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=200&h=250&fit=crop"
                 alt="Beauty makeup"
                 fill
                 className="object-cover"
@@ -243,12 +240,12 @@ export function Hero() {
             </motion.div>
 
             <motion.div
-              animate={{ y: [0, -12, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-              className="absolute top-1/3 -right-16 w-24 h-24 rounded-xl overflow-hidden border-2 border-gold-500/20"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+              className="absolute top-1/3 -right-16 w-24 h-32 overflow-hidden border border-gold-500/15"
             >
               <Image
-                src="https://images.unsplash.com/photo-1503236823255-94609f598e71?w=150&h=150&fit=crop"
+                src="https://images.unsplash.com/photo-1503236823255-94609f598e71?w=150&h=200&fit=crop"
                 alt="SFX makeup"
                 fill
                 className="object-cover"

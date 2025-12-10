@@ -103,8 +103,8 @@ export function Contact() {
       className="relative py-32 overflow-hidden"
     >
       {/* Background */}
-      <div className="absolute inset-0 bg-dark-900">
-        <div className="absolute inset-0 bg-gradient-radial from-gold-500/5 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-dark-950">
+        <div className="absolute inset-0 bg-gradient-radial from-gold-500/3 via-transparent to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -120,15 +120,14 @@ export function Contact() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-gold-400 text-sm font-medium uppercase tracking-[0.2em] mb-4"
+            className="inline-block text-gold-500/80 text-xs tracking-[0.3em] uppercase mb-6"
           >
             Get In Touch
           </motion.span>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="text-white">Book Your </span>
-            <span className="gradient-text">Session</span>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
+            Book Your Session
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-cream-500/60 text-lg max-w-2xl mx-auto font-light">
             Ready to transform your vision into reality? Let's discuss your project and create something beautiful together.
           </p>
         </motion.div>
@@ -142,8 +141,8 @@ export function Contact() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-2 space-y-6"
           >
-            <div className="p-8 rounded-3xl glass border border-white/10">
-              <h3 className="font-display text-2xl font-bold text-white mb-6">
+            <div className="p-8 bg-dark-900/50 border border-gold-500/10">
+              <h3 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-8">
                 Contact Information
               </h3>
               
@@ -161,26 +160,22 @@ export function Contact() {
                         href={item.href}
                         target={item.href.startsWith('http') ? '_blank' : undefined}
                         rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 transition-all group"
+                        className="flex items-start gap-4 p-4 bg-dark-950/50 border border-gold-500/5 hover:border-gold-500/20 transition-all duration-300 group"
                       >
-                        <div className={`p-3 rounded-xl bg-gradient-to-br ${item.color}`}>
-                          <item.icon className="w-5 h-5 text-white" />
-                        </div>
+                        <item.icon className="w-4 h-4 text-gold-500/60 mt-0.5" />
                         <div>
-                          <p className="text-sm text-gray-400">{item.label}</p>
-                          <p className="text-white font-medium group-hover:text-gold-400 transition-colors">
+                          <p className="text-[10px] tracking-[0.15em] uppercase text-cream-500/40">{item.label}</p>
+                          <p className="text-cream-100 text-sm font-light group-hover:text-gold-400 transition-colors">
                             {item.value}
                           </p>
                         </div>
                       </a>
                     ) : (
-                      <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
-                        <div className={`p-3 rounded-xl bg-gradient-to-br ${item.color}`}>
-                          <item.icon className="w-5 h-5 text-white" />
-                        </div>
+                      <div className="flex items-start gap-4 p-4 bg-dark-950/50 border border-gold-500/5">
+                        <item.icon className="w-4 h-4 text-gold-500/60 mt-0.5" />
                         <div>
-                          <p className="text-sm text-gray-400">{item.label}</p>
-                          <p className="text-white font-medium">{item.value}</p>
+                          <p className="text-[10px] tracking-[0.15em] uppercase text-cream-500/40">{item.label}</p>
+                          <p className="text-cream-100 text-sm font-light">{item.value}</p>
                         </div>
                       </div>
                     )}
@@ -189,28 +184,28 @@ export function Contact() {
               </div>
 
               {/* Social Links */}
-              <div className="mt-8 pt-8 border-t border-white/10">
-                <p className="text-sm text-gray-400 mb-4">Follow my work</p>
+              <div className="mt-8 pt-8 border-t border-gold-500/10">
+                <p className="text-[10px] tracking-[0.15em] uppercase text-cream-500/40 mb-4">Follow my work</p>
                 <div className="flex items-center gap-3">
                   <motion.a
                     href="https://instagram.com/amyb_mup"
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-3 rounded-xl bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 text-white"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 text-cream-100 transition-all duration-300"
                   >
-                    <Instagram className="w-5 h-5" />
+                    <Instagram className="w-4 h-4" />
                   </motion.a>
                   <motion.a
                     href="https://instagram.com/_amyy_mua"
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-3 rounded-xl bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 text-white"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 text-cream-100 transition-all duration-300"
                   >
-                    <Instagram className="w-5 h-5" />
+                    <Instagram className="w-4 h-4" />
                   </motion.a>
                 </div>
               </div>
@@ -222,13 +217,13 @@ export function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
-              className="p-6 rounded-2xl bg-gradient-to-br from-gold-500/20 to-rose-500/20 border border-gold-500/30"
+              className="p-6 bg-gold-500/5 border border-gold-500/20"
             >
               <div className="flex items-center gap-3 mb-3">
-                <Sparkles className="w-5 h-5 text-gold-400" />
-                <h4 className="font-medium text-white">Quick Response</h4>
+                <Sparkles className="w-4 h-4 text-gold-500/80" />
+                <h4 className="text-xs tracking-[0.15em] uppercase text-cream-100">Quick Response</h4>
               </div>
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-cream-500/60 font-light">
                 I typically respond to inquiries within 24 hours. For urgent bookings, 
                 please call directly.
               </p>
@@ -243,7 +238,7 @@ export function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-3"
           >
-            <div className="p-8 rounded-3xl glass border border-white/10">
+            <div className="p-8 bg-dark-900/50 border border-gold-500/10">
               {isSubmitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -254,14 +249,14 @@ export function Contact() {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                    className="w-20 h-20 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center mx-auto mb-6"
+                    className="w-16 h-16 border border-gold-500/30 flex items-center justify-center mx-auto mb-6"
                   >
-                    <CheckCircle className="w-10 h-10 text-white" />
+                    <CheckCircle className="w-8 h-8 text-gold-500" />
                   </motion.div>
-                  <h3 className="font-display text-2xl font-bold text-white mb-2">
-                    Message Sent!
+                  <h3 className="font-display text-2xl font-light text-cream-100 mb-3">
+                    Message Sent
                   </h3>
-                  <p className="text-gray-400">
+                  <p className="text-cream-500/60 font-light">
                     Thank you for reaching out. I'll get back to you within 24 hours.
                   </p>
                 </motion.div>
@@ -270,7 +265,7 @@ export function Contact() {
                   <div className="grid sm:grid-cols-2 gap-6">
                     {/* Name */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
                         Your Name *
                       </label>
                       <input
@@ -278,14 +273,14 @@ export function Contact() {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/50 transition-all"
+                        className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all font-light"
                         placeholder="Jane Doe"
                       />
                     </div>
 
                     {/* Email */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
                         Email Address *
                       </label>
                       <input
@@ -293,53 +288,53 @@ export function Contact() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/50 transition-all"
+                        className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all font-light"
                         placeholder="jane@example.com"
                       />
                     </div>
 
                     {/* Phone */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
                         Phone Number
                       </label>
                       <input
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/50 transition-all"
+                        className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all font-light"
                         placeholder="084 000 0000"
                       />
                     </div>
 
                     {/* Date */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
                         Preferred Date
                       </label>
                       <input
                         type="date"
                         value={formData.date}
                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/50 transition-all"
+                        className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all font-light"
                       />
                     </div>
                   </div>
 
                   {/* Service Type */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
                       Service Type *
                     </label>
                     <select
                       required
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/50 transition-all appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 focus:outline-none focus:border-gold-500/30 transition-all appearance-none cursor-pointer font-light"
                     >
-                      <option value="" className="bg-dark-800">Select a service</option>
+                      <option value="" className="bg-dark-950">Select a service</option>
                       {serviceTypes.map((service) => (
-                        <option key={service} value={service} className="bg-dark-800">
+                        <option key={service} value={service} className="bg-dark-950">
                           {service}
                         </option>
                       ))}
@@ -348,7 +343,7 @@ export function Contact() {
 
                   {/* Message */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mb-3">
                       Tell me about your project *
                     </label>
                     <textarea
@@ -356,7 +351,7 @@ export function Contact() {
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/50 transition-all resize-none"
+                      className="w-full px-4 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all resize-none font-light"
                       placeholder="Describe your project, event date, number of people, location, and any specific requirements..."
                     />
                   </div>
@@ -365,18 +360,18 @@ export function Contact() {
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-gold-500 to-rose-500 text-dark-900 font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-gold-500/30 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    className="w-full py-4 bg-cream-100 text-dark-950 text-xs tracking-[0.15em] uppercase flex items-center justify-center gap-3 hover:bg-gold-400 transition-colors duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <Loader2 className="w-4 h-4 animate-spin" />
                         Sending...
                       </>
                     ) : (
                       <>
-                        <Send className="w-5 h-5" />
+                        <Send className="w-4 h-4" />
                         Send Message
                       </>
                     )}

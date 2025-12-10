@@ -56,12 +56,12 @@ export function About() {
     <section 
       id="about" 
       ref={containerRef}
-      className="relative py-32 overflow-hidden bg-dark-800"
+      className="relative py-32 overflow-hidden bg-dark-950"
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-0 w-96 h-96 rounded-full bg-gold-500/5 blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 rounded-full bg-rose-500/5 blur-3xl" />
+        <div className="absolute top-1/4 left-0 w-96 h-96 bg-gold-500/3 blur-[100px]" />
+        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gold-600/3 blur-[100px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,13 +77,12 @@ export function About() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-gold-400 text-sm font-medium uppercase tracking-[0.2em] mb-4"
+            className="inline-block text-gold-500/80 text-xs tracking-[0.3em] uppercase mb-6"
           >
             About Me
           </motion.span>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="text-white">Meet </span>
-            <span className="gradient-text">Amy</span>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100">
+            Meet Amy
           </h2>
         </motion.div>
 
@@ -98,29 +97,27 @@ export function About() {
           >
             <motion.div style={{ y }} className="relative">
               {/* Main Image */}
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden">
-                <div className="absolute inset-0 animated-border rounded-3xl z-10" />
+              <div className="relative aspect-[4/5] overflow-hidden border border-gold-500/20">
                 <Image
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=750&fit=crop"
                   alt="Amy Morgenrood - Professional Makeup Artist"
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent" />
               </div>
 
               {/* Floating Stats Card */}
               <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-8 -right-8 p-6 rounded-2xl glass border border-white/10 shadow-2xl"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute -bottom-8 -right-8 p-8 bg-dark-900/95 backdrop-blur-sm border border-gold-500/20"
               >
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-6">
                   {achievements.map((item, idx) => (
                     <div key={idx} className="text-center">
-                      <item.icon className="w-5 h-5 text-gold-400 mx-auto mb-2" />
-                      <div className="text-lg font-bold text-white">{item.value}</div>
-                      <div className="text-xs text-gray-400">{item.label}</div>
+                      <div className="font-display text-xl font-light text-cream-100">{item.value}</div>
+                      <div className="text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mt-1">{item.label}</div>
                     </div>
                   ))}
                 </div>
@@ -129,12 +126,12 @@ export function About() {
               {/* Location Badge */}
               <motion.div
                 animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="absolute top-8 -left-4 px-4 py-2 rounded-full glass border border-white/10"
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                className="absolute top-8 -left-4 px-5 py-2.5 bg-dark-900/95 backdrop-blur-sm border border-gold-500/20"
               >
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-rose-400" />
-                  <span className="text-sm text-white">Cape Town, SA</span>
+                  <MapPin className="w-3 h-3 text-gold-500/80" />
+                  <span className="text-xs tracking-wider text-cream-100">Cape Town, SA</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -148,19 +145,19 @@ export function About() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="space-y-6">
-              <p className="text-gray-300 text-lg leading-relaxed">
-                Hello! I'm <span className="text-gold-400 font-medium">Amy Morgenrood</span>, 
+              <p className="text-cream-100/80 text-lg leading-relaxed font-light">
+                Hello! I'm <span className="text-gold-400">Amy Morgenrood</span>, 
                 a professional makeup artist based in Cape Town with over{' '}
-                <span className="text-gold-400 font-medium">8 years of onset experience</span> 
+                <span className="text-gold-400">8 years of onset experience</span> 
                 in the film and television industry.
               </p>
-              <p className="text-gray-400 leading-relaxed">
-                Internationally qualified with a <span className="text-white">VTCT certification</span>, 
+              <p className="text-cream-500/60 leading-relaxed font-light">
+                Internationally qualified with a <span className="text-cream-100">VTCT certification</span>, 
                 I specialize in creating stunning looks for film productions, special effects, 
                 beauty editorials, and more. My work has been featured in major productions 
                 including <span className="text-gold-400">"The Woman King"</span> starring Viola Davis.
               </p>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-cream-500/60 leading-relaxed font-light">
                 Whether it's transforming actors into characters, creating breathtaking bridal looks, 
                 or executing complex SFX makeup, I bring passion, precision, and creativity to every project. 
                 I'm proud to be represented by Call a Crew and have an established presence on IMDb.
@@ -168,12 +165,11 @@ export function About() {
             </div>
 
             {/* Skills */}
-            <div className="mt-10">
-              <h4 className="font-display text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                <Star className="w-5 h-5 text-gold-400" />
+            <div className="mt-12">
+              <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-6">
                 Expertise
               </h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-3">
                 {skills.map((skill, idx) => (
                   <motion.span
                     key={idx}
@@ -181,7 +177,7 @@ export function About() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.05 }}
-                    className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 hover:border-gold-500/50 hover:text-gold-400 transition-all cursor-default"
+                    className="px-4 py-2 bg-dark-900/50 border border-gold-500/10 text-xs tracking-wide text-cream-500/60 hover:border-gold-500/30 hover:text-cream-100 transition-all duration-300 cursor-default"
                   >
                     {skill}
                   </motion.span>
@@ -190,9 +186,8 @@ export function About() {
             </div>
 
             {/* Timeline */}
-            <div className="mt-10">
-              <h4 className="font-display text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-gold-400" />
+            <div className="mt-12">
+              <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-6">
                 Journey
               </h4>
               <div className="space-y-4">
@@ -203,34 +198,34 @@ export function About() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
-                    className="flex items-center gap-4"
+                    className="flex items-center gap-6"
                   >
-                    <span className="text-gold-400 font-bold text-sm w-12">{item.year}</span>
-                    <div className="w-2 h-2 rounded-full bg-gradient-to-r from-gold-500 to-rose-500" />
-                    <span className="text-gray-300 text-sm">{item.event}</span>
+                    <span className="text-gold-400/80 text-xs tracking-wider w-12">{item.year}</span>
+                    <span className="w-px h-4 bg-gold-500/30" />
+                    <span className="text-cream-500/60 text-sm font-light">{item.event}</span>
                   </motion.div>
                 ))}
               </div>
             </div>
 
             {/* CTA */}
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+            <div className="mt-12 flex flex-wrap items-center gap-4">
               <motion.a
                 href="https://instagram.com/amyb_mup"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white font-medium hover:shadow-lg hover:shadow-pink-500/30 transition-all"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-3 px-6 py-3 bg-cream-100 text-dark-950 text-xs tracking-[0.15em] uppercase hover:bg-gold-400 transition-colors duration-300"
               >
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-4 h-4" />
                 Follow @amyb_mup
               </motion.a>
               <motion.a
                 href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-secondary"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-3 px-6 py-3 border border-gold-500/30 text-cream-100 text-xs tracking-[0.15em] uppercase hover:border-gold-500/50 hover:bg-gold-500/5 transition-all duration-300"
               >
                 Let's Work Together
               </motion.a>

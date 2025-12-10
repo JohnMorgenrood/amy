@@ -42,14 +42,14 @@ export function FloatingElements() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {/* Gradient Orbs */}
+      {/* Gradient Orbs - Subtle and elegant */}
       <motion.div
         animate={{
           x: mousePosition.x,
           y: mousePosition.y,
         }}
         transition={{ type: 'spring', stiffness: 50, damping: 30 }}
-        className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-gradient-to-r from-gold-500/20 to-transparent blur-3xl"
+        className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-gradient-to-r from-gold-500/10 to-transparent blur-[100px]"
       />
       <motion.div
         animate={{
@@ -57,7 +57,7 @@ export function FloatingElements() {
           y: -mousePosition.y,
         }}
         transition={{ type: 'spring', stiffness: 50, damping: 30 }}
-        className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-gradient-to-l from-rose-500/20 to-transparent blur-3xl"
+        className="absolute top-1/2 -right-32 w-[500px] h-[500px] rounded-full bg-gradient-to-l from-gold-600/8 to-transparent blur-[100px]"
       />
       <motion.div
         animate={{
@@ -65,7 +65,7 @@ export function FloatingElements() {
           y: mousePosition.y * 0.5,
         }}
         transition={{ type: 'spring', stiffness: 50, damping: 30 }}
-        className="absolute bottom-1/4 left-1/4 w-64 h-64 rounded-full bg-gradient-to-tr from-gold-500/10 to-rose-500/10 blur-3xl"
+        className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-gold-500/5 to-transparent blur-[100px]"
       />
 
       {/* Floating Particles */}
@@ -79,7 +79,7 @@ export function FloatingElements() {
           }}
           animate={{
             y: [`${particle.y}vh`, `${particle.y - 30}vh`, `${particle.y}vh`],
-            opacity: [0, 0.6, 0],
+            opacity: [0, 0.4, 0],
           }}
           transition={{
             duration: particle.duration,
@@ -92,24 +92,24 @@ export function FloatingElements() {
             width: particle.size,
             height: particle.size,
           }}
-          className="absolute rounded-full bg-gradient-to-r from-gold-400 to-rose-400"
+          className="absolute rounded-full bg-gold-500/60"
         />
       ))}
 
-      {/* Grid Pattern */}
+      {/* Subtle Grid Pattern */}
       <div 
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.015]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            linear-gradient(rgba(201,168,124,0.2) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(201,168,124,0.2) 1px, transparent 1px)
           `,
-          backgroundSize: '50px 50px',
+          backgroundSize: '80px 80px',
         }}
       />
 
       {/* Noise Texture */}
-      <div className="absolute inset-0 noise opacity-50" />
+      <div className="absolute inset-0 noise opacity-30" />
     </div>
   )
 }

@@ -34,26 +34,18 @@ export function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? 'glass py-3' : 'py-6'
+          scrolled ? 'bg-dark-950/90 backdrop-blur-md border-b border-gold-500/10 py-3' : 'py-6'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="group flex items-center gap-2">
-              <motion.div
-                whileHover={{ rotate: 180 }}
-                transition={{ duration: 0.5 }}
-                className="relative"
-              >
-                <Sparkles className="w-8 h-8 text-gold-500" />
-                <div className="absolute inset-0 blur-lg bg-gold-500/30 group-hover:bg-gold-500/50 transition-all" />
-              </motion.div>
+            <Link href="/" className="group flex items-center gap-3">
               <div className="flex flex-col">
-                <span className="font-display text-xl font-bold tracking-wide gradient-text">
+                <span className="font-display text-xl font-light tracking-[0.1em] text-cream-100">
                   AMY MORGENROOD
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400">
+                <span className="text-[9px] tracking-[0.3em] uppercase text-gold-500/60">
                   Makeup Artist
                 </span>
               </div>
@@ -70,10 +62,10 @@ export function Navbar() {
                 >
                   <Link
                     href={link.href}
-                    className="relative text-sm font-medium text-gray-300 hover:text-white transition-colors group"
+                    className="relative text-xs tracking-[0.15em] uppercase text-cream-500/60 hover:text-cream-100 transition-colors duration-300 group"
                   >
                     {link.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-rose-500 group-hover:w-full transition-all duration-300" />
+                    <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-500/50 group-hover:w-full transition-all duration-300" />
                   </Link>
                 </motion.div>
               ))}
@@ -85,25 +77,25 @@ export function Navbar() {
                 href="https://instagram.com/amyb_mup"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-2 rounded-full hover:bg-white/5 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-2 hover:bg-gold-500/5 transition-colors duration-300"
               >
-                <Instagram className="w-5 h-5 text-gray-400 hover:text-rose-400 transition-colors" />
+                <Instagram className="w-4 h-4 text-cream-500/50 hover:text-gold-400 transition-colors" />
               </motion.a>
               <motion.a
                 href="tel:+27847017012"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-2 rounded-full hover:bg-white/5 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-2 hover:bg-gold-500/5 transition-colors duration-300"
               >
-                <Phone className="w-5 h-5 text-gray-400 hover:text-gold-400 transition-colors" />
+                <Phone className="w-4 h-4 text-cream-500/50 hover:text-gold-400 transition-colors" />
               </motion.a>
               <motion.a
                 href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary text-sm"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="ml-2 px-5 py-2 bg-cream-100 text-dark-950 text-[10px] tracking-[0.15em] uppercase hover:bg-gold-400 transition-colors duration-300"
               >
                 Book Now
               </motion.a>
@@ -111,14 +103,14 @@ export function Navbar() {
 
             {/* Mobile Menu Button */}
             <motion.button
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 rounded-full hover:bg-white/5 transition-colors"
+              className="lg:hidden p-2 hover:bg-gold-500/5 transition-colors duration-300"
             >
               {isOpen ? (
-                <X className="w-6 h-6 text-white" />
+                <X className="w-5 h-5 text-cream-100" />
               ) : (
-                <Menu className="w-6 h-6 text-white" />
+                <Menu className="w-5 h-5 text-cream-100" />
               )}
             </motion.button>
           </div>
@@ -135,7 +127,7 @@ export function Navbar() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
-            <div className="absolute inset-0 bg-dark-900/95 backdrop-blur-xl" />
+            <div className="absolute inset-0 bg-dark-950/98 backdrop-blur-xl" />
             <nav className="relative h-full flex flex-col items-center justify-center gap-8 pt-20">
               {navLinks.map((link, index) => (
                 <motion.div
@@ -147,7 +139,7 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-3xl font-display font-bold text-white hover:text-gold-400 transition-colors"
+                    className="text-2xl font-display font-light text-cream-100 hover:text-gold-400 transition-colors duration-300"
                   >
                     {link.name}
                   </Link>
@@ -163,21 +155,21 @@ export function Navbar() {
                   href="https://instagram.com/amyb_mup"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                  className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
                 >
-                  <Instagram className="w-6 h-6 text-rose-400" />
+                  <Instagram className="w-5 h-5 text-cream-100" />
                 </a>
                 <a
                   href="mailto:bookings@makeupbyamy.co.za"
-                  className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                  className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
                 >
-                  <Mail className="w-6 h-6 text-gold-400" />
+                  <Mail className="w-5 h-5 text-cream-100" />
                 </a>
                 <a
                   href="tel:+27847017012"
-                  className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                  className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
                 >
-                  <Phone className="w-6 h-6 text-gold-400" />
+                  <Phone className="w-5 h-5 text-cream-100" />
                 </a>
               </motion.div>
             </nav>
