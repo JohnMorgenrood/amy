@@ -20,62 +20,117 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-const projects = [
+// Featured Projects (shown in carousel)
+const featuredProjects = [
   {
     id: 1,
-    title: 'The Woman King',
-    year: '2022',
+    title: 'HELP',
+    year: '2025',
     type: 'Feature Film',
-    role: 'Hair & Makeup Artist',
-    description: 'Epic historical action drama directed by Gina Prince-Bythewood, starring Viola Davis.',
+    role: 'Makeup & Hair Coordinator / Key Makeup & SFX Artist',
+    description: 'Blue Ice Africa production - Lead coordinator managing hair and makeup department with special effects expertise.',
     image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&h=450&fit=crop',
-    rating: 76,
-    link: 'https://www.imdb.com/title/tt8093700/',
+    rating: null,
+    link: '#',
   },
   {
     id: 2,
     title: 'Alphas',
     year: '2024',
-    type: 'TV Series',
-    role: 'Key Makeup Artist',
-    description: 'Action-packed series requiring diverse character looks and continuity management.',
-    image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&h=450&fit=crop',
-    rating: null,
-    link: 'https://www.imdb.com/name/nm12345678/',
-  },
-  {
-    id: 3,
-    title: 'Help',
-    year: '2026',
     type: 'Feature Film',
-    role: 'Makeup Department',
-    description: 'Upcoming production showcasing versatile makeup artistry across various scenes.',
-    image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&h=450&fit=crop',
+    role: 'Key Makeup & SFX Artist',
+    description: 'Moonlighting production - Key artist responsible for principal cast makeup and special effects.',
+    image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&h=450&fit=crop',
     rating: null,
     link: '#',
   },
   {
+    id: 3,
+    title: 'Recipes for Love and Murder S2',
+    year: '2024',
+    type: 'Feature Film',
+    role: 'Makeup & SFX Artist',
+    description: 'Both Worlds production - Season 2 of the beloved South African mystery drama series.',
+    image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&h=450&fit=crop',
+    rating: null,
+    link: 'https://www.imdb.com/title/tt13406036/',
+  },
+  {
     id: 4,
-    title: 'Music Video Collection',
-    year: '2023-2024',
-    type: 'Music Videos',
-    role: 'Lead Makeup Artist',
-    description: 'Various high-profile music video productions for South African artists.',
-    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=450&fit=crop',
+    title: 'King Shaka',
+    year: '2024',
+    type: 'Feature Film',
+    role: 'Makeup & SFX Artist',
+    description: 'Film Afrika epic production telling the story of the legendary Zulu king.',
+    image: 'https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=800&h=450&fit=crop',
     rating: null,
     link: '#',
   },
   {
     id: 5,
-    title: 'TVC Campaign',
-    year: '2024',
-    type: 'Commercial',
-    role: 'Beauty Makeup Artist',
-    description: 'National television commercial campaigns for major South African brands.',
-    image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&h=450&fit=crop',
+    title: 'The Woman King',
+    year: '2022',
+    type: 'Feature Film',
+    role: 'Makeup Artist',
+    description: 'TriStar Pictures epic historical action drama directed by Gina Prince-Bythewood, starring Viola Davis.',
+    image: 'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&h=450&fit=crop',
+    rating: 76,
+    link: 'https://www.imdb.com/title/tt8093700/',
+  },
+  {
+    id: 6,
+    title: 'American Monster S7-9',
+    year: '2023',
+    type: 'TV Series',
+    role: 'Hair & Makeup Artist',
+    description: 'Trilogy Creative Studios production - Multiple seasons of the true crime documentary series.',
+    image: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=800&h=450&fit=crop',
     rating: null,
     link: '#',
   },
+  {
+    id: 7,
+    title: 'Black Sails',
+    year: '2017',
+    type: 'TV Series',
+    role: 'Crowd Makeup Daily',
+    description: 'Critically acclaimed Starz pirate drama series, prequel to Treasure Island.',
+    image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&h=450&fit=crop',
+    rating: 81,
+    link: 'https://www.imdb.com/title/tt2375692/',
+  },
+  {
+    id: 8,
+    title: 'Tomb Raider',
+    year: '2018',
+    type: 'Feature Film',
+    role: 'Crowd Makeup Daily',
+    description: 'Action adventure film starring Alicia Vikander as the iconic Lara Croft.',
+    image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&h=450&fit=crop',
+    rating: 51,
+    link: 'https://www.imdb.com/title/tt1365519/',
+  },
+]
+
+// Additional Credits (shown in grid below)
+const additionalCredits = [
+  { title: 'This Water - Evelyn Hart', type: 'Music Video', role: 'Head Makeup & Hair Artist' },
+  { title: 'Baas se Honne', type: 'Short Film', role: 'Hair & Makeup / SFX Artist' },
+  { title: 'The Dark Tower', type: 'Feature Film', role: 'Crowd Makeup Daily' },
+  { title: 'The Kissing Booth', type: 'Feature Film', role: 'Crowd Makeup Daily' },
+  { title: 'Troy: Fall of a City', type: 'TV Series', role: 'Crowd Makeup Daily' },
+  { title: 'Of Kings & Prophets', type: 'TV Series', role: 'Crowd Makeup Daily' },
+  { title: 'Blood Drive', type: 'TV Series', role: 'Crowd Makeup Daily' },
+  { title: 'PEP Valentines', type: 'Commercial', role: 'Makeup & Hair Artist' },
+  { title: 'Pavesini', type: 'Commercial', role: 'Makeup & Hair Artist' },
+  { title: 'Corona', type: 'Commercial', role: 'Makeup Artist' },
+  { title: 'Castle Double Malt', type: 'Commercial', role: 'Hair & Makeup Assistant' },
+  { title: 'Toyota Event', type: 'Event', role: 'Makeup Artist' },
+  { title: 'Netflix Rebel Moon', type: 'Event', role: 'Makeup Artist & Body Painter' },
+  { title: 'Cape Town Carnival', type: 'Event', role: 'Body Painter' },
+  { title: 'Sanlam TVC', type: 'Commercial', role: 'Head Makeup Artist' },
+  { title: 'Bread Financial TVC', type: 'Commercial', role: 'Hair & Makeup Assistant' },
+  { title: 'BIG JOHN - Chicken Licken', type: 'Commercial', role: 'Assistant' },
 ]
 
 const credentials = [
@@ -164,7 +219,7 @@ export function Projects() {
             }}
             className="projects-swiper !pb-16"
           >
-            {projects.map((project, index) => (
+            {featuredProjects.map((project, index) => (
               <SwiperSlide key={project.id}>
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -257,6 +312,47 @@ export function Projects() {
           <button className="projects-next absolute right-0 top-1/3 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300 hidden lg:block">
             <ChevronRight className="w-5 h-5 text-cream-100" />
           </button>
+        </motion.div>
+
+        {/* Additional Credits Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mt-20"
+        >
+          <h3 className="text-center font-display text-2xl font-light text-cream-100 mb-2">
+            Additional Credits
+          </h3>
+          <p className="text-center text-cream-500/50 text-sm mb-10">
+            Music Videos • Commercials • Short Films • Prosthetics Work
+          </p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {additionalCredits.map((credit, index) => (
+              <motion.div
+                key={credit.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="p-4 bg-dark-900/30 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-300 group"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1">
+                    <h4 className="text-cream-100 text-sm font-light group-hover:text-gold-400 transition-colors duration-300">
+                      {credit.title}
+                    </h4>
+                    <p className="text-cream-500/50 text-xs mt-1">{credit.role}</p>
+                  </div>
+                  <span className="text-[10px] tracking-[0.1em] uppercase text-gold-500/60 px-2 py-0.5 bg-gold-500/10 shrink-0">
+                    {credit.type}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Credentials Bar */}
