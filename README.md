@@ -1,0 +1,155 @@
+# Makeup by Amy - Professional Portfolio Website
+
+A stunning, modern portfolio website for Amy Morgenrood, a professional makeup artist based in Cape Town with 8+ years of onset experience in film and television.
+
+## 🎨 Features
+
+- **Modern Dark Theme** - Elegant dark design with gold and rose accent colors
+- **Framer Motion Animations** - Smooth, professional motion graphics throughout
+- **Floating Elements** - Parallax effects and floating particles
+- **Portfolio Carousel** - Swiper.js powered gallery with coverflow effect
+- **Projects/Filmography** - Showcase of film, TV, and commercial work
+- **Services Section** - Detailed service offerings with hover effects
+- **Testimonials Slider** - Client reviews and ratings
+- **Contact Form** - Professional booking inquiry form
+- **Shop Page** - Coming soon e-commerce section
+- **Mobile Responsive** - Fully optimized for all devices
+- **SEO Optimized** - Full metadata, structured data, sitemap, robots.txt
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Carousel**: Swiper.js
+- **Icons**: Lucide React
+- **Deployment**: Vercel ready
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+cd amy
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Run the development server:
+```bash
+npm run dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout with metadata
+│   ├── page.tsx            # Home page
+│   ├── globals.css         # Global styles
+│   ├── sitemap.ts          # SEO sitemap
+│   ├── robots.ts           # SEO robots.txt
+│   └── shop/
+│       ├── layout.tsx      # Shop layout
+│       └── page.tsx        # Shop page
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx      # Navigation
+│   │   └── Footer.tsx      # Footer
+│   ├── sections/
+│   │   ├── Hero.tsx        # Hero section
+│   │   ├── Portfolio.tsx   # Portfolio gallery
+│   │   ├── Services.tsx    # Services section
+│   │   ├── Projects.tsx    # Filmography carousel
+│   │   ├── About.tsx       # About section
+│   │   ├── Testimonials.tsx # Testimonials slider
+│   │   └── Contact.tsx     # Contact form
+│   └── effects/
+│       └── FloatingElements.tsx # Background effects
+└── public/
+    ├── manifest.json       # PWA manifest
+    └── icon.svg            # Favicon
+```
+
+## 🎯 SEO Features
+
+- Full Open Graph and Twitter Card metadata
+- JSON-LD structured data for LocalBusiness
+- Automatic sitemap generation
+- Robots.txt configuration
+- Semantic HTML structure
+- Image optimization
+- Core Web Vitals optimized
+
+## 🌐 Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import the project to Vercel
+3. Deploy!
+
+The site is pre-configured for Vercel deployment.
+
+### Environment Variables
+
+For production, add these to your Vercel project:
+
+```env
+# Optional - for form submissions
+CONTACT_EMAIL=bookings@makeupbyamy.co.za
+
+# Optional - for analytics
+NEXT_PUBLIC_GA_ID=your-google-analytics-id
+```
+
+## 📱 Contact Information
+
+- **Phone**: 084 701 7012
+- **Email**: bookings@makeupbyamy.co.za
+- **Location**: Cape Town, South Africa
+- **Instagram**: [@amyb_mup](https://instagram.com/amyb_mup)
+
+## 📝 Customization
+
+### Adding Portfolio Images
+
+Replace placeholder images with actual portfolio photos. Update the image URLs in:
+- `src/components/sections/Hero.tsx`
+- `src/components/sections/Portfolio.tsx`
+- `src/components/sections/Projects.tsx`
+
+### Updating Contact Info
+
+Update contact details in:
+- `src/app/layout.tsx` (structured data)
+- `src/components/sections/Contact.tsx`
+- `src/components/layout/Footer.tsx`
+
+### Adding Products (Shop)
+
+When ready to launch the shop, integrate with:
+- Stripe for payments
+- Neon.tech or Supabase for database
+- Update `src/app/shop/page.tsx`
+
+## 📄 License
+
+This project is private and created for Amy Morgenrood.
+
+---
+
+Made with ✨ for Amy Morgenrood - Professional Makeup Artist
