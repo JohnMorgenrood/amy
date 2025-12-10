@@ -23,30 +23,40 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   metadataBase: new URL('https://makeupbyamy.co.za'),
   title: {
-    default: 'Amy Morgenrood | Professional Makeup Artist Cape Town | Film, SFX & Beauty',
-    template: '%s | Amy Morgenrood Makeup Artist'
+    default: 'Amy Morgenrood | Professional Makeup Artist Cape Town | Film, SFX & Bridal',
+    template: '%s | Amy Morgenrood - Cape Town Makeup Artist'
   },
-  description: 'Award-winning professional makeup artist in Cape Town with 8+ years onset experience. Specializing in Film, SFX, Beauty, Airbrush, Hair Styling for TVCs, Music Videos & Productions. Featured in The Woman King, Alphas & more.',
+  description: 'Amy Morgenrood is an ITEC-certified professional makeup artist in Cape Town with 8+ years onset experience. Specializing in Film, SFX, Prosthetics, Bridal, Airbrush & Hair Styling. Credits include The Woman King, Black Sails, Tomb Raider. Book now for film productions, weddings, TVCs & events.',
   keywords: [
     'makeup artist cape town',
-    'SFX makeup artist',
-    'film makeup artist south africa',
+    'cape town makeup artist',
+    'SFX makeup artist south africa',
+    'film makeup artist cape town',
     'beauty makeup cape town',
-    'airbrush makeup',
+    'airbrush makeup cape town',
     'hair styling cape town',
-    'wedding makeup artist',
-    'commercial makeup artist',
+    'wedding makeup artist cape town',
+    'bridal makeup cape town',
+    'commercial makeup artist south africa',
     'onset makeup artist',
     'Amy Morgenrood',
-    'professional makeup artist',
-    'TVC makeup',
-    'music video makeup',
-    'prosthetic makeup',
+    'Amy Morgenrood makeup',
+    'professional makeup artist south africa',
+    'TVC makeup artist',
+    'music video makeup artist',
+    'prosthetic makeup artist',
     'special effects makeup cape town',
-    'bridal makeup cape town',
-    'editorial makeup artist',
-    'fashion makeup artist',
-    'ITEC qualified makeup artist'
+    'sfx makeup cape town',
+    'bridal makeup western cape',
+    'editorial makeup artist cape town',
+    'fashion makeup artist south africa',
+    'ITEC qualified makeup artist',
+    'ITEC certified makeup artist cape town',
+    'the woman king makeup artist',
+    'film industry makeup cape town',
+    'movie makeup artist south africa',
+    'tv makeup artist cape town',
+    'best makeup artist cape town'
   ],
   authors: [{ name: 'Amy Morgenrood' }],
   creator: 'Amy Morgenrood',
@@ -113,80 +123,144 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'LocalBusiness',
-              '@id': 'https://makeupbyamy.co.za',
-              name: 'Amy Morgenrood - Professional Makeup Artist',
-              alternateName: 'Makeup by Amy',
-              description: 'Professional makeup artist in Cape Town with 8+ years onset experience specializing in Film, SFX, Beauty, Airbrush, and Hair Styling.',
-              url: 'https://makeupbyamy.co.za',
-              telephone: '+27847017012',
-              email: 'bookings@makeupbyamy.co.za',
-              image: 'https://makeupbyamy.co.za/og-image.jpg',
-              logo: 'https://makeupbyamy.co.za/logo.png',
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: '11 Tennessee St, Langeberg Heights',
-                addressLocality: 'Cape Town',
-                addressRegion: 'Western Cape',
-                postalCode: '7570',
-                addressCountry: 'ZA'
-              },
-              geo: {
-                '@type': 'GeoCoordinates',
-                latitude: -33.8818,
-                longitude: 18.6024
-              },
-              priceRange: '$$',
-              openingHoursSpecification: {
-                '@type': 'OpeningHoursSpecification',
-                dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                opens: '07:00',
-                closes: '19:00'
-              },
-              sameAs: [
-                'https://www.instagram.com/amyb_mup/',
-                'https://www.instagram.com/_amyy_mua/',
-                'https://www.imdb.com/name/nm12345678/',
-                'https://www.callacrew.co.za/crew/amy-morgenrood'
-              ],
-              hasOfferCatalog: {
-                '@type': 'OfferCatalog',
-                name: 'Makeup Services',
-                itemListElement: [
-                  {
-                    '@type': 'Offer',
-                    itemOffered: {
-                      '@type': 'Service',
-                      name: 'Film & TV Makeup',
-                      description: 'Professional onset makeup for film and television productions'
-                    }
+              '@graph': [
+                {
+                  '@type': 'LocalBusiness',
+                  '@id': 'https://makeupbyamy.co.za/#business',
+                  name: 'Amy Morgenrood - Professional Makeup Artist',
+                  alternateName: 'Makeup by Amy',
+                  description: 'ITEC-certified professional makeup artist in Cape Town with 8+ years onset experience specializing in Film, SFX, Prosthetics, Beauty, Airbrush, and Hair Styling.',
+                  url: 'https://makeupbyamy.co.za',
+                  telephone: '+27847017012',
+                  email: 'bookings@makeupbyamy.co.za',
+                  image: 'https://makeupbyamy.co.za/og-image.jpg',
+                  logo: 'https://makeupbyamy.co.za/logo.png',
+                  address: {
+                    '@type': 'PostalAddress',
+                    streetAddress: '11 Tennessee St, Langeberg Heights',
+                    addressLocality: 'Cape Town',
+                    addressRegion: 'Western Cape',
+                    postalCode: '7570',
+                    addressCountry: 'ZA'
                   },
-                  {
-                    '@type': 'Offer',
-                    itemOffered: {
-                      '@type': 'Service',
-                      name: 'SFX Makeup',
-                      description: 'Special effects and prosthetic makeup'
-                    }
+                  geo: {
+                    '@type': 'GeoCoordinates',
+                    latitude: -33.8818,
+                    longitude: 18.6024
                   },
-                  {
-                    '@type': 'Offer',
-                    itemOffered: {
-                      '@type': 'Service',
-                      name: 'Beauty & Bridal Makeup',
-                      description: 'Professional beauty and bridal makeup services'
-                    }
+                  areaServed: [
+                    { '@type': 'City', name: 'Cape Town' },
+                    { '@type': 'State', name: 'Western Cape' },
+                    { '@type': 'Country', name: 'South Africa' }
+                  ],
+                  priceRange: '$$',
+                  openingHoursSpecification: {
+                    '@type': 'OpeningHoursSpecification',
+                    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                    opens: '07:00',
+                    closes: '19:00'
                   },
-                  {
-                    '@type': 'Offer',
-                    itemOffered: {
-                      '@type': 'Service',
-                      name: 'Airbrush Makeup',
-                      description: 'Flawless airbrush makeup application'
-                    }
+                  sameAs: [
+                    'https://www.instagram.com/amyb_mup/',
+                    'https://www.instagram.com/_amyy_mua/',
+                    'https://www.imdb.com/name/nm12345678/',
+                    'https://www.callacrew.co.za/crew/amy-morgenrood'
+                  ],
+                  hasOfferCatalog: {
+                    '@type': 'OfferCatalog',
+                    name: 'Makeup Services',
+                    itemListElement: [
+                      {
+                        '@type': 'Offer',
+                        itemOffered: {
+                          '@type': 'Service',
+                          name: 'Film & TV Makeup',
+                          description: 'Professional onset makeup for film and television productions'
+                        }
+                      },
+                      {
+                        '@type': 'Offer',
+                        itemOffered: {
+                          '@type': 'Service',
+                          name: 'SFX Makeup',
+                          description: 'Special effects and prosthetic makeup'
+                        }
+                      },
+                      {
+                        '@type': 'Offer',
+                        itemOffered: {
+                          '@type': 'Service',
+                          name: 'Beauty & Bridal Makeup',
+                          description: 'Professional beauty and bridal makeup services'
+                        }
+                      },
+                      {
+                        '@type': 'Offer',
+                        itemOffered: {
+                          '@type': 'Service',
+                          name: 'Airbrush Makeup',
+                          description: 'Flawless airbrush makeup application'
+                        }
+                      }
+                    ]
                   }
-                ]
-              }
+                },
+                {
+                  '@type': 'Person',
+                  '@id': 'https://makeupbyamy.co.za/#person',
+                  name: 'Amy Morgenrood',
+                  givenName: 'Amy',
+                  familyName: 'Morgenrood',
+                  jobTitle: 'Professional Makeup Artist',
+                  description: 'ITEC-certified makeup artist specializing in film, SFX, prosthetics, bridal and beauty makeup with 8+ years of professional experience.',
+                  url: 'https://makeupbyamy.co.za',
+                  image: 'https://makeupbyamy.co.za/og-image.jpg',
+                  address: {
+                    '@type': 'PostalAddress',
+                    addressLocality: 'Cape Town',
+                    addressRegion: 'Western Cape',
+                    addressCountry: 'South Africa'
+                  },
+                  alumniOf: {
+                    '@type': 'Organization',
+                    name: 'ITEC International'
+                  },
+                  hasCredential: [
+                    {
+                      '@type': 'EducationalOccupationalCredential',
+                      credentialCategory: 'certificate',
+                      name: 'ITEC Media Makeup Certification',
+                      recognizedBy: {
+                        '@type': 'Organization',
+                        name: 'ITEC International'
+                      }
+                    }
+                  ],
+                  knowsAbout: [
+                    'Film Makeup',
+                    'Television Makeup',
+                    'Special Effects Makeup',
+                    'Prosthetic Makeup',
+                    'Bridal Makeup',
+                    'Beauty Makeup',
+                    'Airbrush Makeup',
+                    'Hair Styling'
+                  ],
+                  sameAs: [
+                    'https://www.instagram.com/amyb_mup/',
+                    'https://www.instagram.com/_amyy_mua/',
+                    'https://www.imdb.com/name/nm12345678/'
+                  ]
+                },
+                {
+                  '@type': 'WebSite',
+                  '@id': 'https://makeupbyamy.co.za/#website',
+                  url: 'https://makeupbyamy.co.za',
+                  name: 'Amy Morgenrood - Professional Makeup Artist Cape Town',
+                  description: 'Portfolio and booking website for Amy Morgenrood, professional makeup artist in Cape Town',
+                  publisher: { '@id': 'https://makeupbyamy.co.za/#person' }
+                }
+              ]
             })
           }}
         />
