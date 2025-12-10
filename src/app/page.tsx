@@ -3,6 +3,7 @@ import { Portfolio } from '@/components/sections/Portfolio'
 import { Services } from '@/components/sections/Services'
 import { Projects } from '@/components/sections/Projects'
 import { About } from '@/components/sections/About'
+import { Certificates } from '@/components/sections/Certificates'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { Contact } from '@/components/sections/Contact'
 
@@ -14,6 +15,7 @@ export default function Home() {
       <Services />
       <Projects />
       <About />
+      <Certificates />
       <Testimonials />
       <Contact />
     </>
