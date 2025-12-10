@@ -4,6 +4,7 @@ import { useState, useEffect, createContext, useContext, ReactNode } from 'react
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import PromoWheel from '@/components/PromoWheel'
 
 // Types for Blanka Products
 interface BlankaProduct {
@@ -877,6 +878,7 @@ export default function ShopPage() {
   return (
     <CartProvider>
       <ShopContent />
+      <PromoWheel />
     </CartProvider>
   )
 }
