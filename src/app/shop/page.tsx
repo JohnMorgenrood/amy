@@ -133,11 +133,10 @@ export default function ShopPage() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-32">
+    <div className="min-h-screen pt-24 pb-32 bg-dark-950">
       {/* Hero Banner */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-gold-500/10 to-rose-500/10" />
-        <div className="absolute inset-0 bg-dark-900/80" />
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-gold-500/5 via-transparent to-transparent" />
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -145,26 +144,25 @@ export default function ShopPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-500/20 text-gold-400 text-sm font-medium mb-6">
-              <Sparkles className="w-4 h-4" />
+            <span className="inline-flex items-center gap-2 px-4 py-2 border border-gold-500/30 text-gold-500/80 text-xs tracking-[0.2em] uppercase mb-8">
+              <Sparkles className="w-3 h-3" />
               Coming Soon
             </span>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="text-white">Professional </span>
-              <span className="gradient-text">Beauty Shop</span>
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
+              Professional Beauty Shop
             </h1>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
+            <p className="font-display text-cream-500/60 text-xl max-w-2xl mx-auto mb-10 font-light italic">
               Shop the same professional-grade products I use on film sets and with my clients. 
               Curated collection coming soon.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary flex items-center gap-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-8 py-3 bg-cream-100 text-dark-950 text-xs tracking-[0.15em] uppercase hover:bg-gold-400 transition-colors duration-300 flex items-center gap-3"
               >
                 <span>Notify Me When Available</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3 h-3" />
               </motion.button>
             </div>
           </motion.div>
@@ -172,8 +170,8 @@ export default function ShopPage() {
       </section>
 
       {/* Features Bar */}
-      <section className="border-y border-white/5 bg-dark-800/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <section className="border-y border-gold-500/10 bg-dark-900/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, idx) => (
               <motion.div
@@ -184,12 +182,12 @@ export default function ShopPage() {
                 transition={{ delay: idx * 0.1 }}
                 className="flex items-center gap-4 justify-center md:justify-start"
               >
-                <div className="p-3 rounded-xl bg-gold-500/10">
-                  <feature.icon className="w-6 h-6 text-gold-400" />
+                <div className="p-3 border border-gold-500/20">
+                  <feature.icon className="w-5 h-5 text-gold-500/80" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-white">{feature.title}</h3>
-                  <p className="text-sm text-gray-400">{feature.description}</p>
+                  <h3 className="text-xs tracking-[0.1em] uppercase text-cream-100">{feature.title}</h3>
+                  <p className="font-display text-sm text-cream-500/50 font-light italic mt-0.5">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -200,31 +198,31 @@ export default function ShopPage() {
       {/* Shop Content */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Filters Bar */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-16">
           {/* Search */}
           <div className="relative w-full lg:w-80">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-cream-500/40" />
             <input
               type="text"
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500/50 transition-all"
+              className="w-full pl-12 pr-4 py-3 bg-dark-900/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all font-light"
             />
           </div>
 
           {/* Categories */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {categories.map((category) => (
               <motion.button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`px-5 py-2 text-xs tracking-[0.1em] uppercase transition-all duration-300 ${
                   activeCategory === category
-                    ? 'bg-gradient-to-r from-gold-500 to-rose-500 text-dark-900'
-                    : 'bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10'
+                    ? 'bg-gold-500/10 text-gold-400 border border-gold-500/30'
+                    : 'bg-transparent text-cream-500/50 hover:text-cream-100 border border-cream-500/10 hover:border-cream-500/20'
                 }`}
               >
                 {category}
@@ -244,27 +242,27 @@ export default function ShopPage() {
               transition={{ delay: index * 0.1 }}
               className="group relative"
             >
-              <div className="relative rounded-3xl overflow-hidden bg-dark-700 border border-white/5 hover:border-gold-500/30 transition-all duration-500">
+              <div className="relative overflow-hidden bg-dark-900/50 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-500">
                 {/* Image */}
                 <div className="relative aspect-square">
                   <Image
                     src={product.image}
                     alt={product.name}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   
                   {/* Badge */}
                   {product.badge && (
-                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-gold-500 text-dark-900 text-xs font-bold">
+                    <div className="absolute top-4 left-4 px-3 py-1.5 bg-gold-500/90 text-dark-950 text-[10px] tracking-[0.1em] uppercase">
                       {product.badge}
                     </div>
                   )}
 
                   {/* Out of Stock Overlay */}
                   {!product.inStock && (
-                    <div className="absolute inset-0 bg-dark-900/80 flex items-center justify-center">
-                      <span className="px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium">
+                    <div className="absolute inset-0 bg-dark-950/80 flex items-center justify-center">
+                      <span className="px-4 py-2 border border-cream-500/20 text-cream-100 text-xs tracking-[0.1em] uppercase">
                         Out of Stock
                       </span>
                     </div>
@@ -273,16 +271,16 @@ export default function ShopPage() {
                   {/* Wishlist Button */}
                   <motion.button
                     onClick={() => toggleWishlist(product.id)}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`absolute top-4 right-4 p-2 rounded-full transition-all ${
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`absolute top-4 right-4 p-2.5 transition-all duration-300 ${
                       wishlist.includes(product.id)
-                        ? 'bg-rose-500 text-white'
-                        : 'bg-white/10 backdrop-blur-sm text-white hover:bg-white/20'
+                        ? 'bg-gold-500 text-dark-950'
+                        : 'bg-dark-950/60 backdrop-blur-sm text-cream-100 border border-cream-500/20 hover:border-gold-500/40'
                     }`}
                   >
                     <Heart
-                      className={`w-5 h-5 ${wishlist.includes(product.id) ? 'fill-current' : ''}`}
+                      className={`w-4 h-4 ${wishlist.includes(product.id) ? 'fill-current' : ''}`}
                     />
                   </motion.button>
 
@@ -294,9 +292,9 @@ export default function ShopPage() {
                   >
                     <button
                       disabled={!product.inStock}
-                      className="w-full py-3 rounded-xl bg-white text-dark-900 font-semibold flex items-center justify-center gap-2 hover:bg-gold-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full py-3 bg-cream-100 text-dark-950 text-xs tracking-[0.1em] uppercase flex items-center justify-center gap-2 hover:bg-gold-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <ShoppingBag className="w-5 h-5" />
+                      <ShoppingBag className="w-4 h-4" />
                       Add to Cart
                     </button>
                   </motion.div>
@@ -304,25 +302,25 @@ export default function ShopPage() {
 
                 {/* Content */}
                 <div className="p-6">
-                  <p className="text-sm text-gold-400 mb-1">{product.category}</p>
-                  <h3 className="font-display text-lg font-semibold text-white mb-2 group-hover:text-gold-400 transition-colors">
+                  <p className="text-[10px] tracking-[0.15em] uppercase text-gold-500/70 mb-2">{product.category}</p>
+                  <h3 className="font-display text-lg font-light text-cream-100 mb-3 group-hover:text-gold-400 transition-colors duration-300">
                     {product.name}
                   </h3>
                   
                   {/* Rating */}
-                  <div className="flex items-center gap-2 mb-3">
+                  <div className="flex items-center gap-2 mb-4">
                     <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 text-gold-400 fill-gold-400" />
-                      <span className="text-sm text-white">{product.rating}</span>
+                      <Star className="w-3 h-3 text-gold-500/60 fill-gold-500/60" />
+                      <span className="text-xs text-cream-100">{product.rating}</span>
                     </div>
-                    <span className="text-sm text-gray-500">({product.reviews} reviews)</span>
+                    <span className="font-display text-xs text-cream-500/40 italic">({product.reviews} reviews)</span>
                   </div>
 
                   {/* Price */}
-                  <div className="flex items-center gap-3">
-                    <span className="text-xl font-bold text-white">{formatPrice(product.price)}</span>
+                  <div className="flex items-center gap-3 pt-4 border-t border-gold-500/10">
+                    <span className="font-display text-xl font-light text-cream-100">{formatPrice(product.price)}</span>
                     {product.originalPrice && (
-                      <span className="text-sm text-gray-500 line-through">
+                      <span className="font-display text-sm text-cream-500/40 line-through italic">
                         {formatPrice(product.originalPrice)}
                       </span>
                     )}
@@ -335,12 +333,12 @@ export default function ShopPage() {
 
         {/* Empty State */}
         {filteredProducts.length === 0 && (
-          <div className="text-center py-20">
-            <ShoppingBag className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="font-display text-xl font-semibold text-white mb-2">
+          <div className="text-center py-24">
+            <ShoppingBag className="w-12 h-12 text-cream-500/30 mx-auto mb-6" />
+            <h3 className="font-display text-xl font-light text-cream-100 mb-3">
               No products found
             </h3>
-            <p className="text-gray-400">
+            <p className="font-display text-cream-500/50 italic">
               Try adjusting your search or filter criteria
             </p>
           </div>
@@ -351,13 +349,13 @@ export default function ShopPage() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-20 p-12 rounded-3xl bg-gradient-to-br from-gold-500/20 to-rose-500/20 border border-gold-500/30 text-center"
+          className="mt-24 p-12 bg-dark-900/50 border border-gold-500/20 text-center"
         >
-          <Sparkles className="w-10 h-10 text-gold-400 mx-auto mb-4" />
-          <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-4">
+          <Sparkles className="w-6 h-6 text-gold-500/60 mx-auto mb-6" />
+          <h3 className="font-display text-2xl sm:text-3xl font-light text-cream-100 mb-4">
             Be the First to Know
           </h3>
-          <p className="text-gray-300 max-w-xl mx-auto mb-8">
+          <p className="font-display text-cream-500/50 max-w-xl mx-auto mb-10 italic">
             Subscribe to get exclusive early access, special discounts, and pro tips 
             when the shop officially launches.
           </p>
@@ -365,12 +363,12 @@ export default function ShopPage() {
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-full px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-gold-500/50"
+              className="w-full px-6 py-3 bg-dark-950/50 border border-gold-500/10 text-cream-100 placeholder-cream-500/30 focus:outline-none focus:border-gold-500/30 transition-all font-light"
             />
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto px-8 py-3 rounded-xl bg-gradient-to-r from-gold-500 to-rose-500 text-dark-900 font-semibold whitespace-nowrap"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto px-8 py-3 bg-cream-100 text-dark-950 text-xs tracking-[0.15em] uppercase whitespace-nowrap hover:bg-gold-400 transition-colors duration-300"
             >
               Subscribe
             </motion.button>
