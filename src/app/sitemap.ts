@@ -9,14 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
-      images: [{ url: `${baseUrl}/og-image.svg`, title: 'Amy Morgenrood - Professional Makeup Artist', mimeType: 'image/svg+xml' }],
     },
     {
       url: `${baseUrl}/shop`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
-      images: [{ url: `${baseUrl}/assets/portfolio/IMG_20240713_075631_187.jpg`, title: 'Shop - Makeup by Amy' }],
     },
     {
       url: `${baseUrl}/checkout`,
@@ -29,7 +27,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
-      images: [{ url: `${baseUrl}/assets/portfolio/IMG_20240713_075631_187.jpg`, title: 'Portfolio - Amy Morgenrood' }],
     },
     // Portfolio category pages
     {
