@@ -52,6 +52,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [showShopMegaMenu, setShowShopMegaMenu] = useState(false)
+  const [showMobileShopMenu, setShowMobileShopMenu] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -208,24 +209,82 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 lg:hidden"
+            className="fixed inset-0 z-40 lg:hidden overflow-y-auto"
           >
             <div className="absolute inset-0 bg-dark-950/98 backdrop-blur-xl" />
-            <nav className="relative h-full flex flex-col items-center justify-center gap-8 pt-20">
+            <nav className="relative min-h-full flex flex-col items-center justify-center gap-6 py-24 px-6">
               {navLinks.map((link, index) => (
                 <motion.div
                   key={link.name}
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
+                  className="w-full max-w-xs"
                 >
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="text-2xl font-display font-light text-cream-100 hover:text-gold-400 transition-colors duration-300"
-                  >
-                    {link.name}
-                  </Link>
+                  {link.hasMegaMenu ? (
+                    <div>
+                      <button
+                        onClick={() => setShowMobileShopMenu(!showMobileShopMenu)}
+                        className="w-full text-2xl font-display font-light text-cream-100 hover:text-gold-400 transition-colors duration-300 flex items-center justify-between"
+                      >
+                        <span>{link.name}</span>
+                        <svg 
+                          className={`w-5 h-5 transition-transform duration-300 ${showMobileShopMenu ? 'rotate-180' : ''}`}
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                      <AnimatePresence>
+                        {showMobileShopMenu && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="mt-4 space-y-2 pl-4 border-l-2 border-gold-500/20">
+                              {shopCategories.map((category) => (
+                                <Link
+                                  key={category.name}
+                                  href={category.href}
+                                  onClick={() => {
+                                    setIsOpen(false)
+                                    setShowMobileShopMenu(false)
+                                  }}
+                                  className="block py-2 text-base text-cream-300 hover:text-gold-400 transition-colors"
+                                >
+                                  <div className="font-light">{category.name}</div>
+                                  <div className="text-xs text-cream-500/50 mt-0.5">{category.description}</div>
+                                </Link>
+                              ))}
+                              <Link
+                                href="/shop"
+                                onClick={() => {
+                                  setIsOpen(false)
+                                  setShowMobileShopMenu(false)
+                                }}
+                                className="block py-2 mt-3 text-center text-sm text-gold-400 border border-gold-500/30 rounded hover:bg-gold-500/10 transition-colors"
+                              >
+                                View All Products
+                              </Link>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="block text-2xl font-display font-light text-cream-100 hover:text-gold-400 transition-colors duration-300"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
               <motion.div
@@ -243,7 +302,7 @@ export function Navbar() {
                   <Instagram className="w-5 h-5 text-cream-100" />
                 </a>
                 <a
-                  href="mailto:bookings@makeupbyamy.co.za"
+                  href="mailto:bookings@makeupbyamy.com"
                   className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
                 >
                   <Mail className="w-5 h-5 text-cream-100" />
