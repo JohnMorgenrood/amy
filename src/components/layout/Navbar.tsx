@@ -108,12 +108,17 @@ export function Navbar() {
                   
                   {/* Shop Mega Menu */}
                   {link.hasMegaMenu && showShopMegaMenu && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-[500px] bg-dark-950/95 backdrop-blur-xl border border-gold-500/10 shadow-2xl overflow-hidden z-50"
-                    >
+                    <>
+                      {/* Backdrop */}
+                      <div className="fixed inset-0 bg-dark-950/60 backdrop-blur-sm z-40" />
+                      
+                      {/* Menu */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-[500px] bg-dark-950/98 backdrop-blur-xl border border-gold-500/10 shadow-2xl overflow-hidden z-50"
+                      >
                       <div className="p-6">
                         <div className="mb-4 pb-4 border-b border-gold-500/10">
                           <h3 className="font-display text-sm font-light tracking-[0.15em] uppercase text-cream-100/80 mb-1">Shop Collection</h3>
@@ -149,7 +154,8 @@ export function Navbar() {
                           </Link>
                         </div>
                       </div>
-                    </motion.div>
+                      </motion.div>
+                    </>
                   )}
                 </motion.div>
               ))}
