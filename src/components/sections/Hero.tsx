@@ -173,8 +173,10 @@ export function Hero() {
             >
               <MapPin className="w-3.5 h-3.5 text-gold-500" />
               <span className="text-xs tracking-wide text-gold-400">Cape Town, South Africa</span>
-              <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs text-cream-400">Available for Bookings</span>
+              <span className="w-1 h-1 rounded-full bg-amber-500 animate-pulse" />
+              <span className="text-xs text-amber-400">Currently on Set</span>
+              <span className="w-1 h-1 rounded-full bg-emerald-500" />
+              <span className="text-xs text-cream-400">Accepting Inquiries</span>
             </motion.div>
 
             {/* Main Heading with SEO H1 */}
@@ -313,8 +315,12 @@ export function Hero() {
                 Insured Professional
               </span>
               <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-amber-500" />
+                Currently on Set
+              </span>
+              <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                Available Worldwide
+                Accepting Inquiries Worldwide
               </span>
             </motion.div>
           </motion.article>

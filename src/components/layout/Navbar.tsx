@@ -19,38 +19,32 @@ const shopCategories = [
   { 
     name: 'Skincare', 
     href: '/shop?category=skincare',
-    description: 'Nourish and protect your skin',
-    icon: '✨'
+    description: 'Nourish & Protect',
   },
   { 
     name: 'Face', 
     href: '/shop?category=face',
-    description: 'Foundation, concealer & more',
-    icon: '💄'
+    description: 'Foundation & Concealer',
   },
   { 
     name: 'Lips', 
     href: '/shop?category=lips',
-    description: 'Lipsticks, glosses & liners',
-    icon: '💋'
+    description: 'Lipstick & Gloss',
   },
   { 
     name: 'Eyes', 
     href: '/shop?category=eyes',
-    description: 'Shadow, mascara & liner',
-    icon: '👁️'
+    description: 'Shadow & Liner',
   },
   { 
     name: 'Tools & Accessories', 
     href: '/shop?category=tools',
-    description: 'Brushes and applicators',
-    icon: '🖌️'
+    description: 'Brushes & Applicators',
   },
   { 
     name: 'Organic', 
     href: '/shop?category=organic',
-    description: 'Clean, natural beauty',
-    icon: '🌿'
+    description: 'Clean & Natural',
   },
 ]
 
@@ -117,40 +111,42 @@ export function Navbar() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-[600px] bg-dark-950/98 backdrop-blur-xl border border-gold-500/20 rounded-lg shadow-2xl overflow-hidden z-50"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-[500px] bg-dark-950/95 backdrop-blur-xl border border-gold-500/10 shadow-2xl overflow-hidden z-50"
                     >
-                      <div className="p-8">
-                        <div className="mb-6">
-                          <h3 className="text-lg font-display text-cream-100 mb-1">Shop by Category</h3>
-                          <p className="text-xs text-cream-500/50 tracking-wide">Premium beauty products curated for you</p>
+                      <div className="p-6">
+                        <div className="mb-4 pb-4 border-b border-gold-500/10">
+                          <h3 className="font-display text-sm font-light tracking-[0.15em] uppercase text-cream-100/80 mb-1">Shop Collection</h3>
+                          <p className="text-[10px] text-cream-500/40 tracking-wider uppercase">Premium Beauty</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
-                          {shopCategories.map((category) => (
+                        <div className="space-y-1">
+                          {shopCategories.map((category, idx) => (
                             <Link
                               key={category.name}
                               href={category.href}
-                              className="group p-4 bg-white/5 hover:bg-gold-500/10 border border-white/10 hover:border-gold-500/30 rounded-lg transition-all duration-300"
+                              className="group flex items-center justify-between px-4 py-3 hover:bg-gold-500/5 border-l-2 border-transparent hover:border-gold-500/50 transition-all duration-300"
                             >
-                              <div className="flex items-start gap-3">
-                                <span className="text-2xl">{category.icon}</span>
-                                <div>
-                                  <h4 className="text-sm font-medium text-cream-100 group-hover:text-gold-400 transition-colors mb-1">
-                                    {category.name}
-                                  </h4>
-                                  <p className="text-xs text-cream-500/60">
-                                    {category.description}
-                                  </p>
-                                </div>
+                              <div>
+                                <h4 className="text-sm font-light text-cream-100 group-hover:text-gold-400 transition-colors tracking-wide">
+                                  {category.name}
+                                </h4>
+                                <p className="text-[10px] text-cream-500/40 tracking-wider uppercase mt-0.5">
+                                  {category.description}
+                                </p>
                               </div>
+                              <svg className="w-4 h-4 text-cream-500/20 group-hover:text-gold-400/60 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                              </svg>
                             </Link>
                           ))}
                         </div>
-                        <Link
-                          href="/shop"
-                          className="mt-6 block text-center py-3 bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 rounded-lg text-xs tracking-[0.15em] uppercase text-gold-400 transition-all duration-300"
-                        >
-                          View All Products
-                        </Link>
+                        <div className="mt-4 pt-4 border-t border-gold-500/10">
+                          <Link
+                            href="/shop"
+                            className="block text-center py-2.5 bg-cream-100 hover:bg-gold-400 text-dark-950 text-[10px] tracking-[0.15em] uppercase font-medium transition-colors duration-300"
+                          >
+                            View All Products
+                          </Link>
+                        </div>
                       </div>
                     </motion.div>
                   )}

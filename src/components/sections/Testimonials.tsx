@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { Star, Quote } from 'lucide-react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
-import Image from 'next/image'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -12,28 +11,25 @@ import 'swiper/css/pagination'
 const testimonials = [
   {
     id: 1,
-    name: 'Sarah Johnson',
+    name: 'Zanele Dlamini',
     role: 'Production Manager',
     company: 'Cape Town Studios',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop',
     content: "Amy's professionalism and talent are unmatched. She transformed our entire cast for a period piece and maintained perfect continuity throughout the 3-month shoot.",
     rating: 5,
   },
   {
     id: 2,
-    name: 'Michael Peters',
+    name: 'Pieter van Rooyen',
     role: 'Director',
     company: 'Independent Films SA',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
     content: 'Working with Amy on our SFX sequences was incredible. Her prosthetic work is phenomenal and she brings such creativity to every project.',
     rating: 5,
   },
   {
     id: 3,
-    name: 'Lisa van der Berg',
+    name: 'Annelie Botha',
     role: 'Bride',
     company: 'Wedding Client',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop',
     content: "Amy made me feel like the most beautiful bride. She listened to exactly what I wanted and created a look that was even better than I imagined. Lasted all day!",
     rating: 5,
   },
@@ -42,16 +38,14 @@ const testimonials = [
     name: 'Thabo Mokoena',
     role: 'Music Artist',
     company: 'Sony Music Africa',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop',
     content: "Amy did the makeup for my latest music video and absolutely killed it. She understood the concept instantly and created looks that perfectly matched the aesthetic.",
     rating: 5,
   },
   {
     id: 5,
-    name: 'Emma Smith',
+    name: 'Lindiwe Nkosi',
     role: 'Lead Actress',
     company: 'Feature Film',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
     content: 'Having Amy on set was a dream. She made the long shoot days so much easier with her efficiency and the makeup always looked flawless on camera.',
     rating: 5,
   },
@@ -143,13 +137,10 @@ export function Testimonials() {
 
                   {/* Author */}
                   <div className="flex items-center gap-4 pt-6 border-t border-gold-500/10">
-                    <div className="relative w-12 h-12 overflow-hidden border border-gold-500/20">
-                      <Image
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        fill
-                        className="object-cover"
-                      />
+                    <div className="relative w-12 h-12 overflow-hidden border border-gold-500/20 bg-gold-500/10 flex items-center justify-center">
+                      <span className="text-gold-400 text-xl font-light">
+                        {testimonial.name.charAt(0)}
+                      </span>
                     </div>
                     <div>
                       <h4 className="font-light text-cream-100">{testimonial.name}</h4>
