@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/'],
     },
-    sitemap: 'https://makeupbyamy.co.za/sitemap.xml',
+    sitemap: 'https://makeupbyamy.com/sitemap.xml',
   }
 }

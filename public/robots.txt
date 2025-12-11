@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-Sitemap: https://makeupbyamy.co.za/sitemap.xml
+Sitemap: https://makeupbyamy.com/sitemap.xml

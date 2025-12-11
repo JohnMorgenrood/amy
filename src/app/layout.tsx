@@ -21,7 +21,7 @@ const cormorant = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://makeupbyamy.co.za'),
+  metadataBase: new URL('https://makeupbyamy.com'),
   title: {
     default: 'Amy Morgenrood | Professional Makeup Artist Cape Town | Film, SFX & Bridal',
     template: '%s | Amy Morgenrood - Cape Town Makeup Artist'
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_ZA',
-    url: 'https://makeupbyamy.co.za',
+    url: 'https://makeupbyamy.com',
     siteName: 'Amy Morgenrood - Professional Makeup Artist',
     title: 'Amy Morgenrood | Professional Makeup Artist Cape Town',
     description: 'Award-winning makeup artist with 8+ years onset experience. Film, SFX, Beauty, Airbrush & Hair Styling in Cape Town.',
@@ -98,7 +98,7 @@ export const metadata: Metadata = {
     google: 'bRiXFAAgSJZtJHLd1jC2hC_nnCfRPqiHlztXk7gLE4M',
   },
   alternates: {
-    canonical: 'https://makeupbyamy.co.za',
+    canonical: 'https://makeupbyamy.com',
   },
   category: 'Beauty & Personal Care',
 }
@@ -126,15 +126,15 @@ export default function RootLayout({
               '@graph': [
                 {
                   '@type': 'LocalBusiness',
-                  '@id': 'https://makeupbyamy.co.za/#business',
+                  '@id': 'https://makeupbyamy.com/#business',
                   name: 'Amy Morgenrood - Professional Makeup Artist',
                   alternateName: 'Makeup by Amy',
                   description: 'ITEC-certified professional makeup artist in Cape Town with 8+ years onset experience specializing in Film, SFX, Prosthetics, Beauty, Airbrush, and Hair Styling.',
-                  url: 'https://makeupbyamy.co.za',
+                  url: 'https://makeupbyamy.com',
                   telephone: '+27847017012',
                   email: 'bookings@makeupbyamy.co.za',
-                  image: 'https://makeupbyamy.co.za/og-image.svg',
-                  logo: 'https://makeupbyamy.co.za/icon.svg',
+                  image: 'https://makeupbyamy.com/og-image.svg',
+                  logo: 'https://makeupbyamy.com/icon.svg',
                   address: {
                     '@type': 'PostalAddress',
                     streetAddress: '11 Tennessee St, Langeberg Heights',
@@ -207,14 +207,14 @@ export default function RootLayout({
                 },
                 {
                   '@type': 'Person',
-                  '@id': 'https://makeupbyamy.co.za/#person',
+                  '@id': 'https://makeupbyamy.com/#person',
                   name: 'Amy Morgenrood',
                   givenName: 'Amy',
                   familyName: 'Morgenrood',
                   jobTitle: 'Professional Makeup Artist',
                   description: 'ITEC-certified makeup artist specializing in film, SFX, prosthetics, bridal and beauty makeup with 8+ years of professional experience.',
-                  url: 'https://makeupbyamy.co.za',
-                  image: 'https://makeupbyamy.co.za/og-image.svg',
+                  url: 'https://makeupbyamy.com',
+                  image: 'https://makeupbyamy.com/og-image.svg',
                   address: {
                     '@type': 'PostalAddress',
                     addressLocality: 'Cape Town',
@@ -254,11 +254,11 @@ export default function RootLayout({
                 },
                 {
                   '@type': 'WebSite',
-                  '@id': 'https://makeupbyamy.co.za/#website',
-                  url: 'https://makeupbyamy.co.za',
+                  '@id': 'https://makeupbyamy.com/#website',
+                  url: 'https://makeupbyamy.com',
                   name: 'Amy Morgenrood - Professional Makeup Artist Cape Town',
                   description: 'Portfolio and booking website for Amy Morgenrood, professional makeup artist in Cape Town',
-                  publisher: { '@id': 'https://makeupbyamy.co.za/#person' }
+                  publisher: { '@id': 'https://makeupbyamy.com/#person' }
                 }
               ]
             })
