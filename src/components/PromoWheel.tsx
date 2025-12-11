@@ -153,16 +153,16 @@ export default function PromoWheel() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => !isSpinning && setIsOpen(false)}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+              onClick={() => !showResult && setIsOpen(false)}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60]"
             />
 
             {/* Modal Content */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] rounded-2xl z-50 overflow-hidden flex flex-col max-h-[90vh]"
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] rounded-2xl z-[60] overflow-hidden flex flex-col max-h-[90vh]"
             >
               {/* Close Button */}
               {!isSpinning && (

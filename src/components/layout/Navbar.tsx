@@ -11,13 +11,53 @@ const navLinks = [
   { name: 'Services', href: '#services' },
   { name: 'Projects', href: '#projects' },
   { name: 'About', href: '#about' },
-  { name: 'Shop', href: '/shop' },
+  { name: 'Shop', href: '/shop', hasMegaMenu: true },
   { name: 'Contact', href: '#contact' },
+]
+
+const shopCategories = [
+  { 
+    name: 'Skincare', 
+    href: '/shop?category=skincare',
+    description: 'Nourish and protect your skin',
+    icon: '✨'
+  },
+  { 
+    name: 'Face', 
+    href: '/shop?category=face',
+    description: 'Foundation, concealer & more',
+    icon: '💄'
+  },
+  { 
+    name: 'Lips', 
+    href: '/shop?category=lips',
+    description: 'Lipsticks, glosses & liners',
+    icon: '💋'
+  },
+  { 
+    name: 'Eyes', 
+    href: '/shop?category=eyes',
+    description: 'Shadow, mascara & liner',
+    icon: '👁️'
+  },
+  { 
+    name: 'Tools & Accessories', 
+    href: '/shop?category=tools',
+    description: 'Brushes and applicators',
+    icon: '🖌️'
+  },
+  { 
+    name: 'Organic', 
+    href: '/shop?category=organic',
+    description: 'Clean, natural beauty',
+    icon: '🌿'
+  },
 ]
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [showShopMegaMenu, setShowShopMegaMenu] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,6 +99,9 @@ export function Navbar() {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
+                  className="relative"
+                  onMouseEnter={() => link.hasMegaMenu && setShowShopMegaMenu(true)}
+                  onMouseLeave={() => link.hasMegaMenu && setShowShopMegaMenu(false)}
                 >
                   <Link
                     href={link.href}
@@ -67,6 +110,50 @@ export function Navbar() {
                     {link.name}
                     <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-500/50 group-hover:w-full transition-all duration-300" />
                   </Link>
+                  
+                  {/* Shop Mega Menu */}
+                  {link.hasMegaMenu && showShopMegaMenu && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-[600px] bg-dark-950/98 backdrop-blur-xl border border-gold-500/20 rounded-lg shadow-2xl overflow-hidden z-50"
+                    >
+                      <div className="p-8">
+                        <div className="mb-6">
+                          <h3 className="text-lg font-display text-cream-100 mb-1">Shop by Category</h3>
+                          <p className="text-xs text-cream-500/50 tracking-wide">Premium beauty products curated for you</p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          {shopCategories.map((category) => (
+                            <Link
+                              key={category.name}
+                              href={category.href}
+                              className="group p-4 bg-white/5 hover:bg-gold-500/10 border border-white/10 hover:border-gold-500/30 rounded-lg transition-all duration-300"
+                            >
+                              <div className="flex items-start gap-3">
+                                <span className="text-2xl">{category.icon}</span>
+                                <div>
+                                  <h4 className="text-sm font-medium text-cream-100 group-hover:text-gold-400 transition-colors mb-1">
+                                    {category.name}
+                                  </h4>
+                                  <p className="text-xs text-cream-500/60">
+                                    {category.description}
+                                  </p>
+                                </div>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                        <Link
+                          href="/shop"
+                          className="mt-6 block text-center py-3 bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 rounded-lg text-xs tracking-[0.15em] uppercase text-gold-400 transition-all duration-300"
+                        >
+                          View All Products
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
                 </motion.div>
               ))}
             </nav>

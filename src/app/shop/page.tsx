@@ -165,7 +165,7 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
           />
           
           {/* Sidebar */}
@@ -174,7 +174,7 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-[#1a1a1a] z-50 shadow-2xl flex flex-col"
+            className="fixed right-0 top-0 h-full w-full max-w-md bg-[#1a1a1a] z-[60] shadow-2xl flex flex-col"
           >
             {/* Header */}
             <div className="p-6 border-b border-white/10">
@@ -322,14 +322,14 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60]"
           />
           
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-4xl md:max-h-[90vh] bg-[#1a1a1a] rounded-2xl z-50 overflow-hidden flex flex-col"
+            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-4xl md:max-h-[90vh] bg-[#1a1a1a] rounded-2xl z-[60] overflow-hidden flex flex-col"
           >
             <button
               onClick={onClose}
@@ -519,9 +519,17 @@ function ShopContent() {
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [notification, setNotification] = useState<string | null>(null)
   const [selectedProduct, setSelectedProduct] = useState<BlankaProduct | null>(null)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   
   const { addToCart, totalItems } = useCart()
+
+  // Check for category in URL params
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const categoryParam = params.get('category')
+    if (categoryParam) {
+      setSelectedCategory(categoryParam)
+    }
+  }, [])
 
   // Fetch products from our API route
   useEffect(() => {
@@ -580,7 +588,7 @@ function ShopContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a]">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] pt-20">
       {/* Notification Toast */}
       <AnimatePresence>
         {notification && (
@@ -588,7 +596,7 @@ function ShopContent() {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className="fixed top-4 left-1/2 -translate-x-1/2 z-[60] bg-[#D4AF37] text-black px-6 py-3 rounded-full font-medium shadow-lg"
+            className="fixed top-4 left-1/2 -translate-x-1/2 z-[70] bg-[#D4AF37] text-black px-6 py-3 rounded-full font-medium shadow-lg"
           >
             {notification}
           </motion.div>
@@ -606,99 +614,35 @@ function ShopContent() {
         onAddToCart={() => selectedProduct && handleAddToCart(selectedProduct)}
       />
 
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 py-3 md:py-4">
-          <div className="flex items-center justify-between gap-4">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-              <span className="text-lg md:text-2xl font-bold text-white">Amy&apos;s</span>
-              <span className="text-lg md:text-2xl font-bold text-[#D4AF37]">Beauty</span>
-            </Link>
-            
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6">
-              <Link href="/" className="text-white/70 hover:text-white transition-colors text-sm font-medium">
-                Home
-              </Link>
-              <Link href="/#services" className="text-white/70 hover:text-white transition-colors text-sm font-medium">
-                Services
-              </Link>
-              <Link href="/#portfolio" className="text-white/70 hover:text-white transition-colors text-sm font-medium">
-                Portfolio
-              </Link>
-              <Link href="/shop" className="text-[#D4AF37] text-sm font-medium">
-                Shop
-              </Link>
-              <Link href="/#contact" className="text-white/70 hover:text-white transition-colors text-sm font-medium">
-                Contact
-              </Link>
-            </nav>
+      {/* Floating Cart Button for Mobile */}
+      <button
+        onClick={() => setIsCartOpen(true)}
+        className="fixed top-20 right-4 z-[45] p-3 bg-[#D4AF37] hover:bg-[#F4D03F] rounded-full shadow-lg transition-all lg:hidden"
+      >
+        <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+        {totalItems > 0 && (
+          <span className="absolute -top-1 -right-1 w-6 h-6 bg-black text-[#D4AF37] text-xs font-bold rounded-full flex items-center justify-center">
+            {totalItems}
+          </span>
+        )}
+      </button>
 
-            {/* Right Side - Cart & Mobile Menu */}
-            <div className="flex items-center gap-2 md:gap-4">
-              {/* Cart Button */}
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="relative p-2 md:p-3 bg-white/5 hover:bg-white/10 rounded-full transition-colors"
-              >
-                <svg className="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-                {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-black text-xs font-bold rounded-full flex items-center justify-center">
-                    {totalItems}
-                  </span>
-                )}
-              </button>
-
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors"
-              >
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {isMobileMenuOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  )}
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Navigation Menu */}
-          <AnimatePresence>
-            {isMobileMenuOpen && (
-              <motion.nav
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                className="md:hidden overflow-hidden"
-              >
-                <div className="flex flex-col gap-1 pt-4 pb-2">
-                  <Link href="/" className="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                    Home
-                  </Link>
-                  <Link href="/#services" className="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                    Services
-                  </Link>
-                  <Link href="/#portfolio" className="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                    Portfolio
-                  </Link>
-                  <Link href="/shop" className="px-4 py-3 text-[#D4AF37] bg-[#D4AF37]/10 rounded-lg">
-                    Shop
-                  </Link>
-                  <Link href="/#contact" className="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                    Contact
-                  </Link>
-                </div>
-              </motion.nav>
-            )}
-          </AnimatePresence>
-        </div>
-      </header>
+      {/* Desktop Cart Button */}
+      <button
+        onClick={() => setIsCartOpen(true)}
+        className="hidden lg:block fixed top-6 right-8 z-[45] p-3 bg-white/5 hover:bg-white/10 rounded-full transition-colors border border-white/10"
+      >
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+        {totalItems > 0 && (
+          <span className="absolute -top-1 -right-1 w-6 h-6 bg-[#D4AF37] text-black text-xs font-bold rounded-full flex items-center justify-center">
+            {totalItems}
+          </span>
+        )}
+      </button>
 
       {/* Demo Mode Banner */}
       {isDemo && (
