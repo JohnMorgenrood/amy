@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     default: 'Amy Morgenrood | Professional Makeup Artist Cape Town | Film, SFX & Bridal',
     template: '%s | Amy Morgenrood - Cape Town Makeup Artist'
   },
-  description: 'Amy Morgenrood is an ITEC-certified professional makeup artist in Cape Town with 8+ years onset experience. Specializing in Film, SFX, Prosthetics, Bridal, Airbrush & Hair Styling. Credits include The Woman King, Black Sails, Tomb Raider. Book now for film productions, weddings, TVCs & events.',
+  description: 'Amy Morgenrood is an ITEC-certified professional makeup artist in Cape Town with 8+ years on-set experience. Specializing in Film, SFX, Prosthetics, Bridal, Airbrush & Hair Styling. Credits include The Woman King, Black Sails, Tomb Raider. Book now for film productions, weddings, TVCs & events.',
   keywords: [
     'makeup artist cape town',
     'cape town makeup artist',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     url: 'https://makeupbyamy.com',
     siteName: 'Amy Morgenrood - Professional Makeup Artist',
     title: 'Amy Morgenrood | Professional Makeup Artist Cape Town',
-    description: 'Award-winning makeup artist with 8+ years onset experience. Film, SFX, Beauty, Airbrush & Hair Styling in Cape Town.',
+    description: 'Award-winning makeup artist with 8+ years on-set experience. Film, SFX, Beauty, Airbrush & Hair Styling in Cape Town.',
     images: [
       {
         url: '/og-image.svg',
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Amy Morgenrood | Professional Makeup Artist Cape Town',
-    description: 'Award-winning makeup artist with 8+ years onset experience. Film, SFX, Beauty, Airbrush & Hair Styling.',
+    description: 'Award-winning makeup artist with 8+ years on-set experience. Film, SFX, Beauty, Airbrush & Hair Styling.',
     images: ['/og-image.svg'],
   },
   robots: {
@@ -129,7 +129,7 @@ export default function RootLayout({
                   '@id': 'https://makeupbyamy.com/#business',
                   name: 'Amy Morgenrood - Professional Makeup Artist',
                   alternateName: 'Makeup by Amy',
-                  description: 'ITEC-certified professional makeup artist in Cape Town with 8+ years onset experience specializing in Film, SFX, Prosthetics, Beauty, Airbrush, and Hair Styling.',
+                  description: 'ITEC-certified professional makeup artist in Cape Town with 8+ years on-set experience specializing in Film, SFX, Prosthetics, Beauty, Airbrush, and Hair Styling.',
                   url: 'https://makeupbyamy.com',
                   telephone: '+27847017012',
                   email: 'bookings@makeupbyamy.co.za',

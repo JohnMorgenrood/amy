@@ -1,6 +1,6 @@
 # Makeup by Amy - Professional Portfolio Website
 
-A stunning, modern portfolio website for Amy Morgenrood, a professional makeup artist based in Cape Town with 8+ years of onset experience in film and television.
+A stunning, modern portfolio website for Amy Morgenrood, a professional makeup artist based in Cape Town with 8+ years of on-set experience in film and television.
 
 ## 🎨 Features
 

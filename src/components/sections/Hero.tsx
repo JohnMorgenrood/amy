@@ -234,7 +234,7 @@ export function Hero() {
               className="text-base sm:text-lg text-cream-300/80 font-light max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed"
             >
               <strong className="text-cream-200 font-medium">ITEC-certified makeup artist</strong> with{' '}
-              <strong className="text-cream-200 font-medium">8+ years of professional onset experience</strong>.
+              <strong className="text-cream-200 font-medium">8+ years of professional on-set experience</strong>.
               Creating stunning looks for major film productions, television series, commercials, 
               and private clients across South Africa and internationally.
             </motion.p>

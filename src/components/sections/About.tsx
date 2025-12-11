@@ -148,7 +148,7 @@ export function About() {
               <p className="text-cream-200/90 text-lg leading-relaxed font-light">
                 Hello! I'm <span className="text-gold-400">Amy Morgenrood</span>, 
                 a professional makeup artist based in Cape Town with over{' '}
-                <span className="text-gold-400">8 years of onset experience</span> 
+                <span className="text-gold-400">8 years of on-set experience</span> 
                 in the film and television industry.
               </p>
               <p className="text-cream-300/75 leading-relaxed font-light">

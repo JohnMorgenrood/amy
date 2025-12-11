@@ -60,7 +60,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-cream-300/70 text-sm leading-relaxed mb-8 font-light">
-              Professional makeup artist with 8+ years onset experience. 
+              Professional makeup artist with 8+ years on-set experience. 
               Internationally qualified (ITEC) specializing in Film, SFX, 
               Beauty, Airbrush & Hair Styling.
             </p>
