@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Outfit, Cormorant_Garamond } from 'next/font/google'
 import './globals.css'
-import { Navbar } from '@/components/layout/Navbar'
+import { ConditionalNavbar } from '@/components/ConditionalNavbar'
 import { Footer } from '@/components/layout/Footer'
 import { FloatingElements } from '@/components/effects/FloatingElements'
 
@@ -267,7 +267,7 @@ export default function RootLayout({
       </head>
       <body className="bg-dark-900 text-white antialiased">
         <FloatingElements />
-        <Navbar />
+        <ConditionalNavbar />
         <main className="relative">
           {children}
         </main>

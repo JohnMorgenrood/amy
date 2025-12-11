@@ -590,7 +590,48 @@ function ShopContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] pt-20">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a]">
+      {/* Shop Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2">
+              <span className="text-xl md:text-2xl font-bold text-white">Amy's</span>
+              <span className="text-xl md:text-2xl font-bold text-[#D4AF37]">Beauty Shop</span>
+            </Link>
+            
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-6">
+              <Link href="/" className="text-sm text-white/70 hover:text-white transition-colors">
+                About Amy
+              </Link>
+              <Link href="/#portfolio" className="text-sm text-white/70 hover:text-white transition-colors">
+                Portfolio
+              </Link>
+              <Link href="/#contact" className="text-sm text-white/70 hover:text-white transition-colors">
+                Contact
+              </Link>
+            </nav>
+
+            {/* Cart Button */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-3 bg-white/5 hover:bg-white/10 rounded-full transition-colors"
+            >
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 w-6 h-6 bg-[#D4AF37] text-black text-xs font-bold rounded-full flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+          </div>
+        </div>
+      </header>
+
       {/* Notification Toast */}
       <AnimatePresence>
         {notification && (
@@ -598,7 +639,7 @@ function ShopContent() {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className="fixed top-4 left-1/2 -translate-x-1/2 z-[70] bg-[#D4AF37] text-black px-6 py-3 rounded-full font-medium shadow-lg"
+            className="fixed top-20 left-1/2 -translate-x-1/2 z-[70] bg-[#D4AF37] text-black px-6 py-3 rounded-full font-medium shadow-lg"
           >
             {notification}
           </motion.div>
@@ -616,49 +657,19 @@ function ShopContent() {
         onAddToCart={() => selectedProduct && handleAddToCart(selectedProduct)}
       />
 
-      {/* Floating Cart Button for Mobile */}
-      <button
-        onClick={() => setIsCartOpen(true)}
-        className="fixed top-20 right-4 z-[45] p-3 bg-[#D4AF37] hover:bg-[#F4D03F] rounded-full shadow-lg transition-all lg:hidden"
-      >
-        <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-        </svg>
-        {totalItems > 0 && (
-          <span className="absolute -top-1 -right-1 w-6 h-6 bg-black text-[#D4AF37] text-xs font-bold rounded-full flex items-center justify-center">
-            {totalItems}
-          </span>
-        )}
-      </button>
-
-      {/* Desktop Cart Button */}
-      <button
-        onClick={() => setIsCartOpen(true)}
-        className="hidden lg:block fixed top-6 right-8 z-[45] p-3 bg-white/5 hover:bg-white/10 rounded-full transition-colors border border-white/10"
-      >
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-        </svg>
-        {totalItems > 0 && (
-          <span className="absolute -top-1 -right-1 w-6 h-6 bg-[#D4AF37] text-black text-xs font-bold rounded-full flex items-center justify-center">
-            {totalItems}
-          </span>
-        )}
-      </button>
-
       {/* Demo Mode Banner */}
       {isDemo && (
-        <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border-b border-amber-500/30">
+        <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border-b border-amber-500/30 mt-[72px]">
           <div className="max-w-7xl mx-auto px-4 py-3 text-center">
             <p className="text-amber-200 text-sm">
-              🎨 <span className="font-semibold">Demo Mode</span> - Showing sample products. Connect Blanka API for live inventory.
+              🎨 <span className="font-semibold">Demo Mode</span>
             </p>
           </div>
         </div>
       )}
 
       {/* Hero Banner */}
-      <section className="relative py-16 md:py-20 px-4 overflow-hidden">
+      <section className="relative py-16 md:py-20 px-4 overflow-hidden mt-[72px]">
         <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/10 to-transparent" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
