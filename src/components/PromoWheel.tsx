@@ -158,12 +158,13 @@ export default function PromoWheel() {
             />
 
             {/* Modal Content */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] rounded-2xl z-[60] overflow-hidden flex flex-col max-h-[90vh]"
-            >
+            <div className="fixed inset-0 flex items-center justify-center p-4 z-[60] pointer-events-none">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="relative w-full max-w-lg max-h-[90vh] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] rounded-2xl overflow-hidden flex flex-col pointer-events-auto"
+              >
               {/* Close Button */}
               {!isSpinning && (
                 <button
@@ -352,7 +353,8 @@ export default function PromoWheel() {
                   One spin per day. Codes valid for 7 days.
                 </p>
               </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>

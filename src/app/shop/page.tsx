@@ -325,22 +325,23 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
             className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60]"
           />
           
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-4xl md:max-h-[90vh] bg-[#1a1a1a] rounded-2xl z-[60] overflow-hidden flex flex-col"
-          >
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 rounded-full transition-colors z-10"
+          <div className="fixed inset-0 flex items-center justify-center p-4 z-[60] pointer-events-none">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="relative w-full max-w-4xl max-h-[90vh] bg-[#1a1a1a] rounded-2xl overflow-hidden flex flex-col pointer-events-auto"
             >
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+              <button
+                onClick={onClose}
+                className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 rounded-full transition-colors z-10"
+              >
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
 
-            <div className="flex flex-col md:flex-row overflow-y-auto">
+              <div className="flex flex-col md:flex-row overflow-y-auto">
               {/* Image */}
               <div className="relative w-full md:w-1/2 aspect-square flex-shrink-0 bg-gradient-to-br from-white/5 to-white/10">
                 <Image
@@ -403,8 +404,9 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
                   Add to Cart - ${retailPrice.toFixed(2)}
                 </button>
               </div>
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
