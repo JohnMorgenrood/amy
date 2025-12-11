@@ -215,9 +215,8 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 lg:hidden overflow-y-auto"
+            className="fixed inset-0 z-40 lg:hidden overflow-y-auto bg-dark-950"
           >
-            <div className="absolute inset-0 bg-dark-950/98 backdrop-blur-xl" />
             <nav className="relative min-h-full flex flex-col items-center justify-center gap-6 py-24 px-6">
               {navLinks.map((link, index) => (
                 <motion.div

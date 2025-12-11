@@ -519,6 +519,7 @@ function ShopContent() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [notification, setNotification] = useState<string | null>(null)
   const [selectedProduct, setSelectedProduct] = useState<BlankaProduct | null>(null)
   
@@ -614,23 +615,79 @@ function ShopContent() {
               </Link>
             </nav>
 
-            {/* Cart Button */}
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className="relative p-3 bg-white/5 hover:bg-white/10 rounded-full transition-colors"
-            >
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-              {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 w-6 h-6 bg-[#D4AF37] text-black text-xs font-bold rounded-full flex items-center justify-center">
-                  {totalItems}
-                </span>
-              )}
-            </button>
+            {/* Mobile & Cart Buttons */}
+            <div className="flex items-center gap-2">
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-3 bg-white/5 hover:bg-white/10 rounded-full transition-colors"
+              >
+                {isMobileMenuOpen ? (
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+
+              {/* Cart Button */}
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative p-3 bg-white/5 hover:bg-white/10 rounded-full transition-colors"
+              >
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 w-6 h-6 bg-[#D4AF37] text-black text-xs font-bold rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-[73px] right-0 bottom-0 w-full max-w-xs z-50 bg-[#0a0a0a] border-l border-white/10 md:hidden"
+          >
+            <nav className="flex flex-col p-6 gap-4">
+              <Link 
+                href="/" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg text-white/70 hover:text-white transition-colors py-2"
+              >
+                About Amy
+              </Link>
+              <Link 
+                href="/#portfolio" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg text-white/70 hover:text-white transition-colors py-2"
+              >
+                Portfolio
+              </Link>
+              <Link 
+                href="/#contact" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg text-white/70 hover:text-white transition-colors py-2"
+              >
+                Contact
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Notification Toast */}
       <AnimatePresence>
