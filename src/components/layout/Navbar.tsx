@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Sparkles, Instagram, Mail, Phone } from 'lucide-react'
+import { Menu, X, Sparkles, Instagram, Mail, Phone, Youtube } from 'lucide-react'
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -174,6 +174,16 @@ export function Navbar() {
                 <Instagram className="w-4 h-4 text-cream-500/50 hover:text-gold-400 transition-colors" />
               </motion.a>
               <motion.a
+                href="https://www.youtube.com/@amybinspirations7694"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-2 hover:bg-gold-500/5 transition-colors duration-300"
+              >
+                <Youtube className="w-4 h-4 text-cream-500/50 hover:text-gold-400 transition-colors" />
+              </motion.a>
+              <motion.a
                 href="tel:+27847017012"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
@@ -305,6 +315,14 @@ export function Navbar() {
                   className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
                 >
                   <Instagram className="w-5 h-5 text-cream-100" />
+                </a>
+                <a
+                  href="https://www.youtube.com/@amybinspirations7694"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
+                >
+                  <Youtube className="w-5 h-5 text-cream-100" />
                 </a>
                 <a
                   href="mailto:bookings@makeupbyamy.com"
