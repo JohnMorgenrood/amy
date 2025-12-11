@@ -21,3 +21,18 @@ export default function Home() {
     </>
   )
 }
+
+export const metadata = {
+  title: 'Makeup by Amy — Amy Morgenrood | Makeup Artist Cape Town',
+  description: 'Book Amy Morgenrood - ITEC-certified professional makeup artist in Cape Town. Specializing in Film, SFX, Bridal, and Beauty Makeup. Book now for productions, weddings, TVCs.',
+  openGraph: {
+    title: 'Makeup by Amy — Amy Morgenrood | Makeup Artist Cape Town',
+    description: 'Book Amy Morgenrood - Professional makeup artist in Cape Town. Film, SFX, Bridal, and Beauty Makeup services available.',
+    images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: 'Amy Morgenrood - Makeup by Amy' }],
+  },
+  twitter: {
+    title: 'Makeup by Amy — Amy Morgenrood | Makeup Artist Cape Town',
+    description: 'Book Amy Morgenrood - ITEC-certified professional makeup artist in Cape Town. Film, SFX, Bridal, and Beauty Makeup services available.',
+    images: ['/og-image.svg'],
+  }
+}

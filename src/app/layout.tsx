@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     description: 'Award-winning makeup artist with 8+ years onset experience. Film, SFX, Beauty, Airbrush & Hair Styling in Cape Town.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.svg',
         width: 1200,
         height: 630,
         alt: 'Amy Morgenrood - Professional Makeup Artist Cape Town',
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Amy Morgenrood | Professional Makeup Artist Cape Town',
     description: 'Award-winning makeup artist with 8+ years onset experience. Film, SFX, Beauty, Airbrush & Hair Styling.',
-    images: ['/og-image.jpg'],
+    images: ['/og-image.svg'],
   },
   robots: {
     index: true,
@@ -95,7 +95,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: 'bRiXFAAgSJZtJHLd1jC2hC_nnCfRPqiHlztXk7gLE4M',
   },
   alternates: {
     canonical: 'https://makeupbyamy.co.za',
@@ -133,8 +133,8 @@ export default function RootLayout({
                   url: 'https://makeupbyamy.co.za',
                   telephone: '+27847017012',
                   email: 'bookings@makeupbyamy.co.za',
-                  image: 'https://makeupbyamy.co.za/og-image.jpg',
-                  logo: 'https://makeupbyamy.co.za/logo.png',
+                  image: 'https://makeupbyamy.co.za/og-image.svg',
+                  logo: 'https://makeupbyamy.co.za/icon.svg',
                   address: {
                     '@type': 'PostalAddress',
                     streetAddress: '11 Tennessee St, Langeberg Heights',
@@ -214,7 +214,7 @@ export default function RootLayout({
                   jobTitle: 'Professional Makeup Artist',
                   description: 'ITEC-certified makeup artist specializing in film, SFX, prosthetics, bridal and beauty makeup with 8+ years of professional experience.',
                   url: 'https://makeupbyamy.co.za',
-                  image: 'https://makeupbyamy.co.za/og-image.jpg',
+                  image: 'https://makeupbyamy.co.za/og-image.svg',
                   address: {
                     '@type': 'PostalAddress',
                     addressLocality: 'Cape Town',

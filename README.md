@@ -93,6 +93,30 @@ src/
 - Semantic HTML structure
 - Image optimization
 - Core Web Vitals optimized
+ 
+## 🔍 Ready for Search Engines (Checklist)
+
+Follow these steps to prepare your site for indexing and submit your sitemap to search engines:
+
+1. Verify ownership in Google Search Console:
+    - Log into https://search.google.com/search-console
+        - Add your property (https://makeupbyamy.co.za) and follow the verification steps (DNS, HTML file, or Google Analytics).
+        - Alternatively: I added the HTML meta verification token to the site metadata in `src/app/layout.tsx` using Next.js app metadata. Google verification token used: `bRiXFAAgSJZtJHLd1jC2hC_nnCfRPqiHlztXk7gLE4M`.
+            - For extra convenience, I also added an HTML verification file at `public/googlebRiXFAAgSJZtJHLd1jC2hC_nnCfRPqiHlztXk7gLE4M.html` so you can use the file upload verification method if you prefer.
+            - If verifying via Search Console, choose the HTML tag method and click Verify. The site metadata already contains the meta tag, so you should be able to verify immediately after deployment.
+            - If you prefer DNS verification (TXT record), add the TXT record to your DNS provider with the same token: `google-site-verification=bRiXFAAgSJZtJHLd1jC2hC_nnCfRPqiHlztXk7gLE4M`.
+2. Submit your sitemap:
+    - Visit the Sitemaps page in Search Console and submit: https://makeupbyamy.co.za/sitemap.xml
+3. Confirm robots.txt:
+    - The site exposes a robots.txt via `src/app/robots.ts` and it points to the sitemap; ensure it's accessible: https://makeupbyamy.co.za/robots.txt
+4. Check Open Graph / Social Preview:
+    - The site includes an `og-image.svg` as a placeholder in `/public`. Replace this with a custom OG image if you want a nicer preview on social shares.
+5. Validate Structured Data:
+    - Use Google’s Rich Results Test (https://search.google.com/test/rich-results) and the Structured Data Testing Tool to confirm your JSON-LD (LocalBusiness) markup is valid.
+6. Inspect and test pages:
+    - Test important pages (home, shop, portfolio) in Search Console to ensure they are accessible and render correctly to Google.
+
+If you want, I can help with a) generating per-product pages for better indexing, b) uploading higher-resolution OG images, and c) including `alternate` hreflang tags or region-specific metadata.
 
 ## 🌐 Deployment
 
