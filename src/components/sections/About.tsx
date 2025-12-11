@@ -99,7 +99,7 @@ export function About() {
               {/* Main Image */}
               <div className="relative aspect-[4/5] overflow-hidden border border-gold-500/20">
                 <Image
-                  src="/assets/about/Amy Morgenrood.jpg"
+                  src="/assets/about/Amys portfolio Image Film Makeup Artist in Cape Town.jpg"
                   alt="Amy Morgenrood - Professional Makeup Artist"
                   fill
                   className="object-cover"

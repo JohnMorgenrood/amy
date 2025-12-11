@@ -353,7 +353,7 @@ export function Hero() {
               
               {/* Image */}
               <Image
-                src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&h=750&fit=crop"
+                src="/assets/hero/amy sfx hero.png"
                 alt="Amy Morgenrood - Professional Film and SFX Makeup Artist Cape Town South Africa"
                 fill
                 className="object-cover"

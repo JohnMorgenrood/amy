@@ -67,7 +67,7 @@ const services = [
     description: 'Complete hair styling services from everyday glamour to elaborate period pieces and special effects work.',
     features: ['Styling & Updos', 'Period Hair', 'Wig Application', 'Hair Effects'],
     gradient: 'from-gold-400 to-amber-500',
-    image: 'https://images.unsplash.com/photo-1560577812-93b22e6d0f2e?w=400&h=400&fit=crop',
+    image: '/assets/thumbnails/hair-and-beauty.jpeg',
   },
 ]
 
