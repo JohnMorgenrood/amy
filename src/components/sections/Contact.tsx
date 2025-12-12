@@ -76,24 +76,59 @@ export function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    
-    // Reset after showing success
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service: '',
-        date: '',
-        message: '',
+    try {
+      // Web3Forms API endpoint
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || 'Not provided',
+          subject: `New Booking Inquiry - ${formData.service}`,
+          message: `
+Service Type: ${formData.service}
+Preferred Date: ${formData.date || 'Not specified'}
+Phone: ${formData.phone || 'Not provided'}
+
+Message:
+${formData.message}
+          `,
+          from_name: 'Amy Morgenrood Website',
+          to_email: 'rubyroyal1@gmail.com',
+        }),
       })
-    }, 5000)
+
+      const result = await response.json()
+      
+      if (result.success) {
+        setIsSubmitting(false)
+        setIsSubmitted(true)
+        
+        // Reset after showing success
+        setTimeout(() => {
+          setIsSubmitted(false)
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            service: '',
+            date: '',
+            message: '',
+          })
+        }, 5000)
+      } else {
+        throw new Error('Form submission failed')
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      alert('Failed to send message. Please try emailing directly at rubyroyal1@gmail.com')
+      setIsSubmitting(false)
+    }
   }
 
   return (
