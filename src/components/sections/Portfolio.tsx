@@ -126,6 +126,62 @@ const portfolioItems = [
     image: '/assets/portfolio/Screenshot_20250211_092335_Instagram.jpg',
     likes: 478,
   },
+  {
+    id: 17,
+    title: 'Horror Prosthetics',
+    category: 'SFX',
+    image: '/assets/portfolio/20210307_052308.jpg',
+    likes: 612,
+  },
+  {
+    id: 18,
+    title: 'Zombie Makeup',
+    category: 'SFX',
+    image: '/assets/portfolio/20210307_065010.jpg',
+    likes: 589,
+  },
+  {
+    id: 19,
+    title: 'Creature Design',
+    category: 'SFX',
+    image: '/assets/portfolio/20210307_065100.jpg',
+    likes: 645,
+  },
+  {
+    id: 20,
+    title: 'Gore Effects',
+    category: 'SFX',
+    image: '/assets/portfolio/20210308_040120.jpg',
+    likes: 723,
+  },
+  {
+    id: 21,
+    title: 'Monster Makeup',
+    category: 'SFX',
+    image: '/assets/portfolio/20210308_054526.jpg',
+    likes: 678,
+  },
+  {
+    id: 22,
+    title: 'Horror Character',
+    category: 'SFX',
+    image: '/assets/portfolio/20210313_112836.jpg',
+    likes: 701,
+  },
+  {
+    id: 23,
+    title: 'Prosthetic Design',
+    category: 'SFX',
+    image: '/assets/portfolio/20210316_164709.jpg',
+    likes: 634,
+  },
+  {
+    id: 24,
+    title: 'Scary Effects',
+    category: 'SFX',
+    image: '/assets/portfolio/20210322_183328.jpg',
+    likes: 567,
+  },
 ]
 
 const categories = [
@@ -287,14 +343,16 @@ export function Portfolio() {
                   transition={{ delay: index * 0.1 }}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
-                  className="group relative aspect-[3/4] overflow-hidden cursor-pointer border border-gold-500/10 hover:border-gold-500/30 transition-colors duration-500"
+                  className="group relative aspect-[3/4] overflow-hidden cursor-pointer border border-gold-500/10 hover:border-gold-500/30 transition-colors duration-500 protected-image portfolio-item"
                 >
                   {/* Image */}
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    draggable={false}
+                    className="object-cover transition-transform duration-700 group-hover:scale-110 no-select"
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                   
                   {/* Overlay */}

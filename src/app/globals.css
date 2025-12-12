@@ -218,3 +218,77 @@ body {
 .img-hover-zoom:hover img {
   transform: scale(1.1);
 }
+
+/* ============================================ */
+/* IMAGE PROTECTION - Prevent copying & downloading */
+/* ============================================ */
+
+/* Disable right-click on all images */
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
+/* Prevent dragging */
+img[draggable="false"] {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+/* Disable text/content selection on portfolio and image containers */
+.no-select,
+.portfolio-item,
+.image-container {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Additional protection for Next.js Image components */
+[class*="next-image"],
+[class*="Image"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+/* Watermark overlay on hover (optional visual deterrent) */
+.protected-image {
+  position: relative;
+}
+
+.protected-image::after {
+  content: '© Amy Morgenrood';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0);
+  font-size: 2rem;
+  font-weight: bold;
+  pointer-events: none;
+  transition: color 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  z-index: 10;
+}
+
+.protected-image:hover::after {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+/* Disable context menu on specific containers */
+.protected-content {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

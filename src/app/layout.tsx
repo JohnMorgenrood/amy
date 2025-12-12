@@ -4,6 +4,7 @@ import './globals.css'
 import { ConditionalNavbar } from '@/components/ConditionalNavbar'
 import { Footer } from '@/components/layout/Footer'
 import { FloatingElements } from '@/components/effects/FloatingElements'
+import { ImageProtection } from '@/components/ImageProtection'
 
 // Elegant sans-serif for body text - modern and clean
 const outfit = Outfit({
@@ -266,6 +267,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-dark-900 text-white antialiased">
+        <ImageProtection />
         <FloatingElements />
         <ConditionalNavbar />
         <main className="relative">
