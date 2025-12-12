@@ -1,0 +1,16 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="180" height="180" fill="#0a0a0a"/>
+  
+  <!-- Outer border -->
+  <rect x="10" y="10" width="160" height="160" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+  
+  <!-- AM initials -->
+  <text x="90" y="110" font-family="serif" font-size="65" font-weight="300" fill="#D4AF37" text-anchor="middle" letter-spacing="-3">AM</text>
+  
+  <!-- Decorative line -->
+  <line x1="40" y1="125" x2="140" y2="125" stroke="#D4AF37" stroke-width="1"/>
+  
+  <!-- Bottom text -->
+  <text x="90" y="145" font-family="sans-serif" font-size="8" font-weight="300" fill="#D4AF37" text-anchor="middle" letter-spacing="2">MAKEUP ARTIST</text>
+</svg>
