@@ -72,6 +72,39 @@ export function Contact() {
     offset: ['start end', 'end start']
   })
 
+  // Get min date (today) and max date for calendar
+  const getMinDate = () => {
+    const today = new Date()
+    return today.toISOString().split('T')[0]
+  }
+
+  // Check if a date is booked
+  const isDateBooked = (dateString: string) => {
+    const date = new Date(dateString + 'T00:00:00')
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+
+    // Booked until December 20th, 2025
+    if (year === 2025 && month === 12 && day <= 20) return true
+
+    // Booked December 21st-22nd
+    if (year === 2025 && month === 12 && (day === 21 || day === 22)) return true
+
+    // Available December 23rd-24th (not booked)
+    if (year === 2025 && month === 12 && (day === 23 || day === 24)) return false
+
+    // Booked December 25th-26th (Christmas)
+    if (year === 2025 && month === 12 && (day === 25 || day === 26)) return true
+
+    // Booked December 27th - January 26th
+    if (year === 2025 && month === 12 && day >= 27) return true
+    if (year === 2026 && month === 1 && day <= 26) return true
+
+    // Available from January 27th onwards
+    return false
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
@@ -350,9 +383,21 @@ ${formData.message}
                       <input
                         type="date"
                         value={formData.date}
-                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                        min={getMinDate()}
+                        onChange={(e) => {
+                          const selectedDate = e.target.value
+                          if (isDateBooked(selectedDate)) {
+                            alert('Sorry, Amy is booked on this date. Available dates:\n\n• Dec 23-24, 2025\n• Jan 27 onwards, 2026\n\nPlease select another date.')
+                            setFormData({ ...formData, date: '' })
+                          } else {
+                            setFormData({ ...formData, date: selectedDate })
+                          }
+                        }}
                         className="w-full px-4 py-3 bg-dark-800/80 border border-gold-500/30 text-cream-100 placeholder-cream-400/50 focus:outline-none focus:border-gold-500/50 transition-all font-light"
                       />
+                      <p className="mt-2 text-xs text-cream-500/50">
+                        Available: Dec 23-24 • Booked: Dec 25 - Jan 26
+                      </p>
                     </div>
                   </div>
 
