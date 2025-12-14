@@ -108,12 +108,12 @@ function CartProvider({ children }: { children: ReactNode }) {
   const clearCart = () => setItems([])
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
-  
+
   const subtotal = items.reduce((sum, item) => {
     const price = getRetailPrice(item.product)
     return sum + price * item.quantity
   }, 0)
-  
+
   const total = subtotal // Add shipping later
 
   return (
@@ -167,7 +167,7 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
             onClick={onClose}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
           />
-          
+
           {/* Sidebar */}
           <motion.div
             initial={{ x: '100%' }}
@@ -230,7 +230,7 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                       <div className="flex-1 min-w-0">
                         <h3 className="text-white font-medium truncate">{item.product.name}</h3>
                         <p className="text-[#D4AF37] font-semibold mt-1">
-                          ${getRetailPrice(item.product).toFixed(2)}
+                          R{getRetailPrice(item.product).toFixed(2)}
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <button
@@ -268,7 +268,7 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between text-white/60">
                     <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
+                    <span>R{subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-white/60">
                     <span>Shipping</span>
@@ -276,17 +276,17 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                   </div>
                   <div className="flex justify-between text-white text-lg font-bold pt-2 border-t border-white/10">
                     <span>Total</span>
-                    <span className="text-[#D4AF37]">${total.toFixed(2)}</span>
+                    <span className="text-[#D4AF37]">R{total.toFixed(2)}</span>
                   </div>
                 </div>
-                
+
                 <Link
                   href="/checkout"
                   className="block w-full py-4 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold text-center rounded-xl hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all"
                 >
                   Proceed to Checkout
                 </Link>
-                
+
                 <button
                   onClick={clearCart}
                   className="w-full py-2 text-white/60 hover:text-white transition-colors text-sm"
@@ -303,7 +303,7 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 }
 
 // Product Detail Modal
-function ProductModal({ product, isOpen, onClose, onAddToCart }: { 
+function ProductModal({ product, isOpen, onClose, onAddToCart }: {
   product: BlankaProduct | null
   isOpen: boolean
   onClose: () => void
@@ -324,7 +324,7 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
             onClick={onClose}
             className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60]"
           />
-          
+
           <div className="fixed inset-0 flex items-center justify-center p-4 z-[60] pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -342,68 +342,68 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
               </button>
 
               <div className="flex flex-col md:flex-row overflow-y-auto">
-              {/* Image */}
-              <div className="relative w-full md:w-1/2 aspect-square flex-shrink-0 bg-gradient-to-br from-white/5 to-white/10">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                  unoptimized
-                />
-              </div>
-
-              {/* Details */}
-              <div className="p-6 md:p-8 flex-1 overflow-y-auto">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {product.categories.slice(0, 3).map((cat) => (
-                    <span key={cat} className="px-3 py-1 bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-medium rounded-full capitalize">
-                      {cat.replace('-', ' ')}
-                    </span>
-                  ))}
+                {/* Image */}
+                <div className="relative w-full md:w-1/2 aspect-square flex-shrink-0 bg-gradient-to-br from-white/5 to-white/10">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
                 </div>
 
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{product.name}</h2>
-                
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="text-3xl font-bold text-[#D4AF37]">${retailPrice.toFixed(2)}</span>
-                  {product.available_inventory > 0 && (
-                    <span className="text-green-400 text-sm">In Stock</span>
+                {/* Details */}
+                <div className="p-6 md:p-8 flex-1 overflow-y-auto">
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {product.categories.slice(0, 3).map((cat) => (
+                      <span key={cat} className="px-3 py-1 bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-medium rounded-full capitalize">
+                        {cat.replace('-', ' ')}
+                      </span>
+                    ))}
+                  </div>
+
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{product.name}</h2>
+
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="text-3xl font-bold text-[#D4AF37]">R{retailPrice.toFixed(2)}</span>
+                    {product.available_inventory > 0 && (
+                      <span className="text-green-400 text-sm">In Stock</span>
+                    )}
+                  </div>
+
+                  <div className="prose prose-invert prose-sm mb-6">
+                    <p className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
+                  </div>
+
+                  {product.benefits && (
+                    <div className="mb-6">
+                      <h3 className="text-white font-semibold mb-2">Benefits</h3>
+                      <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.benefits }} />
+                    </div>
                   )}
+
+                  {product.application && (
+                    <div className="mb-6">
+                      <h3 className="text-white font-semibold mb-2">How to Use</h3>
+                      <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.application }} />
+                    </div>
+                  )}
+
+                  {product.ingredients && (
+                    <div className="mb-6">
+                      <h3 className="text-white font-semibold mb-2">Ingredients</h3>
+                      <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.ingredients }} />
+                    </div>
+                  )}
+
+                  <button
+                    onClick={onAddToCart}
+                    className="w-full py-4 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold rounded-xl hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all"
+                  >
+                    Add to Cart - R{retailPrice.toFixed(2)}
+                  </button>
                 </div>
-
-                <div className="prose prose-invert prose-sm mb-6">
-                  <p className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
-                </div>
-
-                {product.benefits && (
-                  <div className="mb-6">
-                    <h3 className="text-white font-semibold mb-2">Benefits</h3>
-                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.benefits }} />
-                  </div>
-                )}
-
-                {product.application && (
-                  <div className="mb-6">
-                    <h3 className="text-white font-semibold mb-2">How to Use</h3>
-                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.application }} />
-                  </div>
-                )}
-
-                {product.ingredients && (
-                  <div className="mb-6">
-                    <h3 className="text-white font-semibold mb-2">Ingredients</h3>
-                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.ingredients }} />
-                  </div>
-                )}
-
-                <button
-                  onClick={onAddToCart}
-                  className="w-full py-4 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold rounded-xl hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all"
-                >
-                  Add to Cart - ${retailPrice.toFixed(2)}
-                </button>
-              </div>
               </div>
             </motion.div>
           </div>
@@ -414,7 +414,7 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
 }
 
 // Product Card Component
-function ProductCard({ product, onAddToCart, onViewDetails }: { 
+function ProductCard({ product, onAddToCart, onViewDetails }: {
   product: BlankaProduct
   onAddToCart: () => void
   onViewDetails: () => void
@@ -434,7 +434,7 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
       className="bg-white/5 backdrop-blur-sm rounded-xl md:rounded-2xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 transition-all duration-300 flex flex-col"
     >
       {/* Image */}
-      <div 
+      <div
         className="relative aspect-square overflow-hidden bg-gradient-to-br from-white/5 to-white/10 cursor-pointer"
         onClick={onViewDetails}
       >
@@ -446,7 +446,7 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
           unoptimized
           onError={() => setImageError(true)}
         />
-        
+
         {/* Quick View Button - Always visible on mobile, hover on desktop */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 md:opacity-0 md:hover:opacity-100 transition-opacity">
           <button
@@ -466,7 +466,7 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
 
         {/* Color Swatch */}
         {product.color_code && (
-          <div 
+          <div
             className="absolute top-2 left-2 md:top-3 md:left-3 w-5 h-5 md:w-6 md:h-6 rounded-full border-2 border-white shadow-lg"
             style={{ backgroundColor: product.color_code }}
             title={product.color_name}
@@ -482,9 +482,9 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
             {product.categories[0]?.replace('-', ' ') || 'Beauty'}
           </span>
         </div>
-        
+
         {/* Product Name */}
-        <h3 
+        <h3
           className="text-white text-sm md:text-base font-medium line-clamp-2 mb-2 md:mb-3 flex-1 cursor-pointer hover:text-[#D4AF37] transition-colors"
           onClick={onViewDetails}
         >
@@ -493,7 +493,7 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
 
         {/* Price & Add Button */}
         <div className="flex items-center justify-between gap-2 mt-auto">
-          <span className="text-lg md:text-xl font-bold text-white">${retailPrice.toFixed(2)}</span>
+          <span className="text-lg md:text-xl font-bold text-white">R{retailPrice.toFixed(2)}</span>
           <button
             onClick={(e) => { e.stopPropagation(); onAddToCart(); }}
             className="flex items-center gap-1.5 px-3 py-1.5 md:px-4 md:py-2 bg-[#D4AF37] hover:bg-[#F4D03F] text-black text-xs md:text-sm font-bold rounded-full transition-colors"
@@ -522,7 +522,7 @@ function ShopContent() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [notification, setNotification] = useState<string | null>(null)
   const [selectedProduct, setSelectedProduct] = useState<BlankaProduct | null>(null)
-  
+
   const { addToCart, totalItems } = useCart()
 
   // Check for category in URL params
@@ -542,7 +542,7 @@ function ShopContent() {
         const response = await fetch('/api/products')
         if (!response.ok) throw new Error('Failed to fetch products')
         const data = await response.json()
-        
+
         setProducts(data.results || [])
         setFilteredProducts(data.results || [])
         setIsDemo(data.isDemo || false)
@@ -570,7 +570,7 @@ function ShopContent() {
     }
 
     if (selectedCategory) {
-      filtered = filtered.filter(p => 
+      filtered = filtered.filter(p =>
         p.categories.includes(selectedCategory)
       )
     }
@@ -601,7 +601,7 @@ function ShopContent() {
               <span className="text-xl md:text-2xl font-bold text-white">Amy's</span>
               <span className="text-xl md:text-2xl font-bold text-[#D4AF37]">Beauty Shop</span>
             </Link>
-            
+
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6">
               <Link href="/" className="text-sm text-white/70 hover:text-white transition-colors">
@@ -663,22 +663,22 @@ function ShopContent() {
             className="fixed top-[73px] right-0 bottom-0 w-full max-w-xs z-50 bg-[#0a0a0a] border-l border-white/10 md:hidden"
           >
             <nav className="flex flex-col p-6 gap-4">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-lg text-white/70 hover:text-white transition-colors py-2"
               >
                 About Amy
               </Link>
-              <Link 
-                href="/#portfolio" 
+              <Link
+                href="/#portfolio"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-lg text-white/70 hover:text-white transition-colors py-2"
               >
                 Portfolio
               </Link>
-              <Link 
-                href="/#contact" 
+              <Link
+                href="/#contact"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-lg text-white/70 hover:text-white transition-colors py-2"
               >
@@ -707,7 +707,7 @@ function ShopContent() {
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
       {/* Product Modal */}
-      <ProductModal 
+      <ProductModal
         product={selectedProduct}
         isOpen={!!selectedProduct}
         onClose={() => setSelectedProduct(null)}
@@ -737,7 +737,7 @@ function ShopContent() {
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
             <span className="text-white/70 text-sm">Clean Beauty • Cruelty-Free • White Label</span>
           </motion.div>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -754,7 +754,7 @@ function ShopContent() {
           >
             Curated skincare & makeup by Amy Morgenrood
           </motion.p>
-          
+
           {/* Search Bar */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -788,7 +788,7 @@ function ShopContent() {
             <div className="flex items-center gap-4">
               <div className="p-3 bg-red-500/20 rounded-full">
                 <svg className="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                 </svg>
               </div>
               <div>
@@ -807,7 +807,7 @@ function ShopContent() {
               className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-colors flex items-center gap-2 whitespace-nowrap"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
               </svg>
               Visit Channel
             </a>
@@ -822,11 +822,10 @@ function ShopContent() {
             <button
               key={cat.value}
               onClick={() => setSelectedCategory(cat.value)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedCategory === cat.value
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === cat.value
                   ? 'bg-[#D4AF37] text-black'
                   : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
-              }`}
+                }`}
             >
               {cat.label}
             </button>
@@ -888,7 +887,7 @@ function ShopContent() {
             </button>
           </div>
         ) : (
-          <motion.div 
+          <motion.div
             layout
             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6"
           >
