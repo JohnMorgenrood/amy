@@ -50,9 +50,102 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
-// Calculate markup - we sell at suggested retail price, profit is suggested - cost
+// Check if today is Friday (day 5)
+function isFriday(): boolean {
+  return new Date().getDay() === 5
+}
+
+// Calculate price - Normal: +30% markup, Fridays: 10% off (back to base price)
+// Base price (suggested_cost) is already 10% off retail
+// Normal days: Show base price + 30% = suggested_cost * 1.30
+// Fridays: Show base price (10% off the inflated price) = suggested_cost
 function getRetailPrice(product: BlankaProduct): number {
-  return parseFloat(product.suggested_cost) || 0
+  const basePrice = parseFloat(product.suggested_cost) || 0
+  if (isFriday()) {
+    return basePrice // Friday sale price (10% off)
+  }
+  return basePrice * 1.30 // Normal price (+30%)
+}
+
+// Get the "was" price for showing original price on Fridays
+function getOriginalPrice(product: BlankaProduct): number {
+  const basePrice = parseFloat(product.suggested_cost) || 0
+  return basePrice * 1.30 // The inflated normal price
+}
+
+// Daily Brand Deals Configuration
+const brandDeals = [
+  { day: 0, brand: 'Skincare Sunday', color: 'from-purple-500 to-pink-500', emoji: '✨', description: 'All skincare products' },
+  { day: 1, brand: 'Makeup Monday', color: 'from-rose-500 to-red-500', emoji: '💄', description: 'Foundation & Face products' },
+  { day: 2, brand: 'Tools Tuesday', color: 'from-blue-500 to-cyan-500', emoji: '🖌️', description: 'Brushes & Tools' },
+  { day: 3, brand: 'Wellness Wednesday', color: 'from-green-500 to-emerald-500', emoji: '🌿', description: 'Natural & Organic products' },
+  { day: 4, brand: 'Lash Thursday', color: 'from-violet-500 to-purple-500', emoji: '👁️', description: 'Eyes & Lashes' },
+  { day: 5, brand: 'MAC Friday', color: 'from-[#D4AF37] to-[#F4D03F]', emoji: '💋', description: '10% OFF All MAC Products!' },
+  { day: 6, brand: 'Lips Saturday', color: 'from-pink-500 to-rose-500', emoji: '💕', description: 'Lipsticks & Lip products' },
+]
+
+function DailyBrandDealsBanner() {
+  const today = new Date().getDay()
+  const todaysDeal = brandDeals.find(deal => deal.day === today) || brandDeals[5] // Default to MAC Friday
+  const isFriday = today === 5
+
+  return (
+    <div className={`bg-gradient-to-r ${todaysDeal.color} mt-[72px]`}>
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl">{todaysDeal.emoji}</span>
+            <div>
+              <h3 className="text-white font-bold text-lg md:text-xl">
+                {todaysDeal.brand}
+                {isFriday && <span className="ml-2 bg-white/20 px-2 py-1 rounded-full text-sm">10% OFF</span>}
+              </h3>
+              <p className="text-white/90 text-sm">{todaysDeal.description}</p>
+            </div>
+          </div>
+          
+          {/* Weekly Schedule */}
+          <div className="flex items-center gap-1 text-xs">
+            {brandDeals.map((deal, index) => (
+              <div
+                key={deal.day}
+                className={`px-2 py-1 rounded ${
+                  deal.day === today 
+                    ? 'bg-white text-black font-bold' 
+                    : 'bg-white/20 text-white/80'
+                }`}
+                title={deal.brand}
+              >
+                {['S', 'M', 'T', 'W', 'T', 'F', 'S'][index]}
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Shipping Info */}
+        <div className="mt-3 pt-3 border-t border-white/20 flex flex-wrap items-center justify-center gap-4 text-white/90 text-sm">
+          <span className="flex items-center gap-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+            </svg>
+            R100 Local Shipping (Courier)
+          </span>
+          <span className="flex items-center gap-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Authentic MAC Products
+          </span>
+          <span className="flex items-center gap-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            2-5 Business Days
+          </span>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function CartProvider({ children }: { children: ReactNode }) {
@@ -108,12 +201,12 @@ function CartProvider({ children }: { children: ReactNode }) {
   const clearCart = () => setItems([])
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
-
+  
   const subtotal = items.reduce((sum, item) => {
     const price = getRetailPrice(item.product)
     return sum + price * item.quantity
   }, 0)
-
+  
   const total = subtotal // Add shipping later
 
   return (
@@ -167,17 +260,17 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
             onClick={onClose}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
           />
-
+          
           {/* Sidebar */}
           <motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-[#1a1a1a] z-[60] shadow-2xl flex flex-col"
+            className="fixed right-0 top-0 h-full w-full max-w-md bg-black z-[60] shadow-[-20px_0_60px_rgba(212,175,55,0.15)] flex flex-col border-l border-white/10"
           >
             {/* Header */}
-            <div className="p-6 border-b border-white/10">
+            <div className="p-6 border-b border-white/10 bg-gradient-to-r from-black to-zinc-900">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold text-white">Your Cart</h2>
                 <button
@@ -216,9 +309,9 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
-                      className="flex gap-4 bg-white/5 rounded-xl p-4"
+                      className="flex gap-4 bg-zinc-900/80 rounded-xl p-4 shadow-lg shadow-black/50 border border-white/5 hover:border-pink-500/20 transition-all"
                     >
-                      <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-white/10">
+                      <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-zinc-800 shadow-md">
                         <Image
                           src={item.product.image}
                           alt={item.product.name}
@@ -264,29 +357,40 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="border-t border-white/10 p-6 space-y-4">
-                <div className="space-y-2 text-sm">
+              <div className="border-t border-white/10 p-6 space-y-4 bg-gradient-to-t from-zinc-900 to-black">
+                {/* Shipping Info */}
+                <div className="bg-zinc-900 rounded-xl p-4 mb-3 shadow-lg shadow-black/50 border border-white/5">
+                  <div className="flex items-center gap-2 text-white/80 text-sm">
+                    <svg className="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                    </svg>
+                    <span>R100 Local Delivery • 1-3 Business Days</span>
+                  </div>
+                  <p className="text-white/50 text-xs mt-1 ml-6">Delivery time depends on area and product availability</p>
+                </div>
+                
+                <div className="bg-zinc-900 rounded-xl p-4 shadow-lg shadow-black/50 border border-white/5 space-y-2 text-sm">
                   <div className="flex justify-between text-white/60">
                     <span>Subtotal</span>
                     <span>R{subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-white/60">
-                    <span>Shipping</span>
-                    <span>Calculated at checkout</span>
+                    <span>Shipping (Courier)</span>
+                    <span>R100.00</span>
                   </div>
-                  <div className="flex justify-between text-white text-lg font-bold pt-2 border-t border-white/10">
+                  <div className="flex justify-between text-white text-lg font-bold pt-3 mt-2 border-t border-white/10">
                     <span>Total</span>
                     <span className="text-[#D4AF37]">R{total.toFixed(2)}</span>
                   </div>
                 </div>
-
+                
                 <Link
                   href="/checkout"
                   className="block w-full py-4 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold text-center rounded-xl hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all"
                 >
                   Proceed to Checkout
                 </Link>
-
+                
                 <button
                   onClick={clearCart}
                   className="w-full py-2 text-white/60 hover:text-white transition-colors text-sm"
@@ -303,7 +407,7 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 }
 
 // Product Detail Modal
-function ProductModal({ product, isOpen, onClose, onAddToCart }: {
+function ProductModal({ product, isOpen, onClose, onAddToCart }: { 
   product: BlankaProduct | null
   isOpen: boolean
   onClose: () => void
@@ -311,7 +415,9 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
 }) {
   if (!product) return null
 
+  const fridayDeal = isFriday()
   const retailPrice = getRetailPrice(product)
+  const originalPrice = getOriginalPrice(product)
 
   return (
     <AnimatePresence>
@@ -324,7 +430,7 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
             onClick={onClose}
             className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60]"
           />
-
+          
           <div className="fixed inset-0 flex items-center justify-center p-4 z-[60] pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -342,68 +448,74 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
               </button>
 
               <div className="flex flex-col md:flex-row overflow-y-auto">
-                {/* Image */}
-                <div className="relative w-full md:w-1/2 aspect-square flex-shrink-0 bg-gradient-to-br from-white/5 to-white/10">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover"
-                    unoptimized
-                  />
+              {/* Image */}
+              <div className="relative w-full md:w-1/2 aspect-square flex-shrink-0 bg-gradient-to-br from-white/5 to-white/10">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
+              </div>
+
+              {/* Details */}
+              <div className="p-6 md:p-8 flex-1 overflow-y-auto">
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {product.categories.slice(0, 3).map((cat) => (
+                    <span key={cat} className="px-3 py-1 bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-medium rounded-full capitalize">
+                      {cat.replace('-', ' ')}
+                    </span>
+                  ))}
                 </div>
 
-                {/* Details */}
-                <div className="p-6 md:p-8 flex-1 overflow-y-auto">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {product.categories.slice(0, 3).map((cat) => (
-                      <span key={cat} className="px-3 py-1 bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-medium rounded-full capitalize">
-                        {cat.replace('-', ' ')}
-                      </span>
-                    ))}
-                  </div>
-
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{product.name}</h2>
-
-                  <div className="flex items-center gap-3 mb-6">
-                    <span className="text-3xl font-bold text-[#D4AF37]">R{retailPrice.toFixed(2)}</span>
-                    {product.available_inventory > 0 && (
-                      <span className="text-green-400 text-sm">In Stock</span>
-                    )}
-                  </div>
-
-                  <div className="prose prose-invert prose-sm mb-6">
-                    <p className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
-                  </div>
-
-                  {product.benefits && (
-                    <div className="mb-6">
-                      <h3 className="text-white font-semibold mb-2">Benefits</h3>
-                      <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.benefits }} />
-                    </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{product.name}</h2>
+                
+                <div className="flex items-center gap-3 mb-6">
+                  {fridayDeal && (
+                    <span className="text-xl text-white/50 line-through">R{originalPrice.toFixed(2)}</span>
                   )}
-
-                  {product.application && (
-                    <div className="mb-6">
-                      <h3 className="text-white font-semibold mb-2">How to Use</h3>
-                      <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.application }} />
-                    </div>
+                  <span className={`text-3xl font-bold ${fridayDeal ? 'text-green-400' : 'text-[#D4AF37]'}`}>R{retailPrice.toFixed(2)}</span>
+                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${fridayDeal ? 'bg-green-500 text-white' : 'bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black'}`}>
+                    {fridayDeal ? '🔥 FRIDAY DEAL!' : '💋 10% OFF Fridays'}
+                  </span>
+                  {product.available_inventory > 0 && (
+                    <span className="text-green-400 text-sm">In Stock</span>
                   )}
-
-                  {product.ingredients && (
-                    <div className="mb-6">
-                      <h3 className="text-white font-semibold mb-2">Ingredients</h3>
-                      <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.ingredients }} />
-                    </div>
-                  )}
-
-                  <button
-                    onClick={onAddToCart}
-                    className="w-full py-4 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold rounded-xl hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all"
-                  >
-                    Add to Cart - R{retailPrice.toFixed(2)}
-                  </button>
                 </div>
+
+                <div className="prose prose-invert prose-sm mb-6">
+                  <p className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
+                </div>
+
+                {product.benefits && (
+                  <div className="mb-6">
+                    <h3 className="text-white font-semibold mb-2">Benefits</h3>
+                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.benefits }} />
+                  </div>
+                )}
+
+                {product.application && (
+                  <div className="mb-6">
+                    <h3 className="text-white font-semibold mb-2">How to Use</h3>
+                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.application }} />
+                  </div>
+                )}
+
+                {product.ingredients && (
+                  <div className="mb-6">
+                    <h3 className="text-white font-semibold mb-2">Ingredients</h3>
+                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.ingredients }} />
+                  </div>
+                )}
+
+                <button
+                  onClick={onAddToCart}
+                  className="w-full py-4 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold rounded-xl hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all"
+                >
+                  Add to Cart - R{retailPrice.toFixed(2)}
+                </button>
+              </div>
               </div>
             </motion.div>
           </div>
@@ -414,14 +526,16 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
 }
 
 // Product Card Component
-function ProductCard({ product, onAddToCart, onViewDetails }: {
+function ProductCard({ product, onAddToCart, onViewDetails }: { 
   product: BlankaProduct
   onAddToCart: () => void
   onViewDetails: () => void
 }) {
   const [imageError, setImageError] = useState(false)
+  const fridayDeal = isFriday()
 
   const retailPrice = getRetailPrice(product)
+  const originalPrice = getOriginalPrice(product)
 
   const fallbackImage = 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop'
 
@@ -431,10 +545,10 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="bg-white/5 backdrop-blur-sm rounded-xl md:rounded-2xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 transition-all duration-300 flex flex-col"
+      className="bg-gradient-to-br from-white/5 via-pink-500/5 to-white/5 backdrop-blur-sm rounded-xl md:rounded-2xl overflow-hidden border border-pink-500/20 hover:border-[#D4AF37]/50 hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 flex flex-col"
     >
       {/* Image */}
-      <div
+      <div 
         className="relative aspect-square overflow-hidden bg-gradient-to-br from-white/5 to-white/10 cursor-pointer"
         onClick={onViewDetails}
       >
@@ -446,7 +560,7 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
           unoptimized
           onError={() => setImageError(true)}
         />
-
+        
         {/* Quick View Button - Always visible on mobile, hover on desktop */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 md:opacity-0 md:hover:opacity-100 transition-opacity">
           <button
@@ -457,16 +571,21 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
           </button>
         </div>
 
+        {/* Price Badge - Dynamic based on day */}
+        <div className={`absolute top-2 right-2 md:top-3 md:right-3 backdrop-blur-sm px-2 py-1 rounded-full shadow-lg ${fridayDeal ? 'bg-gradient-to-r from-green-500 to-emerald-500' : 'bg-gradient-to-r from-[#D4AF37] to-[#F4D03F]'}`}>
+          <span className="text-white text-[10px] md:text-xs font-bold">{fridayDeal ? '🔥 10% OFF!' : '💋 Fri Deal'}</span>
+        </div>
+
         {/* Stock Badge */}
         {product.available_inventory <= 0 && (
-          <div className="absolute top-2 right-2 md:top-3 md:right-3 bg-red-500/90 backdrop-blur-sm px-2 py-1 rounded-full">
+          <div className="absolute top-10 right-2 md:top-11 md:right-3 bg-red-500/90 backdrop-blur-sm px-2 py-1 rounded-full">
             <span className="text-white text-[10px] md:text-xs font-medium">Low Stock</span>
           </div>
         )}
 
         {/* Color Swatch */}
         {product.color_code && (
-          <div
+          <div 
             className="absolute top-2 left-2 md:top-3 md:left-3 w-5 h-5 md:w-6 md:h-6 rounded-full border-2 border-white shadow-lg"
             style={{ backgroundColor: product.color_code }}
             title={product.color_name}
@@ -475,17 +594,17 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
       </div>
 
       {/* Info */}
-      <div className="p-3 md:p-4 flex flex-col flex-1">
+      <div className="p-3 md:p-4 flex flex-col flex-1 border-t border-pink-500/10">
         {/* Category */}
         <div className="mb-1 md:mb-2">
-          <span className="text-[#D4AF37] text-[10px] md:text-xs font-medium uppercase tracking-wider line-clamp-1">
+          <span className="text-pink-400 text-[10px] md:text-xs font-medium uppercase tracking-wider line-clamp-1">
             {product.categories[0]?.replace('-', ' ') || 'Beauty'}
           </span>
         </div>
-
+        
         {/* Product Name */}
-        <h3
-          className="text-white text-sm md:text-base font-medium line-clamp-2 mb-2 md:mb-3 flex-1 cursor-pointer hover:text-[#D4AF37] transition-colors"
+        <h3 
+          className="text-white text-sm md:text-base font-medium line-clamp-2 mb-2 md:mb-3 flex-1 cursor-pointer hover:text-pink-400 transition-colors"
           onClick={onViewDetails}
         >
           {product.name}
@@ -493,7 +612,12 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
 
         {/* Price & Add Button */}
         <div className="flex items-center justify-between gap-2 mt-auto">
-          <span className="text-lg md:text-xl font-bold text-white">R{retailPrice.toFixed(2)}</span>
+          <div className="flex flex-col">
+            {fridayDeal && (
+              <span className="text-xs text-white/50 line-through">R{originalPrice.toFixed(2)}</span>
+            )}
+            <span className={`text-lg md:text-xl font-bold ${fridayDeal ? 'text-green-400' : 'text-white'}`}>R{retailPrice.toFixed(2)}</span>
+          </div>
           <button
             onClick={(e) => { e.stopPropagation(); onAddToCart(); }}
             className="flex items-center gap-1.5 px-3 py-1.5 md:px-4 md:py-2 bg-[#D4AF37] hover:bg-[#F4D03F] text-black text-xs md:text-sm font-bold rounded-full transition-colors"
@@ -522,8 +646,37 @@ function ShopContent() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [notification, setNotification] = useState<string | null>(null)
   const [selectedProduct, setSelectedProduct] = useState<BlankaProduct | null>(null)
-
+  
   const { addToCart, totalItems } = useCart()
+
+  // Handle browser back button for modals - closes modal instead of navigating away
+  useEffect(() => {
+    const handlePopState = () => {
+      // If product modal is open, close it
+      if (selectedProduct) {
+        setSelectedProduct(null)
+        return
+      }
+      // If cart is open, close it
+      if (isCartOpen) {
+        setIsCartOpen(false)
+        return
+      }
+      // If mobile menu is open, close it
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false)
+        return
+      }
+    }
+
+    // Add history entry when modal/cart opens
+    if (selectedProduct || isCartOpen || isMobileMenuOpen) {
+      window.history.pushState({ modal: true }, '', window.location.href)
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [selectedProduct, isCartOpen, isMobileMenuOpen])
 
   // Check for category in URL params
   useEffect(() => {
@@ -542,7 +695,7 @@ function ShopContent() {
         const response = await fetch('/api/products')
         if (!response.ok) throw new Error('Failed to fetch products')
         const data = await response.json()
-
+        
         setProducts(data.results || [])
         setFilteredProducts(data.results || [])
         setIsDemo(data.isDemo || false)
@@ -570,7 +723,7 @@ function ShopContent() {
     }
 
     if (selectedCategory) {
-      filtered = filtered.filter(p =>
+      filtered = filtered.filter(p => 
         p.categories.includes(selectedCategory)
       )
     }
@@ -601,7 +754,7 @@ function ShopContent() {
               <span className="text-xl md:text-2xl font-bold text-white">Amy's</span>
               <span className="text-xl md:text-2xl font-bold text-[#D4AF37]">Beauty Shop</span>
             </Link>
-
+            
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6">
               <Link href="/" className="text-sm text-white/70 hover:text-white transition-colors">
@@ -663,22 +816,22 @@ function ShopContent() {
             className="fixed top-[73px] right-0 bottom-0 w-full max-w-xs z-50 bg-[#0a0a0a] border-l border-white/10 md:hidden"
           >
             <nav className="flex flex-col p-6 gap-4">
-              <Link
-                href="/"
+              <Link 
+                href="/" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-lg text-white/70 hover:text-white transition-colors py-2"
               >
                 About Amy
               </Link>
-              <Link
-                href="/#portfolio"
+              <Link 
+                href="/#portfolio" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-lg text-white/70 hover:text-white transition-colors py-2"
               >
                 Portfolio
               </Link>
-              <Link
-                href="/#contact"
+              <Link 
+                href="/#contact" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-lg text-white/70 hover:text-white transition-colors py-2"
               >
@@ -707,7 +860,7 @@ function ShopContent() {
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
       {/* Product Modal */}
-      <ProductModal
+      <ProductModal 
         product={selectedProduct}
         isOpen={!!selectedProduct}
         onClose={() => setSelectedProduct(null)}
@@ -725,8 +878,11 @@ function ShopContent() {
         </div>
       )}
 
+      {/* Daily Brand Deals Banner */}
+      <DailyBrandDealsBanner />
+
       {/* Hero Banner */}
-      <section className="relative py-16 md:py-20 px-4 overflow-hidden mt-[72px]">
+      <section className={`relative py-16 md:py-20 px-4 overflow-hidden ${isDemo ? '' : 'mt-[72px]'}`}>
         <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/10 to-transparent" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
@@ -737,7 +893,7 @@ function ShopContent() {
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
             <span className="text-white/70 text-sm">Clean Beauty • Cruelty-Free • White Label</span>
           </motion.div>
-
+          
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -754,7 +910,7 @@ function ShopContent() {
           >
             Curated skincare & makeup by Amy Morgenrood
           </motion.p>
-
+          
           {/* Search Bar */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -788,7 +944,7 @@ function ShopContent() {
             <div className="flex items-center gap-4">
               <div className="p-3 bg-red-500/20 rounded-full">
                 <svg className="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
               </div>
               <div>
@@ -807,7 +963,7 @@ function ShopContent() {
               className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-colors flex items-center gap-2 whitespace-nowrap"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
               Visit Channel
             </a>
@@ -822,10 +978,11 @@ function ShopContent() {
             <button
               key={cat.value}
               onClick={() => setSelectedCategory(cat.value)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === cat.value
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                selectedCategory === cat.value
                   ? 'bg-[#D4AF37] text-black'
                   : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
-                }`}
+              }`}
             >
               {cat.label}
             </button>
@@ -887,7 +1044,7 @@ function ShopContent() {
             </button>
           </div>
         ) : (
-          <motion.div
+          <motion.div 
             layout
             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6"
           >

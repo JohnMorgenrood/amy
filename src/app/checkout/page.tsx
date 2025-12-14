@@ -18,8 +18,18 @@ interface CartItem {
   quantity: number
 }
 
+// Check if today is Friday (day 5)
+function isFriday(): boolean {
+  return new Date().getDay() === 5
+}
+
+// Calculate price - Normal: +30% markup, Fridays: 10% off (back to base price)
 function getRetailPrice(product: BlankaProduct): number {
-  return parseFloat(product.suggested_cost) || 0
+  const basePrice = parseFloat(product.suggested_cost) || 0
+  if (isFriday()) {
+    return basePrice // Friday sale price
+  }
+  return basePrice * 1.30 // Normal price (+30%)
 }
 
 export default function CheckoutPage() {
@@ -60,7 +70,8 @@ export default function CheckoutPage() {
     return sum + price * item.quantity
   }, 0)
 
-  const shipping = 5.99 // Flat rate shipping for now
+  // R100 local shipping (South Africa) - courier services
+  const shipping = 100.00
   const total = subtotal + shipping
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -397,7 +408,7 @@ export default function CheckoutPage() {
                         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .757-.64h7.633c2.548 0 4.334.526 5.306 1.562.938 1.002 1.203 2.312.794 3.946-.015.058-.029.115-.046.173-.457 1.94-1.323 3.381-2.574 4.295-1.28.935-2.922 1.409-4.88 1.409H9.42a.768.768 0 0 0-.757.64l-.907 5.52a.639.639 0 0 1-.63.537l-.05-.825z"/>
                         </svg>
-                        Pay ${total.toFixed(2)} with PayPal
+                        Pay R{total.toFixed(2)} with PayPal
                       </>
                     )}
                   </button>
@@ -449,7 +460,7 @@ export default function CheckoutPage() {
                       <div className="flex justify-between items-center mt-1">
                         <span className="text-white/60 text-sm">Qty: {item.quantity}</span>
                         <span className="text-[#D4AF37] font-semibold">
-                          ${(getRetailPrice(item.product) * item.quantity).toFixed(2)}
+                          R{(getRetailPrice(item.product) * item.quantity).toFixed(2)}
                         </span>
                       </div>
                     </div>
@@ -461,15 +472,26 @@ export default function CheckoutPage() {
               <div className="border-t border-white/10 pt-6 space-y-3">
                 <div className="flex justify-between text-white/60">
                   <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
+                  <span>R{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-white/60">
-                  <span>Shipping</span>
-                  <span>${shipping.toFixed(2)}</span>
+                  <span>Shipping (Courier)</span>
+                  <span>R{shipping.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-white text-xl font-bold pt-3 border-t border-white/10">
                   <span>Total</span>
-                  <span className="text-[#D4AF37]">${total.toFixed(2)}</span>
+                  <span className="text-[#D4AF37]">R{total.toFixed(2)}</span>
+                </div>
+                
+                {/* Delivery Info */}
+                <div className="bg-white/5 rounded-lg p-3 mt-4">
+                  <div className="flex items-center gap-2 text-white/80 text-sm">
+                    <svg className="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="font-medium">Delivery: 1-3 Business Days</span>
+                  </div>
+                  <p className="text-white/50 text-xs mt-1 ml-6">Delivery time depends on your area and product availability. We use trusted courier services.</p>
                 </div>
               </div>
 
