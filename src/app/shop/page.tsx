@@ -244,6 +244,27 @@ const categories = [
   { value: 'organic', label: 'Organic' },
 ]
 
+const shopCarouselSlides = [
+  {
+    src: '/assets/portfolio/IMG_20240713_075631_187.jpg',
+    alt: 'Luxury beauty look with flawless skin',
+    title: 'Luxe Complexion',
+    subtitle: 'Refined, radiant, camera-ready finish.'
+  },
+  {
+    src: '/assets/portfolio/IMG_20240713_080002_434.jpg',
+    alt: 'Elegant editorial makeup look',
+    title: 'Editorial Elegance',
+    subtitle: 'Polished detail for timeless beauty.'
+  },
+  {
+    src: '/assets/portfolio/IMG_20240713_075631_238.jpg',
+    alt: 'Soft bridal glamour makeup look',
+    title: 'Bridal Glamour',
+    subtitle: 'Soft-focus glow with a couture touch.'
+  },
+]
+
 // Cart Sidebar Component
 function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const { items, removeFromCart, updateQuantity, clearCart, subtotal, total, totalItems } = useCart()
@@ -436,7 +457,7 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="relative w-full max-w-4xl max-h-[90vh] bg-[#1a1a1a] rounded-2xl overflow-hidden flex flex-col pointer-events-auto"
+              className="relative w-full max-w-4xl max-h-[90vh] bg-[#0b0b0b] rounded-2xl overflow-hidden flex flex-col pointer-events-auto border border-[#D4AF37]/20 shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
             >
               <button
                 onClick={onClose}
@@ -449,7 +470,7 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
 
               <div className="flex flex-col md:flex-row overflow-y-auto">
               {/* Image */}
-              <div className="relative w-full md:w-1/2 aspect-square flex-shrink-0 bg-gradient-to-br from-white/5 to-white/10">
+              <div className="relative w-full md:w-1/2 aspect-square flex-shrink-0 bg-[#0f0f0f]">
                 <Image
                   src={product.image}
                   alt={product.name}
@@ -463,7 +484,7 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
               <div className="p-6 md:p-8 flex-1 overflow-y-auto">
                 <div className="flex flex-wrap gap-2 mb-4">
                   {product.categories.slice(0, 3).map((cat) => (
-                    <span key={cat} className="px-3 py-1 bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-medium rounded-full capitalize">
+                    <span key={cat} className="px-3 py-1 bg-[#D4AF37]/15 text-[#D4AF37] text-xs font-medium rounded-full capitalize border border-[#D4AF37]/30">
                       {cat.replace('-', ' ')}
                     </span>
                   ))}
@@ -545,11 +566,11 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="bg-gradient-to-br from-white/5 via-pink-500/5 to-white/5 backdrop-blur-sm rounded-xl md:rounded-2xl overflow-hidden border border-pink-500/20 hover:border-[#D4AF37]/50 hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 flex flex-col"
+      className="bg-[#0b0b0b] rounded-2xl overflow-hidden border border-[#D4AF37]/15 hover:border-[#D4AF37]/50 hover:shadow-[0_12px_40px_rgba(212,175,55,0.12)] transition-all duration-300 flex flex-col"
     >
       {/* Image */}
       <div 
-        className="relative aspect-square overflow-hidden bg-gradient-to-br from-white/5 to-white/10 cursor-pointer"
+        className="relative aspect-square overflow-hidden bg-[#0f0f0f] cursor-pointer"
         onClick={onViewDetails}
       >
         <Image
@@ -565,14 +586,14 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 md:opacity-0 md:hover:opacity-100 transition-opacity">
           <button
             onClick={onViewDetails}
-            className="absolute bottom-3 left-1/2 -translate-x-1/2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full hover:bg-white/30 transition-colors"
+            className="absolute bottom-3 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/70 backdrop-blur-sm text-[#F8E7B4] text-xs font-medium rounded-full border border-[#D4AF37]/40 hover:bg-black/90 transition-colors"
           >
             Quick View
           </button>
         </div>
 
         {/* Price Badge - Dynamic based on day */}
-        <div className={`absolute top-2 right-2 md:top-3 md:right-3 backdrop-blur-sm px-2 py-1 rounded-full shadow-lg ${fridayDeal ? 'bg-gradient-to-r from-green-500 to-emerald-500' : 'bg-gradient-to-r from-[#D4AF37] to-[#F4D03F]'}`}>
+        <div className={`absolute top-2 right-2 md:top-3 md:right-3 backdrop-blur-sm px-2 py-1 rounded-full shadow-lg border ${fridayDeal ? 'bg-gradient-to-r from-green-500/80 to-emerald-500/80 border-green-400/40' : 'bg-black/70 border-[#D4AF37]/40'}`}>
           <span className="text-white text-[10px] md:text-xs font-bold">{fridayDeal ? '🔥 10% OFF!' : '💋 Fri Deal'}</span>
         </div>
 
@@ -586,7 +607,7 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
         {/* Color Swatch */}
         {product.color_code && (
           <div 
-            className="absolute top-2 left-2 md:top-3 md:left-3 w-5 h-5 md:w-6 md:h-6 rounded-full border-2 border-white shadow-lg"
+            className="absolute top-2 left-2 md:top-3 md:left-3 w-5 h-5 md:w-6 md:h-6 rounded-full border-2 border-[#D4AF37]/60 shadow-lg"
             style={{ backgroundColor: product.color_code }}
             title={product.color_name}
           />
@@ -594,17 +615,17 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
       </div>
 
       {/* Info */}
-      <div className="p-3 md:p-4 flex flex-col flex-1 border-t border-pink-500/10">
+      <div className="p-3 md:p-4 flex flex-col flex-1 border-t border-white/10">
         {/* Category */}
         <div className="mb-1 md:mb-2">
-          <span className="text-pink-400 text-[10px] md:text-xs font-medium uppercase tracking-wider line-clamp-1">
+          <span className="text-[#D4AF37]/80 text-[10px] md:text-xs font-medium uppercase tracking-wider line-clamp-1">
             {product.categories[0]?.replace('-', ' ') || 'Beauty'}
           </span>
         </div>
         
         {/* Product Name */}
         <h3 
-          className="text-white text-sm md:text-base font-medium line-clamp-2 mb-2 md:mb-3 flex-1 cursor-pointer hover:text-pink-400 transition-colors"
+          className="text-white text-sm md:text-base font-medium line-clamp-2 mb-2 md:mb-3 flex-1 cursor-pointer hover:text-[#D4AF37] transition-colors"
           onClick={onViewDetails}
         >
           {product.name}
@@ -616,11 +637,11 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
             {fridayDeal && (
               <span className="text-xs text-white/50 line-through">R{originalPrice.toFixed(2)}</span>
             )}
-            <span className={`text-lg md:text-xl font-bold ${fridayDeal ? 'text-green-400' : 'text-white'}`}>R{retailPrice.toFixed(2)}</span>
+            <span className={`text-lg md:text-xl font-bold ${fridayDeal ? 'text-green-400' : 'text-[#D4AF37]'}`}>R{retailPrice.toFixed(2)}</span>
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); onAddToCart(); }}
-            className="flex items-center gap-1.5 px-3 py-1.5 md:px-4 md:py-2 bg-[#D4AF37] hover:bg-[#F4D03F] text-black text-xs md:text-sm font-bold rounded-full transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black text-xs md:text-sm font-bold rounded-full transition-colors shadow-[0_8px_20px_rgba(212,175,55,0.2)]"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -646,6 +667,7 @@ function ShopContent() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [notification, setNotification] = useState<string | null>(null)
   const [selectedProduct, setSelectedProduct] = useState<BlankaProduct | null>(null)
+  const [activeSlide, setActiveSlide] = useState(0)
   
   const { addToCart, totalItems } = useCart()
 
@@ -731,6 +753,14 @@ function ShopContent() {
     setFilteredProducts(filtered)
   }, [products, searchQuery, selectedCategory])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % shopCarouselSlides.length)
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
+
   const handleAddToCart = (product: BlankaProduct) => {
     addToCart(product)
     setNotification(`${product.name} added to cart!`)
@@ -744,7 +774,7 @@ function ShopContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a]">
+    <div className="min-h-screen bg-[#050505]">
       {/* Shop Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -883,15 +913,15 @@ function ShopContent() {
 
       {/* Hero Banner */}
       <section className={`relative py-16 md:py-20 px-4 overflow-hidden ${isDemo ? '' : 'mt-[72px]'}`}>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/10 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(212,175,55,0.18)_0%,rgba(0,0,0,0)_60%)]" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-black/60 rounded-full border border-[#D4AF37]/30 mb-6"
           >
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-white/70 text-sm">Clean Beauty • Cruelty-Free • White Label</span>
+            <span className="text-white/80 text-sm">Clean Beauty • Cruelty-Free • White Label</span>
           </motion.div>
           
           <motion.h1
@@ -923,11 +953,70 @@ function ShopContent() {
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-full text-white placeholder-white/50 focus:outline-none focus:border-[#D4AF37] transition-colors"
+              className="w-full px-6 py-4 bg-black/60 border border-[#D4AF37]/30 rounded-2xl text-white placeholder-white/40 focus:outline-none focus:border-[#D4AF37]/70 transition-colors"
             />
             <svg className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
+          </motion.div>
+
+          {/* Classy Carousel */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mt-10"
+          >
+            <div className="relative overflow-hidden rounded-3xl border border-[#D4AF37]/20 bg-black/60 shadow-[0_24px_80px_rgba(0,0,0,0.6)]">
+              <div className="relative aspect-[16/9] sm:aspect-[21/9]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeSlide}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={shopCarouselSlides[activeSlide].src}
+                      alt={shopCarouselSlides[activeSlide].alt}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/25 to-transparent" />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <div className="absolute left-0 bottom-0 p-6 sm:p-8 text-left max-w-xl">
+                <p className="text-[#D4AF37]/80 text-[10px] sm:text-xs tracking-[0.35em] uppercase">
+                  Signature Looks
+                </p>
+                <h3 className="text-white text-2xl sm:text-3xl font-semibold mt-2">
+                  {shopCarouselSlides[activeSlide].title}
+                </h3>
+                <p className="text-white/70 text-sm sm:text-base mt-2">
+                  {shopCarouselSlides[activeSlide].subtitle}
+                </p>
+              </div>
+
+              <div className="absolute right-4 bottom-4 flex items-center gap-2">
+                {shopCarouselSlides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveSlide(index)}
+                    className={`h-2.5 w-2.5 rounded-full border transition-all ${
+                      index === activeSlide
+                        ? 'bg-[#D4AF37] border-[#D4AF37]'
+                        : 'bg-white/20 border-white/30 hover:border-[#D4AF37]/60'
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -938,12 +1027,12 @@ function ShopContent() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-gradient-to-r from-red-500/10 via-[#D4AF37]/10 to-red-500/10 border border-red-500/20 rounded-2xl p-6 md:p-8"
+          className="bg-[#0b0b0b] border border-[#D4AF37]/20 rounded-2xl p-6 md:p-8 shadow-[0_0_40px_rgba(212,175,55,0.08)]"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-red-500/20 rounded-full">
-                <svg className="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+              <div className="p-3 bg-[#D4AF37]/15 rounded-full border border-[#D4AF37]/30">
+                <svg className="w-8 h-8 text-[#D4AF37]" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
               </div>
@@ -960,7 +1049,7 @@ function ShopContent() {
               href="https://www.youtube.com/@amybinspirations7694"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-colors flex items-center gap-2 whitespace-nowrap"
+              className="px-6 py-3 bg-[#D4AF37] hover:bg-[#F4D03F] text-black font-semibold rounded-full transition-colors flex items-center gap-2 whitespace-nowrap"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -981,7 +1070,7 @@ function ShopContent() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 selectedCategory === cat.value
                   ? 'bg-[#D4AF37] text-black'
-                  : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
+                  : 'bg-black/60 text-white/70 border border-white/10 hover:border-[#D4AF37]/40 hover:text-white'
               }`}
             >
               {cat.label}
@@ -1014,9 +1103,9 @@ function ShopContent() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
               <div key={i} className="animate-pulse">
-                <div className="aspect-square bg-white/10 rounded-2xl mb-4" />
-                <div className="h-4 bg-white/10 rounded mb-2" />
-                <div className="h-4 bg-white/10 rounded w-2/3" />
+                <div className="aspect-square bg-white/5 rounded-2xl mb-4" />
+                <div className="h-4 bg-white/5 rounded mb-2" />
+                <div className="h-4 bg-white/5 rounded w-2/3" />
               </div>
             ))}
           </div>
