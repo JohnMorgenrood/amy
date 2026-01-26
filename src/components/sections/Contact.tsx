@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import Image from 'next/image'
 import { 
   Send, 
   Phone, 
@@ -52,6 +53,15 @@ const serviceTypes = [
   'Bridal & Events',
   'Commercial/TVC',
   'Other',
+]
+
+const instaFeed = [
+  { src: '/assets/portfolio/IMG_20240713_075631_187.jpg', alt: 'Beauty makeup post' },
+  { src: '/assets/portfolio/FB_IMG_1487892884148.jpg', alt: 'SFX makeup post' },
+  { src: '/assets/portfolio/IMG_20240713_075631_238.jpg', alt: 'Bridal makeup post' },
+  { src: '/assets/portfolio/IMG_20240713_080002_348.jpg', alt: 'Glamour makeup post' },
+  { src: '/assets/portfolio/FB_IMG_1487892965084.jpg', alt: 'Special effects makeup post' },
+  { src: '/assets/portfolio/IMG_20240713_080002_434.jpg', alt: 'Editorial makeup post' },
 ]
 
 export function Contact() {
@@ -275,6 +285,42 @@ ${formData.message}
                   >
                     <Instagram className="w-4 h-4" />
                   </motion.a>
+                </div>
+
+                {/* Instagram Feed */}
+                <div className="mt-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-cream-500/50">Instagram Feed</span>
+                    <a
+                      href="https://instagram.com/amyb_mup"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] tracking-[0.2em] uppercase text-rose-400 hover:text-rose-300 transition-colors"
+                    >
+                      @amyb_mup
+                    </a>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {instaFeed.map((item, idx) => (
+                      <a
+                        key={item.src}
+                        href="https://instagram.com/amyb_mup"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative aspect-square overflow-hidden border border-gold-500/10 hover:border-rose-500/40 transition-colors"
+                        aria-label={`Open Instagram post ${idx + 1}`}
+                      >
+                        <Image
+                          src={item.src}
+                          alt={item.alt}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          sizes="(max-width: 768px) 30vw, 120px"
+                        />
+                        <span className="absolute inset-0 bg-gradient-to-t from-dark-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

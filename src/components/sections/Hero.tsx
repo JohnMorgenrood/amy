@@ -7,20 +7,28 @@ import { MapPin, Play } from 'lucide-react'
 
 const heroGallery = [
   {
-    src: '/assets/about/Amys portfolio Image Film Makeup Artist in Cape Town.jpg',
-    alt: 'Amy Morgenrood - Professional Film and SFX Makeup Artist Cape Town South Africa',
+    src: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Beauty and glam makeup artistry',
+    title: 'Beauty & Editorial',
+    subtitle: 'Camera-ready finishes with refined skin work and modern glow.',
   },
   {
-    src: '/assets/portfolio/FB_IMG_1487892884148.jpg',
-    alt: 'Special effects makeup portfolio work',
+    src: 'https://images.unsplash.com/photo-1487412912498-0447578fcca8?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Makeup artist applying beauty makeup',
+    title: 'Film & TV Makeup',
+    subtitle: 'On-set continuity with production-ready precision.',
   },
   {
-    src: '/assets/portfolio/IMG_20240713_075631_187.jpg',
-    alt: 'Beauty and glam makeup portfolio work',
+    src: 'https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Special effects makeup close-up',
+    title: 'SFX & Prosthetics',
+    subtitle: 'Transformations, wounds, and character FX for screen.',
   },
   {
-    src: '/assets/portfolio/IMG_20240713_075631_238.jpg',
-    alt: 'Bridal makeup portfolio work',
+    src: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Bridal makeup portrait',
+    title: 'Bridal Artistry',
+    subtitle: 'Soft, elegant looks that last from ceremony to camera.',
   },
 ]
 
@@ -162,6 +170,30 @@ export function Hero() {
                   {tag}
                 </span>
               ))}
+            </motion.div>
+
+            {/* Slide-Synced Highlight */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.65 }}
+              className="mb-6"
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={heroGallery[activeImage].title}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.35 }}
+                  className="inline-flex flex-col gap-2"
+                >
+                  <span className="text-xs tracking-[0.25em] uppercase text-rose-400">{heroGallery[activeImage].title}</span>
+                  <span className="text-sm text-cream-300/80 font-light max-w-xl">
+                    {heroGallery[activeImage].subtitle}
+                  </span>
+                </motion.div>
+              </AnimatePresence>
             </motion.div>
 
             {/* CTA Buttons */}
