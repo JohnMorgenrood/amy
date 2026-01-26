@@ -1,13 +1,33 @@
 'use client'
 
 import { useRef, useEffect, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { MapPin, Play } from 'lucide-react'
+
+const heroGallery = [
+  {
+    src: '/assets/about/Amys portfolio Image Film Makeup Artist in Cape Town.jpg',
+    alt: 'Amy Morgenrood - Professional Film and SFX Makeup Artist Cape Town South Africa',
+  },
+  {
+    src: '/assets/portfolio/FB_IMG_1487892884148.jpg',
+    alt: 'Special effects makeup portfolio work',
+  },
+  {
+    src: '/assets/portfolio/IMG_20240713_075631_187.jpg',
+    alt: 'Beauty and glam makeup portfolio work',
+  },
+  {
+    src: '/assets/portfolio/IMG_20240713_075631_238.jpg',
+    alt: 'Bridal makeup portfolio work',
+  },
+]
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [activeImage, setActiveImage] = useState(0)
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -28,6 +48,14 @@ export function Hero() {
     }
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  // Hero gallery rotation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveImage((prev) => (prev + 1) % heroGallery.length)
+    }, 3500)
+    return () => clearInterval(interval)
   }, [])
 
   return (
@@ -178,7 +206,7 @@ export function Hero() {
 
           </motion.article>
 
-          {/* Image - 5 columns */}
+          {/* Image Gallery - Desktop */}
           <motion.aside
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -186,7 +214,6 @@ export function Hero() {
             className="lg:col-span-5 relative hidden lg:block"
             aria-label="Portfolio preview images"
           >
-            {/* Main Hero Image with Glassmorphism Card */}
             <motion.div
               animate={{ 
                 y: [0, -10, 0],
@@ -201,24 +228,132 @@ export function Hero() {
               style={{ transformStyle: 'preserve-3d' }}
               className="relative aspect-[4/5] rounded-3xl overflow-hidden"
             >
-              {/* Glass Border */}
+              {/* Stacked Card Layers */}
+              <div className="absolute inset-0 rounded-3xl border border-gold-500/10 bg-dark-900/40 translate-x-3 translate-y-3 rotate-[1deg]" />
+              <div className="absolute inset-0 rounded-3xl border border-rose-500/10 bg-dark-900/30 -translate-x-3 -translate-y-3 -rotate-[1deg]" />
+
               <div className="absolute inset-0 rounded-3xl border border-gold-500/20 bg-gradient-to-br from-gold-500/5 to-transparent z-10 pointer-events-none" />
-              
-              {/* Image */}
-              <Image
-                src="/assets/about/Amys portfolio Image Film Makeup Artist in Cape Town.jpg"
-                alt="Amy Morgenrood - Professional Film and SFX Makeup Artist Cape Town South Africa"
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 40vw"
-              />
-              
-              {/* Gradient Overlay */}
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={heroGallery[activeImage].src}
+                  initial={{ opacity: 0, scale: 1.02 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="absolute inset-0 z-[1]"
+                >
+                  <Image
+                    src={heroGallery[activeImage].src}
+                    alt={heroGallery[activeImage].alt}
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                  />
+                </motion.div>
+              </AnimatePresence>
+
               <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/20 to-transparent z-10" />
+
+              {/* Animated Progress Bar */}
+              <div className="absolute top-5 left-5 right-5 z-20 h-[3px] bg-cream-100/10 rounded-full overflow-hidden">
+                <motion.div
+                  key={activeImage}
+                  initial={{ width: '0%' }}
+                  animate={{ width: '100%' }}
+                  transition={{ duration: 3.4, ease: 'linear' }}
+                  className="h-full bg-gradient-to-r from-gold-400 via-rose-400 to-gold-400"
+                />
+              </div>
+
+              {/* Carousel Dots */}
+              <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+                {heroGallery.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveImage(index)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      activeImage === index ? 'w-6 bg-rose-400' : 'w-3 bg-cream-100/40'
+                    }`}
+                    aria-label={`Show image ${index + 1}`}
+                  />
+                ))}
+              </div>
             </motion.div>
+
+            {/* Thumbnail Strip */}
+            <div className="absolute -right-10 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-3">
+              {heroGallery.map((image, index) => (
+                <button
+                  key={image.src}
+                  onClick={() => setActiveImage(index)}
+                  className={`relative w-16 h-20 rounded-xl overflow-hidden border transition-all duration-300 ${
+                    activeImage === index
+                      ? 'border-rose-400 shadow-[0_0_20px_rgba(224,141,151,0.25)]'
+                      : 'border-gold-500/20 opacity-70 hover:opacity-100'
+                  }`}
+                  aria-label={`Show image ${index + 1}`}
+                >
+                  <Image src={image.src} alt={image.alt} fill className="object-cover" />
+                  <span className="absolute inset-0 bg-gradient-to-t from-dark-950/40 to-transparent" />
+                </button>
+              ))}
+            </div>
           </motion.aside>
         </div>
+
+        {/* Image Gallery - Mobile */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-10 lg:hidden"
+          aria-label="Portfolio preview images"
+        >
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-gold-500/15 bg-dark-900/40">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={heroGallery[activeImage].src}
+                initial={{ opacity: 0, scale: 1.02 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={heroGallery[activeImage].src}
+                  alt={heroGallery[activeImage].alt}
+                  fill
+                  className="object-cover"
+                  sizes="100vw"
+                />
+              </motion.div>
+            </AnimatePresence>
+            <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/10 to-transparent" />
+          </div>
+          <div className="mt-3 h-[3px] bg-cream-100/10 rounded-full overflow-hidden">
+            <motion.div
+              key={activeImage}
+              initial={{ width: '0%' }}
+              animate={{ width: '100%' }}
+              transition={{ duration: 3.4, ease: 'linear' }}
+              className="h-full bg-gradient-to-r from-gold-400 via-rose-400 to-gold-400"
+            />
+          </div>
+          <div className="mt-4 flex items-center justify-center gap-2">
+            {heroGallery.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveImage(index)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  activeImage === index ? 'w-6 bg-rose-400' : 'w-3 bg-cream-100/40'
+                }`}
+                aria-label={`Show image ${index + 1}`}
+              />
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       {/* Scroll Indicator */}
