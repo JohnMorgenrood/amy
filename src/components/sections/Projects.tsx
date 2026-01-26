@@ -412,7 +412,7 @@ export function Projects() {
                 IMDb
               </a>
               <a
-                href="https://www.callacrew.co.za/crew/amy-morgenrood"
+                href="https://www.callacrew.co.za/crew/2839508/amy-morgenrood/bio?bf=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-2.5 bg-dark-950/50 border border-gold-500/20 text-cream-100 text-xs tracking-[0.1em] uppercase hover:border-gold-500/40 transition-colors duration-300"
