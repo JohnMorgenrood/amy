@@ -8,6 +8,7 @@
   --gold: #c9a87c;
   --gold-light: #d4b896;
   --rose: #c96b77;
+  --rose-light: #e08d97;
   --cream: #f5f1eb;
 }
 
@@ -40,23 +41,23 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #c9a87c, #9a7b55);
+  background: linear-gradient(180deg, #c9a87c, #c96b77);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #d4b896, #c9a87c);
+  background: linear-gradient(180deg, #d4b896, #e08d97);
 }
 
 /* Selection */
 ::selection {
-  background: rgba(201, 168, 124, 0.3);
+  background: rgba(201, 107, 119, 0.35);
   color: #f5f1eb;
 }
 
 /* Gradient Text */
 .gradient-text {
-  background: linear-gradient(135deg, #c9a87c 0%, #f5f1eb 50%, #c9a87c 100%);
+  background: linear-gradient(135deg, #c9a87c 0%, #f5f1eb 45%, #c96b77 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -199,11 +200,11 @@ body {
 
 /* Button Styles */
 .btn-primary {
-  @apply relative px-10 py-4 font-normal tracking-wider uppercase text-xs text-dark-900 bg-gradient-to-r from-gold-500 to-gold-400 rounded-none overflow-hidden transition-all duration-500 hover:shadow-lg hover:shadow-gold-500/20;
+  @apply relative px-10 py-4 font-normal tracking-wider uppercase text-xs text-dark-900 bg-gradient-to-r from-gold-500 via-gold-400 to-rose-500 rounded-none overflow-hidden transition-all duration-500 hover:shadow-lg hover:shadow-rose-500/20;
 }
 
 .btn-secondary {
-  @apply relative px-10 py-4 font-normal tracking-wider uppercase text-xs text-cream-200 border border-gold-500/30 rounded-none overflow-hidden transition-all duration-500 hover:border-gold-500 hover:bg-gold-500/5;
+  @apply relative px-10 py-4 font-normal tracking-wider uppercase text-xs text-cream-200 border border-rose-500/30 rounded-none overflow-hidden transition-all duration-500 hover:border-rose-500 hover:bg-rose-500/10;
 }
 
 /* Image Hover Effect */
