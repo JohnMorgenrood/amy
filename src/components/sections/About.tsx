@@ -11,26 +11,27 @@ import {
   Film,
   Star,
   CheckCircle,
+  ExternalLink,
   Instagram
 } from 'lucide-react'
 
 const achievements = [
-  { icon: Film, label: 'Productions', value: '50+' },
+  { icon: Film, label: 'Film & TV Credits', value: '50+' },
   { icon: Calendar, label: 'Years Experience', value: '8+' },
   { icon: Award, label: 'ITEC Certified', value: 'Yes' },
   { icon: Star, label: 'Client Rating', value: '5.0' },
 ]
 
 const skills = [
-  'Film & Television Makeup',
-  'Special Effects (SFX)',
+  'Makeup & Hair',
+  'SFX Makeup',
   'Prosthetics Application',
-  'Beauty & Glamour',
+  'Continuity & On-Set Workflow',
+  'Film & Television',
+  'Beauty & Bridal',
   'Airbrush Techniques',
-  'Hair Styling',
   'Period & Character Makeup',
-  'Bridal & Events',
-  'Continuity Management',
+  'Wig & Hair Styling',
   'Body Painting',
 ]
 
@@ -146,22 +147,33 @@ export function About() {
           >
             <div className="space-y-6">
               <p className="text-cream-200/90 text-lg leading-relaxed font-light">
-                Hello! I'm <span className="text-gold-400">Amy Morgenrood</span>, 
-                a professional makeup artist based in Cape Town with over{' '}
-                <span className="text-gold-400">8 years of on-set experience</span> 
-                in the film and television industry.
+                I’m <span className="text-gold-400">Amy Morgenrood</span>, a Cape Town-based makeup & hair artist with
+                <span className="text-gold-400"> 8+ years on-set experience</span> in film and television.
               </p>
               <p className="text-cream-300/75 leading-relaxed font-light">
-                Internationally qualified with a <span className="text-cream-100">ITEC certification</span>, 
-                I specialize in creating stunning looks for film productions, special effects, 
-                beauty editorials, and more. My work has been featured in major productions 
-                including <span className="text-gold-400">"The Woman King"</span> starring Viola Davis.
+                I’m <span className="text-cream-100">ITEC certified</span> and specialize in SFX, prosthetics,
+                continuity-driven character work, and camera-ready beauty.
               </p>
               <p className="text-cream-300/75 leading-relaxed font-light">
-                Whether it's transforming actors into characters, creating breathtaking bridal looks, 
-                or executing complex SFX makeup, I bring passion, precision, and creativity to every project. 
-                I'm proud to be represented by Call a Crew and have an established presence on IMDb.
+                Selected credits include <span className="text-gold-400">The Woman King</span>,
+                <span className="text-gold-400"> Recipes for Love and Murder (S2)</span>,
+                <span className="text-gold-400"> King Shaka</span>, and <span className="text-gold-400">American Monster (S7–9)</span>.
               </p>
+            </div>
+
+            {/* Selected Credits */}
+            <div className="mt-10">
+              <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-5">
+                Selected Credits
+              </h4>
+              <ul className="grid sm:grid-cols-2 gap-3 text-sm text-cream-400/80 font-light">
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />Blue Ice Africa – “HELP”</li>
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />Moonlighting – “Alphas”</li>
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />Film Afrika – “King Shaka”</li>
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />TriStar – “The Woman King”</li>
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />“Recipes for Love and Murder” S2</li>
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />“American Monster” S7–9</li>
+              </ul>
             </div>
 
             {/* Skills */}
@@ -220,6 +232,17 @@ export function About() {
               >
                 <Instagram className="w-4 h-4" />
                 Follow @amyb_mup
+              </motion.a>
+              <motion.a
+                href="https://www.callacrew.co.za/crew/2839508/amy-morgenrood/bio?bf=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-3 px-6 py-3 border border-rose-500/30 text-cream-100 text-xs tracking-[0.15em] uppercase hover:border-rose-500/60 hover:bg-rose-500/10 transition-all duration-300"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Call a Crew Profile
               </motion.a>
               <motion.a
                 href="#contact"
