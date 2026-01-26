@@ -7,26 +7,26 @@ import { MapPin, Play } from 'lucide-react'
 
 const heroGallery = [
   {
-    src: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Beauty and glam makeup artistry',
+    src: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Makeup brushes and tools',
     title: 'Beauty & Editorial',
     subtitle: 'Camera-ready finishes with refined skin work and modern glow.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1487412912498-0447578fcca8?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Makeup artist applying beauty makeup',
+    src: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Makeup palette and brushes',
     title: 'Film & TV Makeup',
     subtitle: 'On-set continuity with production-ready precision.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Special effects makeup close-up',
+    src: 'https://images.unsplash.com/photo-1512207846876-9c2b4a7d710b?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Makeup workstation with tools',
     title: 'SFX & Prosthetics',
     subtitle: 'Transformations, wounds, and character FX for screen.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Bridal makeup portrait',
+    src: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Makeup products flat lay',
     title: 'Bridal Artistry',
     subtitle: 'Soft, elegant looks that last from ceremony to camera.',
   },
@@ -71,7 +71,7 @@ export function Hero() {
       ref={containerRef}
       id="home"
       aria-label="Amy Morgenrood - Professional Makeup Artist in Cape Town"
-      className="relative min-h-screen overflow-hidden"
+      className="relative min-h-[90vh] overflow-hidden"
     >
       {/* Video/Image Background with Overlay */}
       <motion.div 
@@ -102,7 +102,7 @@ export function Hero() {
       </motion.div>
 
       {/* Main Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-14">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-6">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Media-first Hero */}
           <motion.div
@@ -123,12 +123,8 @@ export function Hero() {
                 rotateX: { type: 'spring', stiffness: 50, damping: 30 },
               }}
               style={{ transformStyle: 'preserve-3d' }}
-              className="relative aspect-[4/5] sm:aspect-[16/10] lg:aspect-[4/5] rounded-3xl overflow-hidden"
+              className="relative aspect-[4/5] sm:aspect-[16/10] lg:aspect-[4/5] overflow-hidden"
             >
-              <div className="absolute inset-0 rounded-3xl border border-gold-500/10 bg-dark-900/40 translate-x-3 translate-y-3 rotate-[1deg]" />
-              <div className="absolute inset-0 rounded-3xl border border-rose-500/10 bg-dark-900/30 -translate-x-3 -translate-y-3 -rotate-[1deg]" />
-              <div className="absolute inset-0 rounded-3xl border border-gold-500/20 bg-gradient-to-br from-gold-500/5 to-transparent z-10 pointer-events-none" />
-
               <AnimatePresence mode="wait">
                 <motion.div
                   key={heroGallery[activeImage].src}
@@ -149,9 +145,9 @@ export function Hero() {
                 </motion.div>
               </AnimatePresence>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/40 to-transparent z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark-950/70 via-dark-950/30 to-transparent z-10" />
 
-              <div className="absolute top-5 left-5 right-5 z-20 h-[3px] bg-cream-100/10 rounded-full overflow-hidden">
+              <div className="absolute top-4 left-4 right-4 z-20 h-[3px] bg-cream-100/10 rounded-full overflow-hidden">
                 <motion.div
                   key={activeImage}
                   initial={{ width: '0%' }}
@@ -161,7 +157,7 @@ export function Hero() {
                 />
               </div>
 
-              <div className="absolute inset-0 z-20 flex flex-col justify-end p-6 sm:p-8">
+              <div className="absolute inset-0 z-20 flex flex-col justify-end p-5 sm:p-8">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
