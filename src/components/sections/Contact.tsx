@@ -27,8 +27,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'rubyroyal1@gmail.com',
-    href: 'mailto:rubyroyal1@gmail.com',
+    value: 'stumstudio1@gmail.com',
+    href: 'mailto:stumstudio1@gmail.com',
     color: 'from-gold-500 to-amber-500',
   },
   {
@@ -143,7 +143,7 @@ Message:
 ${formData.message}
           `,
           from_name: 'Amy Morgenrood Website',
-          to_email: 'rubyroyal1@gmail.com',
+          to_email: 'stumstudio1@gmail.com',
         }),
       })
 
@@ -170,7 +170,7 @@ ${formData.message}
       }
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('Failed to send message. Please try emailing directly at rubyroyal1@gmail.com')
+      alert('Failed to send message. Please try emailing directly at stumstudio1@gmail.com')
       setIsSubmitting(false)
     }
   }
