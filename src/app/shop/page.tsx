@@ -709,6 +709,23 @@ function ShopContent() {
     }
   }, [])
 
+  useEffect(() => {
+    const scriptId = 'instagram-embed-script'
+    if (document.getElementById(scriptId)) {
+      ;(window as any)?.instgrm?.Embeds?.process()
+      return
+    }
+
+    const script = document.createElement('script')
+    script.id = scriptId
+    script.async = true
+    script.src = 'https://www.instagram.com/embed.js'
+    script.onload = () => {
+      ;(window as any)?.instgrm?.Embeds?.process()
+    }
+    document.body.appendChild(script)
+  }, [])
+
   // Fetch products from our API route
   useEffect(() => {
     const fetchProducts = async () => {
@@ -1018,6 +1035,29 @@ function ShopContent() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Instagram Reel Feature */}
+      <section className="max-w-7xl mx-auto px-4 mb-12">
+        <div className="bg-[#0b0b0b] border border-[#D4AF37]/20 rounded-2xl p-6 md:p-8 shadow-[0_0_40px_rgba(212,175,55,0.08)]">
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            <div className="text-center lg:text-left max-w-lg">
+              <p className="text-[#D4AF37]/80 text-[10px] tracking-[0.35em] uppercase">Featured Reel</p>
+              <h3 className="text-white text-2xl md:text-3xl font-semibold mt-3">Behind the Glam</h3>
+              <p className="text-white/70 mt-3">Watch a quick look at Amy’s latest work and product favorites.</p>
+            </div>
+            <div className="w-full lg:max-w-md">
+              <div className="relative overflow-hidden rounded-2xl border border-[#D4AF37]/20 bg-black/60">
+                <blockquote
+                  className="instagram-media"
+                  data-instgrm-permalink="https://www.instagram.com/reel/DTtF5O4AvcB/"
+                  data-instgrm-version="14"
+                  style={{ margin: '0', width: '100%' }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
