@@ -11,7 +11,6 @@ import {
   Film,
   Star,
   CheckCircle,
-  ExternalLink,
   Instagram
 } from 'lucide-react'
 
@@ -232,17 +231,6 @@ export function About() {
               >
                 <Instagram className="w-4 h-4" />
                 Follow @amyb_mup
-              </motion.a>
-              <motion.a
-                href="https://www.callacrew.co.za/crew/2839508/amy-morgenrood/bio?bf=1"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-3 px-6 py-3 border border-rose-500/30 text-cream-100 text-xs tracking-[0.15em] uppercase hover:border-rose-500/60 hover:bg-rose-500/10 transition-all duration-300"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Call a Crew Profile
               </motion.a>
               <motion.a
                 href="#contact"

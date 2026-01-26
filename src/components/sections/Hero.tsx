@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import { ExternalLink, MapPin, Play } from 'lucide-react'
+import { MapPin, Play } from 'lucide-react'
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -173,17 +173,6 @@ export function Hero() {
               >
                 <Play className="w-4 h-4 text-gold-500" />
                 <span>View Portfolio</span>
-              </motion.a>
-              <motion.a
-                href="https://www.callacrew.co.za/crew/2839508/amy-morgenrood/bio?bf=1"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="group flex items-center gap-2 px-8 py-4 rounded-full border border-rose-500/30 text-cream-200 hover:bg-rose-500/10 hover:border-rose-500/60 transition-all"
-              >
-                <ExternalLink className="w-4 h-4 text-rose-400" />
-                <span>Call a Crew Profile</span>
               </motion.a>
             </motion.div>
 
