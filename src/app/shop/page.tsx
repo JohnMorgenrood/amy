@@ -73,80 +73,6 @@ function getOriginalPrice(product: BlankaProduct): number {
   return basePrice * 1.30 // The inflated normal price
 }
 
-// Daily Brand Deals Configuration
-const brandDeals = [
-  { day: 0, brand: 'Skincare Sunday', color: 'from-purple-500 to-pink-500', emoji: '✨', description: 'All skincare products' },
-  { day: 1, brand: 'Makeup Monday', color: 'from-rose-500 to-red-500', emoji: '💄', description: 'Foundation & Face products' },
-  { day: 2, brand: 'Tools Tuesday', color: 'from-blue-500 to-cyan-500', emoji: '🖌️', description: 'Brushes & Tools' },
-  { day: 3, brand: 'Wellness Wednesday', color: 'from-green-500 to-emerald-500', emoji: '🌿', description: 'Natural & Organic products' },
-  { day: 4, brand: 'Lash Thursday', color: 'from-violet-500 to-purple-500', emoji: '👁️', description: 'Eyes & Lashes' },
-  { day: 5, brand: 'MAC Friday', color: 'from-[#D4AF37] to-[#F4D03F]', emoji: '💋', description: '10% OFF All MAC Products!' },
-  { day: 6, brand: 'Lips Saturday', color: 'from-pink-500 to-rose-500', emoji: '💕', description: 'Lipsticks & Lip products' },
-]
-
-function DailyBrandDealsBanner() {
-  const today = new Date().getDay()
-  const todaysDeal = brandDeals.find(deal => deal.day === today) || brandDeals[5] // Default to MAC Friday
-  const isFriday = today === 5
-
-  return (
-    <div className={`bg-gradient-to-r ${todaysDeal.color} mt-[72px]`}>
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">{todaysDeal.emoji}</span>
-            <div>
-              <h3 className="text-white font-bold text-lg md:text-xl">
-                {todaysDeal.brand}
-                {isFriday && <span className="ml-2 bg-white/20 px-2 py-1 rounded-full text-sm">10% OFF</span>}
-              </h3>
-              <p className="text-white/90 text-sm">{todaysDeal.description}</p>
-            </div>
-          </div>
-          
-          {/* Weekly Schedule */}
-          <div className="flex items-center gap-1 text-xs">
-            {brandDeals.map((deal, index) => (
-              <div
-                key={deal.day}
-                className={`px-2 py-1 rounded ${
-                  deal.day === today 
-                    ? 'bg-white text-black font-bold' 
-                    : 'bg-white/20 text-white/80'
-                }`}
-                title={deal.brand}
-              >
-                {['S', 'M', 'T', 'W', 'T', 'F', 'S'][index]}
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Shipping Info */}
-        <div className="mt-3 pt-3 border-t border-white/20 flex flex-wrap items-center justify-center gap-4 text-white/90 text-sm">
-          <span className="flex items-center gap-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-            </svg>
-            R100 Local Shipping (Courier)
-          </span>
-          <span className="flex items-center gap-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Authentic MAC Products
-          </span>
-          <span className="flex items-center gap-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            2-5 Business Days
-          </span>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
@@ -709,23 +635,6 @@ function ShopContent() {
     }
   }, [])
 
-  useEffect(() => {
-    const scriptId = 'instagram-embed-script'
-    if (document.getElementById(scriptId)) {
-      ;(window as any)?.instgrm?.Embeds?.process()
-      return
-    }
-
-    const script = document.createElement('script')
-    script.id = scriptId
-    script.async = true
-    script.src = 'https://www.instagram.com/embed.js'
-    script.onload = () => {
-      ;(window as any)?.instgrm?.Embeds?.process()
-    }
-    document.body.appendChild(script)
-  }, [])
-
   // Fetch products from our API route
   useEffect(() => {
     const fetchProducts = async () => {
@@ -925,9 +834,6 @@ function ShopContent() {
         </div>
       )}
 
-      {/* Daily Brand Deals Banner */}
-      <DailyBrandDealsBanner />
-
       {/* Hero Banner */}
       <section className={`relative py-16 md:py-20 px-4 overflow-hidden ${isDemo ? '' : 'mt-[72px]'}`}>
         <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(212,175,55,0.18)_0%,rgba(0,0,0,0)_60%)]" />
@@ -977,88 +883,67 @@ function ShopContent() {
             </svg>
           </motion.div>
 
-          {/* Classy Carousel */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="mt-10"
-          >
-            <div className="relative overflow-hidden rounded-3xl border border-[#D4AF37]/20 bg-black/60 shadow-[0_24px_80px_rgba(0,0,0,0.6)]">
-              <div className="relative aspect-[16/9] sm:aspect-[21/9]">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeSlide}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="absolute inset-0"
-                  >
-                    <Image
-                      src={shopCarouselSlides[activeSlide].src}
-                      alt={shopCarouselSlides[activeSlide].alt}
-                      fill
-                      className="object-cover"
-                      unoptimized
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/25 to-transparent" />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              <div className="absolute left-0 bottom-0 p-6 sm:p-8 text-left max-w-xl">
-                <p className="text-[#D4AF37]/80 text-[10px] sm:text-xs tracking-[0.35em] uppercase">
-                  Signature Looks
-                </p>
-                <h3 className="text-white text-2xl sm:text-3xl font-semibold mt-2">
-                  {shopCarouselSlides[activeSlide].title}
-                </h3>
-                <p className="text-white/70 text-sm sm:text-base mt-2">
-                  {shopCarouselSlides[activeSlide].subtitle}
-                </p>
-              </div>
-
-              <div className="absolute right-4 bottom-4 flex items-center gap-2">
-                {shopCarouselSlides.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveSlide(index)}
-                    className={`h-2.5 w-2.5 rounded-full border transition-all ${
-                      index === activeSlide
-                        ? 'bg-[#D4AF37] border-[#D4AF37]'
-                        : 'bg-white/20 border-white/30 hover:border-[#D4AF37]/60'
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
-      {/* Instagram Reel Feature */}
-      <section className="max-w-7xl mx-auto px-4 mb-12">
-        <div className="bg-[#0b0b0b] border border-[#D4AF37]/20 rounded-2xl p-6 md:p-8 shadow-[0_0_40px_rgba(212,175,55,0.08)]">
-          <div className="flex flex-col lg:flex-row items-center gap-8">
-            <div className="text-center lg:text-left max-w-lg">
-              <p className="text-[#D4AF37]/80 text-[10px] tracking-[0.35em] uppercase">Featured Reel</p>
-              <h3 className="text-white text-2xl md:text-3xl font-semibold mt-3">Behind the Glam</h3>
-              <p className="text-white/70 mt-3">Watch a quick look at Amy’s latest work and product favorites.</p>
+      {/* Classy Carousel */}
+      <section className="w-full max-w-[380px] mx-auto px-4 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
+          <div className="relative overflow-hidden rounded-3xl border border-[#D4AF37]/20 bg-black/60 shadow-[0_24px_80px_rgba(0,0,0,0.6)]">
+            <div className="relative aspect-[16/9] sm:aspect-[21/9]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeSlide}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={shopCarouselSlides[activeSlide].src}
+                    alt={shopCarouselSlides[activeSlide].alt}
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/25 to-transparent" />
+                </motion.div>
+              </AnimatePresence>
             </div>
-            <div className="w-full lg:max-w-md">
-              <div className="relative overflow-hidden rounded-2xl border border-[#D4AF37]/20 bg-black/60">
-                <blockquote
-                  className="instagram-media"
-                  data-instgrm-permalink="https://www.instagram.com/reel/DTtF5O4AvcB/"
-                  data-instgrm-version="14"
-                  style={{ margin: '0', width: '100%' }}
+
+            <div className="absolute left-0 bottom-0 p-6 sm:p-8 text-left max-w-xl">
+              <p className="text-[#D4AF37]/80 text-[10px] sm:text-xs tracking-[0.35em] uppercase">
+                Signature Looks
+              </p>
+              <h3 className="text-white text-2xl sm:text-3xl font-semibold mt-2">
+                {shopCarouselSlides[activeSlide].title}
+              </h3>
+              <p className="text-white/70 text-sm sm:text-base mt-2">
+                {shopCarouselSlides[activeSlide].subtitle}
+              </p>
+            </div>
+
+            <div className="absolute right-4 bottom-4 flex items-center gap-2">
+              {shopCarouselSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveSlide(index)}
+                  className={`h-2.5 w-2.5 rounded-full border transition-all ${
+                    index === activeSlide
+                      ? 'bg-[#D4AF37] border-[#D4AF37]'
+                      : 'bg-white/20 border-white/30 hover:border-[#D4AF37]/60'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
                 />
-              </div>
+              ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* YouTube Reviews Banner */}
