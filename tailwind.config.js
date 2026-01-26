@@ -50,8 +50,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: ['var(--font-cormorant)', 'Cormorant Garamond', 'serif'],
-        sans: ['var(--font-outfit)', 'Outfit', 'sans-serif'],
+        display: ['var(--font-space-grotesk)', 'Space Grotesk', 'sans-serif'],
+        sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

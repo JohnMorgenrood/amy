@@ -1,22 +1,22 @@
 import type { Metadata } from 'next'
-import { Outfit, Cormorant_Garamond } from 'next/font/google'
+import { Inter, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import { ConditionalNavbar } from '@/components/ConditionalNavbar'
 import { Footer } from '@/components/layout/Footer'
 import { FloatingElements } from '@/components/effects/FloatingElements'
 import { ImageProtection } from '@/components/ImageProtection'
 
-// Elegant sans-serif for body text - modern and clean
-const outfit = Outfit({
+// Modern sans-serif for body text
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-outfit',
+  variable: '--font-inter',
   display: 'swap',
 })
 
-// Luxurious serif for headings - elegant and sophisticated
-const cormorant = Cormorant_Garamond({
+// Contemporary display for headings
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-cormorant',
+  variable: '--font-space-grotesk',
   weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
 })
@@ -110,7 +110,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${outfit.variable} ${cormorant.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <head>
         <link rel="icon" href="/favicon-small.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="512x512" />
