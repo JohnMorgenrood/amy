@@ -102,8 +102,8 @@ export function Hero() {
       </motion.div>
 
       {/* Main Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-8">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center w-full">
           {/* Media-first Hero */}
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
