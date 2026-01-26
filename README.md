@@ -100,15 +100,15 @@ Follow these steps to prepare your site for indexing and submit your sitemap to 
 
 1. Verify ownership in Google Search Console:
     - Log into https://search.google.com/search-console
-        - Add your property (https://makeupbyamy.com) and follow the verification steps (DNS, HTML file, or Google Analytics).
+        - Add your property (https://amysmakeupstore.com) and follow the verification steps (DNS, HTML file, or Google Analytics).
         - Alternatively: I added the HTML meta verification token to the site metadata in `src/app/layout.tsx` using Next.js app metadata. Google verification token used: `bRiXFAAgSJZtJHLd1jC2hC_nnCfRPqiHlztXk7gLE4M`.
             - For extra convenience, I also added an HTML verification file at `public/googlebRiXFAAgSJZtJHLd1jC2hC_nnCfRPqiHlztXk7gLE4M.html` so you can use the file upload verification method if you prefer.
             - If verifying via Search Console, choose the HTML tag method and click Verify. The site metadata already contains the meta tag, so you should be able to verify immediately after deployment.
             - If you prefer DNS verification (TXT record), add the TXT record to your DNS provider with the same token: `google-site-verification=bRiXFAAgSJZtJHLd1jC2hC_nnCfRPqiHlztXk7gLE4M`.
 2. Submit your sitemap:
-    - Visit the Sitemaps page in Search Console and submit: https://makeupbyamy.com/sitemap.xml
+    - Visit the Sitemaps page in Search Console and submit: https://amysmakeupstore.com/sitemap.xml
 3. Confirm robots.txt:
-    - The site exposes a robots.txt via `src/app/robots.ts` and it points to the sitemap; ensure it's accessible: https://makeupbyamy.com/robots.txt
+    - The site exposes a robots.txt via `src/app/robots.ts` and it points to the sitemap; ensure it's accessible: https://amysmakeupstore.com/robots.txt
 4. Check Open Graph / Social Preview:
     - The site includes an `og-image.svg` as a placeholder in `/public`. Replace this with a custom OG image if you want a nicer preview on social shares.
 5. Validate Structured Data:
@@ -134,7 +134,7 @@ For production, add these to your Vercel project:
 
 ```env
 # Optional - for form submissions
-CONTACT_EMAIL=bookings@makeupbyamy.co.za
+CONTACT_EMAIL=rubyroyal1@gmail.com
 
 # Optional - for analytics
 NEXT_PUBLIC_GA_ID=your-google-analytics-id
@@ -143,7 +143,7 @@ NEXT_PUBLIC_GA_ID=your-google-analytics-id
 ## 📱 Contact Information
 
 - **Phone**: 084 701 7012
-- **Email**: bookings@makeupbyamy.co.za
+- **Email**: rubyroyal1@gmail.com
 - **Location**: Cape Town, South Africa
 - **Instagram**: [@amyb_mup](https://instagram.com/amyb_mup)
 

@@ -26,8 +26,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'bookings@makeupbyamy.co.za',
-    href: 'mailto:bookings@makeupbyamy.co.za',
+    value: 'rubyroyal1@gmail.com',
+    href: 'mailto:rubyroyal1@gmail.com',
     color: 'from-gold-500 to-amber-500',
   },
   {

@@ -29,7 +29,7 @@ const dancingScript = Dancing_Script({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://makeupbyamy.com'),
+  metadataBase: new URL('https://amysmakeupstore.com'),
   title: {
     default: 'Amy Morgenrood | Professional Makeup Artist Cape Town | Film, SFX & Bridal',
     template: '%s | Amy Morgenrood - Cape Town Makeup Artist'
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_ZA',
-    url: 'https://makeupbyamy.com',
+    url: 'https://amysmakeupstore.com',
     siteName: 'Amy Morgenrood - Professional Makeup Artist',
     title: 'Amy Morgenrood | Professional Makeup Artist Cape Town',
     description: 'Award-winning makeup artist with 8+ years on-set experience. Film, SFX, Beauty, Airbrush & Hair Styling in Cape Town.',
@@ -106,7 +106,7 @@ export const metadata: Metadata = {
     google: 'bRiXFAAgSJZtJHLd1jC2hC_nnCfRPqiHlztXk7gLE4M',
   },
   alternates: {
-    canonical: 'https://makeupbyamy.com',
+    canonical: 'https://amysmakeupstore.com',
   },
   category: 'Beauty & Personal Care',
 }
@@ -133,15 +133,15 @@ export default function RootLayout({
               '@graph': [
                 {
                   '@type': 'LocalBusiness',
-                  '@id': 'https://makeupbyamy.com/#business',
+                  '@id': 'https://amysmakeupstore.com/#business',
                   name: 'Amy Morgenrood - Professional Makeup Artist',
                   alternateName: 'Makeup by Amy',
                   description: 'ITEC-certified professional makeup artist in Cape Town with 8+ years on-set experience specializing in Film, SFX, Prosthetics, Beauty, Airbrush, and Hair Styling.',
-                  url: 'https://makeupbyamy.com',
+                  url: 'https://amysmakeupstore.com',
                   telephone: '+27847017012',
-                  email: 'bookings@makeupbyamy.co.za',
-                  image: 'https://makeupbyamy.com/og-image.svg',
-                  logo: 'https://makeupbyamy.com/icon.svg',
+                  email: 'rubyroyal1@gmail.com',
+                  image: 'https://amysmakeupstore.com/og-image.svg',
+                  logo: 'https://amysmakeupstore.com/icon.svg',
                   address: {
                     '@type': 'PostalAddress',
                     streetAddress: '11 Tennessee St, Langeberg Heights',
@@ -214,14 +214,14 @@ export default function RootLayout({
                 },
                 {
                   '@type': 'Person',
-                  '@id': 'https://makeupbyamy.com/#person',
+                  '@id': 'https://amysmakeupstore.com/#person',
                   name: 'Amy Morgenrood',
                   givenName: 'Amy',
                   familyName: 'Morgenrood',
                   jobTitle: 'Professional Makeup Artist',
                   description: 'ITEC-certified makeup artist specializing in film, SFX, prosthetics, bridal and beauty makeup with 8+ years of professional experience.',
-                  url: 'https://makeupbyamy.com',
-                  image: 'https://makeupbyamy.com/og-image.svg',
+                  url: 'https://amysmakeupstore.com',
+                  image: 'https://amysmakeupstore.com/og-image.svg',
                   address: {
                     '@type': 'PostalAddress',
                     addressLocality: 'Cape Town',
@@ -261,11 +261,11 @@ export default function RootLayout({
                 },
                 {
                   '@type': 'WebSite',
-                  '@id': 'https://makeupbyamy.com/#website',
-                  url: 'https://makeupbyamy.com',
+                  '@id': 'https://amysmakeupstore.com/#website',
+                  url: 'https://amysmakeupstore.com',
                   name: 'Amy Morgenrood - Professional Makeup Artist Cape Town',
                   description: 'Portfolio and booking website for Amy Morgenrood, professional makeup artist in Cape Town',
-                  publisher: { '@id': 'https://makeupbyamy.com/#person' }
+                  publisher: { '@id': 'https://amysmakeupstore.com/#person' }
                 }
               ]
             })

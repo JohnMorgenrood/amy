@@ -425,8 +425,8 @@ export default function CheckoutPage() {
               <p className="text-white/60 mb-2">Questions about your order?</p>
               <p className="text-white">
                 Contact Amy at{' '}
-                <a href="mailto:amy@amymorgenrood.com" className="text-[#D4AF37] hover:underline">
-                  amy@amymorgenrood.com
+                <a href="mailto:rubyroyal1@gmail.com" className="text-[#D4AF37] hover:underline">
+                  rubyroyal1@gmail.com
                 </a>
               </p>
             </div>

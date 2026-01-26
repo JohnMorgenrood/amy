@@ -1,9 +1,11 @@
+
 'use client'
 
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectCoverflow, FreeMode, Navigation, Pagination } from 'swiper/modules'
 import { ExternalLink, Eye, Heart, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
@@ -196,6 +198,11 @@ const categories = [
 export function Portfolio() {
   const [activeCategory, setActiveCategory] = useState('All')
   const [hoveredItem, setHoveredItem] = useState<number | null>(null)
+  const [isAccessModalOpen, setIsAccessModalOpen] = useState(false)
+  const [hasAccess, setHasAccess] = useState(false)
+  const [pendingHref, setPendingHref] = useState<string | null>(null)
+  const [accessForm, setAccessForm] = useState({ name: '', email: '' })
+  const router = useRouter()
   const containerRef = useRef<HTMLDivElement>(null)
   
   const { scrollYProgress } = useScroll({
@@ -208,10 +215,32 @@ export function Portfolio() {
   const filteredItems = activeCategory === 'All' 
     ? portfolioItems 
     : portfolioItems.filter(item => item.category === activeCategory)
+
+  const teaserItems = filteredItems.slice(0, 6)
   
   const getCategorySlug = (categoryName: string) => {
     const cat = categories.find(c => c.name === categoryName)
     return cat?.slug || categoryName.toLowerCase()
+  }
+
+  const openAccessModal = (href: string) => {
+    if (hasAccess) {
+      router.push(href)
+      return
+    }
+    setPendingHref(href)
+    setIsAccessModalOpen(true)
+  }
+
+  const handleAccessSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!accessForm.name.trim() || !accessForm.email.trim()) return
+    setHasAccess(true)
+    setIsAccessModalOpen(false)
+    if (pendingHref) {
+      router.push(pendingHref)
+      setPendingHref(null)
+    }
   }
 
   return (
@@ -297,13 +326,13 @@ export function Portfolio() {
               animate={{ opacity: 1 }}
               className="text-center mt-6"
             >
-              <Link
-                href={`/portfolio/${getCategorySlug(activeCategory)}`}
+              <button
+                onClick={() => openAccessModal(`/portfolio/${getCategorySlug(activeCategory)}`)}
                 className="inline-flex items-center gap-2 text-gold-500/80 hover:text-gold-400 text-sm transition-colors"
               >
                 <span>View all {activeCategory} work</span>
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </button>
             </motion.div>
           )}
         </div>
@@ -350,7 +379,7 @@ export function Portfolio() {
             }}
             speed={1000}
           >
-            {filteredItems.map((item, index) => (
+            {teaserItems.map((item, index) => (
               <SwiperSlide key={item.id} className="!w-[280px] sm:!w-[340px]">
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -446,13 +475,13 @@ export function Portfolio() {
           transition={{ delay: 0.6 }}
           className="text-center mt-20 space-y-6"
         >
-          <Link
-            href="/portfolio"
+          <button
+            onClick={() => openAccessModal('/portfolio')}
             className="inline-flex items-center gap-3 px-8 py-3 bg-gold-500/10 border border-gold-500/30 text-gold-400 hover:bg-gold-500/20 transition-all duration-300 text-xs tracking-[0.2em] uppercase"
           >
             <span>View Full Portfolio</span>
             <ArrowRight className="w-4 h-4" />
-          </Link>
+          </button>
           
           <div className="block">
             <a
@@ -466,6 +495,70 @@ export function Portfolio() {
             </a>
           </div>
         </motion.div>
+        {/* Access Modal */}
+        {isAccessModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+            <div
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+              onClick={() => setIsAccessModalOpen(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              className="relative w-full max-w-md rounded-2xl border border-rose-500/20 bg-dark-900/95 p-6"
+            >
+              <h3 className="font-display text-2xl font-light text-cream-100 mb-2">
+                Thanks for checking out my work
+              </h3>
+              <p className="text-cream-300/80 text-sm mb-5">
+                Please enter your name and email to continue.
+              </p>
+              <form onSubmit={handleAccessSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/60 mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={accessForm.name}
+                    onChange={(e) => setAccessForm({ ...accessForm, name: e.target.value })}
+                    className="w-full px-4 py-3 bg-dark-800/80 border border-rose-500/30 text-cream-100 focus:outline-none focus:border-rose-500/60 transition-all"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-500/60 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={accessForm.email}
+                    onChange={(e) => setAccessForm({ ...accessForm, email: e.target.value })}
+                    className="w-full px-4 py-3 bg-dark-800/80 border border-rose-500/30 text-cream-100 focus:outline-none focus:border-rose-500/60 transition-all"
+                    placeholder="you@example.com"
+                  />
+                </div>
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    type="submit"
+                    className="flex-1 px-4 py-3 rounded-full bg-gradient-to-r from-rose-500 to-gold-500 text-dark-900 text-xs tracking-[0.15em] uppercase"
+                  >
+                    Proceed
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsAccessModalOpen(false)}
+                    className="px-4 py-3 rounded-full border border-cream-100/20 text-cream-200 text-xs tracking-[0.15em] uppercase"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
       </motion.div>
     </section>
   )
