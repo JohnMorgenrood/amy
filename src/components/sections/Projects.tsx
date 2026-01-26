@@ -344,7 +344,7 @@ export function Projects() {
           </button>
         </motion.div>
 
-        {/* Additional Credits Grid */}
+        {/* Additional Credits Table */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -358,30 +358,42 @@ export function Projects() {
           <p className="text-center text-cream-500/50 text-sm mb-10">
             Music Videos • Commercials • Short Films • Prosthetics Work
           </p>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {additionalCredits.map((credit, index) => (
-              <motion.div
-                key={credit.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="p-4 bg-dark-900/30 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-300 group"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex-1">
-                    <h4 className="text-cream-100 text-sm font-light group-hover:text-gold-400 transition-colors duration-300">
+
+          <div className="overflow-hidden rounded-2xl border border-gold-500/10 bg-dark-900/40">
+            <table className="w-full table-fixed border-collapse">
+              <thead className="hidden md:table-header-group">
+                <tr className="text-[11px] tracking-[0.2em] uppercase text-cream-500/60">
+                  <th className="px-6 py-4 font-normal text-left w-[40%]">Project</th>
+                  <th className="px-6 py-4 font-normal text-left w-[20%]">Type</th>
+                  <th className="px-6 py-4 font-normal text-left w-[40%]">Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                {additionalCredits.map((credit, index) => (
+                  <motion.tr
+                    key={credit.title}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.04 }}
+                    className="block md:table-row border-t border-gold-500/10"
+                  >
+                    <td className="block md:table-cell px-6 py-4 text-sm text-cream-100 font-light break-words">
+                      <span className="md:hidden block text-[10px] tracking-[0.2em] uppercase text-cream-500/50 mb-1">Project</span>
                       {credit.title}
-                    </h4>
-                    <p className="text-cream-500/50 text-xs mt-1">{credit.role}</p>
-                  </div>
-                  <span className="text-[10px] tracking-[0.1em] uppercase text-gold-500/60 px-2 py-0.5 bg-gold-500/10 shrink-0">
-                    {credit.type}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+                    </td>
+                    <td className="block md:table-cell px-6 pb-4 md:py-4 text-xs text-gold-400/80 uppercase tracking-[0.15em] break-words">
+                      <span className="md:hidden block text-[10px] tracking-[0.2em] uppercase text-cream-500/50 mb-1">Type</span>
+                      {credit.type}
+                    </td>
+                    <td className="block md:table-cell px-6 pb-4 md:py-4 text-xs text-cream-400/70 font-light break-words">
+                      <span className="md:hidden block text-[10px] tracking-[0.2em] uppercase text-cream-500/50 mb-1">Role</span>
+                      {credit.role}
+                    </td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </motion.div>
 
