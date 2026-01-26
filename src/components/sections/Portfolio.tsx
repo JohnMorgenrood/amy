@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper/modules'
+import { Autoplay, EffectCoverflow, FreeMode, Navigation, Pagination } from 'swiper/modules'
 import { ExternalLink, Eye, Heart, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 
 import 'swiper/css'
@@ -251,29 +251,43 @@ export function Portfolio() {
             </p>
           </motion.div>
 
-          {/* Category Filters */}
+          {/* Category Filters - Modern Carousel */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-4 mt-12"
+            className="relative mt-12"
           >
-            {categories.map((category) => (
-              <motion.button
-                key={category.name}
-                onClick={() => setActiveCategory(category.name)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`px-6 py-2.5 text-xs tracking-[0.15em] uppercase transition-all duration-500 ${
-                  activeCategory === category.name
-                    ? 'bg-gold-500/10 text-gold-400 border border-gold-500/30'
-                    : 'bg-transparent text-cream-500/50 hover:text-cream-100 border border-cream-500/10 hover:border-cream-500/20'
-                }`}
-              >
-                {category.name}
-              </motion.button>
-            ))}
+            <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-dark-950 to-transparent pointer-events-none z-10" />
+            <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-dark-950 to-transparent pointer-events-none z-10" />
+
+            <Swiper
+              modules={[Autoplay, FreeMode]}
+              slidesPerView="auto"
+              spaceBetween={10}
+              centeredSlides={false}
+              freeMode={true}
+              grabCursor={true}
+              className="portfolio-filter-swiper !px-4"
+            >
+              {categories.map((category) => (
+                <SwiperSlide key={category.name} className="!w-auto">
+                  <motion.button
+                    onClick={() => setActiveCategory(category.name)}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`relative px-6 py-2.5 text-xs tracking-[0.18em] uppercase transition-all duration-500 rounded-full border backdrop-blur-md ${
+                      activeCategory === category.name
+                        ? 'bg-gradient-to-r from-gold-500/20 via-rose-500/10 to-gold-500/20 text-cream-100 border-rose-500/40 shadow-[0_0_25px_rgba(224,141,151,0.15)]'
+                        : 'bg-dark-900/40 text-cream-500/60 border-cream-500/10 hover:text-cream-100 hover:border-cream-500/30'
+                    }`}
+                  >
+                    {category.name}
+                  </motion.button>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </motion.div>
           
           {/* View Category Link */}
@@ -328,14 +342,16 @@ export function Portfolio() {
             }}
             className="portfolio-swiper !overflow-visible"
             breakpoints={{
-              320: { slidesPerView: 1.2, spaceBetween: 20 },
-              640: { slidesPerView: 2, spaceBetween: 30 },
-              1024: { slidesPerView: 3, spaceBetween: 40 },
-              1280: { slidesPerView: 4, spaceBetween: 40 },
+              320: { slidesPerView: 1.05, spaceBetween: 18 },
+              640: { slidesPerView: 1.6, spaceBetween: 24 },
+              1024: { slidesPerView: 2.6, spaceBetween: 32 },
+              1280: { slidesPerView: 3.2, spaceBetween: 36 },
             }}
+            speed={900}
+            loop={true}
           >
             {filteredItems.map((item, index) => (
-              <SwiperSlide key={item.id} className="!w-[300px] sm:!w-[350px]">
+              <SwiperSlide key={item.id} className="!w-[280px] sm:!w-[340px]">
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -343,20 +359,24 @@ export function Portfolio() {
                   transition={{ delay: index * 0.1 }}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
-                  className="group relative aspect-[3/4] overflow-hidden cursor-pointer border border-gold-500/10 hover:border-gold-500/30 transition-colors duration-500 protected-image portfolio-item"
+                  className="group relative aspect-[3/4] overflow-hidden cursor-pointer rounded-2xl border border-gold-500/10 hover:border-rose-500/40 transition-colors duration-500 portfolio-item image-container bg-dark-900/40"
                 >
+                  {/* Glass Frame */}
+                  <div className="absolute inset-0 pointer-events-none border border-cream-100/5 rounded-2xl" />
+
                   {/* Image */}
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
                     draggable={false}
-                    className="object-cover transition-transform duration-700 group-hover:scale-110 no-select"
+                    className="object-cover transition-transform duration-1000 group-hover:scale-110 no-select"
                     onContextMenu={(e) => e.preventDefault()}
                   />
                   
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/60 to-transparent opacity-70 group-hover:opacity-95 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/50 to-transparent opacity-70 group-hover:opacity-95 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-rose-500/10 via-transparent to-gold-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   {/* Content */}
                   <div className="absolute inset-0 flex flex-col justify-end p-6">
@@ -367,8 +387,9 @@ export function Portfolio() {
                         opacity: hoveredItem === item.id ? 1 : 0.6,
                         y: hoveredItem === item.id ? 0 : 5
                       }}
-                      className="inline-block text-gold-400/80 text-[10px] tracking-[0.2em] uppercase w-fit mb-3"
+                      className="inline-flex items-center gap-2 text-rose-300/90 text-[10px] tracking-[0.25em] uppercase w-fit mb-3"
                     >
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
                       {item.category}
                     </motion.span>
                     
@@ -394,11 +415,11 @@ export function Portfolio() {
                       }}
                       className="flex items-center gap-3 mt-6 pt-4 border-t border-gold-500/10"
                     >
-                      <button className="flex items-center gap-2 px-5 py-2 bg-cream-100 text-dark-950 text-[10px] tracking-[0.15em] uppercase hover:bg-gold-400 transition-colors duration-300">
+                      <button className="flex items-center gap-2 px-5 py-2 rounded-full bg-cream-100 text-dark-950 text-[10px] tracking-[0.15em] uppercase hover:bg-rose-400 transition-colors duration-300">
                         <Eye className="w-3 h-3" />
                         View
                       </button>
-                      <button className="p-2.5 border border-cream-500/20 hover:border-gold-500/40 transition-colors duration-300">
+                      <button className="p-2.5 rounded-full border border-cream-500/20 hover:border-rose-500/40 transition-colors duration-300">
                         <ExternalLink className="w-3 h-3 text-cream-100" />
                       </button>
                     </motion.div>

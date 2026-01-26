@@ -261,28 +261,9 @@ img[draggable="false"] {
   pointer-events: auto;
 }
 
-/* Watermark overlay on hover (optional visual deterrent) */
+/* Watermark overlay removed (protection handled by ImageProtection + no-select) */
 .protected-image {
   position: relative;
-}
-
-.protected-image::after {
-  content: '© Amy Morgenrood';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: rgba(255, 255, 255, 0);
-  font-size: 2rem;
-  font-weight: bold;
-  pointer-events: none;
-  transition: color 0.3s ease;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  z-index: 10;
-}
-
-.protected-image:hover::after {
-  color: rgba(255, 255, 255, 0.15);
 }
 
 /* Disable context menu on specific containers */
