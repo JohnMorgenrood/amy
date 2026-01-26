@@ -322,15 +322,16 @@ export function Portfolio() {
             grabCursor={true}
             centeredSlides={true}
             slidesPerView="auto"
+            loop={true}
             coverflowEffect={{
-              rotate: 0,
+              rotate: 18,
               stretch: 0,
-              depth: 100,
-              modifier: 2.5,
+              depth: 240,
+              modifier: 1.2,
               slideShadows: false,
             }}
             autoplay={{
-              delay: 4000,
+              delay: 3500,
               disableOnInteraction: false,
             }}
             pagination={{
@@ -342,13 +343,12 @@ export function Portfolio() {
             }}
             className="portfolio-swiper !overflow-visible"
             breakpoints={{
-              320: { slidesPerView: 1.05, spaceBetween: 18 },
-              640: { slidesPerView: 1.6, spaceBetween: 24 },
-              1024: { slidesPerView: 2.6, spaceBetween: 32 },
-              1280: { slidesPerView: 3.2, spaceBetween: 36 },
+              320: { slidesPerView: 1.1, spaceBetween: 16 },
+              640: { slidesPerView: 1.6, spaceBetween: 22 },
+              1024: { slidesPerView: 2.4, spaceBetween: 28 },
+              1280: { slidesPerView: 3, spaceBetween: 32 },
             }}
-            speed={900}
-            loop={true}
+            speed={1000}
           >
             {filteredItems.map((item, index) => (
               <SwiperSlide key={item.id} className="!w-[280px] sm:!w-[340px]">
