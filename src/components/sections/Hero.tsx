@@ -71,7 +71,7 @@ export function Hero() {
       ref={containerRef}
       id="home"
       aria-label="Amy Morgenrood - Professional Makeup Artist in Cape Town"
-      className="relative min-h-[90vh] overflow-hidden"
+      className="relative min-h-screen overflow-hidden"
     >
       {/* Video/Image Background with Overlay */}
       <motion.div 
@@ -102,7 +102,7 @@ export function Hero() {
       </motion.div>
 
       {/* Main Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-6">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-8">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Media-first Hero */}
           <motion.div
