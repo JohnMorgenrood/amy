@@ -139,7 +139,7 @@ export default function RootLayout({
                   description: 'ITEC-certified professional makeup artist in Cape Town with 8+ years on-set experience specializing in Film, SFX, Prosthetics, Beauty, Airbrush, and Hair Styling.',
                   url: 'https://amysmakeupstore.com',
                   telephone: '+27847017012',
-                  email: 'stumstudio1@gmail.com',
+                  email: 'rubyroyal1@gmail.com',
                   image: 'https://amysmakeupstore.com/og-image.svg',
                   logo: 'https://amysmakeupstore.com/icon.svg',
                   address: {

@@ -1,15 +1,15 @@
 # Setting Up the Contact Form
 
-The contact form uses **Web3Forms** to send emails to `stumstudio1@gmail.com`. This is much simpler than Resend and works perfectly with Gmail!
+The contact form uses **Web3Forms** to send emails to `rubyroyal1@gmail.com`. This is much simpler than Resend and works perfectly with Gmail!
 
 ## Quick Setup (5 minutes):
 
 ### Step 1: Get Your Free Web3Forms Access Key
 
 1. Go to **https://web3forms.com**
-2. Enter `stumstudio1@gmail.com` in the email field
+2. Enter `rubyroyal1@gmail.com` in the email field
 3. Click "Get Access Key"
-4. Check the Gmail inbox for `stumstudio1@gmail.com`
+4. Check the Gmail inbox for `rubyroyal1@gmail.com`
 5. Click the verification link in the email
 6. Copy the **Access Key** shown on the page
 
@@ -35,7 +35,7 @@ If your development server is running:
 
 1. Go to your website's contact section
 2. Fill out the form and submit
-3. Check `stumstudio1@gmail.com` for the email
+3. Check `rubyroyal1@gmail.com` for the email
 
 ## Why Web3Forms?
 

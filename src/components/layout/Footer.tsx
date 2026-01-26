@@ -76,7 +76,7 @@ export function Footer() {
                 <Instagram className="w-4 h-4 text-cream-500/60 hover:text-cream-100" />
               </motion.a>
               <motion.a
-                href="mailto:stumstudio1@gmail.com"
+                href="mailto:rubyroyal1@gmail.com"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 className="p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 transition-all duration-300"
@@ -149,11 +149,11 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:stumstudio1@gmail.com"
+                  href="mailto:rubyroyal1@gmail.com"
                   className="flex items-center gap-3 text-cream-300/70 hover:text-cream-100 transition-colors duration-300 text-sm font-light group"
                 >
                   <Mail className="w-4 h-4" />
-                  <span>stumstudio1@gmail.com</span>
+                  <span>rubyroyal1@gmail.com</span>
                 </a>
               </li>
               <li>

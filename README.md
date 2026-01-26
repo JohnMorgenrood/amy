@@ -134,7 +134,7 @@ For production, add these to your Vercel project:
 
 ```env
 # Optional - for form submissions
-CONTACT_EMAIL=stumstudio1@gmail.com
+CONTACT_EMAIL=rubyroyal1@gmail.com
 
 # Optional - for analytics
 NEXT_PUBLIC_GA_ID=your-google-analytics-id
@@ -143,7 +143,7 @@ NEXT_PUBLIC_GA_ID=your-google-analytics-id
 ## 📱 Contact Information
 
 - **Phone**: 084 701 7012
-- **Email**: stumstudio1@gmail.com
+- **Email**: rubyroyal1@gmail.com
 - **Location**: Cape Town, South Africa
 - **Instagram**: [@amyb_mup](https://instagram.com/amyb_mup)
 
