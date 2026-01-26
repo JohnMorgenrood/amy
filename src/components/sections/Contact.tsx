@@ -10,6 +10,7 @@ import {
   MapPin, 
   Clock,
   Instagram,
+  Youtube,
   CheckCircle,
   Loader2,
   Sparkles
@@ -276,14 +277,29 @@ ${formData.message}
                     <Instagram className="w-4 h-4" />
                   </motion.a>
                   <motion.a
-                    href="https://instagram.com/_amyy_mua"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="#"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                     className="p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 text-cream-100 transition-all duration-300"
+                    aria-label="TikTok"
                   >
-                    <Instagram className="w-4 h-4" />
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-4 h-4"
+                      aria-hidden="true"
+                      fill="currentColor"
+                    >
+                      <path d="M21 8.5c-1.8 0-3.4-.7-4.6-1.8v7.5a5.7 5.7 0 1 1-5.7-5.7c.3 0 .7 0 1 .1v2.4a3.2 3.2 0 1 0 2.2 3v-9h2.5c.6 1.6 2.1 2.7 3.9 2.9v2.6z" />
+                    </svg>
+                  </motion.a>
+                  <motion.a
+                    href="#"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 text-cream-100 transition-all duration-300"
+                    aria-label="YouTube"
+                  >
+                    <Youtube className="w-4 h-4" />
                   </motion.a>
                 </div>
 

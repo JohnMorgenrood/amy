@@ -125,25 +125,44 @@ export function Hero() {
               style={{ transformStyle: 'preserve-3d' }}
               className="relative aspect-[4/5] sm:aspect-[16/10] lg:aspect-[4/5] overflow-hidden"
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={heroGallery[activeImage].src}
-                  initial={{ opacity: 0, scale: 1.03 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.7, ease: 'easeOut' }}
-                  className="absolute inset-0 z-[1]"
-                >
-                  <Image
-                    src={heroGallery[activeImage].src}
-                    alt={heroGallery[activeImage].alt}
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 60vw"
-                  />
-                </motion.div>
-              </AnimatePresence>
+              {/* Fanned Image Stack */}
+              <div className="absolute inset-0 z-[1]">
+                {heroGallery.map((image, index) => {
+                  const isActive = index === activeImage
+                  const offset = ((index - activeImage + heroGallery.length) % heroGallery.length)
+                  const zIndex = heroGallery.length - offset
+                  const rotate = isActive ? 0 : 10 + offset * 6
+                  const x = isActive ? 0 : 16 + offset * 14
+                  const y = isActive ? 0 : 10 + offset * 8
+
+                  return (
+                    <motion.div
+                      key={image.src}
+                      initial={false}
+                      animate={{
+                        opacity: isActive ? 1 : 0.35,
+                        rotate,
+                        x,
+                        y,
+                        scale: isActive ? 1 : 0.96,
+                      }}
+                      transition={{ duration: 0.7, ease: 'easeOut' }}
+                      style={{ zIndex }}
+                      className="absolute inset-0"
+                    >
+                      <div className="absolute inset-0 shadow-[0_30px_80px_rgba(0,0,0,0.45)]" />
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        className="object-cover"
+                        priority={isActive}
+                        sizes="(max-width: 1024px) 100vw, 60vw"
+                      />
+                    </motion.div>
+                  )
+                })}
+              </div>
 
               <div className="absolute inset-0 bg-gradient-to-t from-dark-950/70 via-dark-950/30 to-transparent z-10" />
 
