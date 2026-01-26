@@ -191,6 +191,14 @@ export function Footer() {
               in Cape Town
             </p>
             <div className="flex items-center gap-6">
+              <a
+                href="https://www.johnsdev.space/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold-400/70 hover:text-gold-300 text-[11px] tracking-[0.18em] uppercase transition-colors duration-300 font-light underline underline-offset-4"
+              >
+                https://www.johnsdev.space/
+              </a>
               {footerLinks.legal.map((link) => (
                 <Link
                   key={link.name}
