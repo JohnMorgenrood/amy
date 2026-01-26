@@ -31,6 +31,10 @@ body {
   overflow-x: hidden;
 }
 
+.font-script {
+  font-family: var(--font-script), 'Dancing Script', cursive;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

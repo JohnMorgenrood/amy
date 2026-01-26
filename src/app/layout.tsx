@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Space_Grotesk } from 'next/font/google'
+import { Inter, Space_Grotesk, Dancing_Script } from 'next/font/google'
 import './globals.css'
 import { ConditionalNavbar } from '@/components/ConditionalNavbar'
 import { Footer } from '@/components/layout/Footer'
@@ -18,6 +18,13 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-space-grotesk',
   weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+})
+
+const dancingScript = Dancing_Script({
+  subsets: ['latin'],
+  variable: '--font-script',
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 })
 
@@ -110,7 +117,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${dancingScript.variable}`}>
       <head>
         <link rel="icon" href="/favicon-small.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="512x512" />

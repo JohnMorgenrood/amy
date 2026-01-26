@@ -144,19 +144,19 @@ export function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="space-y-6">
-              <p className="text-cream-200/90 text-lg leading-relaxed font-light">
-                I’m <span className="text-gold-400">Amy Morgenrood</span>, a Cape Town-based makeup & hair artist with
-                <span className="text-gold-400"> 8+ years on-set experience</span> in film and television.
+            <div className="space-y-6 rounded-2xl border border-rose-500/20 bg-rose-500/10 p-6">
+              <p className="font-script text-cream-100 text-xl leading-relaxed">
+                I’m <span className="text-rose-200">Amy Morgenrood</span>, a Cape Town-based makeup & hair artist with
+                <span className="text-rose-200"> 8+ years on-set experience</span> in film and television.
               </p>
-              <p className="text-cream-300/75 leading-relaxed font-light">
+              <p className="font-script text-cream-100/90 text-lg leading-relaxed">
                 I’m <span className="text-cream-100">ITEC certified</span> and specialize in SFX, prosthetics,
                 continuity-driven character work, and camera-ready beauty.
               </p>
-              <p className="text-cream-300/75 leading-relaxed font-light">
-                Selected credits include <span className="text-gold-400">The Woman King</span>,
-                <span className="text-gold-400"> Recipes for Love and Murder (S2)</span>,
-                <span className="text-gold-400"> King Shaka</span>, and <span className="text-gold-400">American Monster (S7–9)</span>.
+              <p className="font-script text-cream-100/90 text-lg leading-relaxed">
+                Selected credits include <span className="text-rose-200">The Woman King</span>,
+                <span className="text-rose-200"> Recipes for Love and Murder (S2)</span>,
+                <span className="text-rose-200"> King Shaka</span>, and <span className="text-rose-200">American Monster (S7–9)</span>.
               </p>
             </div>
 

@@ -19,8 +19,8 @@ const heroGallery = [
     subtitle: 'On-set continuity with production-ready precision.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1512207846876-9c2b4a7d710b?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Makeup workstation with tools',
+    src: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=1600&auto=format&fit=crop',
+    alt: 'Makeup brushes and palettes on a desk',
     title: 'SFX & Prosthetics',
     subtitle: 'Transformations, wounds, and character FX for screen.',
   },
