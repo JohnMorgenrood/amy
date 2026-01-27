@@ -217,6 +217,46 @@ const fallbackProductImages = [
   '/assets/portfolio/FB_IMG_1487892965084.jpg',
 ]
 
+type DescriptionSpec = { label: string; value: string }
+
+function parseProductDescription(html?: string) {
+  if (!html) return { specs: [] as DescriptionSpec[], summary: '' }
+
+  const text = html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, '\n')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+
+  const lines = text
+    .split(/\n|\r/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+
+  const specs: DescriptionSpec[] = []
+  const notes: string[] = []
+
+  for (const line of lines) {
+    const parts = line.split(':')
+    if (parts.length >= 2) {
+      const label = parts[0].trim()
+      const value = parts.slice(1).join(':').trim()
+      if (label.length > 1 && label.length <= 24 && value.length <= 140) {
+        specs.push({ label, value })
+        continue
+      }
+    }
+    notes.push(line)
+  }
+
+  const summary = notes.join(' ')
+
+  return {
+    specs: specs.slice(0, 6),
+    summary
+  }
+}
+
 // Cart Sidebar Component
 function CartSidebar({
   isOpen,
@@ -466,6 +506,7 @@ function ProductModal({
     ? product.videoUrls.filter((url) => typeof url === 'string' && url.startsWith('http'))
     : []
   const showVideoTab = videoUrls.length > 0
+  const parsedDescription = parseProductDescription(product.description)
 
   const formatCurrency = (amountUsd: number) => {
     const rate = rates[currency] ?? 1
@@ -564,8 +605,39 @@ function ProductModal({
 
                 {activeTab === 'details' && (
                   <div>
-                    <div className="prose prose-invert prose-sm mb-6">
-                      <p className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
+                    {parsedDescription.specs.length > 0 && (
+                      <div className="mb-6 rounded-xl border border-white/10 bg-white/5 p-4">
+                        <h3 className="text-white font-semibold mb-3">Quick Specs</h3>
+                        <div className="grid gap-2 text-sm text-white/70">
+                          {parsedDescription.specs.map((spec) => (
+                            <div key={spec.label} className="flex items-start justify-between gap-4">
+                              <span className="text-white/50">{spec.label}</span>
+                              <span className="text-right text-white/80">{spec.value}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {parsedDescription.summary && (
+                      <p className="text-white/70 text-sm mb-4">{parsedDescription.summary}</p>
+                    )}
+
+                    <div className="prose prose-invert prose-sm prose-img:my-4 prose-img:rounded-xl mb-6">
+                      <div className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
+                    </div>
+
+                    <div className="mb-6 rounded-xl border border-white/10 bg-black/40 p-4">
+                      <h3 className="text-white font-semibold mb-2">Customer feedback</h3>
+                      <p className="text-white/60 text-sm">
+                        Verified-purchase reviews are coming soon. Want to share your experience?
+                      </p>
+                      <Link
+                        href="/#contact"
+                        className="inline-flex mt-3 text-sm text-[#D4AF37] hover:underline"
+                      >
+                        Leave a review
+                      </Link>
                     </div>
 
                     {product.benefits && (
