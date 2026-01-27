@@ -72,6 +72,8 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(true)
   const [currency, setCurrency] = useState<CurrencyCode>('USD')
   const [rates, setRates] = useState<Record<CurrencyCode, number>>(DEFAULT_RATES)
+  const [shippingUsd, setShippingUsd] = useState<number | null>(null)
+  const [shippingLoading, setShippingLoading] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     firstName: '',
@@ -128,6 +130,38 @@ export default function CheckoutPage() {
   }, [])
 
   useEffect(() => {
+    const fetchShipping = async () => {
+      if (cartItems.length === 0) {
+        setShippingUsd(0)
+        return
+      }
+
+      try {
+        setShippingLoading(true)
+        const response = await fetch('/api/shipping', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            countryCode: formData.country,
+            items: cartItems.map((item) => ({ sku: item.product.sku, quantity: item.quantity }))
+          })
+        })
+
+        const data = await response.json()
+        const quote = typeof data?.shippingUsd === 'number' ? data.shippingUsd : null
+        setShippingUsd(quote)
+      } catch (error) {
+        console.error('Shipping quote failed:', error)
+        setShippingUsd(null)
+      } finally {
+        setShippingLoading(false)
+      }
+    }
+
+    fetchShipping()
+  }, [cartItems, formData.country])
+
+  useEffect(() => {
     localStorage.setItem('shop-currency', currency)
   }, [currency])
 
@@ -143,8 +177,10 @@ export default function CheckoutPage() {
     return sum + price * item.quantity
   }, 0)
 
-  const shipping = getShippingUsd(formData.country)
-  const total = subtotal + shipping
+  const resolvedShippingUsd = typeof shippingUsd === 'number'
+    ? shippingUsd
+    : getShippingUsd(formData.country)
+  const total = subtotal + resolvedShippingUsd
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData(prev => ({
@@ -565,7 +601,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between text-white/60">
                   <span>Shipping (Standard)</span>
-                  <span>{formatCurrency(shipping)}</span>
+                  <span>{shippingLoading ? '—' : formatCurrency(resolvedShippingUsd)}</span>
                 </div>
                 <div className="flex justify-between text-white text-xl font-bold pt-3 border-t border-white/10">
                   <span>Total</span>

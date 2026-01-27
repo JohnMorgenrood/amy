@@ -223,7 +223,9 @@ function CartSidebar({
   currency,
   rates,
   shipCountry,
-  onShipCountryChange
+  onShipCountryChange,
+  shippingUsd,
+  shippingLoading
 }: {
   isOpen: boolean
   onClose: () => void
@@ -231,6 +233,8 @@ function CartSidebar({
   rates: Record<CurrencyCode, number>
   shipCountry: string
   onShipCountryChange: (value: string) => void
+  shippingUsd: number | null
+  shippingLoading: boolean
 }) {
   const { items, removeFromCart, updateQuantity, clearCart, subtotal, total, totalItems } = useCart()
 
@@ -241,8 +245,10 @@ function CartSidebar({
     return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value)
   }
 
-  const shippingUsd = getShippingUsd(shipCountry)
-  const totalWithShippingUsd = total + shippingUsd
+  const resolvedShippingUsd = typeof shippingUsd === 'number'
+    ? shippingUsd
+    : getShippingUsd(shipCountry)
+  const totalWithShippingUsd = total + resolvedShippingUsd
 
   return (
     <AnimatePresence>
@@ -360,7 +366,11 @@ function CartSidebar({
                     <svg className="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                     </svg>
-                    <span>Standard shipping from {formatCurrency(shippingUsd)} • 1-3 Business Days</span>
+                    <span>
+                      {shippingLoading
+                        ? 'Calculating live shipping…'
+                        : `Standard shipping from ${formatCurrency(resolvedShippingUsd)} • 1-3 Business Days`}
+                    </span>
                   </div>
                   <p className="text-white/50 text-xs mt-1 ml-6">Delivery time depends on area and product availability</p>
                 </div>
@@ -389,7 +399,7 @@ function CartSidebar({
                   </div>
                   <div className="flex justify-between text-white/60">
                     <span>Shipping (Standard)</span>
-                    <span>{formatCurrency(shippingUsd)}</span>
+                    <span>{shippingLoading ? '—' : formatCurrency(resolvedShippingUsd)}</span>
                   </div>
                   <div className="flex justify-between text-white text-lg font-bold pt-3 mt-2 border-t border-white/10">
                     <span>Total</span>
@@ -676,8 +686,10 @@ function ShopContent() {
   const [currency, setCurrency] = useState<CurrencyCode>('USD')
   const [rates, setRates] = useState<Record<CurrencyCode, number>>(DEFAULT_RATES)
   const [shipCountry, setShipCountry] = useState('US')
+  const [shippingUsd, setShippingUsd] = useState<number | null>(null)
+  const [shippingLoading, setShippingLoading] = useState(false)
   
-  const { addToCart, totalItems } = useCart()
+  const { addToCart, totalItems, items } = useCart()
 
   const formatCurrency = (amountUsd: number) => {
     const rate = rates[currency] ?? 1
@@ -738,6 +750,38 @@ function ShopContent() {
   useEffect(() => {
     localStorage.setItem('shop-ship-country', shipCountry)
   }, [shipCountry])
+
+  useEffect(() => {
+    const fetchShipping = async () => {
+      if (items.length === 0) {
+        setShippingUsd(0)
+        return
+      }
+
+      try {
+        setShippingLoading(true)
+        const response = await fetch('/api/shipping', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            countryCode: shipCountry,
+            items: items.map((item) => ({ sku: item.product.sku, quantity: item.quantity }))
+          })
+        })
+
+        const data = await response.json()
+        const quote = typeof data?.shippingUsd === 'number' ? data.shippingUsd : null
+        setShippingUsd(quote)
+      } catch (error) {
+        console.error('Shipping quote failed:', error)
+        setShippingUsd(null)
+      } finally {
+        setShippingLoading(false)
+      }
+    }
+
+    fetchShipping()
+  }, [items, shipCountry])
 
   useEffect(() => {
     const fetchRates = async () => {
@@ -1054,6 +1098,8 @@ function ShopContent() {
         rates={rates}
         shipCountry={shipCountry}
         onShipCountryChange={setShipCountry}
+        shippingUsd={shippingUsd}
+        shippingLoading={shippingLoading}
       />
 
       {/* Product Modal */}
