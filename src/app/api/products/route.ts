@@ -4,6 +4,20 @@ import { NextResponse } from 'next/server'
 const BLANKA_API_URL = 'https://api.blankabrand.com/api/v1/products/'
 const BLANKA_API_KEY = process.env.BLANKA_API_KEY || ''
 
+// CJ Dropshipping API configuration
+const CJ_API_BASE_URL = 'https://developers.cjdropshipping.com/api2.0/v1'
+const CJ_API_KEY = process.env.CJ_API_KEY || ''
+
+type CJTokenCache = {
+  accessToken: string
+  expiresAt: number
+  refreshToken: string
+}
+
+let cjTokenCache: CJTokenCache | null = null
+
+const CJ_TOKEN_EXPIRY_BUFFER_MS = 5 * 60 * 1000
+
 export interface BlankaProduct {
   id: number
   name: string
@@ -35,6 +49,181 @@ interface BlankaResponse {
   results: BlankaProduct[]
 }
 
+type CJListV2Product = {
+  id?: string
+  nameEn?: string
+  sku?: string
+  bigImage?: string
+  sellPrice?: string
+  nowPrice?: string
+  discountPrice?: string
+  description?: string
+  threeCategoryName?: string
+  twoCategoryName?: string
+  oneCategoryName?: string
+  warehouseInventoryNum?: number
+}
+
+type CJListV2Response = {
+  code: number
+  result: boolean
+  message: string
+  data?: {
+    pageSize: number
+    pageNumber: number
+    totalRecords: number
+    totalPages: number
+    content: Array<{
+      productList: CJListV2Product[]
+    }>
+  }
+}
+
+function hashStringToNumber(value: string) {
+  let hash = 0
+  for (let i = 0; i < value.length; i += 1) {
+    hash = (hash << 5) - hash + value.charCodeAt(i)
+    hash |= 0
+  }
+  return Math.abs(hash)
+}
+
+function normalizeCJCategories(product: CJListV2Product): string[] {
+  const categories = [
+    product.threeCategoryName,
+    product.twoCategoryName,
+    product.oneCategoryName,
+  ]
+    .filter(Boolean)
+    .map((value) => String(value).toLowerCase())
+
+  if (categories.length === 0) {
+    return ['makeup']
+  }
+
+  return Array.from(new Set(categories))
+}
+
+function mapCJProduct(product: CJListV2Product): BlankaProduct {
+  const fallbackName = product.nameEn || 'CJ Beauty Product'
+  const basePrice = Number(product.discountPrice || product.nowPrice || product.sellPrice || '0')
+  const suggestedCost = basePrice ? (basePrice * 1.3).toFixed(2) : '0.00'
+  const cost = basePrice ? (basePrice * 0.9).toFixed(2) : '0.00'
+  const productId = product.id || product.sku || fallbackName
+
+  return {
+    id: hashStringToNumber(productId),
+    name: fallbackName,
+    sku: product.sku || productId,
+    branded_box_available: false,
+    available_inventory: product.warehouseInventoryNum || 0,
+    suggested_cost: suggestedCost,
+    cost,
+    weight: 0,
+    color_code: '',
+    color_name: '',
+    product_type: 'CJ Dropshipping',
+    image: product.bigImage || '',
+    categories: normalizeCJCategories(product),
+    is_expiring: false,
+    description: product.description || 'Premium beauty product from CJ Dropshipping.',
+    product_notes: null,
+    benefits: '',
+    application: '',
+    ingredients: '',
+    expires_at: null,
+    product_base: 'CJ Dropshipping'
+  }
+}
+
+const CJ_ALLOWED_KEYWORDS = [
+  'makeup',
+  'beauty',
+  'cosmetic',
+  'skincare',
+  'skin care',
+  'lip',
+  'lips',
+  'eye',
+  'eyes',
+  'foundation',
+  'concealer',
+  'powder',
+  'palette',
+  'brush',
+  'brow',
+  'mascara',
+  'eyeliner',
+  'blush',
+  'highlighter',
+  'perfume',
+  'fashion',
+  'apparel',
+  'clothing',
+  'dress',
+  'jacket',
+  'top',
+  'skirt',
+  'pants',
+  'trousers',
+  'bag',
+  'handbag',
+  'shoes',
+  'accessories',
+  'jewelry',
+  'earring',
+  'necklace'
+]
+
+function isCJAllowedProduct(product: CJListV2Product) {
+  const haystack = [
+    product.nameEn,
+    product.threeCategoryName,
+    product.twoCategoryName,
+    product.oneCategoryName
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase()
+
+  return CJ_ALLOWED_KEYWORDS.some((keyword) => haystack.includes(keyword))
+}
+
+async function getCJAccessToken() {
+  if (cjTokenCache && cjTokenCache.expiresAt > Date.now() + CJ_TOKEN_EXPIRY_BUFFER_MS) {
+    return cjTokenCache.accessToken
+  }
+
+  const response = await fetch(`${CJ_API_BASE_URL}/authentication/getAccessToken`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ apiKey: CJ_API_KEY })
+  })
+
+  if (!response.ok) {
+    throw new Error(`CJ auth error: ${response.status}`)
+  }
+
+  const data = await response.json()
+  if (!data?.data?.accessToken) {
+    throw new Error('CJ auth response missing access token')
+  }
+
+  const expiresAt = data?.data?.accessTokenExpiryDate
+    ? new Date(data.data.accessTokenExpiryDate).getTime()
+    : Date.now() + 14 * 24 * 60 * 60 * 1000
+
+  cjTokenCache = {
+    accessToken: data.data.accessToken,
+    refreshToken: data.data.refreshToken || '',
+    expiresAt
+  }
+
+  return cjTokenCache.accessToken
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const page = searchParams.get('page') || '1'
@@ -42,7 +231,7 @@ export async function GET(request: Request) {
   const category = searchParams.get('category') || ''
 
   // If no API key, return demo data
-  if (!BLANKA_API_KEY) {
+  if (!CJ_API_KEY && !BLANKA_API_KEY) {
     return NextResponse.json({
       count: demoProducts.length,
       next: null,
@@ -53,6 +242,42 @@ export async function GET(request: Request) {
   }
 
   try {
+    if (CJ_API_KEY) {
+      const accessToken = await getCJAccessToken()
+      const keyword = category || 'makeup beauty fashion'
+      const cjUrl = new URL(`${CJ_API_BASE_URL}/product/listV2`)
+      cjUrl.searchParams.set('page', page)
+      cjUrl.searchParams.set('size', pageSize)
+      cjUrl.searchParams.set('keyWord', keyword)
+      cjUrl.searchParams.set('features', 'enable_description,enable_category')
+
+      const response = await fetch(cjUrl.toString(), {
+        headers: {
+          'CJ-Access-Token': accessToken,
+          'Content-Type': 'application/json'
+        },
+        next: { revalidate: 3600 }
+      })
+
+      if (!response.ok) {
+        throw new Error(`CJ API error: ${response.status}`)
+      }
+
+      const data: CJListV2Response = await response.json()
+      const productGroups = data.data?.content || []
+      const products = productGroups.flatMap((group) => group.productList || [])
+      const filteredProducts = products.filter(isCJAllowedProduct)
+      const results = filteredProducts.map(mapCJProduct)
+
+      return NextResponse.json({
+        count: results.length,
+        next: null,
+        previous: null,
+        results,
+        isDemo: false
+      })
+    }
+
     let url = `${BLANKA_API_URL}?page=${page}&page_size=${pageSize}`
     if (category) {
       url += `&category=${category}`
@@ -63,7 +288,7 @@ export async function GET(request: Request) {
         'Authorization': BLANKA_API_KEY,
         'Content-Type': 'application/json'
       },
-      next: { revalidate: 3600 } // Cache for 1 hour
+      next: { revalidate: 3600 }
     })
 
     if (!response.ok) {
@@ -71,22 +296,21 @@ export async function GET(request: Request) {
     }
 
     const data: BlankaResponse = await response.json()
-    
+
     return NextResponse.json({
       ...data,
       isDemo: false
     })
   } catch (error) {
-    console.error('Failed to fetch from Blanka:', error)
-    
-    // Fallback to demo data on error
+    console.error('Failed to fetch products:', error)
+
     return NextResponse.json({
       count: demoProducts.length,
       next: null,
       previous: null,
       results: demoProducts,
       isDemo: true,
-      error: 'Using demo data - Blanka API unavailable'
+      error: 'Using demo data - external API unavailable'
     })
   }
 }
