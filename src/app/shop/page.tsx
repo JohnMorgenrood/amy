@@ -910,11 +910,15 @@ function ShopContent() {
 
         const data = await response.json()
 
-        setProducts(data.results || [])
-        setFilteredProducts(data.results || [])
+        const results = data.results || []
+        setProducts(results)
+        setFilteredProducts(results)
         setIsDemo(data.isDemo || false)
+        if (data?.error) {
+          setError(data.error)
+        }
       } catch (err) {
-        setError('Failed to load products. Please try again later.')
+        setError('Products are syncing. Please check back shortly.')
         console.error(err)
       } finally {
         setLoading(false)
@@ -1140,6 +1144,13 @@ function ShopContent() {
                   className="text-lg text-white/80 hover:text-white transition-colors py-2"
                 >
                   Shop Home
+                </Link>
+                <Link
+                  href="/account"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg text-white/70 hover:text-white transition-colors py-2"
+                >
+                  My Account
                 </Link>
                 <Link
                   href="/shop#filters"

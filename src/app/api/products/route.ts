@@ -234,11 +234,12 @@ export async function GET(request: Request) {
   // If no API key, return demo data
   if (!CJ_API_KEY && !BLANKA_API_KEY) {
     return NextResponse.json({
-      count: demoProducts.length,
+      count: 0,
       next: null,
       previous: null,
-      results: demoProducts,
-      isDemo: true
+      results: [],
+      isDemo: false,
+      error: 'Products are syncing. Please check back shortly.'
     })
   }
 
@@ -273,42 +274,33 @@ export async function GET(request: Request) {
         .map(mapCJProduct)
         .filter((product): product is BlankaProduct => product !== null)
 
-      const desiredCount = 100
-      let mergedResults = results
-
-      if (mergedResults.length > 0 && mergedResults.length < desiredCount) {
-        const existingSkus = new Set(mergedResults.map((product) => product.sku))
-        const filler = demoProducts.filter((product) => !existingSkus.has(product.sku))
-        mergedResults = mergedResults.concat(filler.slice(0, desiredCount - mergedResults.length))
-      }
-
-      if (mergedResults.length === 0) {
+      if (results.length === 0) {
         return NextResponse.json({
-          count: demoProducts.length,
+          count: 0,
           next: null,
           previous: null,
-          results: demoProducts,
-          isDemo: true,
-          error: 'No CJ products returned. Showing demo products.'
+          results: [],
+          isDemo: false,
+          error: 'Products are syncing. Please check back shortly.'
         })
       }
 
       return NextResponse.json({
-        count: mergedResults.length,
+        count: results.length,
         next: null,
         previous: null,
-        results: mergedResults,
+        results,
         isDemo: false
       })
     } catch (error) {
       console.error('Failed to fetch from CJ:', error)
       return NextResponse.json({
-        count: demoProducts.length,
+        count: 0,
         next: null,
         previous: null,
-        results: demoProducts,
-        isDemo: true,
-        error: 'CJ API unavailable - showing demo products'
+        results: [],
+        isDemo: false,
+        error: 'Products are syncing. Please check back shortly.'
       })
     }
   }
@@ -341,12 +333,12 @@ export async function GET(request: Request) {
     console.error('Failed to fetch from Blanka:', error)
 
     return NextResponse.json({
-      count: demoProducts.length,
+      count: 0,
       next: null,
       previous: null,
-      results: demoProducts,
-      isDemo: true,
-      error: 'Using demo data - Blanka API unavailable'
+      results: [],
+      isDemo: false,
+      error: 'Products are syncing. Please check back shortly.'
     })
   }
 }
