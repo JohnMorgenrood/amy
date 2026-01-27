@@ -228,7 +228,7 @@ function isCJAllowedProduct(product: CJListV2Product) {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const page = searchParams.get('page') || '1'
-  const pageSize = searchParams.get('page_size') || '50'
+  const pageSize = searchParams.get('page_size') || '100'
   const category = searchParams.get('category') || ''
 
   // If no API key, return demo data
@@ -246,33 +246,57 @@ export async function GET(request: Request) {
   if (CJ_API_KEY) {
     try {
       const accessToken = await getCJAccessToken()
-      const keyword = category || 'beauty'
-      const cjUrl = new URL(`${CJ_API_BASE_URL}/product/listV2`)
-      cjUrl.searchParams.set('page', page)
-      cjUrl.searchParams.set('size', pageSize)
-      cjUrl.searchParams.set('keyWord', keyword)
-      cjUrl.searchParams.set('features', 'enable_description,enable_category,enable_video')
+      const sizeValue = Math.min(100, Math.max(1, Number(pageSize) || 100))
+      const targetCount = 100
 
-      const response = await fetch(cjUrl.toString(), {
-        headers: {
-          'CJ-Access-Token': accessToken,
-          'Content-Type': 'application/json'
-        },
-        cache: 'no-store'
-      })
+      const fetchCJList = async (keyword: string) => {
+        const cjUrl = new URL(`${CJ_API_BASE_URL}/product/listV2`)
+        cjUrl.searchParams.set('page', category ? page : '1')
+        cjUrl.searchParams.set('size', String(sizeValue))
+        cjUrl.searchParams.set('keyWord', keyword)
+        cjUrl.searchParams.set('features', 'enable_description,enable_category,enable_video')
 
-      if (!response.ok) {
-        throw new Error(`CJ API error: ${response.status}`)
+        const response = await fetch(cjUrl.toString(), {
+          headers: {
+            'CJ-Access-Token': accessToken,
+            'Content-Type': 'application/json'
+          },
+          cache: 'no-store'
+        })
+
+        if (!response.ok) {
+          throw new Error(`CJ API error: ${response.status}`)
+        }
+
+        const data: CJListV2Response = await response.json()
+        const productGroups = data.data?.content || []
+        return productGroups.flatMap((group) => group.productList || [])
       }
 
-      const data: CJListV2Response = await response.json()
-      const productGroups = data.data?.content || []
-      const products = productGroups.flatMap((group) => group.productList || [])
-      const filteredProducts = products.filter(isCJAllowedProduct)
-      const sourceProducts = filteredProducts.length > 0 ? filteredProducts : products
-      const results = sourceProducts
-        .map(mapCJProduct)
-        .filter((product): product is BlankaProduct => product !== null)
+      const keywords = category
+        ? [category]
+        : ['makeup', 'lipstick', 'foundation', 'eyeliner', 'brush', 'palette', 'mascara', 'blush', 'highlighter', 'skincare']
+
+      const merged: BlankaProduct[] = []
+      const seenSkus = new Set<string>()
+
+      for (const keyword of keywords) {
+        const products = await fetchCJList(keyword)
+        const filteredProducts = products.filter(isCJAllowedProduct)
+        const sourceProducts = filteredProducts.length > 0 ? filteredProducts : products
+
+        for (const product of sourceProducts) {
+          const mapped = mapCJProduct(product)
+          if (!mapped || seenSkus.has(mapped.sku)) continue
+          seenSkus.add(mapped.sku)
+          merged.push(mapped)
+          if (merged.length >= targetCount) break
+        }
+
+        if (merged.length >= targetCount) break
+      }
+
+      const results = merged
 
       if (results.length === 0) {
         return NextResponse.json({
