@@ -778,6 +778,7 @@ function ShopContent() {
   const [shipCountry, setShipCountry] = useState('US')
   const [shippingUsd, setShippingUsd] = useState<number | null>(null)
   const [shippingLoading, setShippingLoading] = useState(false)
+  const [visibleCount, setVisibleCount] = useState(12)
   
   const { addToCart, totalItems, items } = useCart()
 
@@ -1034,6 +1035,10 @@ function ShopContent() {
   }, [products, searchQuery, selectedCategory, minPrice, maxPrice])
 
   useEffect(() => {
+    setVisibleCount(12)
+  }, [searchQuery, selectedCategory, minPrice, maxPrice, products])
+
+  useEffect(() => {
     const interval = setInterval(() => {
       const length = Math.max(carouselItems.length, 1)
       setActiveSlide((prev) => (prev + 1) % length)
@@ -1060,6 +1065,7 @@ function ShopContent() {
     setSelectedCategory('')
     setMinPrice('')
     setMaxPrice('')
+    setVisibleCount(12)
   }
 
   return (
@@ -1488,7 +1494,7 @@ function ShopContent() {
             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6"
           >
             <AnimatePresence mode="popLayout">
-              {filteredProducts.map(product => (
+              {filteredProducts.slice(0, visibleCount).map(product => (
                 <ProductCard
                   key={product.id}
                   product={product}
@@ -1500,6 +1506,16 @@ function ShopContent() {
               ))}
             </AnimatePresence>
           </motion.div>
+        )}
+        {!loading && !error && filteredProducts.length > visibleCount && (
+          <div className="mt-10 flex justify-center">
+            <button
+              onClick={() => setVisibleCount((prev) => prev + 12)}
+              className="px-8 py-3 rounded-full border border-[#D4AF37]/50 text-[#D4AF37] hover:bg-[#D4AF37]/10 transition-colors text-sm font-semibold"
+            >
+              Load more
+            </button>
+          </div>
         )}
       </section>
 
