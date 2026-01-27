@@ -4,6 +4,8 @@
 import { NextResponse } from 'next/server'
 import { getCJAccessToken, getCJConfig } from '@/lib/cj'
 
+export const dynamic = 'force-dynamic'
+
 // Blanka API configuration
 const BLANKA_API_URL = 'https://api.blankabrand.com/api/v1/products/'
 const BLANKA_API_KEY = process.env.BLANKA_API_KEY || ''
@@ -136,21 +138,54 @@ const CJ_ALLOWED_KEYWORDS = [
   'cosmetic',
   'skincare',
   'skin care',
+  'lipstick',
+  'lip gloss',
+  'lipgloss',
+  'lip liner',
+  'lipliner',
   'lip',
   'lips',
   'eye',
   'eyes',
+  'eyeshadow',
+  'eyeshadow palette',
+  'eyeshadow pallet',
+  'eyeshadow set',
+  'eyeshadow kit',
   'foundation',
   'concealer',
+  'contour',
+  'bronzer',
+  'setting powder',
+  'setting spray',
   'powder',
   'palette',
   'brush',
+  'makeup brush',
+  'beauty blender',
+  'sponge',
+  'blender',
   'brow',
+  'eyebrow',
   'mascara',
   'eyeliner',
+  'primer',
   'blush',
   'highlighter',
+  'illuminator',
+  'bb cream',
+  'cc cream',
+  'powder foundation',
+  'liquid foundation',
+  'makeup set',
+  'makeup kit',
+  'cosmetic bag',
+  'vanity case',
+  'lash',
+  'lashes',
+  'false lashes',
   'perfume',
+  'fragrance',
   'fashion',
   'apparel',
   'clothing',
@@ -216,7 +251,7 @@ export async function GET(request: Request) {
           'CJ-Access-Token': accessToken,
           'Content-Type': 'application/json'
         },
-        next: { revalidate: 3600 }
+        cache: 'no-store'
       })
 
       if (!response.ok) {
@@ -232,6 +267,17 @@ export async function GET(request: Request) {
         .map(mapCJProduct)
         .filter((product): product is BlankaProduct => product !== null)
 
+      if (results.length === 0) {
+        return NextResponse.json({
+          count: demoProducts.length,
+          next: null,
+          previous: null,
+          results: demoProducts,
+          isDemo: true,
+          error: 'No CJ products returned. Showing demo products.'
+        })
+      }
+
       return NextResponse.json({
         count: results.length,
         next: null,
@@ -242,12 +288,12 @@ export async function GET(request: Request) {
     } catch (error) {
       console.error('Failed to fetch from CJ:', error)
       return NextResponse.json({
-        count: 0,
+        count: demoProducts.length,
         next: null,
         previous: null,
-        results: [],
-        isDemo: false,
-        error: 'CJ API unavailable'
+        results: demoProducts,
+        isDemo: true,
+        error: 'CJ API unavailable - showing demo products'
       })
     }
   }
@@ -756,6 +802,100 @@ const demoProducts: BlankaProduct[] = [
     benefits: "Blendable, matte, buildable, perfect transition shade",
     application: "Sweep through crease with blending brush.",
     ingredients: "Talc, Zinc Stearate, Ethylhexyl Palmitate, Dimethicone, Iron Oxides",
+    expires_at: null,
+    product_base: "MAC Cosmetics"
+  },
+
+  // === FACE ===
+  {
+    id: 100026,
+    name: "Studio Fix Fluid SPF 15 Foundation - NC25",
+    sku: "MAC-FC-SFF-NC25",
+    branded_box_available: true,
+    available_inventory: 40,
+    suggested_cost: "560.00",
+    cost: "435.00",
+    weight: 30,
+    color_code: "#E3C3A3",
+    color_name: "NC25",
+    product_type: "MAC",
+    image: "https://images.pexels.com/photos/2533268/pexels-photo-2533268.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop",
+    categories: ["face", "foundation", "liquid"],
+    is_expiring: false,
+    description: "Oil-controlling, medium-to-full coverage liquid foundation with natural matte finish and 24-hour wear.",
+    product_notes: "Best Seller",
+    benefits: "24HR wear, medium-to-full coverage, shine control, SPF 15",
+    application: "Apply to face with brush, sponge, or fingers. Blend outwards for even coverage.",
+    ingredients: "Water, Cyclopentasiloxane, Dimethicone, Silica, Titanium Dioxide",
+    expires_at: null,
+    product_base: "MAC Cosmetics"
+  },
+  {
+    id: 100027,
+    name: "Studio Fix 24-Hour Concealer - NC20",
+    sku: "MAC-FC-SFC-NC20",
+    branded_box_available: true,
+    available_inventory: 38,
+    suggested_cost: "390.00",
+    cost: "305.00",
+    weight: 8,
+    color_code: "#E7C9A9",
+    color_name: "NC20",
+    product_type: "MAC",
+    image: "https://images.pexels.com/photos/2533269/pexels-photo-2533269.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop",
+    categories: ["face", "concealer"],
+    is_expiring: false,
+    description: "Long-wearing, crease-resistant concealer with natural matte finish and full coverage.",
+    product_notes: null,
+    benefits: "24HR wear, full coverage, crease-resistant, oil-controlling",
+    application: "Dot under eyes or on blemishes and blend with fingertip or sponge.",
+    ingredients: "Water, Isododecane, Dimethicone, Silica, Titanium Dioxide",
+    expires_at: null,
+    product_base: "MAC Cosmetics"
+  },
+  {
+    id: 100028,
+    name: "Prep + Prime Fix+ Setting Spray",
+    sku: "MAC-FC-FIX",
+    branded_box_available: true,
+    available_inventory: 45,
+    suggested_cost: "520.00",
+    cost: "405.00",
+    weight: 100,
+    color_code: "",
+    color_name: "",
+    product_type: "MAC",
+    image: "https://images.pexels.com/photos/4465125/pexels-photo-4465125.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop",
+    categories: ["face", "setting spray", "primer"],
+    is_expiring: false,
+    description: "Hydrating setting spray that refreshes makeup, boosts radiance, and reduces powdery finish.",
+    product_notes: "Pro Essential",
+    benefits: "Hydrates, refreshes makeup, softens powder finish",
+    application: "Mist evenly over face from 12 inches away. Use before or after makeup.",
+    ingredients: "Water, Glycerin, Butylene Glycol, Cucumber Extract",
+    expires_at: null,
+    product_base: "MAC Cosmetics"
+  },
+  {
+    id: 100029,
+    name: "Lipglass - Clear",
+    sku: "MAC-LP-LG-CLR",
+    branded_box_available: true,
+    available_inventory: 55,
+    suggested_cost: "330.00",
+    cost: "255.00",
+    weight: 3,
+    color_code: "#F7D9D2",
+    color_name: "Clear",
+    product_type: "MAC",
+    image: "https://images.pexels.com/photos/2533267/pexels-photo-2533267.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop",
+    categories: ["lips", "lip gloss", "gloss"],
+    is_expiring: false,
+    description: "Glass-like shine with a smooth, comfortable feel. Wear alone or over lipstick for extra gloss.",
+    product_notes: null,
+    benefits: "High-shine finish, smooth feel, layers over lip colour",
+    application: "Apply to lips using applicator. Layer over lipstick if desired.",
+    ingredients: "Polybutene, Mineral Oil, Hydrogenated Polyisobutene",
     expires_at: null,
     product_base: "MAC Cosmetics"
   },
