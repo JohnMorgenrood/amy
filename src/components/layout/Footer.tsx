@@ -66,14 +66,6 @@ export function Footer() {
               >
                 <Mail className="w-4 h-4 text-cream-500/60 hover:text-cream-100" />
               </motion.a>
-              <motion.a
-                href="tel:+27847017012"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                className="p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 transition-all duration-300"
-              >
-                <Phone className="w-4 h-4 text-cream-500/60 hover:text-cream-100" />
-              </motion.a>
             </div>
           </div>
 
