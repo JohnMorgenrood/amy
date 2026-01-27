@@ -5,8 +5,6 @@ import { motion } from 'framer-motion'
 import { 
   Instagram, 
   Mail, 
-  Phone, 
-  MapPin, 
   ArrowUp,
   Heart
 } from 'lucide-react'
@@ -16,16 +14,6 @@ const footerLinks = {
     { name: 'Shop Home', href: '/shop' },
     { name: 'Checkout', href: '/checkout' },
     { name: 'Shipping & Returns', href: '/terms' },
-    { name: 'Privacy Policy', href: '/privacy' },
-  ],
-  amy: [
-    { name: 'Portfolio', href: '/#portfolio' },
-    { name: 'Services', href: '/#services' },
-    { name: 'About Amy', href: '/#about' },
-    { name: 'Contact', href: '/#contact' },
-  ],
-  legal: [
-    { name: 'Terms of Service', href: '/terms' },
     { name: 'Privacy Policy', href: '/privacy' },
   ]
 }
@@ -42,7 +30,7 @@ export function Footer() {
       
       {/* Main Footer Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
           
           {/* Brand Column */}
           <div className="lg:col-span-1">
@@ -108,80 +96,30 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Amy Links */}
+          {/* Social */}
           <div>
             <h4 className="text-[10px] tracking-[0.2em] uppercase text-gold-500/80 mb-6">
-              Amy
+              Social
             </h4>
-            <ul className="space-y-3">
-              {footerLinks.amy.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-cream-300/70 hover:text-cream-100 transition-colors duration-300 text-sm font-light"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-[10px] tracking-[0.2em] uppercase text-gold-500/80 mb-6">
-              Connect
-            </h4>
-            <ul className="space-y-4">
-              <li>
-                <a
-                  href="tel:+27847017012"
-                  className="flex items-center gap-3 text-cream-300/70 hover:text-cream-100 transition-colors duration-300 text-sm font-light group"
-                >
-                  <Phone className="w-4 h-4" />
-                  <span>084 701 7012</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:rubyroyal1@gmail.com"
-                  className="flex items-center gap-3 text-cream-300/70 hover:text-cream-100 transition-colors duration-300 text-sm font-light group"
-                >
-                  <Mail className="w-4 h-4" />
-                  <span>rubyroyal1@gmail.com</span>
-                </a>
-              </li>
-              <li>
-                <div className="flex items-start gap-3 text-cream-500/50 text-sm font-light">
-                  <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>
-                    11 Tennessee St, Langeberg Heights<br />
-                    Cape Town, 7570
-                  </span>
-                </div>
-              </li>
-            </ul>
-            
-            <div className="mt-8">
-              <p className="text-[9px] tracking-[0.15em] uppercase text-cream-500/40 mb-2">Social</p>
-              <div className="flex flex-wrap gap-3 text-xs">
-                <a
-                  href="https://instagram.com/amyb_mup"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cream-300/70 hover:text-cream-100 transition-colors duration-300"
-                >
-                  Instagram
-                </a>
-                <a
-                  href="https://www.youtube.com/@amybinspirations7694"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cream-300/70 hover:text-cream-100 transition-colors duration-300"
-                >
-                  YouTube
-                </a>
-              </div>
+            <div className="flex items-center gap-3">
+              <motion.a
+                href="https://instagram.com/amyb_mup"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 transition-all duration-300"
+              >
+                <Instagram className="w-4 h-4 text-cream-500/60 hover:text-cream-100" />
+              </motion.a>
+              <motion.a
+                href="mailto:rubyroyal1@gmail.com"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 transition-all duration-300"
+              >
+                <Mail className="w-4 h-4 text-cream-500/60 hover:text-cream-100" />
+              </motion.a>
             </div>
           </div>
         </div>
@@ -203,15 +141,18 @@ export function Footer() {
               >
                 https://www.johnsdev.space/
               </a>
-              {footerLinks.legal.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-cream-500/40 hover:text-cream-500/70 text-xs tracking-wide transition-colors duration-300 font-light"
-                >
-                  {link.name}
-                </Link>
-              ))}
+              <Link
+                href="/terms"
+                className="text-cream-500/40 hover:text-cream-500/70 text-xs tracking-wide transition-colors duration-300 font-light"
+              >
+                Terms
+              </Link>
+              <Link
+                href="/privacy"
+                className="text-cream-500/40 hover:text-cream-500/70 text-xs tracking-wide transition-colors duration-300 font-light"
+              >
+                Privacy
+              </Link>
             </div>
           </div>
         </div>
