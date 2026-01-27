@@ -331,7 +331,7 @@ export default function CheckoutPage() {
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -340,14 +340,14 @@ export default function CheckoutPage() {
           Checkout
         </motion.h1>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid gap-8 lg:gap-12 lg:grid-cols-2">
           {/* Order Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
           >
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 md:p-8">
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-4 sm:p-6 lg:p-8">
               <h2 className="text-xl font-bold text-white mb-6">Shipping Information</h2>
               
               <form onSubmit={handleCheckout} className="space-y-4">
@@ -366,7 +366,7 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Name Row */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-white/70 text-sm mb-2">First Name *</label>
                     <input
@@ -434,7 +434,7 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* City & State */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-white/70 text-sm mb-2">City *</label>
                     <input
@@ -462,7 +462,7 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Country & Postal Code */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-white/70 text-sm mb-2">Country *</label>
                     <select
@@ -543,7 +543,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Contact Alternative */}
-            <div className="mt-6 p-6 bg-white/5 rounded-2xl border border-white/10 text-center">
+            <div className="mt-6 p-4 sm:p-6 bg-white/5 rounded-2xl border border-white/10 text-center">
               <p className="text-white/60 mb-2">Questions about your order?</p>
               <p className="text-white">
                 Contact Amy at{' '}
@@ -559,8 +559,9 @@ export default function CheckoutPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
+            className="lg:mt-0"
           >
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 md:p-8 sticky top-8">
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-4 sm:p-6 lg:p-8 lg:sticky lg:top-8">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-white">Order Summary</h2>
                 <div className="flex items-center gap-2">
@@ -581,7 +582,7 @@ export default function CheckoutPage() {
               </div>
               
               {/* Items */}
-              <div className="space-y-4 max-h-[400px] overflow-y-auto mb-6">
+              <div className="space-y-4 max-h-[320px] sm:max-h-[400px] overflow-y-auto mb-6">
                 {cartItems.map((item) => (
                   <div key={item.product.id} className="flex gap-4">
                     <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-white/10">
