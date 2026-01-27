@@ -619,25 +619,40 @@ function ProductModal({
                       </div>
                     )}
 
+                    <div className="mb-6 rounded-xl border border-white/10 bg-black/40 p-4">
+                      <h3 className="text-white font-semibold mb-3">Reviews</h3>
+                      <div className="flex items-center gap-1 text-[#D4AF37] mb-3">
+                        {Array.from({ length: 5 }).map((_, index) => (
+                          <svg
+                            key={index}
+                            className="w-4 h-4"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.26 3.89a1 1 0 00.95.69h4.09c.969 0 1.371 1.24.588 1.81l-3.31 2.405a1 1 0 00-.364 1.118l1.26 3.89c.3.921-.755 1.688-1.54 1.118l-3.31-2.405a1 1 0 00-1.175 0l-3.31 2.405c-.784.57-1.838-.197-1.54-1.118l1.26-3.89a1 1 0 00-.364-1.118L2.17 9.317c-.783-.57-.38-1.81.588-1.81h4.09a1 1 0 00.95-.69l1.26-3.89z" />
+                          </svg>
+                        ))}
+                      </div>
+                      <label className="block text-white/60 text-xs mb-2">Leave a comment</label>
+                      <textarea
+                        rows={3}
+                        placeholder="Share your experience..."
+                        className="w-full rounded-lg bg-black/60 border border-white/10 text-white/80 text-sm px-3 py-2 focus:outline-none focus:border-[#D4AF37]/60"
+                      />
+                      <button
+                        type="button"
+                        className="mt-3 inline-flex items-center justify-center rounded-full border border-[#D4AF37]/40 px-4 py-2 text-xs font-semibold text-[#D4AF37] hover:bg-[#D4AF37]/10"
+                      >
+                        Submit review
+                      </button>
+                    </div>
+
                     {parsedDescription.summary && (
                       <p className="text-white/70 text-sm mb-4">{parsedDescription.summary}</p>
                     )}
 
-                    <div className="prose prose-invert prose-sm prose-img:my-4 prose-img:rounded-xl mb-6">
+                    <div className="prose prose-invert prose-sm prose-img:my-4 prose-img:rounded-xl mb-6 rounded-xl border border-white/10 bg-white/5 p-4">
                       <div className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
-                    </div>
-
-                    <div className="mb-6 rounded-xl border border-white/10 bg-black/40 p-4">
-                      <h3 className="text-white font-semibold mb-2">Customer feedback</h3>
-                      <p className="text-white/60 text-sm">
-                        Verified-purchase reviews are coming soon. Want to share your experience?
-                      </p>
-                      <Link
-                        href="/#contact"
-                        className="inline-flex mt-3 text-sm text-[#D4AF37] hover:underline"
-                      >
-                        Leave a review
-                      </Link>
                     </div>
 
                     {product.benefits && (
