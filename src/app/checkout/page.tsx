@@ -18,23 +18,60 @@ interface CartItem {
   quantity: number
 }
 
-// Check if today is Friday (day 5)
-function isFriday(): boolean {
-  return new Date().getDay() === 5
+type CurrencyCode = 'USD' | 'ZAR' | 'GBP'
+
+const DEFAULT_RATES: Record<CurrencyCode, number> = {
+  USD: 1,
+  ZAR: 19.0,
+  GBP: 0.79
 }
 
-// Calculate price - Normal: +30% markup, Fridays: 10% off (back to base price)
+const EU_COUNTRIES = new Set([
+  'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE',
+  'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'
+])
+
+type ShippingRegion = 'US' | 'GB' | 'EU' | 'ZA' | 'CA' | 'AU' | 'NZ' | 'OTHER'
+
+const SHIPPING_RATES_USD: Record<ShippingRegion, number> = {
+  US: 8.95,
+  GB: 9.95,
+  EU: 10.95,
+  ZA: 12.95,
+  CA: 10.95,
+  AU: 12.95,
+  NZ: 12.95,
+  OTHER: 14.95
+}
+
+function getShippingRegion(countryCode: string): ShippingRegion {
+  const code = countryCode.toUpperCase()
+  if (code === 'US') return 'US'
+  if (code === 'GB') return 'GB'
+  if (code === 'ZA') return 'ZA'
+  if (code === 'CA') return 'CA'
+  if (code === 'AU') return 'AU'
+  if (code === 'NZ') return 'NZ'
+  if (code === 'EU' || EU_COUNTRIES.has(code)) return 'EU'
+  return 'OTHER'
+}
+
+function getShippingUsd(countryCode: string) {
+  const region = getShippingRegion(countryCode)
+  return SHIPPING_RATES_USD[region] ?? SHIPPING_RATES_USD.OTHER
+}
+
+// Calculate price - 3% markup on USD base
 function getRetailPrice(product: BlankaProduct): number {
   const basePrice = parseFloat(product.suggested_cost) || 0
-  if (isFriday()) {
-    return basePrice // Friday sale price
-  }
-  return basePrice * 1.30 // Normal price (+30%)
+  return basePrice * 1.03
 }
 
 export default function CheckoutPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [loading, setLoading] = useState(true)
+  const [currency, setCurrency] = useState<CurrencyCode>('USD')
+  const [rates, setRates] = useState<Record<CurrencyCode, number>>(DEFAULT_RATES)
   const [formData, setFormData] = useState({
     email: '',
     firstName: '',
@@ -62,16 +99,51 @@ export default function CheckoutPage() {
         console.error('Failed to load cart', e)
       }
     }
+    const savedCurrency = localStorage.getItem('shop-currency') as CurrencyCode | null
+    if (savedCurrency) {
+      setCurrency(savedCurrency)
+    }
     setLoading(false)
   }, [])
+
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const response = await fetch('/api/fx?base=USD')
+        if (!response.ok) throw new Error('Failed to fetch FX rates')
+        const data = await response.json()
+        if (data?.rates) {
+          setRates({
+            USD: data.rates.USD ?? DEFAULT_RATES.USD,
+            ZAR: data.rates.ZAR ?? DEFAULT_RATES.ZAR,
+            GBP: data.rates.GBP ?? DEFAULT_RATES.GBP
+          })
+        }
+      } catch (error) {
+        console.error('FX rate fetch failed:', error)
+      }
+    }
+
+    fetchRates()
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('shop-currency', currency)
+  }, [currency])
+
+  const formatCurrency = (amountUsd: number) => {
+    const rate = rates[currency] ?? 1
+    const value = amountUsd * rate
+    const locale = currency === 'ZAR' ? 'en-ZA' : currency === 'GBP' ? 'en-GB' : 'en-US'
+    return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value)
+  }
 
   const subtotal = cartItems.reduce((sum, item) => {
     const price = getRetailPrice(item.product)
     return sum + price * item.quantity
   }, 0)
 
-  // R100 local shipping (South Africa) - courier services
-  const shipping = 100.00
+  const shipping = getShippingUsd(formData.country)
   const total = subtotal + shipping
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -408,7 +480,7 @@ export default function CheckoutPage() {
                         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .757-.64h7.633c2.548 0 4.334.526 5.306 1.562.938 1.002 1.203 2.312.794 3.946-.015.058-.029.115-.046.173-.457 1.94-1.323 3.381-2.574 4.295-1.28.935-2.922 1.409-4.88 1.409H9.42a.768.768 0 0 0-.757.64l-.907 5.52a.639.639 0 0 1-.63.537l-.05-.825z"/>
                         </svg>
-                        Pay R{total.toFixed(2)} with PayPal
+                        Pay {formatCurrency(total)} with PayPal
                       </>
                     )}
                   </button>
@@ -439,7 +511,24 @@ export default function CheckoutPage() {
             transition={{ delay: 0.2 }}
           >
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 md:p-8 sticky top-8">
-              <h2 className="text-xl font-bold text-white mb-6">Order Summary</h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-white">Order Summary</h2>
+                <div className="flex items-center gap-2">
+                  {(['USD', 'ZAR', 'GBP'] as CurrencyCode[]).map((code) => (
+                    <button
+                      key={code}
+                      onClick={() => setCurrency(code)}
+                      className={`px-2.5 py-1 rounded-full text-[10px] tracking-[0.2em] uppercase border transition-colors ${
+                        currency === code
+                          ? 'bg-[#D4AF37] text-black border-[#D4AF37]'
+                          : 'bg-black/60 text-white/70 border-white/10 hover:border-[#D4AF37]/40'
+                      }`}
+                    >
+                      {code}
+                    </button>
+                  ))}
+                </div>
+              </div>
               
               {/* Items */}
               <div className="space-y-4 max-h-[400px] overflow-y-auto mb-6">
@@ -460,7 +549,7 @@ export default function CheckoutPage() {
                       <div className="flex justify-between items-center mt-1">
                         <span className="text-white/60 text-sm">Qty: {item.quantity}</span>
                         <span className="text-[#D4AF37] font-semibold">
-                          R{(getRetailPrice(item.product) * item.quantity).toFixed(2)}
+                          {formatCurrency(getRetailPrice(item.product) * item.quantity)}
                         </span>
                       </div>
                     </div>
@@ -472,15 +561,15 @@ export default function CheckoutPage() {
               <div className="border-t border-white/10 pt-6 space-y-3">
                 <div className="flex justify-between text-white/60">
                   <span>Subtotal</span>
-                  <span>R{subtotal.toFixed(2)}</span>
+                  <span>{formatCurrency(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-white/60">
-                  <span>Shipping (Courier)</span>
-                  <span>R{shipping.toFixed(2)}</span>
+                  <span>Shipping (Standard)</span>
+                  <span>{formatCurrency(shipping)}</span>
                 </div>
                 <div className="flex justify-between text-white text-xl font-bold pt-3 border-t border-white/10">
                   <span>Total</span>
-                  <span className="text-[#D4AF37]">R{total.toFixed(2)}</span>
+                  <span className="text-[#D4AF37]">{formatCurrency(total)}</span>
                 </div>
                 
                 {/* Delivery Info */}

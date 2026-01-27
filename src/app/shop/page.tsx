@@ -50,27 +50,53 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
-// Check if today is Friday (day 5)
-function isFriday(): boolean {
-  return new Date().getDay() === 5
+type CurrencyCode = 'USD' | 'ZAR' | 'GBP'
+
+const DEFAULT_RATES: Record<CurrencyCode, number> = {
+  USD: 1,
+  ZAR: 19.0,
+  GBP: 0.79
 }
 
-// Calculate price - Normal: +30% markup, Fridays: 10% off (back to base price)
-// Base price (suggested_cost) is already 10% off retail
-// Normal days: Show base price + 30% = suggested_cost * 1.30
-// Fridays: Show base price (10% off the inflated price) = suggested_cost
+// Calculate price - 3% markup on USD base
 function getRetailPrice(product: BlankaProduct): number {
   const basePrice = parseFloat(product.suggested_cost) || 0
-  if (isFriday()) {
-    return basePrice // Friday sale price (10% off)
-  }
-  return basePrice * 1.30 // Normal price (+30%)
+  return basePrice * 1.03
 }
 
-// Get the "was" price for showing original price on Fridays
-function getOriginalPrice(product: BlankaProduct): number {
-  const basePrice = parseFloat(product.suggested_cost) || 0
-  return basePrice * 1.30 // The inflated normal price
+const EU_COUNTRIES = new Set([
+  'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE',
+  'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'
+])
+
+type ShippingRegion = 'US' | 'GB' | 'EU' | 'ZA' | 'CA' | 'AU' | 'NZ' | 'OTHER'
+
+const SHIPPING_RATES_USD: Record<ShippingRegion, number> = {
+  US: 8.95,
+  GB: 9.95,
+  EU: 10.95,
+  ZA: 12.95,
+  CA: 10.95,
+  AU: 12.95,
+  NZ: 12.95,
+  OTHER: 14.95
+}
+
+function getShippingRegion(countryCode: string): ShippingRegion {
+  const code = countryCode.toUpperCase()
+  if (code === 'US') return 'US'
+  if (code === 'GB') return 'GB'
+  if (code === 'ZA') return 'ZA'
+  if (code === 'CA') return 'CA'
+  if (code === 'AU') return 'AU'
+  if (code === 'NZ') return 'NZ'
+  if (code === 'EU' || EU_COUNTRIES.has(code)) return 'EU'
+  return 'OTHER'
+}
+
+function getShippingUsd(countryCode: string) {
+  const region = getShippingRegion(countryCode)
+  return SHIPPING_RATES_USD[region] ?? SHIPPING_RATES_USD.OTHER
 }
 
 
@@ -192,8 +218,32 @@ const shopCarouselSlides = [
 ]
 
 // Cart Sidebar Component
-function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+function CartSidebar({
+  isOpen,
+  onClose,
+  currency,
+  rates,
+  shipCountry,
+  onShipCountryChange
+}: {
+  isOpen: boolean
+  onClose: () => void
+  currency: CurrencyCode
+  rates: Record<CurrencyCode, number>
+  shipCountry: string
+  onShipCountryChange: (value: string) => void
+}) {
   const { items, removeFromCart, updateQuantity, clearCart, subtotal, total, totalItems } = useCart()
+
+  const formatCurrency = (amountUsd: number) => {
+    const rate = rates[currency] ?? 1
+    const value = amountUsd * rate
+    const locale = currency === 'ZAR' ? 'en-ZA' : currency === 'GBP' ? 'en-GB' : 'en-US'
+    return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value)
+  }
+
+  const shippingUsd = getShippingUsd(shipCountry)
+  const totalWithShippingUsd = total + shippingUsd
 
   return (
     <AnimatePresence>
@@ -270,7 +320,7 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                       <div className="flex-1 min-w-0">
                         <h3 className="text-white font-medium truncate">{item.product.name}</h3>
                         <p className="text-[#D4AF37] font-semibold mt-1">
-                          R{getRetailPrice(item.product).toFixed(2)}
+                          {formatCurrency(getRetailPrice(item.product))}
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <button
@@ -311,23 +361,40 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                     <svg className="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                     </svg>
-                    <span>R100 Local Delivery • 1-3 Business Days</span>
+                    <span>Standard shipping from {formatCurrency(shippingUsd)} • 1-3 Business Days</span>
                   </div>
                   <p className="text-white/50 text-xs mt-1 ml-6">Delivery time depends on area and product availability</p>
                 </div>
                 
-                <div className="bg-zinc-900 rounded-xl p-4 shadow-lg shadow-black/50 border border-white/5 space-y-2 text-sm">
-                  <div className="flex justify-between text-white/60">
-                    <span>Subtotal</span>
-                    <span>R{subtotal.toFixed(2)}</span>
+                <div className="bg-zinc-900 rounded-xl p-4 shadow-lg shadow-black/50 border border-white/5 space-y-3 text-sm">
+                  <div className="flex items-center justify-between text-white/60">
+                    <span>Ship to</span>
+                    <select
+                      value={shipCountry}
+                      onChange={(e) => onShipCountryChange(e.target.value)}
+                      className="bg-black/60 border border-white/10 text-white/80 text-xs px-2 py-1 rounded"
+                    >
+                      <option value="US">United States</option>
+                      <option value="GB">United Kingdom</option>
+                      <option value="EU">Europe</option>
+                      <option value="ZA">South Africa</option>
+                      <option value="CA">Canada</option>
+                      <option value="AU">Australia</option>
+                      <option value="NZ">New Zealand</option>
+                      <option value="OTHER">Other</option>
+                    </select>
                   </div>
                   <div className="flex justify-between text-white/60">
-                    <span>Shipping (Courier)</span>
-                    <span>R100.00</span>
+                    <span>Subtotal</span>
+                    <span>{formatCurrency(subtotal)}</span>
+                  </div>
+                  <div className="flex justify-between text-white/60">
+                    <span>Shipping (Standard)</span>
+                    <span>{formatCurrency(shippingUsd)}</span>
                   </div>
                   <div className="flex justify-between text-white text-lg font-bold pt-3 mt-2 border-t border-white/10">
                     <span>Total</span>
-                    <span className="text-[#D4AF37]">R{total.toFixed(2)}</span>
+                    <span className="text-[#D4AF37]">{formatCurrency(totalWithShippingUsd)}</span>
                   </div>
                 </div>
                 
@@ -354,17 +421,31 @@ function CartSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 }
 
 // Product Detail Modal
-function ProductModal({ product, isOpen, onClose, onAddToCart }: { 
+function ProductModal({
+  product,
+  isOpen,
+  onClose,
+  onAddToCart,
+  currency,
+  rates
+}: {
   product: BlankaProduct | null
   isOpen: boolean
   onClose: () => void
   onAddToCart: () => void
+  currency: CurrencyCode
+  rates: Record<CurrencyCode, number>
 }) {
   if (!product) return null
 
-  const fridayDeal = isFriday()
   const retailPrice = getRetailPrice(product)
-  const originalPrice = getOriginalPrice(product)
+
+  const formatCurrency = (amountUsd: number) => {
+    const rate = rates[currency] ?? 1
+    const value = amountUsd * rate
+    const locale = currency === 'ZAR' ? 'en-ZA' : currency === 'GBP' ? 'en-GB' : 'en-US'
+    return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value)
+  }
 
   return (
     <AnimatePresence>
@@ -419,13 +500,7 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{product.name}</h2>
                 
                 <div className="flex items-center gap-3 mb-6">
-                  {fridayDeal && (
-                    <span className="text-xl text-white/50 line-through">R{originalPrice.toFixed(2)}</span>
-                  )}
-                  <span className={`text-3xl font-bold ${fridayDeal ? 'text-green-400' : 'text-[#D4AF37]'}`}>R{retailPrice.toFixed(2)}</span>
-                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${fridayDeal ? 'bg-green-500 text-white' : 'bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black'}`}>
-                    {fridayDeal ? '🔥 FRIDAY DEAL!' : '💋 10% OFF Fridays'}
-                  </span>
+                  <span className="text-3xl font-bold text-[#D4AF37]">{formatCurrency(retailPrice)}</span>
                   {product.available_inventory > 0 && (
                     <span className="text-green-400 text-sm">In Stock</span>
                   )}
@@ -460,7 +535,7 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
                   onClick={onAddToCart}
                   className="w-full py-4 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold rounded-xl hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all"
                 >
-                  Add to Cart - R{retailPrice.toFixed(2)}
+                  Add to Cart - {formatCurrency(retailPrice)}
                 </button>
               </div>
               </div>
@@ -473,16 +548,28 @@ function ProductModal({ product, isOpen, onClose, onAddToCart }: {
 }
 
 // Product Card Component
-function ProductCard({ product, onAddToCart, onViewDetails }: { 
+function ProductCard({
+  product,
+  onAddToCart,
+  onViewDetails,
+  currency,
+  rates
+}: {
   product: BlankaProduct
   onAddToCart: () => void
   onViewDetails: () => void
+  currency: CurrencyCode
+  rates: Record<CurrencyCode, number>
 }) {
   const [imageError, setImageError] = useState(false)
-  const fridayDeal = isFriday()
-
   const retailPrice = getRetailPrice(product)
-  const originalPrice = getOriginalPrice(product)
+
+  const formatCurrency = (amountUsd: number) => {
+    const rate = rates[currency] ?? 1
+    const value = amountUsd * rate
+    const locale = currency === 'ZAR' ? 'en-ZA' : currency === 'GBP' ? 'en-GB' : 'en-US'
+    return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value)
+  }
 
   const fallbackImage = 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop'
 
@@ -516,11 +603,6 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
           >
             Quick View
           </button>
-        </div>
-
-        {/* Price Badge - Dynamic based on day */}
-        <div className={`absolute top-2 right-2 md:top-3 md:right-3 backdrop-blur-sm px-2 py-1 rounded-full shadow-lg border ${fridayDeal ? 'bg-gradient-to-r from-green-500/80 to-emerald-500/80 border-green-400/40' : 'bg-black/70 border-[#D4AF37]/40'}`}>
-          <span className="text-white text-[10px] md:text-xs font-bold">{fridayDeal ? '🔥 10% OFF!' : '💋 Fri Deal'}</span>
         </div>
 
         {/* Stock Badge */}
@@ -560,10 +642,7 @@ function ProductCard({ product, onAddToCart, onViewDetails }: {
         {/* Price & Add Button */}
         <div className="flex items-center justify-between gap-2 mt-auto">
           <div className="flex flex-col">
-            {fridayDeal && (
-              <span className="text-xs text-white/50 line-through">R{originalPrice.toFixed(2)}</span>
-            )}
-            <span className={`text-lg md:text-xl font-bold ${fridayDeal ? 'text-green-400' : 'text-[#D4AF37]'}`}>R{retailPrice.toFixed(2)}</span>
+            <span className="text-lg md:text-xl font-bold text-[#D4AF37]">{formatCurrency(retailPrice)}</span>
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); onAddToCart(); }}
@@ -594,6 +673,9 @@ function ShopContent() {
   const [notification, setNotification] = useState<string | null>(null)
   const [selectedProduct, setSelectedProduct] = useState<BlankaProduct | null>(null)
   const [activeSlide, setActiveSlide] = useState(0)
+  const [currency, setCurrency] = useState<CurrencyCode>('USD')
+  const [rates, setRates] = useState<Record<CurrencyCode, number>>(DEFAULT_RATES)
+  const [shipCountry, setShipCountry] = useState('US')
   
   const { addToCart, totalItems } = useCart()
 
@@ -633,6 +715,46 @@ function ShopContent() {
     if (categoryParam) {
       setSelectedCategory(categoryParam)
     }
+  }, [])
+
+  useEffect(() => {
+    const savedCurrency = localStorage.getItem('shop-currency') as CurrencyCode | null
+    if (savedCurrency) {
+      setCurrency(savedCurrency)
+    }
+    const savedShipCountry = localStorage.getItem('shop-ship-country')
+    if (savedShipCountry) {
+      setShipCountry(savedShipCountry)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('shop-currency', currency)
+  }, [currency])
+
+  useEffect(() => {
+    localStorage.setItem('shop-ship-country', shipCountry)
+  }, [shipCountry])
+
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const response = await fetch('/api/fx?base=USD')
+        if (!response.ok) throw new Error('Failed to fetch FX rates')
+        const data = await response.json()
+        if (data?.rates) {
+          setRates({
+            USD: data.rates.USD ?? DEFAULT_RATES.USD,
+            ZAR: data.rates.ZAR ?? DEFAULT_RATES.ZAR,
+            GBP: data.rates.GBP ?? DEFAULT_RATES.GBP
+          })
+        }
+      } catch (error) {
+        console.error('FX rate fetch failed:', error)
+      }
+    }
+
+    fetchRates()
   }, [])
 
   // Fetch products from our API route
@@ -726,6 +848,21 @@ function ShopContent() {
 
             {/* Mobile & Cart Buttons */}
             <div className="flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-2 mr-2">
+                {(['USD', 'ZAR', 'GBP'] as CurrencyCode[]).map((code) => (
+                  <button
+                    key={code}
+                    onClick={() => setCurrency(code)}
+                    className={`px-3 py-1 rounded-full text-[11px] tracking-[0.2em] uppercase border transition-colors ${
+                      currency === code
+                        ? 'bg-[#D4AF37] text-black border-[#D4AF37]'
+                        : 'bg-black/60 text-white/70 border-white/10 hover:border-[#D4AF37]/40'
+                    }`}
+                  >
+                    {code}
+                  </button>
+                ))}
+              </div>
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -794,6 +931,24 @@ function ShopContent() {
                 Contact
               </Link>
             </nav>
+            <div className="px-6 pb-6">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 mb-3">Currency</p>
+              <div className="flex items-center gap-2">
+                {(['USD', 'ZAR', 'GBP'] as CurrencyCode[]).map((code) => (
+                  <button
+                    key={code}
+                    onClick={() => setCurrency(code)}
+                    className={`px-3 py-1 rounded-full text-[11px] tracking-[0.2em] uppercase border transition-colors ${
+                      currency === code
+                        ? 'bg-[#D4AF37] text-black border-[#D4AF37]'
+                        : 'bg-black/60 text-white/70 border-white/10 hover:border-[#D4AF37]/40'
+                    }`}
+                  >
+                    {code}
+                  </button>
+                ))}
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -813,7 +968,14 @@ function ShopContent() {
       </AnimatePresence>
 
       {/* Cart Sidebar */}
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CartSidebar
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        currency={currency}
+        rates={rates}
+        shipCountry={shipCountry}
+        onShipCountryChange={setShipCountry}
+      />
 
       {/* Product Modal */}
       <ProductModal 
@@ -821,6 +983,8 @@ function ShopContent() {
         isOpen={!!selectedProduct}
         onClose={() => setSelectedProduct(null)}
         onAddToCart={() => selectedProduct && handleAddToCart(selectedProduct)}
+        currency={currency}
+        rates={rates}
       />
 
       {/* Demo Mode Banner */}
@@ -1069,6 +1233,8 @@ function ShopContent() {
                   product={product}
                   onAddToCart={() => handleAddToCart(product)}
                   onViewDetails={() => setSelectedProduct(product)}
+                  currency={currency}
+                  rates={rates}
                 />
               ))}
             </AnimatePresence>

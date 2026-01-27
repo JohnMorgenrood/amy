@@ -107,8 +107,8 @@ function normalizeCJCategories(product: CJListV2Product): string[] {
 function mapCJProduct(product: CJListV2Product): BlankaProduct {
   const fallbackName = product.nameEn || 'CJ Beauty Product'
   const basePrice = Number(product.discountPrice || product.nowPrice || product.sellPrice || '0')
-  const suggestedCost = basePrice ? (basePrice * 1.3).toFixed(2) : '0.00'
-  const cost = basePrice ? (basePrice * 0.9).toFixed(2) : '0.00'
+  const suggestedCost = basePrice ? basePrice.toFixed(2) : '0.00'
+  const cost = basePrice ? basePrice.toFixed(2) : '0.00'
   const productId = product.id || product.sku || fallbackName
 
   return {
@@ -244,7 +244,7 @@ export async function GET(request: Request) {
   try {
     if (CJ_API_KEY) {
       const accessToken = await getCJAccessToken()
-      const keyword = category || 'makeup beauty fashion'
+      const keyword = category || 'beauty'
       const cjUrl = new URL(`${CJ_API_BASE_URL}/product/listV2`)
       cjUrl.searchParams.set('page', page)
       cjUrl.searchParams.set('size', pageSize)
