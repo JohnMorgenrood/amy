@@ -11,6 +11,17 @@ const BLANKA_API_URL = 'https://api.blankabrand.com/api/v1/products/'
 const BLANKA_API_KEY = process.env.BLANKA_API_KEY || ''
 const { CJ_API_BASE_URL, CJ_API_KEY } = getCJConfig()
 
+const PRODUCTS_CACHE_TTL_MS = 10 * 60 * 1000
+
+type ProductsCache = {
+  updatedAt: number
+  items: BlankaProduct[]
+}
+
+let productsCache: ProductsCache | null = null
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 export interface BlankaProduct {
   id: number
   name: string
@@ -231,9 +242,32 @@ export async function GET(request: Request) {
   const pageSize = searchParams.get('page_size') || '100'
   const category = searchParams.get('category') || ''
   const query = searchParams.get('q')?.trim() || ''
+  const refresh = searchParams.get('refresh') === '1'
+  const canUseCache = !refresh && !query && !category
+
+  if (canUseCache && productsCache && Date.now() - productsCache.updatedAt < PRODUCTS_CACHE_TTL_MS) {
+    return NextResponse.json({
+      count: productsCache.items.length,
+      next: null,
+      previous: null,
+      results: productsCache.items,
+      isDemo: false,
+      isCached: true
+    })
+  }
 
   // If no API key, return demo data
   if (!CJ_API_KEY && !BLANKA_API_KEY) {
+    if (productsCache?.items?.length && canUseCache) {
+      return NextResponse.json({
+        count: productsCache.items.length,
+        next: null,
+        previous: null,
+        results: productsCache.items,
+        isDemo: false,
+        isCached: true
+      })
+    }
     return NextResponse.json({
       count: 0,
       next: null,
@@ -257,21 +291,33 @@ export async function GET(request: Request) {
         cjUrl.searchParams.set('keyWord', keyword)
         cjUrl.searchParams.set('features', 'enable_description,enable_category,enable_video')
 
-        const response = await fetch(cjUrl.toString(), {
-          headers: {
-            'CJ-Access-Token': accessToken,
-            'Content-Type': 'application/json'
-          },
-          cache: 'no-store'
-        })
+        let lastError: Error | null = null
+        for (let attempt = 1; attempt <= 3; attempt += 1) {
+          try {
+            const response = await fetch(cjUrl.toString(), {
+              headers: {
+                'CJ-Access-Token': accessToken,
+                'Content-Type': 'application/json'
+              },
+              cache: 'no-store'
+            })
 
-        if (!response.ok) {
-          throw new Error(`CJ API error: ${response.status}`)
+            if (!response.ok) {
+              throw new Error(`CJ API error: ${response.status}`)
+            }
+
+            const data: CJListV2Response = await response.json()
+            const productGroups = data.data?.content || []
+            return productGroups.flatMap((group) => group.productList || [])
+          } catch (error) {
+            lastError = error as Error
+            if (attempt < 3) {
+              await sleep(350 * attempt)
+            }
+          }
         }
 
-        const data: CJListV2Response = await response.json()
-        const productGroups = data.data?.content || []
-        return productGroups.flatMap((group) => group.productList || [])
+        throw lastError || new Error('CJ API error')
       }
 
       const keywords = query
@@ -302,6 +348,16 @@ export async function GET(request: Request) {
       const results = merged
 
       if (results.length === 0) {
+        if (productsCache?.items?.length && canUseCache) {
+          return NextResponse.json({
+            count: productsCache.items.length,
+            next: null,
+            previous: null,
+            results: productsCache.items,
+            isDemo: false,
+            isCached: true
+          })
+        }
         return NextResponse.json({
           count: 0,
           next: null,
@@ -310,6 +366,13 @@ export async function GET(request: Request) {
           isDemo: false,
           error: 'Products are syncing. Please check back shortly.'
         })
+      }
+
+      if (canUseCache) {
+        productsCache = {
+          updatedAt: Date.now(),
+          items: results
+        }
       }
 
       return NextResponse.json({
@@ -321,6 +384,16 @@ export async function GET(request: Request) {
       })
     } catch (error) {
       console.error('Failed to fetch from CJ:', error)
+      if (productsCache?.items?.length && canUseCache) {
+        return NextResponse.json({
+          count: productsCache.items.length,
+          next: null,
+          previous: null,
+          results: productsCache.items,
+          isDemo: false,
+          isCached: true
+        })
+      }
       return NextResponse.json({
         count: 0,
         next: null,
