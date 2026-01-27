@@ -770,9 +770,16 @@ function ShopContent() {
       try {
         setLoading(true)
         const response = await fetch('/api/products')
-        if (!response.ok) throw new Error('Failed to fetch products')
+        if (!response.ok) {
+          console.error('Products API error:', response.status)
+          setProducts([])
+          setFilteredProducts([])
+          setIsDemo(false)
+          return
+        }
+
         const data = await response.json()
-        
+
         setProducts(data.results || [])
         setFilteredProducts(data.results || [])
         setIsDemo(data.isDemo || false)
@@ -958,55 +965,64 @@ function ShopContent() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-[73px] right-0 bottom-0 w-full max-w-xs z-50 bg-[#0a0a0a] border-l border-white/10 md:hidden"
-          >
-            <nav className="flex flex-col p-6 gap-4">
-              <Link 
-                href="/" 
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-lg text-white/70 hover:text-white transition-colors py-2"
-              >
-                About Amy
-              </Link>
-              <Link 
-                href="/#portfolio" 
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-lg text-white/70 hover:text-white transition-colors py-2"
-              >
-                Portfolio
-              </Link>
-              <Link 
-                href="/#contact" 
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-lg text-white/70 hover:text-white transition-colors py-2"
-              >
-                Contact
-              </Link>
-            </nav>
-            <div className="px-6 pb-6">
-              <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 mb-3">Currency</p>
-              <div className="flex items-center gap-2">
-                {(['USD', 'ZAR', 'GBP'] as CurrencyCode[]).map((code) => (
-                  <button
-                    key={code}
-                    onClick={() => setCurrency(code)}
-                    className={`px-3 py-1 rounded-full text-[11px] tracking-[0.2em] uppercase border transition-colors ${
-                      currency === code
-                        ? 'bg-[#D4AF37] text-black border-[#D4AF37]'
-                        : 'bg-black/60 text-white/70 border-white/10 hover:border-[#D4AF37]/40'
-                    }`}
-                  >
-                    {code}
-                  </button>
-                ))}
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/60 z-[70] md:hidden"
+            />
+            <motion.div
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ duration: 0.3 }}
+              className="fixed top-[73px] right-0 bottom-0 w-full max-w-xs z-[80] bg-[#0a0a0a] border-l border-white/10 md:hidden"
+            >
+              <nav className="flex flex-col p-6 gap-4">
+                <Link 
+                  href="/" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg text-white/70 hover:text-white transition-colors py-2"
+                >
+                  About Amy
+                </Link>
+                <Link 
+                  href="/#portfolio" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg text-white/70 hover:text-white transition-colors py-2"
+                >
+                  Portfolio
+                </Link>
+                <Link 
+                  href="/#contact" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg text-white/70 hover:text-white transition-colors py-2"
+                >
+                  Contact
+                </Link>
+              </nav>
+              <div className="px-6 pb-6">
+                <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 mb-3">Currency</p>
+                <div className="flex items-center gap-2">
+                  {(['USD', 'ZAR', 'GBP'] as CurrencyCode[]).map((code) => (
+                    <button
+                      key={code}
+                      onClick={() => setCurrency(code)}
+                      className={`px-3 py-1 rounded-full text-[11px] tracking-[0.2em] uppercase border transition-colors ${
+                        currency === code
+                          ? 'bg-[#D4AF37] text-black border-[#D4AF37]'
+                          : 'bg-black/60 text-white/70 border-white/10 hover:border-[#D4AF37]/40'
+                      }`}
+                    >
+                      {code}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
 
