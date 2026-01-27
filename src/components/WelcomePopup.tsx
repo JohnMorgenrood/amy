@@ -19,6 +19,13 @@ export function WelcomePopup() {
     setIsOpen(false)
   }
 
+  const handleWorkWithAmy = () => {
+    handleSelect()
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
   if (!isOpen) return null
 
   return (
@@ -65,13 +72,13 @@ export function WelcomePopup() {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              <Link
-                href="/#contact"
-                onClick={handleSelect}
+              <button
+                type="button"
+                onClick={handleWorkWithAmy}
                 className="w-full rounded-full bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] px-6 py-3 text-center text-sm font-semibold text-black transition-shadow hover:shadow-[0_12px_30px_rgba(212,175,55,0.35)]"
               >
                 Work with Amy
-              </Link>
+              </button>
               <Link
                 href="/shop"
                 onClick={handleSelect}

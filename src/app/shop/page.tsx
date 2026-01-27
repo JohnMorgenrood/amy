@@ -1379,14 +1379,14 @@ function ShopContent() {
       </section>
 
       {/* Classy Carousel */}
-      <section className="w-full max-w-[380px] mx-auto px-4 mb-12">
+      <section className="w-full max-w-6xl mx-auto px-4 mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
           <div className="relative overflow-hidden rounded-3xl border border-[#D4AF37]/20 bg-black/60 shadow-[0_24px_80px_rgba(0,0,0,0.6)]">
-            <div className="relative aspect-[16/9] sm:aspect-[21/9]">
+            <div className="relative aspect-[16/9] md:aspect-[21/8]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeSlide}
@@ -1408,14 +1408,14 @@ function ShopContent() {
               </AnimatePresence>
             </div>
 
-            <div className="absolute left-0 bottom-0 p-6 sm:p-8 text-left max-w-xl">
+            <div className="absolute left-0 bottom-0 p-6 md:p-10 text-left max-w-2xl">
               <p className="text-[#D4AF37]/80 text-[10px] sm:text-xs tracking-[0.35em] uppercase">
                 Signature Looks
               </p>
-              <h3 className="text-white text-2xl sm:text-3xl font-semibold mt-2">
+              <h3 className="text-white text-2xl sm:text-3xl md:text-4xl font-semibold mt-2">
                 {carouselItems[activeSlide]?.title || shopCarouselSlides[0].title}
               </h3>
-              <p className="text-white/70 text-sm sm:text-base mt-2">
+              <p className="text-white/70 text-sm sm:text-base md:text-lg mt-3">
                 {carouselItems[activeSlide]?.subtitle || shopCarouselSlides[0].subtitle}
               </p>
             </div>
