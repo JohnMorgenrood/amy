@@ -363,58 +363,61 @@ function CartSidebar({
             {items.length > 0 && (
               <div className="border-t border-white/10 p-6 space-y-4 bg-gradient-to-t from-zinc-900 to-black">
                 <div className="bg-zinc-900 rounded-xl p-4 shadow-lg shadow-black/50 border border-white/5 space-y-3 text-sm">
-                  <div className="flex items-center justify-between text-white/60">
-                    <span>Ship to</span>
-                    <select
-                      value={shipCountry}
-                      onChange={(e) => onShipCountryChange(e.target.value)}
-                      className="bg-black/60 border border-white/10 text-white/80 text-xs px-2 py-1 rounded"
-                    >
-                      <option value="US">United States</option>
-                      <option value="GB">United Kingdom</option>
-                      <option value="EU">Europe</option>
-                      <option value="ZA">South Africa</option>
-                      <option value="CA">Canada</option>
-                      <option value="AU">Australia</option>
-                      <option value="NZ">New Zealand</option>
-                      <option value="OTHER">Other</option>
-                    </select>
+                  <div className="flex items-center justify-between text-white/70">
+                    <span>Total</span>
+                    <span className="text-lg font-semibold text-[#D4AF37]">
+                      {formatCurrency(totalWithShippingUsd)}
+                    </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setShowShippingDetails((prev) => !prev)}
-                    className="flex items-center justify-between w-full text-white/60 text-xs border border-white/10 rounded-lg px-3 py-2 hover:border-[#D4AF37]/40 transition-colors"
+                    className="flex items-center justify-between w-full text-white/50 text-xs border border-white/10 rounded-lg px-3 py-2 hover:border-[#D4AF37]/40 transition-colors"
                   >
-                    <span>
-                      {shippingLoading
-                        ? 'Calculating shipping…'
-                        : `Shipping ${formatCurrency(resolvedShippingUsd)}`}
-                    </span>
-                    <span className="text-[#D4AF37]">{showShippingDetails ? 'Hide' : 'Details'}</span>
+                    <span>Shipping details</span>
+                    <svg
+                      className={`w-4 h-4 text-[#D4AF37] transition-transform ${showShippingDetails ? 'rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
                   </button>
                   {showShippingDetails && (
-                    <div className="text-white/50 text-xs space-y-2">
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                        </svg>
-                        <span>Standard delivery • 1-3 Business Days</span>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-white/60">
+                        <span>Ship to</span>
+                        <select
+                          value={shipCountry}
+                          onChange={(e) => onShipCountryChange(e.target.value)}
+                          className="bg-black/60 border border-white/10 text-white/80 text-xs px-2 py-1 rounded"
+                        >
+                          <option value="US">United States</option>
+                          <option value="GB">United Kingdom</option>
+                          <option value="EU">Europe</option>
+                          <option value="ZA">South Africa</option>
+                          <option value="CA">Canada</option>
+                          <option value="AU">Australia</option>
+                          <option value="NZ">New Zealand</option>
+                          <option value="OTHER">Other</option>
+                        </select>
                       </div>
-                      <p>Delivery time depends on area and product availability.</p>
+                      <div className="flex justify-between text-white/60">
+                        <span>Subtotal</span>
+                        <span>{formatCurrency(subtotal)}</span>
+                      </div>
+                      <div className="flex justify-between text-white/60">
+                        <span>Shipping (Standard)</span>
+                        <span>{shippingLoading ? '—' : formatCurrency(resolvedShippingUsd)}</span>
+                      </div>
+                      <p className="text-white/40 text-xs">
+                        {shippingLoading
+                          ? 'Calculating shipping…'
+                          : 'Delivery time depends on area and product availability.'}
+                      </p>
                     </div>
                   )}
-                  <div className="flex justify-between text-white/60">
-                    <span>Subtotal</span>
-                    <span>{formatCurrency(subtotal)}</span>
-                  </div>
-                  <div className="flex justify-between text-white/60">
-                    <span>Shipping (Standard)</span>
-                    <span>{shippingLoading ? '—' : formatCurrency(resolvedShippingUsd)}</span>
-                  </div>
-                  <div className="flex justify-between text-white text-lg font-bold pt-3 mt-2 border-t border-white/10">
-                    <span>Total</span>
-                    <span className="text-[#D4AF37]">{formatCurrency(totalWithShippingUsd)}</span>
-                  </div>
                 </div>
                 
                 <Link
