@@ -581,7 +581,7 @@ function ProductModal({
 
                 {activeTab === 'shipping' && (
                   <div className="space-y-4 text-sm text-white/70">
-                    <p>Shipping is calculated at checkout based on destination and live CJ logistics rates.</p>
+                    <p>Shipping is calculated at checkout based on destination and real-time carrier availability.</p>
                     <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                       <p className="text-white font-semibold mb-2">Estimated delivery windows</p>
                       <ul className="list-disc list-inside space-y-1">
