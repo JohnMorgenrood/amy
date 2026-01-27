@@ -532,7 +532,7 @@ function ProductModal({
 
                 <button
                   onClick={onAddToCart}
-                  className="w-full py-4 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black font-bold rounded-xl hover:shadow-lg hover:shadow-[#D4AF37]/30 transition-all"
+                  className="w-full py-4 bg-[#F7C6D9] hover:bg-[#F3B3CC] text-[#2b0f1f] font-bold rounded-xl transition-colors"
                 >
                   Add to Cart - {formatCurrency(retailPrice)}
                 </button>
@@ -646,7 +646,7 @@ function ProductCard({
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); onAddToCart(); }}
-            className="flex items-center gap-1.5 px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-[#D4AF37] to-[#F4D03F] text-black text-xs md:text-sm font-bold rounded-full transition-colors shadow-[0_8px_20px_rgba(212,175,55,0.2)]"
+            className="flex items-center gap-1.5 px-3 py-1.5 md:px-4 md:py-2 bg-[#F7C6D9] hover:bg-[#F3B3CC] text-[#2b0f1f] text-xs md:text-sm font-bold rounded-full transition-colors shadow-[0_8px_20px_rgba(247,198,217,0.35)]"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -715,13 +715,9 @@ function ShopContent() {
     return () => window.removeEventListener('popstate', handlePopState)
   }, [selectedProduct, isCartOpen, isMobileMenuOpen])
 
-  // Check for category in URL params
+  // Always default to all products
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const categoryParam = params.get('category')
-    if (categoryParam) {
-      setSelectedCategory(categoryParam)
-    }
+    setSelectedCategory('')
   }, [])
 
   useEffect(() => {
@@ -794,21 +790,31 @@ function ShopContent() {
   }, [])
 
   const categoryOptions = useMemo(() => {
-    const categorySet = new Set<string>()
+    const counts = new Map<string, number>()
     products.forEach((product) => {
-      product.categories.forEach((category) => categorySet.add(category))
+      product.categories.forEach((category) => {
+        counts.set(category, (counts.get(category) || 0) + 1)
+      })
     })
 
-    const categories = Array.from(categorySet)
-      .filter(Boolean)
-      .sort()
-      .map((category) => ({
+    const categories = Array.from(counts.entries())
+      .filter(([category]) => Boolean(category))
+      .sort((a, b) => b[1] - a[1])
+      .map(([category]) => ({
         value: category,
         label: category.replace(/[-_]/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase())
       }))
 
-    return [{ value: '', label: 'All Products' }, ...categories]
+    return categories
   }, [products])
+
+  const mainCategoryOptions = useMemo(() => {
+    return [{ value: '', label: 'All Products' }, ...categoryOptions.slice(0, 6)]
+  }, [categoryOptions])
+
+  const extraCategoryOptions = useMemo(() => {
+    return categoryOptions.slice(6)
+  }, [categoryOptions])
 
   const cheapestProducts = useMemo(() => {
     const priced = products
@@ -1225,7 +1231,7 @@ function ShopContent() {
       {/* Category Pills */}
       <section className="max-w-7xl mx-auto px-4 mb-8">
         <div className="flex flex-wrap items-center gap-3">
-          {categoryOptions.map((cat) => (
+          {mainCategoryOptions.map((cat) => (
             <button
               key={cat.value}
               onClick={() => setSelectedCategory(cat.value)}
@@ -1238,6 +1244,21 @@ function ShopContent() {
               {cat.label}
             </button>
           ))}
+
+          {extraCategoryOptions.length > 0 && (
+            <select
+              value={extraCategoryOptions.some((cat) => cat.value === selectedCategory) ? selectedCategory : ''}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="px-4 py-2 rounded-full text-sm font-medium bg-black/60 text-white/70 border border-white/10 hover:border-[#D4AF37]/40"
+            >
+              <option value="">More Categories</option>
+              {extraCategoryOptions.map((cat) => (
+                <option key={cat.value} value={cat.value} className="bg-black">
+                  {cat.label}
+                </option>
+              ))}
+            </select>
+          )}
 
           {/* Clear Filters */}
           {(searchQuery || selectedCategory) && (

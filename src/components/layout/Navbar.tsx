@@ -11,48 +11,13 @@ const navLinks = [
   { name: 'Services', href: '#services' },
   { name: 'Projects', href: '#projects' },
   { name: 'About', href: '#about' },
-  { name: 'Shop', href: '/shop', hasMegaMenu: true },
+  { name: 'Shop', href: '/shop' },
   { name: 'Contact', href: '#contact' },
-]
-
-const shopCategories = [
-  { 
-    name: 'Skincare', 
-    href: '/shop?category=skincare',
-    description: 'Nourish & Protect',
-  },
-  { 
-    name: 'Face', 
-    href: '/shop?category=face',
-    description: 'Foundation & Concealer',
-  },
-  { 
-    name: 'Lips', 
-    href: '/shop?category=lips',
-    description: 'Lipstick & Gloss',
-  },
-  { 
-    name: 'Eyes', 
-    href: '/shop?category=eyes',
-    description: 'Shadow & Liner',
-  },
-  { 
-    name: 'Tools & Accessories', 
-    href: '/shop?category=tools',
-    description: 'Brushes & Applicators',
-  },
-  { 
-    name: 'Organic', 
-    href: '/shop?category=organic',
-    description: 'Clean & Natural',
-  },
 ]
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [showShopMegaMenu, setShowShopMegaMenu] = useState(false)
-  const [showMobileShopMenu, setShowMobileShopMenu] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -95,8 +60,6 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   className="relative"
-                  onMouseEnter={() => link.hasMegaMenu && setShowShopMegaMenu(true)}
-                  onMouseLeave={() => link.hasMegaMenu && setShowShopMegaMenu(false)}
                 >
                   <Link
                     href={link.href}
@@ -105,58 +68,6 @@ export function Navbar() {
                     {link.name}
                     <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-500/50 group-hover:w-full transition-all duration-300" />
                   </Link>
-                  
-                  {/* Shop Mega Menu */}
-                  {link.hasMegaMenu && showShopMegaMenu && (
-                    <>
-                      {/* Backdrop */}
-                      <div className="fixed inset-0 bg-dark-950/60 backdrop-blur-sm z-40" />
-                      
-                      {/* Menu */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-[500px] bg-dark-950/98 backdrop-blur-xl border border-gold-500/10 shadow-2xl overflow-hidden z-50"
-                      >
-                      <div className="p-6">
-                        <div className="mb-4 pb-4 border-b border-gold-500/10">
-                          <h3 className="font-display text-sm font-light tracking-[0.15em] uppercase text-cream-100/80 mb-1">Shop Collection</h3>
-                          <p className="text-[10px] text-cream-500/40 tracking-wider uppercase">Premium Beauty</p>
-                        </div>
-                        <div className="space-y-1">
-                          {shopCategories.map((category, idx) => (
-                            <Link
-                              key={category.name}
-                              href={category.href}
-                              className="group flex items-center justify-between px-4 py-3 hover:bg-gold-500/5 border-l-2 border-transparent hover:border-gold-500/50 transition-all duration-300"
-                            >
-                              <div>
-                                <h4 className="text-sm font-light text-cream-100 group-hover:text-gold-400 transition-colors tracking-wide">
-                                  {category.name}
-                                </h4>
-                                <p className="text-[10px] text-cream-500/40 tracking-wider uppercase mt-0.5">
-                                  {category.description}
-                                </p>
-                              </div>
-                              <svg className="w-4 h-4 text-cream-500/20 group-hover:text-gold-400/60 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
-                              </svg>
-                            </Link>
-                          ))}
-                        </div>
-                        <div className="mt-4 pt-4 border-t border-gold-500/10">
-                          <Link
-                            href="/shop"
-                            className="block text-center py-2.5 bg-cream-100 hover:bg-gold-400 text-dark-950 text-[10px] tracking-[0.15em] uppercase font-medium transition-colors duration-300"
-                          >
-                            View All Products
-                          </Link>
-                        </div>
-                      </div>
-                      </motion.div>
-                    </>
-                  )}
                 </motion.div>
               ))}
             </nav>
@@ -236,70 +147,13 @@ export function Navbar() {
                   transition={{ delay: index * 0.1 }}
                   className="w-full max-w-xs"
                 >
-                  {link.hasMegaMenu ? (
-                    <div>
-                      <button
-                        onClick={() => setShowMobileShopMenu(!showMobileShopMenu)}
-                        className="w-full text-2xl font-display font-light text-cream-100 hover:text-gold-400 transition-colors duration-300 flex items-center justify-between"
-                      >
-                        <span>{link.name}</span>
-                        <svg 
-                          className={`w-5 h-5 transition-transform duration-300 ${showMobileShopMenu ? 'rotate-180' : ''}`}
-                          fill="none" 
-                          stroke="currentColor" 
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </button>
-                      <AnimatePresence>
-                        {showMobileShopMenu && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="mt-4 space-y-2 pl-4 border-l-2 border-gold-500/20">
-                              {shopCategories.map((category) => (
-                                <Link
-                                  key={category.name}
-                                  href={category.href}
-                                  onClick={() => {
-                                    setIsOpen(false)
-                                    setShowMobileShopMenu(false)
-                                  }}
-                                  className="block py-2 text-base text-cream-300 hover:text-gold-400 transition-colors"
-                                >
-                                  <div className="font-light">{category.name}</div>
-                                  <div className="text-xs text-cream-500/50 mt-0.5">{category.description}</div>
-                                </Link>
-                              ))}
-                              <Link
-                                href="/shop"
-                                onClick={() => {
-                                  setIsOpen(false)
-                                  setShowMobileShopMenu(false)
-                                }}
-                                className="block py-2 mt-3 text-center text-sm text-gold-400 border border-gold-500/30 rounded hover:bg-gold-500/10 transition-colors"
-                              >
-                                View All Products
-                              </Link>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="block text-2xl font-display font-light text-cream-100 hover:text-gold-400 transition-colors duration-300"
-                    >
-                      {link.name}
-                    </Link>
-                  )}
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="block text-2xl font-display font-light text-cream-100 hover:text-gold-400 transition-colors duration-300"
+                  >
+                    {link.name}
+                  </Link>
                 </motion.div>
               ))}
               <motion.div

@@ -270,7 +270,8 @@ export async function GET(request: Request) {
       const productGroups = data.data?.content || []
       const products = productGroups.flatMap((group) => group.productList || [])
       const filteredProducts = products.filter(isCJAllowedProduct)
-      const results = filteredProducts
+      const sourceProducts = filteredProducts.length > 0 ? filteredProducts : products
+      const results = sourceProducts
         .map(mapCJProduct)
         .filter((product): product is BlankaProduct => product !== null)
 
