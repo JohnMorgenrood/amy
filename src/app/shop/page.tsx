@@ -766,6 +766,8 @@ function ShopContent() {
   const [isDemo, setIsDemo] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
+  const [minPrice, setMinPrice] = useState('')
+  const [maxPrice, setMaxPrice] = useState('')
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [notification, setNotification] = useState<string | null>(null)
@@ -993,8 +995,19 @@ function ShopContent() {
       )
     }
 
+    const minValue = minPrice ? Number(minPrice) : null
+    const maxValue = maxPrice ? Number(maxPrice) : null
+
+    if (minValue !== null && !Number.isNaN(minValue)) {
+      filtered = filtered.filter((p) => getRetailPrice(p) >= minValue)
+    }
+
+    if (maxValue !== null && !Number.isNaN(maxValue)) {
+      filtered = filtered.filter((p) => getRetailPrice(p) <= maxValue)
+    }
+
     setFilteredProducts(filtered)
-  }, [products, searchQuery, selectedCategory])
+  }, [products, searchQuery, selectedCategory, minPrice, maxPrice])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -1021,6 +1034,8 @@ function ShopContent() {
   const clearFilters = () => {
     setSearchQuery('')
     setSelectedCategory('')
+    setMinPrice('')
+    setMaxPrice('')
   }
 
   return (
@@ -1119,26 +1134,35 @@ function ShopContent() {
               className="fixed top-[73px] right-0 bottom-0 w-full max-w-xs z-[80] bg-[#0a0a0a] border-l border-white/10 md:hidden"
             >
               <nav className="flex flex-col p-6 gap-4">
-                <Link 
-                  href="/" 
+                <Link
+                  href="/shop"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg text-white/70 hover:text-white transition-colors py-2"
+                  className="text-lg text-white/80 hover:text-white transition-colors py-2"
                 >
-                  About Amy
+                  Shop Home
                 </Link>
-                <Link 
-                  href="/#portfolio" 
+                <Link
+                  href="/shop#filters"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-lg text-white/70 hover:text-white transition-colors py-2"
                 >
-                  Portfolio
+                  Filters
                 </Link>
-                <Link 
-                  href="/#contact" 
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false)
+                    setIsCartOpen(true)
+                  }}
+                  className="text-left text-lg text-white/70 hover:text-white transition-colors py-2"
+                >
+                  View Cart
+                </button>
+                <Link
+                  href="/checkout"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-lg text-white/70 hover:text-white transition-colors py-2"
                 >
-                  Contact
+                  Checkout
                 </Link>
               </nav>
               <div className="px-6 pb-6">
@@ -1211,42 +1235,13 @@ function ShopContent() {
         </div>
       )}
 
-      {/* Hero Banner */}
-      <section className={`relative py-16 md:py-20 px-4 overflow-hidden ${isDemo ? '' : 'mt-[72px]'}`}>
-        <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(212,175,55,0.18)_0%,rgba(0,0,0,0)_60%)]" />
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+      {/* Search */}
+      <section className={`px-4 pt-10 pb-6 ${isDemo ? '' : 'mt-[72px]'}`}>
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-black/60 rounded-full border border-[#D4AF37]/30 mb-6"
-          >
-            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-white/80 text-sm">Clean Beauty • Cruelty-Free • White Label</span>
-          </motion.div>
-          
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-bold text-white mb-4"
-          >
-            Premium <span className="text-[#D4AF37]">Beauty</span> Products
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-white/70 mb-8"
-          >
-            Curated skincare & makeup by Amy Morgenrood
-          </motion.p>
-          
-          {/* Search Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="relative max-w-xl mx-auto"
+            className="relative"
           >
             <input
               type="text"
@@ -1259,7 +1254,6 @@ function ShopContent() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </motion.div>
-
         </div>
       </section>
 
@@ -1323,94 +1317,102 @@ function ShopContent() {
         </motion.div>
       </section>
 
-      {/* YouTube Reviews Banner */}
-      <section className="max-w-7xl mx-auto px-4 mb-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="bg-[#0b0b0b] border border-[#D4AF37]/20 rounded-2xl p-6 md:p-8 shadow-[0_0_40px_rgba(212,175,55,0.08)]"
-        >
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-[#D4AF37]/15 rounded-full border border-[#D4AF37]/30">
-                <svg className="w-8 h-8 text-[#D4AF37]" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
-                  Watch Product Reviews
-                </h3>
-                <p className="text-white/70 text-sm md:text-base">
-                  See Amy test and review beauty brands on YouTube
-                </p>
-              </div>
-            </div>
-            <a
-              href="https://www.youtube.com/@amybinspirations7694"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 bg-[#D4AF37] hover:bg-[#F4D03F] text-black font-semibold rounded-full transition-colors flex items-center gap-2 whitespace-nowrap"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              Visit Channel
-            </a>
-          </div>
-        </motion.div>
-      </section>
 
-      {/* Category Pills */}
-      <section className="max-w-7xl mx-auto px-4 mb-8">
-        <div className="flex flex-wrap items-center gap-3">
-          {mainCategoryOptions.map((cat) => (
-            <button
-              key={cat.value}
-              onClick={() => setSelectedCategory(cat.value)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedCategory === cat.value
-                  ? 'bg-[#D4AF37] text-black'
-                  : 'bg-black/60 text-white/70 border border-white/10 hover:border-[#D4AF37]/40 hover:text-white'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-
-          {extraCategoryOptions.length > 0 && (
-            <select
-              value={extraCategoryOptions.some((cat) => cat.value === selectedCategory) ? selectedCategory : ''}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-4 py-2 rounded-full text-sm font-medium bg-black/60 text-white/70 border border-white/10 hover:border-[#D4AF37]/40"
-            >
-              <option value="">More Categories</option>
-              {extraCategoryOptions.map((cat) => (
-                <option key={cat.value} value={cat.value} className="bg-black">
-                  {cat.label}
-                </option>
+      {/* Filters */}
+      <section id="filters" className="max-w-7xl mx-auto px-4 mb-8">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/60 px-3 py-2">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/50">Price</span>
+                <input
+                  type="number"
+                  inputMode="decimal"
+                  placeholder="Min"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  className="w-20 bg-transparent text-sm text-white placeholder-white/30 focus:outline-none"
+                />
+                <span className="text-white/30">—</span>
+                <input
+                  type="number"
+                  inputMode="decimal"
+                  placeholder="Max"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  className="w-20 bg-transparent text-sm text-white placeholder-white/30 focus:outline-none"
+                />
+              </div>
+              {[
+                { label: 'Under $10', min: '', max: '10' },
+                { label: '$10-$25', min: '10', max: '25' },
+                { label: '$25-$50', min: '25', max: '50' },
+                { label: '$50+', min: '50', max: '' }
+              ].map((preset) => (
+                <button
+                  key={preset.label}
+                  onClick={() => {
+                    setMinPrice(preset.min)
+                    setMaxPrice(preset.max)
+                  }}
+                  className="px-3 py-2 rounded-full text-xs font-semibold bg-black/60 text-white/70 border border-white/10 hover:border-[#D4AF37]/40 hover:text-white transition-colors"
+                >
+                  {preset.label}
+                </button>
               ))}
-            </select>
-          )}
+            </div>
 
-          {/* Clear Filters */}
-          {(searchQuery || selectedCategory) && (
-            <button
-              onClick={clearFilters}
-              className="px-4 py-2 text-[#D4AF37] hover:text-white transition-colors flex items-center gap-2 text-sm"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-              Clear
-            </button>
-          )}
+            <div className="flex items-center gap-4">
+              {(searchQuery || selectedCategory || minPrice || maxPrice) && (
+                <button
+                  onClick={clearFilters}
+                  className="px-3 py-2 text-[#D4AF37] hover:text-white transition-colors flex items-center gap-2 text-sm"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  Clear
+                </button>
+              )}
+              <span className="text-white/60 text-sm">
+                {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
+              </span>
+            </div>
+          </div>
 
-          {/* Results Count */}
-          <span className="ml-auto text-white/60 text-sm">
-            {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
-          </span>
+          <div className="relative">
+            <div className="flex items-center gap-3 overflow-x-auto pb-2 pr-10 whitespace-nowrap">
+              {mainCategoryOptions.map((cat) => (
+                <button
+                  key={cat.value}
+                  onClick={() => setSelectedCategory(cat.value)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all shrink-0 ${
+                    selectedCategory === cat.value
+                      ? 'bg-[#D4AF37] text-black'
+                      : 'bg-black/60 text-white/70 border border-white/10 hover:border-[#D4AF37]/40 hover:text-white'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+
+              {extraCategoryOptions.length > 0 && (
+                <select
+                  value={extraCategoryOptions.some((cat) => cat.value === selectedCategory) ? selectedCategory : ''}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="px-4 py-2 rounded-full text-sm font-medium bg-black/60 text-white/70 border border-white/10 hover:border-[#D4AF37]/40 shrink-0"
+                >
+                  <option value="">More Categories</option>
+                  {extraCategoryOptions.map((cat) => (
+                    <option key={cat.value} value={cat.value} className="bg-black">
+                      {cat.label}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </div>
+            <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-[#050505] to-transparent" />
+          </div>
         </div>
       </section>
 

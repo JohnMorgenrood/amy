@@ -7,31 +7,26 @@ import {
   Mail, 
   Phone, 
   MapPin, 
-  Sparkles,
   ArrowUp,
   Heart
 } from 'lucide-react'
 
 const footerLinks = {
-  navigation: [
-    { name: 'Home', href: '/' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+  shop: [
+    { name: 'Shop Home', href: '/shop' },
+    { name: 'Checkout', href: '/checkout' },
+    { name: 'Shipping & Returns', href: '/terms' },
+    { name: 'Privacy Policy', href: '/privacy' },
   ],
-  services: [
-    { name: 'Film & TV Makeup', href: '#services' },
-    { name: 'SFX & Prosthetics', href: '#services' },
-    { name: 'Beauty & Glam', href: '#services' },
-    { name: 'Airbrush Makeup', href: '#services' },
-    { name: 'Bridal', href: '#services' },
-    { name: 'Hair Styling', href: '#services' },
+  amy: [
+    { name: 'Portfolio', href: '/#portfolio' },
+    { name: 'Services', href: '/#services' },
+    { name: 'About Amy', href: '/#about' },
+    { name: 'Contact', href: '/#contact' },
   ],
   legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
+    { name: 'Privacy Policy', href: '/privacy' },
   ]
 }
 
@@ -94,13 +89,13 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Navigation Links */}
+          {/* Shop Links */}
           <div>
             <h4 className="text-[10px] tracking-[0.2em] uppercase text-gold-500/80 mb-6">
-              Navigation
+              Shop
             </h4>
             <ul className="space-y-3">
-              {footerLinks.navigation.map((link) => (
+              {footerLinks.shop.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -113,13 +108,13 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Services Links */}
+          {/* Amy Links */}
           <div>
             <h4 className="text-[10px] tracking-[0.2em] uppercase text-gold-500/80 mb-6">
-              Services
+              Amy
             </h4>
             <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
+              {footerLinks.amy.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -135,7 +130,7 @@ export function Footer() {
           {/* Contact Info */}
           <div>
             <h4 className="text-[10px] tracking-[0.2em] uppercase text-gold-500/80 mb-6">
-              Get In Touch
+              Connect
             </h4>
             <ul className="space-y-4">
               <li>
@@ -167,17 +162,26 @@ export function Footer() {
               </li>
             </ul>
             
-            {/* IMDb Badge */}
-            <div className="mt-8 p-4 bg-dark-900/50 border border-gold-500/10">
-              <p className="text-[9px] tracking-[0.15em] uppercase text-cream-500/40 mb-2">Featured On</p>
-              <a
-                href="https://www.imdb.com/name/nm12345678/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gold-400/80 hover:text-gold-400 text-xs tracking-wide transition-colors duration-300"
-              >
-                View IMDb Profile →
-              </a>
+            <div className="mt-8">
+              <p className="text-[9px] tracking-[0.15em] uppercase text-cream-500/40 mb-2">Social</p>
+              <div className="flex flex-wrap gap-3 text-xs">
+                <a
+                  href="https://instagram.com/amyb_mup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cream-300/70 hover:text-cream-100 transition-colors duration-300"
+                >
+                  Instagram
+                </a>
+                <a
+                  href="https://www.youtube.com/@amybinspirations7694"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cream-300/70 hover:text-cream-100 transition-colors duration-300"
+                >
+                  YouTube
+                </a>
+              </div>
             </div>
           </div>
         </div>
