@@ -894,38 +894,58 @@ function ShopContent() {
     fetchRates()
   }, [])
 
+  const fetchProducts = async (query?: string) => {
+    try {
+      setLoading(true)
+      setError(null)
+      const params = query ? `?q=${encodeURIComponent(query)}` : ''
+      const response = await fetch(`/api/products${params}`)
+      if (!response.ok) {
+        console.error('Products API error:', response.status)
+        setProducts([])
+        setFilteredProducts([])
+        setIsDemo(false)
+        return
+      }
+
+      const data = await response.json()
+
+      const results = data.results || []
+      setProducts(results)
+      setFilteredProducts(results)
+      setIsDemo(data.isDemo || false)
+      if (data?.error) {
+        setError(data.error)
+      }
+    } catch (err) {
+      setError('Products are syncing. Please check back shortly.')
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   // Fetch products from our API route
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch('/api/products')
-        if (!response.ok) {
-          console.error('Products API error:', response.status)
-          setProducts([])
-          setFilteredProducts([])
-          setIsDemo(false)
-          return
-        }
-
-        const data = await response.json()
-
-        const results = data.results || []
-        setProducts(results)
-        setFilteredProducts(results)
-        setIsDemo(data.isDemo || false)
-        if (data?.error) {
-          setError(data.error)
-        }
-      } catch (err) {
-        setError('Products are syncing. Please check back shortly.')
-        console.error(err)
-      } finally {
-        setLoading(false)
-      }
-    }
     fetchProducts()
   }, [])
+
+  useEffect(() => {
+    if (searchQuery.trim().length === 0) {
+      fetchProducts()
+      return
+    }
+
+    if (searchQuery.trim().length < 2) {
+      return
+    }
+
+    const handle = window.setTimeout(() => {
+      fetchProducts(searchQuery.trim())
+    }, 400)
+
+    return () => window.clearTimeout(handle)
+  }, [searchQuery])
 
   const categoryOptions = useMemo(() => {
     const counts = new Map<string, number>()

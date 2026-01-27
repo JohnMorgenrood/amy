@@ -230,6 +230,7 @@ export async function GET(request: Request) {
   const page = searchParams.get('page') || '1'
   const pageSize = searchParams.get('page_size') || '100'
   const category = searchParams.get('category') || ''
+  const query = searchParams.get('q')?.trim() || ''
 
   // If no API key, return demo data
   if (!CJ_API_KEY && !BLANKA_API_KEY) {
@@ -273,9 +274,11 @@ export async function GET(request: Request) {
         return productGroups.flatMap((group) => group.productList || [])
       }
 
-      const keywords = category
-        ? [category]
-        : ['makeup', 'lipstick', 'foundation', 'eyeliner', 'brush', 'palette', 'mascara', 'blush', 'highlighter', 'skincare']
+      const keywords = query
+        ? [query]
+        : category
+          ? [category]
+          : ['makeup', 'lipstick', 'foundation', 'eyeliner', 'brush', 'palette', 'mascara', 'blush', 'highlighter', 'skincare']
 
       const merged: BlankaProduct[] = []
       const seenSkus = new Set<string>()
