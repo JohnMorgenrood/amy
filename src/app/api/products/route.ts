@@ -290,7 +290,7 @@ export async function GET(request: Request) {
         results: [],
         isDemo: false,
         error: 'CJ API unavailable'
-      }, { status: 502 })
+      })
     }
   }
 
