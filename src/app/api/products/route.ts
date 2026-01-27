@@ -273,7 +273,16 @@ export async function GET(request: Request) {
         .map(mapCJProduct)
         .filter((product): product is BlankaProduct => product !== null)
 
-      if (results.length === 0) {
+      const desiredCount = 100
+      let mergedResults = results
+
+      if (mergedResults.length > 0 && mergedResults.length < desiredCount) {
+        const existingSkus = new Set(mergedResults.map((product) => product.sku))
+        const filler = demoProducts.filter((product) => !existingSkus.has(product.sku))
+        mergedResults = mergedResults.concat(filler.slice(0, desiredCount - mergedResults.length))
+      }
+
+      if (mergedResults.length === 0) {
         return NextResponse.json({
           count: demoProducts.length,
           next: null,
@@ -285,10 +294,10 @@ export async function GET(request: Request) {
       }
 
       return NextResponse.json({
-        count: results.length,
+        count: mergedResults.length,
         next: null,
         previous: null,
-        results,
+        results: mergedResults,
         isDemo: false
       })
     } catch (error) {
