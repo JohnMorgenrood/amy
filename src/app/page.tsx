@@ -6,10 +6,12 @@ import { About } from '@/components/sections/About'
 import { Certificates } from '@/components/sections/Certificates'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { Contact } from '@/components/sections/Contact'
+import { WelcomePopup } from '@/components/WelcomePopup'
 
 export default function Home() {
   return (
     <>
+      <WelcomePopup />
       <Hero />
       <Portfolio />
       <Services />
