@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Space_Grotesk, Dancing_Script } from 'next/font/google'
 import './globals.css'
 import { ConditionalNavbar } from '@/components/ConditionalNavbar'
-import { Footer } from '@/components/layout/Footer'
+import { ConditionalFooter } from '@/components/layout/ConditionalFooter'
 import { FloatingElements } from '@/components/effects/FloatingElements'
 import { ImageProtection } from '@/components/ImageProtection'
 
@@ -279,7 +279,7 @@ export default function RootLayout({
         <main className="relative">
           {children}
         </main>
-        <Footer />
+        <ConditionalFooter />
       </body>
     </html>
   )
