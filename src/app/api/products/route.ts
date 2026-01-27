@@ -104,9 +104,12 @@ function normalizeCJCategories(product: CJListV2Product): string[] {
   return Array.from(new Set(categories))
 }
 
-function mapCJProduct(product: CJListV2Product): BlankaProduct {
+function mapCJProduct(product: CJListV2Product): BlankaProduct | null {
   const fallbackName = product.nameEn || 'CJ Beauty Product'
   const basePrice = Number(product.discountPrice || product.nowPrice || product.sellPrice || '0')
+  if (!basePrice || Number.isNaN(basePrice)) {
+    return null
+  }
   const suggestedCost = basePrice ? basePrice.toFixed(2) : '0.00'
   const cost = basePrice ? basePrice.toFixed(2) : '0.00'
   const productId = product.id || product.sku || fallbackName
@@ -241,8 +244,8 @@ export async function GET(request: Request) {
     })
   }
 
-  try {
-    if (CJ_API_KEY) {
+  if (CJ_API_KEY) {
+    try {
       const accessToken = await getCJAccessToken()
       const keyword = category || 'beauty'
       const cjUrl = new URL(`${CJ_API_BASE_URL}/product/listV2`)
@@ -267,7 +270,9 @@ export async function GET(request: Request) {
       const productGroups = data.data?.content || []
       const products = productGroups.flatMap((group) => group.productList || [])
       const filteredProducts = products.filter(isCJAllowedProduct)
-      const results = filteredProducts.map(mapCJProduct)
+      const results = filteredProducts
+        .map(mapCJProduct)
+        .filter((product): product is BlankaProduct => product !== null)
 
       return NextResponse.json({
         count: results.length,
@@ -276,8 +281,20 @@ export async function GET(request: Request) {
         results,
         isDemo: false
       })
+    } catch (error) {
+      console.error('Failed to fetch from CJ:', error)
+      return NextResponse.json({
+        count: 0,
+        next: null,
+        previous: null,
+        results: [],
+        isDemo: false,
+        error: 'CJ API unavailable'
+      }, { status: 502 })
     }
+  }
 
+  try {
     let url = `${BLANKA_API_URL}?page=${page}&page_size=${pageSize}`
     if (category) {
       url += `&category=${category}`
@@ -302,7 +319,7 @@ export async function GET(request: Request) {
       isDemo: false
     })
   } catch (error) {
-    console.error('Failed to fetch products:', error)
+    console.error('Failed to fetch from Blanka:', error)
 
     return NextResponse.json({
       count: demoProducts.length,
@@ -310,7 +327,7 @@ export async function GET(request: Request) {
       previous: null,
       results: demoProducts,
       isDemo: true,
-      error: 'Using demo data - external API unavailable'
+      error: 'Using demo data - Blanka API unavailable'
     })
   }
 }

@@ -28,7 +28,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       base,
       rates: {
-        USD: data?.rates?.USD ?? FALLBACK_RATES.USD,
+        USD: 1,
         ZAR: data?.rates?.ZAR ?? FALLBACK_RATES.ZAR,
         GBP: data?.rates?.GBP ?? FALLBACK_RATES.GBP
       },

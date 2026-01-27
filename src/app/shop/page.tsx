@@ -552,15 +552,13 @@ function ProductCard({
   onAddToCart,
   onViewDetails,
   currency,
-  rates,
-  imageFrequency
+  rates
 }: {
   product: BlankaProduct
   onAddToCart: () => void
   onViewDetails: () => void
   currency: CurrencyCode
   rates: Record<CurrencyCode, number>
-  imageFrequency: Map<string, number>
 }) {
   const [imageError, setImageError] = useState(false)
   const retailPrice = getRetailPrice(product)
@@ -573,8 +571,7 @@ function ProductCard({
   }
 
   const fallbackImage = fallbackProductImages[product.id % fallbackProductImages.length]
-  const imageIsDuplicate = product.image ? (imageFrequency.get(product.image) || 0) > 1 : true
-  const displayImage = imageError || !product.image || imageIsDuplicate ? fallbackImage : product.image
+  const displayImage = imageError || !product.image ? fallbackImage : product.image
 
   return (
     <motion.div
@@ -804,15 +801,6 @@ function ShopContent() {
       }))
 
     return [{ value: '', label: 'All Products' }, ...categories]
-  }, [products])
-
-  const imageFrequency = useMemo(() => {
-    const frequency = new Map<string, number>()
-    products.forEach((product) => {
-      if (!product.image) return
-      frequency.set(product.image, (frequency.get(product.image) || 0) + 1)
-    })
-    return frequency
   }, [products])
 
   const cheapestProducts = useMemo(() => {
@@ -1304,7 +1292,6 @@ function ShopContent() {
                   onViewDetails={() => setSelectedProduct(product)}
                   currency={currency}
                   rates={rates}
-                  imageFrequency={imageFrequency}
                 />
               ))}
             </AnimatePresence>
