@@ -238,6 +238,7 @@ function CartSidebar({
   shippingLoading: boolean
 }) {
   const { items, removeFromCart, updateQuantity, clearCart, subtotal, total, totalItems } = useCart()
+  const [showShippingDetails, setShowShippingDetails] = useState(false)
 
   const formatCurrency = (amountUsd: number) => {
     const rate = rates[currency] ?? 1
@@ -361,21 +362,6 @@ function CartSidebar({
             {/* Footer */}
             {items.length > 0 && (
               <div className="border-t border-white/10 p-6 space-y-4 bg-gradient-to-t from-zinc-900 to-black">
-                {/* Shipping Info */}
-                <div className="bg-zinc-900 rounded-xl p-4 mb-3 shadow-lg shadow-black/50 border border-white/5">
-                  <div className="flex items-center gap-2 text-white/80 text-sm">
-                    <svg className="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                    </svg>
-                    <span>
-                      {shippingLoading
-                        ? 'Calculating live shipping…'
-                        : `Standard shipping from ${formatCurrency(resolvedShippingUsd)} • 1-3 Business Days`}
-                    </span>
-                  </div>
-                  <p className="text-white/50 text-xs mt-1 ml-6">Delivery time depends on area and product availability</p>
-                </div>
-                
                 <div className="bg-zinc-900 rounded-xl p-4 shadow-lg shadow-black/50 border border-white/5 space-y-3 text-sm">
                   <div className="flex items-center justify-between text-white/60">
                     <span>Ship to</span>
@@ -394,6 +380,29 @@ function CartSidebar({
                       <option value="OTHER">Other</option>
                     </select>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowShippingDetails((prev) => !prev)}
+                    className="flex items-center justify-between w-full text-white/60 text-xs border border-white/10 rounded-lg px-3 py-2 hover:border-[#D4AF37]/40 transition-colors"
+                  >
+                    <span>
+                      {shippingLoading
+                        ? 'Calculating shipping…'
+                        : `Shipping ${formatCurrency(resolvedShippingUsd)}`}
+                    </span>
+                    <span className="text-[#D4AF37]">{showShippingDetails ? 'Hide' : 'Details'}</span>
+                  </button>
+                  {showShippingDetails && (
+                    <div className="text-white/50 text-xs space-y-2">
+                      <div className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                        </svg>
+                        <span>Standard delivery • 1-3 Business Days</span>
+                      </div>
+                      <p>Delivery time depends on area and product availability.</p>
+                    </div>
+                  )}
                   <div className="flex justify-between text-white/60">
                     <span>Subtotal</span>
                     <span>{formatCurrency(subtotal)}</span>
