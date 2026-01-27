@@ -345,7 +345,7 @@ export async function GET(request: Request) {
 // MAC Cosmetics South Africa Products
 // Pricing: suggested_cost = 90% of retail (customer price, 10% off)
 //          cost = 70% of retail (Amy's cost, 30% discount)
-const demoProducts: BlankaProduct[] = [
+const baseDemoProducts: BlankaProduct[] = [
   // === LIPS ===
   {
     id: 100001,
@@ -977,3 +977,123 @@ const demoProducts: BlankaProduct[] = [
     product_base: "MAC Cosmetics"
   }
 ]
+
+const demoExtraTemplates = [
+  {
+    name: 'Velvet Matte Lipstick',
+    skuPrefix: 'LIP-MAT',
+    categories: ['lips', 'lipstick', 'matte'],
+    basePrice: 320,
+    image: 'https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop'
+  },
+  {
+    name: 'Hydrating Lip Gloss',
+    skuPrefix: 'LIP-GLS',
+    categories: ['lips', 'lip gloss', 'gloss'],
+    basePrice: 290,
+    image: 'https://images.pexels.com/photos/2533267/pexels-photo-2533267.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop'
+  },
+  {
+    name: 'Longwear Liquid Foundation',
+    skuPrefix: 'FND-LIQ',
+    categories: ['face', 'foundation', 'liquid'],
+    basePrice: 540,
+    image: 'https://images.pexels.com/photos/2533268/pexels-photo-2533268.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop'
+  },
+  {
+    name: 'Soft Matte Powder Foundation',
+    skuPrefix: 'FND-PWD',
+    categories: ['face', 'foundation', 'powder'],
+    basePrice: 480,
+    image: 'https://images.pexels.com/photos/2533269/pexels-photo-2533269.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop'
+  },
+  {
+    name: 'Precision Eyeliner Pen',
+    skuPrefix: 'EYE-LNR',
+    categories: ['eyes', 'eyeliner'],
+    basePrice: 260,
+    image: 'https://images.pexels.com/photos/2688991/pexels-photo-2688991.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop'
+  },
+  {
+    name: 'Volume Lash Mascara',
+    skuPrefix: 'EYE-MSC',
+    categories: ['eyes', 'mascara'],
+    basePrice: 310,
+    image: 'https://images.pexels.com/photos/2637820/pexels-photo-2637820.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop'
+  },
+  {
+    name: 'Neutral Eyeshadow Palette',
+    skuPrefix: 'EYE-PAL',
+    categories: ['eyes', 'eyeshadow', 'palette'],
+    basePrice: 520,
+    image: 'https://images.pexels.com/photos/1115128/pexels-photo-1115128.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop'
+  },
+  {
+    name: 'Glow Highlighter',
+    skuPrefix: 'FACE-HLT',
+    categories: ['face', 'highlighter'],
+    basePrice: 350,
+    image: 'https://images.pexels.com/photos/1926620/pexels-photo-1926620.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop'
+  },
+  {
+    name: 'Soft Focus Blush',
+    skuPrefix: 'FACE-BLS',
+    categories: ['face', 'blush'],
+    basePrice: 330,
+    image: 'https://images.pexels.com/photos/3997379/pexels-photo-3997379.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop'
+  },
+  {
+    name: 'Pro Makeup Brush Set',
+    skuPrefix: 'BRSH-SET',
+    categories: ['tools', 'brushes', 'face'],
+    basePrice: 620,
+    image: 'https://images.pexels.com/photos/1464538/pexels-photo-1464538.jpeg?auto=compress&cs=tinysrgb&w=500&h=500&fit=crop'
+  }
+]
+
+const demoShadeNames = [
+  'Ivory', 'Porcelain', 'Sand', 'Beige', 'Honey', 'Caramel',
+  'Warm Nude', 'Rosewood', 'Spice', 'Berry', 'Cocoa', 'Espresso'
+]
+
+const demoFinishNames = ['Matte', 'Satin', 'Velvet', 'Glow', 'Soft Focus']
+
+const demoProducts: BlankaProduct[] = (() => {
+  const items: BlankaProduct[] = [...baseDemoProducts]
+  let idCounter = 200000
+
+  for (const template of demoExtraTemplates) {
+    for (let i = 0; i < demoShadeNames.length; i += 1) {
+      if (items.length >= 100) break
+      const shade = demoShadeNames[i]
+      const finish = demoFinishNames[i % demoFinishNames.length]
+      const price = template.basePrice + (i % 4) * 20
+      items.push({
+        id: idCounter,
+        name: `${template.name} - ${shade} ${finish}`,
+        sku: `AMY-${template.skuPrefix}-${i + 1}`,
+        branded_box_available: true,
+        available_inventory: 25 + (i % 15),
+        suggested_cost: price.toFixed(2),
+        cost: (price * 0.78).toFixed(2),
+        weight: template.categories.includes('tools') ? 60 : 12,
+        color_code: '',
+        color_name: shade,
+        product_type: 'Amy Beauty',
+        image: template.image,
+        categories: template.categories,
+        is_expiring: false,
+        description: `Professional ${template.name.toLowerCase()} in ${shade} with a ${finish.toLowerCase()} finish.`,
+        product_notes: null,
+        benefits: 'Long-wearing, buildable coverage, studio-ready results.',
+        application: 'Apply with brush or sponge and blend evenly.',
+        ingredients: 'Please refer to product packaging for full ingredient list.',
+        expires_at: null,
+        product_base: 'Amy Beauty'
+      })
+      idCounter += 1
+    }
+  }
+
+  return items
+})()
