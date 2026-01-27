@@ -74,6 +74,7 @@ export default function CheckoutPage() {
   const [rates, setRates] = useState<Record<CurrencyCode, number>>(DEFAULT_RATES)
   const [shippingUsd, setShippingUsd] = useState<number | null>(null)
   const [shippingLoading, setShippingLoading] = useState(false)
+  const [selectedLogisticName, setSelectedLogisticName] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     email: '',
     firstName: '',
@@ -149,10 +150,21 @@ export default function CheckoutPage() {
 
         const data = await response.json()
         const quote = typeof data?.shippingUsd === 'number' ? data.shippingUsd : null
+        const options = Array.isArray(data?.options) ? data.options : []
+        const bestOption = options.reduce((best: { price: number; name?: string } | null, option: any) => {
+          const price = Number(option?.totalPostageFee ?? option?.logisticPrice ?? 0)
+          if (!price) return best
+          if (!best || price < best.price) {
+            return { price, name: option?.logisticName }
+          }
+          return best
+        }, null)
+        setSelectedLogisticName(bestOption?.name || null)
         setShippingUsd(quote)
       } catch (error) {
         console.error('Shipping quote failed:', error)
         setShippingUsd(null)
+        setSelectedLogisticName(null)
       } finally {
         setShippingLoading(false)
       }
@@ -200,6 +212,7 @@ export default function CheckoutPage() {
       // Prepare order for Blanka API
       const orderData = {
         order_id: newOrderId,
+        logisticName: selectedLogisticName || undefined,
         shipping_address: {
           address_1: formData.address,
           address_2: formData.address2,

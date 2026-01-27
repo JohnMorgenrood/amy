@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server'
+import { getCJAccessToken, getCJConfig } from '@/lib/cj'
 
-// Blanka API configuration
-const BLANKA_API_URL = 'https://api.blankabrand.com/api/v1/orders/'
-const BLANKA_API_KEY = process.env.BLANKA_API_KEY || ''
-
-export interface BlankaOrderItem {
-  sku: string
+type OrderItem = {
+  sku?: string
   quantity: number
+  vid?: string
 }
 
-export interface BlankaShippingAddress {
+type ShippingAddress = {
   address_1: string
   address_2?: string
   city: string
@@ -19,77 +17,145 @@ export interface BlankaShippingAddress {
   last_name: string
   postcode: string
   state: string
-  phone: string
+  phone?: string
 }
 
-export interface BlankaOrderRequest {
-  order_id: string
-  shipping_address: BlankaShippingAddress
-  line_items: BlankaOrderItem[]
+type IncomingOrderRequest = {
+  order_id?: string
+  orderNumber?: string
+  shipping_address?: ShippingAddress
+  line_items?: OrderItem[]
+  products?: OrderItem[]
+  logisticName?: string
 }
 
-export interface BlankaOrderResponse {
-  id: string
-  order_id: string
-  status: 'PAYMENT_REQUIRED' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED'
-  tracking_code: string | null
-  line_items: BlankaOrderItem[]
-  shipping_address: BlankaShippingAddress
+const DEFAULT_LOGISTIC_NAME = 'CJPacket'
+
+function toCJCreatePayload(body: IncomingOrderRequest) {
+  const orderNumber = body.orderNumber || body.order_id || `AMY-${Date.now()}`
+  const shipping = body.shipping_address
+
+  if (!shipping) {
+    throw new Error('Missing shipping address')
+  }
+
+  const products: OrderItem[] = Array.isArray(body.products)
+    ? body.products
+    : Array.isArray(body.line_items)
+      ? body.line_items
+      : []
+
+  if (products.length === 0) {
+    throw new Error('Missing line items')
+  }
+
+  const shippingCustomerName = `${shipping.first_name} ${shipping.last_name}`.trim()
+  const shippingAddress = [shipping.address_1, shipping.address_2].filter(Boolean).join(', ')
+  const shippingCountryCode = String(shipping.country || '').toUpperCase()
+  const shippingCountry = shippingCountryCode
+  const shippingProvince = shipping.state || shipping.city || 'N/A'
+  const shippingCity = shipping.city
+  const shippingZip = shipping.postcode
+  const shippingPhone = shipping.phone
+
+  return {
+    orderNumber,
+    shippingCountryCode,
+    shippingCountry,
+    shippingProvince,
+    shippingCity,
+    shippingCustomerName,
+    shippingAddress,
+    shippingZip,
+    shippingPhone,
+    logisticName: body.logisticName || DEFAULT_LOGISTIC_NAME,
+    fromCountryCode: (process.env.CJ_START_COUNTRY || 'CN').toUpperCase(),
+    products: products.map((item) => ({
+      quantity: item.quantity,
+      ...(item.vid ? { vid: item.vid } : {}),
+      ...(item.sku ? { sku: item.sku } : {})
+    }))
+  }
 }
 
 export async function POST(request: Request) {
+  const { CJ_API_BASE_URL, CJ_API_KEY } = getCJConfig()
+
   try {
-    const body: BlankaOrderRequest = await request.json()
+    const body: IncomingOrderRequest = await request.json()
 
-    // Validate required fields
-    if (!body.order_id || !body.shipping_address || !body.line_items?.length) {
-      return NextResponse.json(
-        { error: 'Missing required fields: order_id, shipping_address, line_items' },
-        { status: 400 }
-      )
-    }
-
-    // If no API key, return demo response
-    if (!BLANKA_API_KEY) {
+    if (!CJ_API_KEY) {
       return NextResponse.json({
-        id: `DEMO-${Date.now()}`,
-        order_id: body.order_id,
+        cjOrderId: `DEMO-${Date.now()}`,
+        orderNumber: body.orderNumber || body.order_id || `AMY-${Date.now()}`,
         status: 'PROCESSING',
-        tracking_code: null,
-        line_items: body.line_items,
-        shipping_address: body.shipping_address,
         isDemo: true,
-        message: 'Demo mode - order not actually placed. Configure BLANKA_API_KEY to enable real orders.'
+        message: 'Demo mode - order not placed. Configure CJ_API_KEY to enable real orders.'
       }, { status: 201 })
     }
 
-    // Create real order with Blanka
-    const response = await fetch(BLANKA_API_URL, {
+    const payload = toCJCreatePayload(body)
+    const accessToken = await getCJAccessToken()
+
+    const response = await fetch(`${CJ_API_BASE_URL}/shopping/order/createOrderV3`, {
       method: 'POST',
       headers: {
-        'Authorization': BLANKA_API_KEY,
+        'CJ-Access-Token': accessToken,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(payload)
     })
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}))
-      throw new Error(`Blanka API error: ${response.status} - ${JSON.stringify(errorData)}`)
+      throw new Error(`CJ create order error: ${response.status} - ${JSON.stringify(errorData)}`)
     }
 
-    const data: BlankaOrderResponse = await response.json()
-    
-    return NextResponse.json({
-      ...data,
-      isDemo: false
-    }, { status: 201 })
-
+    const data = await response.json()
+    return NextResponse.json({ ...data, isDemo: false }, { status: 201 })
   } catch (error) {
-    console.error('Failed to create Blanka order:', error)
-    
+    console.error('Failed to create CJ order:', error)
     return NextResponse.json(
       { error: 'Failed to create order. Please try again or contact support.' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function GET(request: Request) {
+  const { CJ_API_BASE_URL, CJ_API_KEY } = getCJConfig()
+
+  if (!CJ_API_KEY) {
+    return NextResponse.json({ error: 'CJ API key missing' }, { status: 400 })
+  }
+
+  try {
+    const url = new URL(request.url)
+    const orderId = url.searchParams.get('orderId')
+    const accessToken = await getCJAccessToken()
+
+    const endpoint = orderId
+      ? `${CJ_API_BASE_URL}/shopping/order/getOrderDetail?orderId=${encodeURIComponent(orderId)}`
+      : `${CJ_API_BASE_URL}/shopping/order/list?${url.searchParams.toString()}`
+
+    const response = await fetch(endpoint, {
+      headers: {
+        'CJ-Access-Token': accessToken,
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}))
+      throw new Error(`CJ order query error: ${response.status} - ${JSON.stringify(errorData)}`)
+    }
+
+    const data = await response.json()
+    return NextResponse.json(data)
+  } catch (error) {
+    console.error('Failed to query CJ orders:', error)
+    return NextResponse.json(
+      { error: 'Failed to query orders.' },
       { status: 500 }
     )
   }
