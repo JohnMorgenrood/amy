@@ -1,8 +1,7 @@
-https://developers.cjdropshipping.com/api2.0/v1/product/getCategory
-
-CURL
-curl --location --request GET 'https://developers.cjdropshipping.com/api2.0/v1/product/getCategory' \
-                --header 'CJ-Access-Token: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'import { NextResponse } from 'next/server'
+// CJ Dropshipping API documentation
+// Documentation URL: https://developers.cjdropshipping.com/api2.0/v1/product/getCategory
+// CURL example for API call
+import { NextResponse } from 'next/server'
 import { getCJAccessToken, getCJConfig } from '@/lib/cj'
 
 // Blanka API configuration
