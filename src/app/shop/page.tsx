@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, createContext, useContext, ReactNode } from 'react'
+import { useState, useEffect, useMemo, createContext, useContext, ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -185,17 +185,6 @@ function useCart() {
   return context
 }
 
-// Categories for filtering
-const categories = [
-  { value: '', label: 'All Products' },
-  { value: 'skincare', label: 'Skincare' },
-  { value: 'face', label: 'Face' },
-  { value: 'lips', label: 'Lips' },
-  { value: 'eyes', label: 'Eyes' },
-  { value: 'tools', label: 'Tools & Accessories' },
-  { value: 'organic', label: 'Organic' },
-]
-
 const shopCarouselSlides = [
   {
     src: '/assets/portfolio/IMG_20240713_075631_187.jpg',
@@ -215,6 +204,16 @@ const shopCarouselSlides = [
     title: 'Bridal Glamour',
     subtitle: 'Soft-focus glow with a couture touch.'
   },
+]
+
+const fallbackProductImages = [
+  '/assets/portfolio/IMG_20240713_075631_187.jpg',
+  '/assets/portfolio/IMG_20240713_075631_238.jpg',
+  '/assets/portfolio/IMG_20240713_080002_348.jpg',
+  '/assets/portfolio/IMG_20240713_080002_394.jpg',
+  '/assets/portfolio/IMG_20240713_080002_434.jpg',
+  '/assets/portfolio/FB_IMG_1487892884148.jpg',
+  '/assets/portfolio/FB_IMG_1487892965084.jpg',
 ]
 
 // Cart Sidebar Component
@@ -553,13 +552,15 @@ function ProductCard({
   onAddToCart,
   onViewDetails,
   currency,
-  rates
+  rates,
+  imageFrequency
 }: {
   product: BlankaProduct
   onAddToCart: () => void
   onViewDetails: () => void
   currency: CurrencyCode
   rates: Record<CurrencyCode, number>
+  imageFrequency: Map<string, number>
 }) {
   const [imageError, setImageError] = useState(false)
   const retailPrice = getRetailPrice(product)
@@ -571,7 +572,9 @@ function ProductCard({
     return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value)
   }
 
-  const fallbackImage = 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop'
+  const fallbackImage = fallbackProductImages[product.id % fallbackProductImages.length]
+  const imageIsDuplicate = product.image ? (imageFrequency.get(product.image) || 0) > 1 : true
+  const displayImage = imageError || !product.image || imageIsDuplicate ? fallbackImage : product.image
 
   return (
     <motion.div
@@ -587,7 +590,7 @@ function ProductCard({
         onClick={onViewDetails}
       >
         <Image
-          src={imageError ? fallbackImage : product.image}
+          src={displayImage}
           alt={product.name}
           fill
           className="object-cover transition-transform duration-500 hover:scale-105"
@@ -678,6 +681,13 @@ function ShopContent() {
   const [shipCountry, setShipCountry] = useState('US')
   
   const { addToCart, totalItems } = useCart()
+
+  const formatCurrency = (amountUsd: number) => {
+    const rate = rates[currency] ?? 1
+    const value = amountUsd * rate
+    const locale = currency === 'ZAR' ? 'en-ZA' : currency === 'GBP' ? 'en-GB' : 'en-US'
+    return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value)
+  }
 
   // Handle browser back button for modals - closes modal instead of navigating away
   useEffect(() => {
@@ -779,6 +789,58 @@ function ShopContent() {
     fetchProducts()
   }, [])
 
+  const categoryOptions = useMemo(() => {
+    const categorySet = new Set<string>()
+    products.forEach((product) => {
+      product.categories.forEach((category) => categorySet.add(category))
+    })
+
+    const categories = Array.from(categorySet)
+      .filter(Boolean)
+      .sort()
+      .map((category) => ({
+        value: category,
+        label: category.replace(/[-_]/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase())
+      }))
+
+    return [{ value: '', label: 'All Products' }, ...categories]
+  }, [products])
+
+  const imageFrequency = useMemo(() => {
+    const frequency = new Map<string, number>()
+    products.forEach((product) => {
+      if (!product.image) return
+      frequency.set(product.image, (frequency.get(product.image) || 0) + 1)
+    })
+    return frequency
+  }, [products])
+
+  const cheapestProducts = useMemo(() => {
+    const priced = products
+      .filter((product) => product.available_inventory > 0)
+      .slice()
+      .sort((a, b) => getRetailPrice(a) - getRetailPrice(b))
+    return priced.slice(0, 5)
+  }, [products])
+
+  const carouselItems = useMemo(() => {
+    if (cheapestProducts.length > 0) {
+      return cheapestProducts.map((product, index) => ({
+        image: product.image || fallbackProductImages[index % fallbackProductImages.length],
+        alt: product.name,
+        title: product.name,
+        subtitle: `From ${formatCurrency(getRetailPrice(product))}`
+      }))
+    }
+
+    return shopCarouselSlides.map((slide) => ({
+      image: slide.src,
+      alt: slide.alt,
+      title: slide.title,
+      subtitle: slide.subtitle
+    }))
+  }, [cheapestProducts, currency, rates])
+
   // Filter products
   useEffect(() => {
     let filtered = products
@@ -803,11 +865,18 @@ function ShopContent() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % shopCarouselSlides.length)
+      const length = Math.max(carouselItems.length, 1)
+      setActiveSlide((prev) => (prev + 1) % length)
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [carouselItems.length])
+
+  useEffect(() => {
+    if (activeSlide >= carouselItems.length && carouselItems.length > 0) {
+      setActiveSlide(0)
+    }
+  }, [activeSlide, carouselItems.length])
 
   const handleAddToCart = (product: BlankaProduct) => {
     addToCart(product)
@@ -1069,8 +1138,8 @@ function ShopContent() {
                   className="absolute inset-0"
                 >
                   <Image
-                    src={shopCarouselSlides[activeSlide].src}
-                    alt={shopCarouselSlides[activeSlide].alt}
+                    src={carouselItems[activeSlide]?.image || shopCarouselSlides[0].src}
+                    alt={carouselItems[activeSlide]?.alt || shopCarouselSlides[0].alt}
                     fill
                     className="object-cover"
                     unoptimized
@@ -1085,15 +1154,15 @@ function ShopContent() {
                 Signature Looks
               </p>
               <h3 className="text-white text-2xl sm:text-3xl font-semibold mt-2">
-                {shopCarouselSlides[activeSlide].title}
+                {carouselItems[activeSlide]?.title || shopCarouselSlides[0].title}
               </h3>
               <p className="text-white/70 text-sm sm:text-base mt-2">
-                {shopCarouselSlides[activeSlide].subtitle}
+                {carouselItems[activeSlide]?.subtitle || shopCarouselSlides[0].subtitle}
               </p>
             </div>
 
             <div className="absolute right-4 bottom-4 flex items-center gap-2">
-              {shopCarouselSlides.map((_, index) => (
+              {carouselItems.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveSlide(index)}
@@ -1152,7 +1221,7 @@ function ShopContent() {
       {/* Category Pills */}
       <section className="max-w-7xl mx-auto px-4 mb-8">
         <div className="flex flex-wrap items-center gap-3">
-          {categories.map((cat) => (
+          {categoryOptions.map((cat) => (
             <button
               key={cat.value}
               onClick={() => setSelectedCategory(cat.value)}
@@ -1235,6 +1304,7 @@ function ShopContent() {
                   onViewDetails={() => setSelectedProduct(product)}
                   currency={currency}
                   rates={rates}
+                  imageFrequency={imageFrequency}
                 />
               ))}
             </AnimatePresence>
