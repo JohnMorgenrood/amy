@@ -29,6 +29,7 @@ interface BlankaProduct {
   ingredients: string
   expires_at: string | null
   product_base: string | null
+  videoUrls?: string[]
 }
 
 interface CartItem {
@@ -448,6 +449,11 @@ function ProductModal({
   if (!product) return null
 
   const retailPrice = getRetailPrice(product)
+  const [activeTab, setActiveTab] = useState<'details' | 'shipping' | 'payments' | 'video'>('details')
+  const videoUrls = Array.isArray(product.videoUrls)
+    ? product.videoUrls.filter((url) => typeof url === 'string' && url.startsWith('http'))
+    : []
+  const showVideoTab = videoUrls.length > 0
 
   const formatCurrency = (amountUsd: number) => {
     const rate = rates[currency] ?? 1
@@ -455,6 +461,9 @@ function ProductModal({
     const locale = currency === 'ZAR' ? 'en-ZA' : currency === 'GBP' ? 'en-GB' : 'en-US'
     return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value)
   }
+
+  const fallbackImage = fallbackProductImages[product.id % fallbackProductImages.length]
+  const displayImage = product.image || fallbackImage
 
   return (
     <AnimatePresence>
@@ -488,12 +497,17 @@ function ProductModal({
               {/* Image */}
               <div className="relative w-full md:w-1/2 aspect-square flex-shrink-0 bg-[#0f0f0f]">
                 <Image
-                  src={product.image}
+                  src={displayImage}
                   alt={product.name}
                   fill
                   className="object-cover"
                   unoptimized
                 />
+                {showVideoTab && (
+                  <div className="absolute top-4 left-4 rounded-full bg-black/70 px-3 py-1 text-xs font-semibold text-[#F8E7B4] border border-[#D4AF37]/40">
+                    Video Available
+                  </div>
+                )}
               </div>
 
               {/* Details */}
@@ -515,28 +529,96 @@ function ProductModal({
                   )}
                 </div>
 
-                <div className="prose prose-invert prose-sm mb-6">
-                  <p className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {[
+                    { key: 'details', label: 'Details' },
+                    { key: 'shipping', label: 'Shipping' },
+                    { key: 'payments', label: 'Payments' },
+                    ...(showVideoTab ? [{ key: 'video', label: 'Video' }] : [])
+                  ].map((tab) => (
+                    <button
+                      key={tab.key}
+                      onClick={() => setActiveTab(tab.key as 'details' | 'shipping' | 'payments' | 'video')}
+                      className={`px-4 py-2 rounded-full text-xs font-semibold border transition-colors ${
+                        activeTab === tab.key
+                          ? 'bg-[#D4AF37]/20 text-[#F8E7B4] border-[#D4AF37]/60'
+                          : 'bg-white/5 text-white/70 border-white/10 hover:border-[#D4AF37]/40'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
                 </div>
 
-                {product.benefits && (
-                  <div className="mb-6">
-                    <h3 className="text-white font-semibold mb-2">Benefits</h3>
-                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.benefits }} />
+                {activeTab === 'details' && (
+                  <div>
+                    <div className="prose prose-invert prose-sm mb-6">
+                      <p className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
+                    </div>
+
+                    {product.benefits && (
+                      <div className="mb-6">
+                        <h3 className="text-white font-semibold mb-2">Benefits</h3>
+                        <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.benefits }} />
+                      </div>
+                    )}
+
+                    {product.application && (
+                      <div className="mb-6">
+                        <h3 className="text-white font-semibold mb-2">How to Use</h3>
+                        <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.application }} />
+                      </div>
+                    )}
+
+                    {product.ingredients && (
+                      <div className="mb-6">
+                        <h3 className="text-white font-semibold mb-2">Ingredients</h3>
+                        <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.ingredients }} />
+                      </div>
+                    )}
                   </div>
                 )}
 
-                {product.application && (
-                  <div className="mb-6">
-                    <h3 className="text-white font-semibold mb-2">How to Use</h3>
-                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.application }} />
+                {activeTab === 'shipping' && (
+                  <div className="space-y-4 text-sm text-white/70">
+                    <p>Shipping is calculated at checkout based on destination and live CJ logistics rates.</p>
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                      <p className="text-white font-semibold mb-2">Estimated delivery windows</p>
+                      <ul className="list-disc list-inside space-y-1">
+                        <li>Express lines: 5–10 business days</li>
+                        <li>Standard lines: 8–15 business days</li>
+                        <li>Economy lines: 12–25 business days</li>
+                      </ul>
+                    </div>
+                    <p className="text-xs text-white/50">Actual times vary by country and courier availability.</p>
                   </div>
                 )}
 
-                {product.ingredients && (
-                  <div className="mb-6">
-                    <h3 className="text-white font-semibold mb-2">Ingredients</h3>
-                    <div className="text-white/70 text-sm" dangerouslySetInnerHTML={{ __html: product.ingredients }} />
+                {activeTab === 'payments' && (
+                  <div className="space-y-4 text-sm text-white/70">
+                    <p>We accept secure card and wallet payments.</p>
+                    <div className="flex flex-wrap gap-2">
+                      {['Visa', 'Mastercard', 'American Express', 'PayPal', 'Apple Pay', 'Google Pay'].map((method) => (
+                        <span key={method} className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-white/80">
+                          {method}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-xs text-white/50">All payments are encrypted and processed securely.</p>
+                  </div>
+                )}
+
+                {activeTab === 'video' && showVideoTab && (
+                  <div className="space-y-4">
+                    {videoUrls.map((url) => (
+                      <div key={url} className="aspect-video w-full overflow-hidden rounded-xl border border-white/10 bg-black/40">
+                        <video
+                          src={url}
+                          controls
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    ))}
                   </div>
                 )}
 
@@ -604,6 +686,12 @@ function ProductCard({
           unoptimized
           onError={() => setImageError(true)}
         />
+
+        {product.videoUrls && product.videoUrls.length > 0 && (
+          <div className="absolute top-3 right-3 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold text-[#F8E7B4] border border-[#D4AF37]/40">
+            Video
+          </div>
+        )}
         
         {/* Quick View Button - Always visible on mobile, hover on desktop */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 md:opacity-0 md:hover:opacity-100 transition-opacity">

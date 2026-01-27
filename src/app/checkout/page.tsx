@@ -11,6 +11,7 @@ interface BlankaProduct {
   sku: string
   suggested_cost: string
   image: string
+  videoUrls?: string[]
 }
 
 interface CartItem {

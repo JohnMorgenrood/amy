@@ -33,6 +33,7 @@ export interface BlankaProduct {
   ingredients: string
   expires_at: string | null
   product_base: string | null
+  videoUrls?: string[]
 }
 
 interface BlankaResponse {
@@ -51,6 +52,7 @@ type CJListV2Product = {
   nowPrice?: string
   discountPrice?: string
   description?: string
+  videoList?: string[]
   threeCategoryName?: string
   twoCategoryName?: string
   oneCategoryName?: string
@@ -103,6 +105,9 @@ function mapCJProduct(product: CJListV2Product): BlankaProduct | null {
   if (!basePrice || Number.isNaN(basePrice)) {
     return null
   }
+  const videoUrls = Array.isArray(product.videoList)
+    ? product.videoList.filter((url) => typeof url === 'string' && url.startsWith('http'))
+    : []
   const suggestedCost = basePrice ? basePrice.toFixed(2) : '0.00'
   const cost = basePrice ? basePrice.toFixed(2) : '0.00'
   const productId = product.id || product.sku || fallbackName
@@ -128,7 +133,8 @@ function mapCJProduct(product: CJListV2Product): BlankaProduct | null {
     application: '',
     ingredients: '',
     expires_at: null,
-    product_base: 'CJ Dropshipping'
+    product_base: 'CJ Dropshipping',
+    videoUrls: videoUrls.length > 0 ? videoUrls : undefined
   }
 }
 
@@ -244,7 +250,7 @@ export async function GET(request: Request) {
       cjUrl.searchParams.set('page', page)
       cjUrl.searchParams.set('size', pageSize)
       cjUrl.searchParams.set('keyWord', keyword)
-      cjUrl.searchParams.set('features', 'enable_description,enable_category')
+      cjUrl.searchParams.set('features', 'enable_description,enable_category,enable_video')
 
       const response = await fetch(cjUrl.toString(), {
         headers: {

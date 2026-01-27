@@ -4,15 +4,10 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const STORAGE_KEY = 'amy-welcome-seen'
-
 export function WelcomePopup() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    const hasSeen = typeof window !== 'undefined' && localStorage.getItem(STORAGE_KEY)
-    if (hasSeen) return
-
     const timer = window.setTimeout(() => {
       setIsOpen(true)
     }, 2000)
@@ -21,7 +16,6 @@ export function WelcomePopup() {
   }, [])
 
   const handleSelect = () => {
-    localStorage.setItem(STORAGE_KEY, 'true')
     setIsOpen(false)
   }
 
