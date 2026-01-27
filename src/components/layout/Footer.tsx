@@ -34,18 +34,16 @@ export function Footer() {
           
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <Link href="/" className="group flex flex-col gap-1 mb-8">
+            <Link href="/shop" className="group flex flex-col gap-1 mb-6">
               <span className="font-display text-xl font-light tracking-[0.1em] text-cream-100">
-                AMY MORGENROOD
+                AMY'S MAKEUP STORE
               </span>
               <span className="text-[9px] tracking-[0.3em] uppercase text-gold-500/60">
-                Makeup Artist
+                Curated Beauty Shop
               </span>
             </Link>
-            <p className="text-cream-300/70 text-sm leading-relaxed mb-8 font-light">
-              Professional makeup artist with 8+ years on-set experience. 
-              Internationally qualified (ITEC) specializing in Film, SFX, 
-              Beauty, Airbrush & Hair Styling.
+            <p className="text-cream-300/70 text-sm leading-relaxed mb-6 font-light">
+              Shop curated makeup, skincare, and tools with premium delivery and secure checkout.
             </p>
             <div className="flex items-center gap-3">
               <motion.a
@@ -120,7 +118,7 @@ export function Footer() {
         <div className="mt-20 pt-8 border-t border-gold-500/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-cream-500/40 text-xs tracking-wide flex items-center gap-1.5 font-light">
-              © {new Date().getFullYear()} Amy Morgenrood. Crafted with 
+              © {new Date().getFullYear()} Amy's Makeup Store. Crafted with 
               <Heart className="w-3 h-3 text-gold-500/60 fill-gold-500/60" /> 
               in Cape Town
             </p>
