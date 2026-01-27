@@ -502,6 +502,7 @@ function ProductModal({
 
   const retailPrice = getRetailPrice(product)
   const [activeTab, setActiveTab] = useState<'details' | 'shipping' | 'payments' | 'video'>('details')
+  const [rating, setRating] = useState(5)
   const videoUrls = Array.isArray(product.videoUrls)
     ? product.videoUrls.filter((url) => typeof url === 'string' && url.startsWith('http'))
     : []
@@ -621,17 +622,31 @@ function ProductModal({
 
                     <div className="mb-6 rounded-xl border border-white/10 bg-black/40 p-4">
                       <h3 className="text-white font-semibold mb-3">Reviews</h3>
-                      <div className="flex items-center gap-1 text-[#D4AF37] mb-3">
-                        {Array.from({ length: 5 }).map((_, index) => (
-                          <svg
-                            key={index}
-                            className="w-4 h-4"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.26 3.89a1 1 0 00.95.69h4.09c.969 0 1.371 1.24.588 1.81l-3.31 2.405a1 1 0 00-.364 1.118l1.26 3.89c.3.921-.755 1.688-1.54 1.118l-3.31-2.405a1 1 0 00-1.175 0l-3.31 2.405c-.784.57-1.838-.197-1.54-1.118l1.26-3.89a1 1 0 00-.364-1.118L2.17 9.317c-.783-.57-.38-1.81.588-1.81h4.09a1 1 0 00.95-.69l1.26-3.89z" />
-                          </svg>
-                        ))}
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-white/60 text-xs">Your rating</span>
+                        <div className="flex items-center gap-1">
+                          {Array.from({ length: 5 }).map((_, index) => {
+                            const value = index + 1
+                            const active = value <= rating
+                            return (
+                              <button
+                                key={value}
+                                type="button"
+                                onClick={() => setRating(value)}
+                                className="transition-transform hover:scale-110"
+                                aria-label={`Rate ${value} star${value > 1 ? 's' : ''}`}
+                              >
+                                <svg
+                                  className={`w-4 h-4 ${active ? 'text-[#D4AF37]' : 'text-white/20'}`}
+                                  fill="currentColor"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.26 3.89a1 1 0 00.95.69h4.09c.969 0 1.371 1.24.588 1.81l-3.31 2.405a1 1 0 00-.364 1.118l1.26 3.89c.3.921-.755 1.688-1.54 1.118l-3.31-2.405a1 1 0 00-1.175 0l-3.31 2.405c-.784.57-1.838-.197-1.54-1.118l1.26-3.89a1 1 0 00-.364-1.118L2.17 9.317c-.783-.57-.38-1.81.588-1.81h4.09a1 1 0 00.95-.69l1.26-3.89z" />
+                                </svg>
+                              </button>
+                            )
+                          })}
+                        </div>
                       </div>
                       <label className="block text-white/60 text-xs mb-2">Leave a comment</label>
                       <textarea
@@ -646,10 +661,6 @@ function ProductModal({
                         Submit review
                       </button>
                     </div>
-
-                    {parsedDescription.summary && (
-                      <p className="text-white/70 text-sm mb-4">{parsedDescription.summary}</p>
-                    )}
 
                     <div className="prose prose-invert prose-sm prose-img:my-4 prose-img:rounded-xl mb-6 rounded-xl border border-white/10 bg-white/5 p-4">
                       <div className="text-white/70" dangerouslySetInnerHTML={{ __html: product.description }} />
@@ -1181,14 +1192,17 @@ function ShopContent() {
             
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6">
-              <Link href="/" className="text-sm text-white/70 hover:text-white transition-colors">
-                About Amy
+              <Link href="/shop" className="text-sm text-white/70 hover:text-white transition-colors">
+                Shop Home
               </Link>
-              <Link href="/#portfolio" className="text-sm text-white/70 hover:text-white transition-colors">
-                Portfolio
+              <Link href="/shop#filters" className="text-sm text-white/70 hover:text-white transition-colors">
+                Filters
               </Link>
-              <Link href="/#contact" className="text-sm text-white/70 hover:text-white transition-colors">
-                Contact
+              <Link href="/account" className="text-sm text-white/70 hover:text-white transition-colors">
+                My Account
+              </Link>
+              <Link href="/checkout" className="text-sm text-white/70 hover:text-white transition-colors">
+                Checkout
               </Link>
             </nav>
 
