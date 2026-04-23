@@ -177,8 +177,7 @@ export default function RootLayout({
                   sameAs: [
                     'https://www.instagram.com/amyb_mup/',
                     'https://www.instagram.com/_amyy_mua/',
-                    'https://www.imdb.com/name/nm12345678/',
-                    'https://www.callacrew.co.za/crew/amy-morgenrood'
+                    'https://www.callacrew.co.za/crew/2839508/amy-morgenrood/bio?bf=1'
                   ],
                   hasOfferCatalog: {
                     '@type': 'OfferCatalog',
@@ -264,8 +263,7 @@ export default function RootLayout({
                   ],
                   sameAs: [
                     'https://www.instagram.com/amyb_mup/',
-                    'https://www.instagram.com/_amyy_mua/',
-                    'https://www.imdb.com/name/nm12345678/'
+                    'https://www.instagram.com/_amyy_mua/'
                   ]
                 },
                 {

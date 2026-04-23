@@ -58,32 +58,32 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="relative py-32 overflow-hidden bg-dark-950">
+    <section className="relative overflow-hidden bg-dark-950 py-32">
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
+        <div className="absolute top-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-gold-500/80 text-xs tracking-[0.3em] uppercase mb-6"
+            className="mb-6 inline-block text-xs uppercase tracking-[0.3em] text-gold-500/80"
           >
             Testimonials
           </motion.span>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
+          <h2 className="mb-8 font-display text-4xl font-light text-cream-100 sm:text-5xl lg:text-6xl">
             What Clients Say
           </h2>
-          <p className="text-cream-300/80 text-lg max-w-2xl mx-auto font-light">
+          <p className="mx-auto max-w-2xl text-lg font-light text-cream-300/80">
             Feedback from production teams, private clients and bridal bookings who have worked
             with Amy in Cape Town.
           </p>
@@ -121,23 +121,23 @@ export function Testimonials() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="h-full p-8 bg-dark-900/50 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-500"
+                  className="h-full border border-gold-500/10 bg-dark-900/50 p-8 transition-all duration-500 hover:border-gold-500/20"
                 >
-                  <Quote className="w-8 h-8 text-gold-500/20 mb-8" />
+                  <Quote className="mb-8 h-8 w-8 text-gold-500/20" />
 
-                  <p className="text-cream-200/80 leading-relaxed mb-8 font-light italic">
+                  <p className="mb-8 font-light italic leading-relaxed text-cream-200/80">
                     "{testimonial.content}"
                   </p>
 
-                  <div className="flex items-center gap-1 mb-8">
+                  <div className="mb-8 flex items-center gap-1">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 text-gold-500/60 fill-gold-500/60" />
+                      <Star key={i} className="h-3 w-3 fill-gold-500/60 text-gold-500/60" />
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-4 pt-6 border-t border-gold-500/10">
-                    <div className="relative w-12 h-12 overflow-hidden border border-gold-500/20 bg-gold-500/10 flex items-center justify-center">
-                      <span className="text-gold-400 text-xl font-light">
+                  <div className="flex items-center gap-4 border-t border-gold-500/10 pt-6">
+                    <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden border border-gold-500/20 bg-gold-500/10">
+                      <span className="text-xl font-light text-gold-400">
                         {testimonial.name.charAt(0)}
                       </span>
                     </div>

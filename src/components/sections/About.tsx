@@ -150,8 +150,19 @@ export function About() {
                 <span className="text-rose-200"> American Monster (S7-9)</span>.
               </p>
               <p className="font-light text-cream-300/80">
-                I also work with private clients, bridal bookings, photographers, agencies and
-                brands who need calm, efficient makeup support in Cape Town.
+                My strongest focus is production work for film, TV, commercials and branded
+                content, with bridal, private and beauty bookings available around that work.
+              </p>
+            </div>
+
+            <div className="mt-6 rounded-[1.5rem] border border-gold-500/15 bg-dark-900/40 p-5 sm:p-6">
+              <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-3">
+                Best Fit For
+              </h4>
+              <p className="text-sm font-light leading-relaxed text-cream-300/75">
+                Production companies, agencies, coordinators and brands looking for a Cape Town
+                makeup artist who can handle TV commercials, on-set work, campaign shoots and
+                continuity-aware makeup support without overcomplicating the booking process.
               </p>
             </div>
 
@@ -240,7 +251,7 @@ export function About() {
                 Follow @amyb_mup
               </motion.a>
               <motion.a
-                href="#contact"
+                href="/#contact"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="inline-flex items-center gap-3 rounded-full px-6 py-3.5 border border-gold-500/30 text-cream-100 text-xs tracking-[0.15em] uppercase hover:border-gold-500/50 hover:bg-gold-500/5 transition-all duration-300"

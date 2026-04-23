@@ -7,11 +7,12 @@ import { Menu, X, Instagram, Mail, Phone, Youtube } from 'lucide-react'
 
 const navLinks = [
   { name: 'Home', href: '/' },
-  { name: 'Portfolio', href: '#portfolio' },
-  { name: 'Services', href: '#services' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'About', href: '#about' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Production', href: '/film-tv-commercial-makeup-artist-cape-town' },
+  { name: 'Portfolio', href: '/#portfolio' },
+  { name: 'Services', href: '/#services' },
+  { name: 'Bridal', href: '/bridal-makeup-artist-cape-town' },
+  { name: 'About', href: '/#about' },
+  { name: 'Contact', href: '/#contact' },
 ]
 
 export function Navbar() {
@@ -102,7 +103,7 @@ export function Navbar() {
                 <Phone className="w-4 h-4 text-cream-500/50 hover:text-gold-400 transition-colors" />
               </motion.a>
               <motion.a
-                href="#contact"
+                href="/#contact"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="ml-2 px-5 py-2 bg-cream-100 text-dark-950 text-[10px] tracking-[0.15em] uppercase hover:bg-gold-400 transition-colors duration-300"

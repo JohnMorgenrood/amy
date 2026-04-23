@@ -1,16 +1,17 @@
 'use client'
 
 import { useRef } from 'react'
+import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import { ArrowRight, MapPin, Sparkles } from 'lucide-react'
+import { ArrowRight, MapPin, Sparkles, Clapperboard, Clock3, ShieldCheck } from 'lucide-react'
 
 const serviceHighlights = [
+  'TV Ads & Commercials',
   'Film & TV',
-  'Private Bookings',
-  'Bridal',
+  'On-Set Continuity',
   'SFX',
-  'Editorial',
+  'Bridal & Private',
 ]
 
 const detailCards = [
@@ -19,12 +20,30 @@ const detailCards = [
     value: 'Cape Town, Western Cape',
   },
   {
-    label: 'Bookings',
-    value: 'Private, bridal, production and agency work',
+    label: 'Production Focus',
+    value: 'TV commercials, film, branded content, agency shoots and production support',
   },
   {
-    label: 'Focus',
-    value: 'Clean beauty, continuity, soft glamour and screen-ready makeup',
+    label: 'Working Style',
+    value: 'Efficient on set, continuity-aware and polished on camera',
+  },
+]
+
+const productionSignals = [
+  {
+    icon: Clapperboard,
+    title: 'Commercial-ready',
+    text: 'Built for TVCs, campaigns and fast-moving production days.',
+  },
+  {
+    icon: Clock3,
+    title: 'Efficient on set',
+    text: 'Clear prep, touch-ups and practical support around call times.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Trusted credits',
+    text: 'Film, TV and agency-facing experience with real production teams.',
   },
 ]
 
@@ -54,8 +73,8 @@ export function Hero() {
         <div className="absolute inset-0 noise opacity-60" />
       </motion.div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-14 min-h-screen flex items-center">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-4 pt-24 pb-14 sm:px-6 lg:px-8">
+        <div className="grid w-full items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -63,21 +82,28 @@ export function Hero() {
             className="lg:col-span-6"
           >
             <motion.div style={{ opacity: fade }} className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/20 bg-dark-900/50 px-4 py-2 mb-6">
-                <MapPin className="w-3.5 h-3.5 text-gold-400" />
-                <span className="text-[10px] tracking-[0.26em] uppercase text-cream-100/90">
-                  Cape Town Makeup Artist
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold-500/20 bg-dark-900/50 px-4 py-2">
+                <MapPin className="h-3.5 w-3.5 text-gold-400" />
+                <span className="text-[10px] uppercase tracking-[0.26em] text-cream-100/90">
+                  Cape Town Production Makeup Artist
                 </span>
               </div>
 
-              <h1 className="font-display max-w-[10ch] text-5xl sm:text-6xl lg:text-[5.25rem] font-light leading-[0.94] tracking-[-0.03em] text-cream-100">
-                Refined makeup
-                <span className="block text-gold-300/95">for modern beauty, bridal and screen.</span>
+              <h1 className="font-display max-w-[11ch] text-5xl font-light leading-[0.94] tracking-[-0.03em] text-cream-100 sm:text-6xl lg:text-[5.25rem]">
+                Makeup for
+                <span className="block text-gold-300/95">TV ads, commercials and film in Cape Town.</span>
               </h1>
 
-              <p className="mt-6 max-w-[38rem] text-base sm:text-lg text-cream-300/82 font-light leading-relaxed">
-                Amy Morgenrood creates polished, camera-ready makeup and hair for private clients,
-                productions, agencies, editorials, weddings and events across Cape Town.
+              <p className="mt-6 max-w-[38rem] text-base font-light leading-relaxed text-cream-300/82 sm:text-lg">
+                Amy Morgenrood provides polished, production-ready makeup and hair for commercials,
+                film, TV, branded content and agency shoots, while still offering bridal and
+                private bookings across Cape Town.
+              </p>
+
+              <p className="mt-4 max-w-[38rem] text-sm font-light leading-relaxed text-cream-400/72 sm:text-base">
+                If you are searching for a makeup artist in Cape Town for a TV commercial, film
+                production, private appointment or bridal booking, this site is built to make the
+                fit clear quickly.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-2.5">
@@ -93,25 +119,23 @@ export function Hero() {
 
               <div className="mt-10 flex flex-wrap gap-4">
                 <motion.a
-                  href="#contact"
+                  href="/#contact"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="inline-flex min-h-12 items-center gap-3 rounded-full px-7 py-3.5 bg-cream-100 text-dark-950 text-[11px] tracking-[0.22em] uppercase hover:bg-gold-400 transition-colors duration-300"
+                  className="inline-flex min-h-12 items-center gap-3 rounded-full bg-cream-100 px-7 py-3.5 text-[11px] uppercase tracking-[0.22em] text-dark-950 transition-colors duration-300 hover:bg-gold-400"
                 >
-                  Request Booking
-                  <ArrowRight className="w-4 h-4" />
+                  Request Production Quote
+                  <ArrowRight className="h-4 w-4" />
                 </motion.a>
-                <motion.a
-                  href="#portfolio"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex min-h-12 items-center gap-3 rounded-full px-7 py-3.5 border border-gold-500/30 text-cream-100 text-[11px] tracking-[0.22em] uppercase hover:bg-gold-500/8 transition-colors duration-300"
+                <Link
+                  href="/film-tv-commercial-makeup-artist-cape-town"
+                  className="inline-flex min-h-12 items-center gap-3 rounded-full border border-gold-500/30 px-7 py-3.5 text-[11px] uppercase tracking-[0.22em] text-cream-100 transition-colors duration-300 hover:bg-gold-500/8"
                 >
-                  View Portfolio
-                </motion.a>
+                  View Production Page
+                </Link>
               </div>
 
-              <div className="mt-12 grid sm:grid-cols-3 gap-4">
+              <div className="mt-12 grid gap-4 sm:grid-cols-3">
                 {detailCards.map((card, index) => (
                   <motion.div
                     key={card.label}
@@ -120,10 +144,10 @@ export function Hero() {
                     transition={{ delay: 0.15 + index * 0.08, duration: 0.6 }}
                     className="h-full rounded-2xl border border-gold-500/10 bg-dark-900/45 p-4 sm:p-5"
                   >
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-gold-400/75 mb-2">
+                    <p className="mb-2 text-[10px] uppercase tracking-[0.2em] text-gold-400/75">
                       {card.label}
                     </p>
-                    <p className="text-sm text-cream-200/82 font-light leading-relaxed">
+                    <p className="text-sm font-light leading-relaxed text-cream-200/82">
                       {card.value}
                     </p>
                   </motion.div>
@@ -138,10 +162,10 @@ export function Hero() {
             transition={{ duration: 0.9, ease: 'easeOut', delay: 0.1 }}
             className="lg:col-span-6"
           >
-            <div className="relative max-w-[620px] mx-auto">
+            <div className="relative mx-auto max-w-[620px]">
               <motion.div
                 style={{ y: imageY }}
-                className="relative grid grid-cols-[1fr_auto] gap-4 items-end"
+                className="relative grid grid-cols-[1fr_auto] items-end gap-4"
               >
                 <div className="relative">
                   <div className="absolute -inset-5 border border-gold-500/10" />
@@ -158,24 +182,24 @@ export function Hero() {
                   </div>
                 </div>
 
-                <div className="hidden sm:flex flex-col gap-4 w-[170px]">
-                  <div className="rounded-2xl border border-gold-500/15 bg-dark-900/70 backdrop-blur-sm p-4">
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-gold-400/75 mb-2">
-                      Signature Style
+                <div className="hidden w-[170px] flex-col gap-4 sm:flex">
+                  <div className="rounded-2xl border border-gold-500/15 bg-dark-900/70 p-4 backdrop-blur-sm">
+                    <p className="mb-2 text-[10px] uppercase tracking-[0.2em] text-gold-400/75">
+                      Production Fit
                     </p>
-                    <p className="text-sm text-cream-200/82 font-light leading-relaxed">
-                      Soft skin, elegant structure and makeup that stays beautiful on camera.
+                    <p className="text-sm font-light leading-relaxed text-cream-200/82">
+                      Screen-ready makeup that stays refined under close camera work and fast set changes.
                     </p>
                   </div>
-                  <div className="rounded-2xl border border-rose-500/15 bg-dark-900/70 backdrop-blur-sm p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Sparkles className="w-4 h-4 text-rose-300" />
-                      <p className="text-[10px] tracking-[0.2em] uppercase text-rose-300/90">
+                  <div className="rounded-2xl border border-rose-500/15 bg-dark-900/70 p-4 backdrop-blur-sm">
+                    <div className="mb-2 flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-rose-300" />
+                      <p className="text-[10px] uppercase tracking-[0.2em] text-rose-300/90">
                         Amy Morgenrood
                       </p>
                     </div>
-                    <p className="text-sm text-cream-200/82 font-light leading-relaxed">
-                      Makeup and hair artist for private clients, productions and bridal bookings.
+                    <p className="text-sm font-light leading-relaxed text-cream-200/82">
+                      Makeup and hair artist for productions, TV ads, bridal bookings and private clients.
                     </p>
                   </div>
                 </div>
@@ -185,13 +209,13 @@ export function Hero() {
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35, duration: 0.7 }}
-                className="sm:absolute sm:-left-10 sm:bottom-10 mt-5 sm:mt-0 max-w-[260px] rounded-2xl border border-gold-500/15 bg-dark-950/82 backdrop-blur-md p-5"
+                className="mt-5 max-w-[260px] rounded-2xl border border-gold-500/15 bg-dark-950/82 p-5 backdrop-blur-md sm:absolute sm:-left-10 sm:bottom-10 sm:mt-0"
               >
-                <p className="text-[10px] tracking-[0.22em] uppercase text-gold-400/80 mb-3">
-                  Beauty That Fits The Brief
+                <p className="mb-3 text-[10px] uppercase tracking-[0.22em] text-gold-400/80">
+                  Built For The Brief
                 </p>
-                <p className="text-sm text-cream-200/82 font-light leading-relaxed">
-                  Calm, clean and efficient service for bridal mornings, set days, editorial shoots
+                <p className="text-sm font-light leading-relaxed text-cream-200/82">
+                  Calm, clean and efficient support for commercial shoots, set days, bridal mornings
                   and private appointments.
                 </p>
               </motion.div>
@@ -200,25 +224,44 @@ export function Hero() {
         </div>
       </div>
 
+      <div className="relative z-10 border-t border-gold-500/10 bg-dark-950/65 backdrop-blur-sm">
+        <div className="mx-auto grid max-w-7xl gap-4 px-4 py-5 sm:px-6 lg:grid-cols-3 lg:px-8">
+          {productionSignals.map((signal) => (
+            <div
+              key={signal.title}
+              className="flex items-start gap-4 rounded-2xl border border-gold-500/10 bg-dark-900/35 px-4 py-4"
+            >
+              <div className="rounded-full border border-gold-500/25 p-2.5">
+                <signal.icon className="h-4 w-4 text-gold-400" />
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-gold-400/80">{signal.title}</p>
+                <p className="mt-2 text-sm font-light leading-relaxed text-cream-300/75">{signal.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:block"
+        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 sm:block"
       >
         <motion.a
           href="#services"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-cream-500 hover:text-gold-300 transition-colors"
+          className="flex flex-col items-center gap-2 text-cream-500 transition-colors hover:text-gold-300"
           aria-label="Scroll to services"
         >
           <span className="text-[10px] uppercase tracking-[0.2em]">Explore Services</span>
-          <div className="w-6 h-10 border border-cream-100/25 flex items-start justify-center p-2">
+          <div className="flex h-10 w-6 items-start justify-center border border-cream-100/25 p-2">
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1 h-2 rounded-full bg-gold-400"
+              className="h-2 w-1 rounded-full bg-gold-400"
             />
           </div>
         </motion.a>

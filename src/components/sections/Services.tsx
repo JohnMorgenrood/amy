@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import Link from 'next/link'
 import { motion, useScroll } from 'framer-motion'
 import { 
   Film, 
@@ -20,6 +21,8 @@ const services = [
     description: 'Professional on-set makeup and hair support for feature films, television, streaming, commercials and branded content in Cape Town.',
     features: ['Continuity Support', 'Call Sheet Ready', 'Cast & Crowd Work', 'HD / 4K Friendly'],
     gradient: 'from-amber-500 to-orange-600',
+    href: '/film-tv-commercial-makeup-artist-cape-town',
+    cta: 'Explore Production Page',
   },
   {
     id: 2,
@@ -28,6 +31,8 @@ const services = [
     description: 'Special effects work for character transformations, prosthetics, wounds, ageing, horror looks and production-led concepts.',
     features: ['Prosthetic Application', 'Wound FX', 'Aging Effects', 'Character Transformation'],
     gradient: 'from-red-500 to-rose-600',
+    href: '/film-tv-commercial-makeup-artist-cape-town',
+    cta: 'See Production Services',
   },
   {
     id: 3,
@@ -36,6 +41,8 @@ const services = [
     description: 'Simple, polished makeup for private clients in Cape Town including birthdays, dinners, functions, shoots and special occasions.',
     features: ['Natural Glam', 'Soft Glam', 'Photo Ready Finish', 'Mobile Appointments'],
     gradient: 'from-pink-500 to-rose-500',
+    href: '/private-makeup-artist-cape-town',
+    cta: 'Explore Private Bookings',
   },
   {
     id: 4,
@@ -44,6 +51,8 @@ const services = [
     description: 'Reliable makeup support for agencies, campaigns, lookbooks, editorials, tests, e-commerce shoots and branded content teams.',
     features: ['Agency Friendly', 'Shoot Day Efficiency', 'Brand Consistency', 'Camera Ready Skin'],
     gradient: 'from-violet-500 to-purple-600',
+    href: '/film-tv-commercial-makeup-artist-cape-town',
+    cta: 'Explore Production Page',
   },
   {
     id: 5,
@@ -52,6 +61,8 @@ const services = [
     description: 'Wedding makeup designed to last beautifully in person and on camera, from trial sessions through to the full wedding morning.',
     features: ['Bridal Trials', 'Wedding Day Makeup', 'Bridal Party Bookings', 'Long-Wear Finish'],
     gradient: 'from-rose-400 to-pink-500',
+    href: '/bridal-makeup-artist-cape-town',
+    cta: 'Explore Bridal Page',
   },
   {
     id: 6,
@@ -60,6 +71,8 @@ const services = [
     description: 'Hair styling support for productions, editorials, bridal mornings and private appointments, including polished finishing and period styling.',
     features: ['Styling & Updos', 'Period Hair', 'Set Styling Support', 'Wig Application'],
     gradient: 'from-gold-400 to-amber-500',
+    href: '/film-tv-commercial-makeup-artist-cape-town',
+    cta: 'See Production Services',
   },
 ]
 
@@ -163,15 +176,18 @@ export function Services() {
                 </ul>
 
                 {/* CTA */}
-                <motion.a
-                  href="#contact"
+                <motion.div
                   initial={{ opacity: 0.65 }}
                   animate={{ opacity: activeService === service.id ? 1 : 0.65 }}
-                  className="inline-flex items-center gap-2 text-gold-400/80 text-xs tracking-[0.15em] uppercase group/link"
                 >
-                  <span>Book This Service</span>
-                  <ArrowRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
-                </motion.a>
+                  <Link
+                    href={service.href}
+                    className="inline-flex items-center gap-2 text-gold-400/80 text-xs tracking-[0.15em] uppercase group/link"
+                  >
+                    <span>{service.cta}</span>
+                    <ArrowRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
+                </motion.div>
 
                 {/* Corner Accent */}
                 <div className="absolute -top-20 -right-20 w-40 h-40 bg-gold-500/5 blur-3xl group-hover:bg-gold-500/10 transition-all duration-700" />
