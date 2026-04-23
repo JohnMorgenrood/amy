@@ -195,11 +195,11 @@ export function SiteFooter() {
               </li>
               <li>
                 <a
-                  href="mailto:rubyroyal1@gmail.com"
+                  href="mailto:golearnx@gmail.com"
                   className="flex items-center gap-3 text-sm font-light text-cream-300/70 transition-colors duration-300 hover:text-cream-100"
                 >
                   <Mail className="h-4 w-4" />
-                  <span>rubyroyal1@gmail.com</span>
+                  <span>golearnx@gmail.com</span>
                 </a>
               </li>
               <li>

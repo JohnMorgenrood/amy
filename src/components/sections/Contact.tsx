@@ -26,8 +26,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'rubyroyal1@gmail.com',
-    href: 'mailto:rubyroyal1@gmail.com',
+    value: 'golearnx@gmail.com',
+    href: 'mailto:golearnx@gmail.com',
   },
   {
     icon: MapPin,
@@ -86,35 +86,24 @@ export function Contact() {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json',
         },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
           name: formData.name,
           email: formData.email,
-          phone: formData.phone || 'Not provided',
-          subject: `New Booking Inquiry - ${formData.service}`,
-          message: `
-Service Type: ${formData.service}
-Preferred Date: ${formData.date || 'Not specified'}
-Phone: ${formData.phone || 'Not provided'}
-
-Message:
-${formData.message}
-          `,
-          from_name: 'Amy Morgenrood Website',
-          to_email: 'rubyroyal1@gmail.com',
+          phone: formData.phone,
+          service: formData.service,
+          date: formData.date,
+          message: formData.message,
         }),
       })
 
-      const result = await response.json()
-
-      if (!result.success) {
-        throw new Error('Form submission failed')
+      if (!response.ok) {
+        const result = await response.json().catch(() => null)
+        throw new Error(result?.error || 'Form submission failed')
       }
 
       setIsSubmitting(false)
@@ -133,7 +122,7 @@ ${formData.message}
       }, 5000)
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('Failed to send message. Please try emailing directly at rubyroyal1@gmail.com')
+      alert('Failed to send message. Please try emailing directly at golearnx@gmail.com')
       setIsSubmitting(false)
     }
   }

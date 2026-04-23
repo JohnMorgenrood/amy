@@ -154,7 +154,7 @@ export default function RootLayout({
                   description: 'Cape Town makeup artist offering film and TV makeup, SFX, prosthetics, bridal makeup, beauty makeup, private appointments and hair styling.',
                   url: 'https://www.amymup.shop',
                   telephone: '+27847017012',
-                  email: 'rubyroyal1@gmail.com',
+                  email: 'golearnx@gmail.com',
                   image: `https://www.amymup.shop${socialImagePath}`,
                   logo: `https://www.amymup.shop${brandImagePath}`,
                   address: {
