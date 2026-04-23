@@ -1,9 +1,22 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Instagram, Mail, Phone, MapPin, Youtube, ArrowUp, Heart } from 'lucide-react'
+import {
+  Instagram,
+  Mail,
+  Phone,
+  MapPin,
+  Youtube,
+  ArrowUp,
+  Heart,
+  Share2,
+  Copy,
+  Check,
+  MessageCircle,
+} from 'lucide-react'
 
 const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-elegant-and-m.jpeg'
 
@@ -28,8 +41,41 @@ const serviceLinks = [
 ]
 
 export function SiteFooter() {
+  const [copied, setCopied] = useState(false)
+  const siteUrl = 'https://www.amymup.shop'
+  const shareText =
+    'Take a look at Amy MUP - Cape Town makeup artist for film, bridal, private and production bookings.'
+  const whatsappShareHref = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${siteUrl}`)}`
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(siteUrl)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
+    }
+  }
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Amy MUP',
+          text: shareText,
+          url: siteUrl,
+        })
+        return
+      } catch {
+        return
+      }
+    }
+
+    await handleCopyLink()
   }
 
   return (
@@ -68,6 +114,39 @@ export function SiteFooter() {
             >
               Request Booking
             </Link>
+            <div className="mt-6 rounded-[1.5rem] border border-gold-500/10 bg-dark-900/45 p-4">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-gold-500/75">Share This Site</p>
+              <p className="mt-2 text-sm font-light leading-relaxed text-cream-300/70">
+                Share the homepage directly, open a WhatsApp share, or copy the link for later.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={handleShare}
+                  className="inline-flex items-center gap-2 rounded-full border border-gold-500/25 px-4 py-2.5 text-[11px] uppercase tracking-[0.18em] text-cream-100 transition-colors duration-300 hover:border-gold-500/45 hover:bg-gold-500/8"
+                >
+                  <Share2 className="h-3.5 w-3.5" />
+                  Share Site
+                </button>
+                <a
+                  href={whatsappShareHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-gold-500/25 px-4 py-2.5 text-[11px] uppercase tracking-[0.18em] text-cream-100 transition-colors duration-300 hover:border-gold-500/45 hover:bg-gold-500/8"
+                >
+                  <MessageCircle className="h-3.5 w-3.5" />
+                  WhatsApp
+                </a>
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  className="inline-flex items-center gap-2 rounded-full border border-gold-500/25 px-4 py-2.5 text-[11px] uppercase tracking-[0.18em] text-cream-100 transition-colors duration-300 hover:border-gold-500/45 hover:bg-gold-500/8"
+                >
+                  {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                  {copied ? 'Copied' : 'Copy Link'}
+                </button>
+              </div>
+            </div>
           </div>
 
           <div>
