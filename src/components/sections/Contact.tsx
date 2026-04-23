@@ -14,6 +14,9 @@ import {
   CheckCircle,
   Loader2,
   Sparkles,
+  ChevronLeft,
+  ChevronRight,
+  CalendarDays,
 } from 'lucide-react'
 
 const contactInfo = [
@@ -63,10 +66,16 @@ const instaFeed = [
   { src: '/assets/portfolio/IMG_20240713_080002_434.jpg', alt: 'Editorial makeup post' },
 ]
 
+const weekdayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
 export function Contact() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [visibleMonth, setVisibleMonth] = useState(() => {
+    const now = new Date()
+    return new Date(now.getFullYear(), now.getMonth(), 1)
+  })
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -80,6 +89,11 @@ export function Contact() {
     target: containerRef,
     offset: ['start end', 'end start'],
   })
+
+  const today = new Date()
+  const todayKey = getDateKey(today)
+  const calendarDays = getCalendarDays(visibleMonth)
+  const selectedDateLabel = formData.date ? formatSelectedDate(formData.date) : 'No date selected yet'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -119,6 +133,8 @@ export function Contact() {
           date: '',
           message: '',
         })
+        const now = new Date()
+        setVisibleMonth(new Date(now.getFullYear(), now.getMonth(), 1))
       }, 5000)
     } catch (error) {
       console.error('Error submitting form:', error)
@@ -339,6 +355,20 @@ export function Contact() {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="rounded-[1.5rem] border border-gold-500/10 bg-dark-950/35 p-5">
+                    <div className="flex items-center gap-3">
+                      <CalendarDays className="h-4 w-4 text-gold-500/80" />
+                      <div>
+                        <p className="text-[10px] uppercase tracking-[0.15em] text-gold-500/75">
+                          Booking Flow
+                        </p>
+                        <p className="text-sm font-light text-cream-300/75">
+                          Pick the service, choose a date, then add the brief. The form will take care of the rest.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
@@ -368,6 +398,116 @@ export function Contact() {
                       />
                     </div>
 
+                    <div className="sm:col-span-2">
+                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
+                        Service Type *
+                      </label>
+                      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                        {serviceTypes.map((service) => {
+                          const isActive = formData.service === service
+
+                          return (
+                            <button
+                              key={service}
+                              type="button"
+                              onClick={() => setFormData({ ...formData, service })}
+                              className={`rounded-2xl border px-4 py-4 text-left transition-all duration-300 ${
+                                isActive
+                                  ? 'border-gold-500/50 bg-gold-500/10 text-cream-100'
+                                  : 'border-gold-500/10 bg-dark-800/70 text-cream-300/75 hover:border-gold-500/30 hover:bg-dark-800'
+                              }`}
+                            >
+                              <span className="block text-sm font-light leading-relaxed">{service}</span>
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <div className="mb-3 flex items-center justify-between gap-4">
+                        <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80">
+                          Preferred Date
+                        </label>
+                        <span className="text-xs font-light text-gold-400/75">{selectedDateLabel}</span>
+                      </div>
+                      <div className="rounded-[1.5rem] border border-gold-500/20 bg-dark-800/75 p-4 sm:p-5">
+                        <div className="mb-4 flex items-center justify-between">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setVisibleMonth(
+                                new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() - 1, 1)
+                              )
+                            }
+                            className="rounded-full border border-gold-500/20 p-2 text-cream-200 transition-colors duration-300 hover:border-gold-500/40 hover:text-gold-400"
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                          </button>
+                          <p className="text-sm uppercase tracking-[0.18em] text-cream-100">
+                            {visibleMonth.toLocaleDateString('en-ZA', {
+                              month: 'long',
+                              year: 'numeric',
+                            })}
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setVisibleMonth(
+                                new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() + 1, 1)
+                              )
+                            }
+                            className="rounded-full border border-gold-500/20 p-2 text-cream-200 transition-colors duration-300 hover:border-gold-500/40 hover:text-gold-400"
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                          </button>
+                        </div>
+
+                        <div className="mb-3 grid grid-cols-7 gap-2">
+                          {weekdayLabels.map((label) => (
+                            <span
+                              key={label}
+                              className="text-center text-[10px] uppercase tracking-[0.15em] text-cream-500/50"
+                            >
+                              {label}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="grid grid-cols-7 gap-2">
+                          {calendarDays.map((day, index) => {
+                            if (!day) {
+                              return <div key={`empty-${index}`} className="aspect-square" />
+                            }
+
+                            const isPast = day.key < todayKey
+                            const isSelected = formData.date === day.key
+                            const isToday = day.key === todayKey
+
+                            return (
+                              <button
+                                key={day.key}
+                                type="button"
+                                disabled={isPast}
+                                onClick={() => setFormData({ ...formData, date: day.key })}
+                                className={`aspect-square rounded-2xl border text-sm transition-all duration-300 ${
+                                  isSelected
+                                    ? 'border-gold-500/60 bg-gold-500/15 text-cream-100'
+                                    : isPast
+                                      ? 'cursor-not-allowed border-gold-500/5 bg-dark-950/30 text-cream-500/20'
+                                      : isToday
+                                        ? 'border-rose-400/40 bg-rose-400/10 text-cream-100 hover:border-gold-500/40 hover:text-gold-300'
+                                        : 'border-gold-500/10 bg-dark-950/30 text-cream-300/80 hover:border-gold-500/35 hover:text-gold-300'
+                                }`}
+                              >
+                                {day.day}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    </div>
+
                     <div>
                       <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
                         Phone Number
@@ -380,39 +520,6 @@ export function Contact() {
                         placeholder="084 000 0000"
                       />
                     </div>
-
-                    <div>
-                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
-                        Preferred Date
-                      </label>
-                      <input
-                        type="date"
-                        value={formData.date}
-                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                        className="w-full rounded-2xl px-4 py-3.5 bg-dark-800/80 border border-gold-500/30 text-cream-100 placeholder-cream-400/50 focus:outline-none focus:border-gold-500/50 transition-all font-light"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
-                      Service Type *
-                    </label>
-                    <select
-                      required
-                      value={formData.service}
-                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full rounded-2xl px-4 py-3.5 bg-dark-800/80 border border-gold-500/30 text-cream-100 focus:outline-none focus:border-gold-500/50 transition-all appearance-none cursor-pointer font-light"
-                    >
-                      <option value="" className="bg-dark-800">
-                        Select the type of booking
-                      </option>
-                      {serviceTypes.map((service) => (
-                        <option key={service} value={service} className="bg-dark-800">
-                          {service}
-                        </option>
-                      ))}
-                    </select>
                   </div>
 
                   <div>
@@ -456,4 +563,54 @@ export function Contact() {
       </div>
     </section>
   )
+}
+
+function getDateKey(date: Date) {
+  const year = date.getFullYear()
+  const month = `${date.getMonth() + 1}`.padStart(2, '0')
+  const day = `${date.getDate()}`.padStart(2, '0')
+
+  return `${year}-${month}-${day}`
+}
+
+function getCalendarDays(visibleMonth: Date) {
+  const year = visibleMonth.getFullYear()
+  const month = visibleMonth.getMonth()
+  const firstDay = new Date(year, month, 1)
+  const lastDay = new Date(year, month + 1, 0)
+  const startOffset = (firstDay.getDay() + 6) % 7
+  const days: Array<{ day: number; key: string } | null> = []
+
+  for (let i = 0; i < startOffset; i += 1) {
+    days.push(null)
+  }
+
+  for (let day = 1; day <= lastDay.getDate(); day += 1) {
+    const current = new Date(year, month, day)
+    days.push({
+      day,
+      key: getDateKey(current),
+    })
+  }
+
+  while (days.length % 7 !== 0) {
+    days.push(null)
+  }
+
+  return days
+}
+
+function formatSelectedDate(dateValue: string) {
+  const parsedDate = new Date(`${dateValue}T00:00:00`)
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    return dateValue
+  }
+
+  return parsedDate.toLocaleDateString('en-ZA', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
 }
