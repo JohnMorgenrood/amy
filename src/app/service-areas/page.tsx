@@ -3,6 +3,9 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, MapPin } from 'lucide-react'
 
+const pageUrl = 'https://www.amymup.shop/service-areas'
+const socialImagePath = 'https://www.amymup.shop/og-image-brand.jpg'
+
 const areas = [
   {
     name: 'Cape Town CBD',
@@ -52,18 +55,32 @@ export const metadata: Metadata = {
     'mobile makeup artist western cape',
   ],
   alternates: {
-    canonical: 'https://www.amymup.shop/service-areas',
+    canonical: pageUrl,
   },
   openGraph: {
     title: 'Cape Town Makeup Artist Service Areas',
     description:
       'Makeup services across Cape Town, the Winelands, nearby suburbs and the wider Western Cape by enquiry.',
-    url: 'https://www.amymup.shop/service-areas',
+    url: pageUrl,
+    images: [
+      {
+        url: socialImagePath,
+        width: 1200,
+        height: 630,
+        alt: 'Amy MUP social preview',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cape Town Makeup Artist Service Areas',
+    description:
+      'Makeup services across Cape Town, the Winelands, nearby suburbs and the wider Western Cape by enquiry.',
+    images: [socialImagePath],
   },
 }
 
 export default function ServiceAreasPage() {
-  const pageUrl = 'https://www.amymup.shop/service-areas'
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
