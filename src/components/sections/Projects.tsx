@@ -183,7 +183,7 @@ export function Projects() {
     <section 
       id="projects" 
       ref={containerRef}
-      className="relative py-32 overflow-hidden bg-dark-950"
+      className="relative py-24 overflow-hidden bg-dark-950"
     >
       {/* Background Gradient */}
       <div className="absolute inset-0">
@@ -198,7 +198,7 @@ export function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
           <motion.span
             initial={{ opacity: 0, y: 20 }}
@@ -208,12 +208,11 @@ export function Projects() {
           >
             Filmography
           </motion.span>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
-            Movies & Productions
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-6">
+            Productions & Credits
           </h2>
-          <p className="text-cream-300/80 text-lg max-w-2xl mx-auto font-light">
-            Featured in major film and television productions, bringing characters to life 
-            through the art of makeup.
+          <p className="text-cream-300/80 text-lg max-w-[42rem] mx-auto font-light leading-relaxed">
+            A selection of productions, series, commercials and screen work that show Amy&apos;s experience on real sets and fast-paced departments.
           </p>
         </motion.div>
 
@@ -256,7 +255,7 @@ export function Projects() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="group relative overflow-hidden bg-dark-900/50 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-500"
+                  className="group relative overflow-hidden rounded-2xl bg-dark-900/50 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-500"
                 >
                   {/* Image */}
                   <div className="relative aspect-video">
@@ -298,7 +297,7 @@ export function Projects() {
                   </div>
 
                   {/* Content */}
-                  <div className="p-6">
+                  <div className="p-6 sm:p-7">
                     <div className="flex items-center gap-3 text-cream-500/40 text-xs tracking-wide mb-4">
                       <span className="flex items-center gap-1.5">
                         <Calendar className="w-3 h-3" />
@@ -350,7 +349,7 @@ export function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="mt-20"
+          className="mt-16"
         >
           <h3 className="text-center font-display text-2xl font-light text-cream-100 mb-2">
             Additional Credits
@@ -403,7 +402,7 @@ export function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="mt-20 p-8 bg-dark-900/50 border border-gold-500/10"
+          className="mt-16 rounded-2xl p-8 bg-dark-900/50 border border-gold-500/10"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="flex items-center gap-4">

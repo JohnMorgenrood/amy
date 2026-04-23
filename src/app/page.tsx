@@ -1,21 +1,19 @@
 import { Hero } from '@/components/sections/Hero'
-import { Portfolio } from '@/components/sections/Portfolio'
 import { Services } from '@/components/sections/Services'
 import { Projects } from '@/components/sections/Projects'
+import { Portfolio } from '@/components/sections/Portfolio'
 import { About } from '@/components/sections/About'
 import { Certificates } from '@/components/sections/Certificates'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { Contact } from '@/components/sections/Contact'
-import { WelcomePopup } from '@/components/WelcomePopup'
 
 export default function Home() {
   return (
     <>
-      <WelcomePopup />
       <Hero />
-      <Portfolio />
       <Services />
       <Projects />
+      <Portfolio />
       <About />
       <Certificates />
       <Testimonials />
@@ -25,16 +23,25 @@ export default function Home() {
 }
 
 export const metadata = {
-  title: 'Makeup by Amy — Amy Morgenrood | Makeup Artist Cape Town',
-  description: 'Book Amy Morgenrood - ITEC-certified professional makeup artist in Cape Town. Specializing in Film, SFX, Bridal, and Beauty Makeup. Book now for productions, weddings, TVCs.',
+  title: 'Amy Morgenrood | Makeup Artist Cape Town for Film, Private Clients and Bridal',
+  description:
+    'Cape Town makeup artist Amy Morgenrood offers film and TV makeup, SFX, bridal, beauty, hair styling, commercial and private makeup services across Cape Town and the Western Cape.',
   openGraph: {
-    title: 'Makeup by Amy — Amy Morgenrood | Makeup Artist Cape Town',
-    description: 'Book Amy Morgenrood - Professional makeup artist in Cape Town. Film, SFX, Bridal, and Beauty Makeup services available.',
-    images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: 'Amy Morgenrood - Makeup by Amy' }],
+    title: 'Amy Morgenrood | Cape Town Makeup Artist',
+    description:
+      'Makeup artist in Cape Town for film productions, agencies, bridal bookings, editorials and private appointments.',
+    images: [
+      {
+        url: '/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Amy Morgenrood - Cape Town Makeup Artist',
+      },
+    ],
   },
   twitter: {
-    title: 'Makeup by Amy — Amy Morgenrood | Makeup Artist Cape Town',
-    description: 'Book Amy Morgenrood - ITEC-certified professional makeup artist in Cape Town. Film, SFX, Bridal, and Beauty Makeup services available.',
+    title: 'Amy Morgenrood | Cape Town Makeup Artist',
+    description: 'Cape Town makeup artist for film, SFX, bridal, editorial and private bookings.',
     images: ['/og-image.svg'],
-  }
+  },
 }

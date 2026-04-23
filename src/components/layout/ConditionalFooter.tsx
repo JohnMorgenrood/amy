@@ -1,13 +1,7 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import { ShopFooter, SiteFooter } from '@/components/layout/Footer'
-
-const SHOP_PATHS = ['/shop', '/checkout']
+import { SiteFooter } from '@/components/layout/Footer'
 
 export function ConditionalFooter() {
-  const pathname = usePathname() || ''
-  const isShop = SHOP_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`))
-
-  return isShop ? <ShopFooter /> : <SiteFooter />
+  return <SiteFooter />
 }

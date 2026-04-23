@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/admin/'],
+      disallow: ['/api/', '/admin/', '/shop', '/checkout', '/login', '/account'],
     },
-    sitemap: 'https://amysmakeupstore.com/sitemap.xml',
+    sitemap: 'https://www.amymup.shop/sitemap.xml',
   }
 }

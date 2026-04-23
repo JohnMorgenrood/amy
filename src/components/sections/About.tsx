@@ -3,16 +3,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import { 
-  Award, 
-  MapPin, 
-  Calendar, 
-  Heart,
-  Film,
-  Star,
-  CheckCircle,
-  Instagram
-} from 'lucide-react'
+import { Award, MapPin, Calendar, Film, Star, Instagram } from 'lucide-react'
 
 const achievements = [
   { icon: Film, label: 'Film & TV Credits', value: '50+' },
@@ -28,7 +19,7 @@ const skills = [
   'Continuity & On-Set Workflow',
   'Film & Television',
   'Beauty & Bridal',
-  'Airbrush Techniques',
+  'Private Makeup',
   'Period & Character Makeup',
   'Wig & Hair Styling',
   'Body Painting',
@@ -44,34 +35,32 @@ const timeline = [
 
 export function About() {
   const containerRef = useRef<HTMLDivElement>(null)
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'end start']
+    offset: ['start end', 'end start'],
   })
-  
+
   const y = useTransform(scrollYProgress, [0, 1], [50, -50])
 
   return (
-    <section 
-      id="about" 
+    <section
+      id="about"
       ref={containerRef}
-      className="relative py-32 overflow-hidden bg-dark-950"
+      className="relative py-24 overflow-hidden bg-dark-950"
     >
-      {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-0 w-96 h-96 bg-gold-500/3 blur-[100px]" />
         <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gold-600/3 blur-[100px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
           <motion.span
             initial={{ opacity: 0, y: 20 }}
@@ -86,8 +75,7 @@ export function About() {
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Image Side */}
+        <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -96,38 +84,39 @@ export function About() {
             className="relative"
           >
             <motion.div style={{ y }} className="relative">
-              {/* Main Image */}
-              <div className="relative aspect-[4/5] overflow-hidden border border-gold-500/20">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-gold-500/20">
                 <Image
                   src="/assets/about/Amys portfolio Image Film Makeup Artist in Cape Town.jpg"
-                  alt="Amy Morgenrood - Professional Makeup Artist"
+                  alt="Amy Morgenrood - Cape Town makeup artist"
                   fill
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent" />
               </div>
 
-              {/* Floating Stats Card */}
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-8 -right-8 p-8 bg-dark-900/95 backdrop-blur-sm border border-gold-500/20"
+                className="absolute -bottom-8 -right-8 rounded-2xl p-8 bg-dark-900/95 backdrop-blur-sm border border-gold-500/20"
               >
                 <div className="grid grid-cols-2 gap-6">
                   {achievements.map((item, idx) => (
                     <div key={idx} className="text-center">
-                      <div className="font-display text-xl font-light text-cream-100">{item.value}</div>
-                      <div className="text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mt-1">{item.label}</div>
+                      <div className="font-display text-xl font-light text-cream-100">
+                        {item.value}
+                      </div>
+                      <div className="text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mt-1">
+                        {item.label}
+                      </div>
                     </div>
                   ))}
                 </div>
               </motion.div>
 
-              {/* Location Badge */}
               <motion.div
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="absolute top-8 -left-4 px-5 py-2.5 bg-dark-900/95 backdrop-blur-sm border border-gold-500/20"
+                className="absolute top-8 -left-4 rounded-full px-5 py-2.5 bg-dark-900/95 backdrop-blur-sm border border-gold-500/20"
               >
                 <div className="flex items-center gap-2">
                   <MapPin className="w-3 h-3 text-gold-500/80" />
@@ -137,46 +126,68 @@ export function About() {
             </motion.div>
           </motion.div>
 
-          {/* Content Side */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="space-y-6 rounded-2xl border border-rose-500/20 bg-rose-500/10 p-6">
+            <div className="space-y-6 rounded-[1.75rem] border border-rose-500/20 bg-rose-500/10 p-6 sm:p-7">
               <p className="font-script text-cream-100 text-xl leading-relaxed">
-                I’m <span className="text-rose-200">Amy Morgenrood</span>, a Cape Town-based makeup & hair artist with
-                <span className="text-rose-200"> 8+ years on-set experience</span> in film and television.
+                I&apos;m <span className="text-rose-200">Amy Morgenrood</span>, a Cape Town-based
+                makeup and hair artist with
+                <span className="text-rose-200"> 8+ years on-set experience</span> in film and
+                television.
               </p>
               <p className="font-script text-cream-100/90 text-lg leading-relaxed">
-                I’m <span className="text-cream-100">ITEC certified</span> and specialize in SFX, prosthetics,
-                continuity-driven character work, and camera-ready beauty.
+                I&apos;m <span className="text-cream-100">ITEC certified</span> and specialize in
+                SFX, prosthetics, continuity-driven character work, and camera-ready beauty.
               </p>
               <p className="font-script text-cream-100/90 text-lg leading-relaxed">
                 Selected credits include <span className="text-rose-200">The Woman King</span>,
                 <span className="text-rose-200"> Recipes for Love and Murder (S2)</span>,
-                <span className="text-rose-200"> King Shaka</span>, and <span className="text-rose-200">American Monster (S7–9)</span>.
+                <span className="text-rose-200"> King Shaka</span>, and
+                <span className="text-rose-200"> American Monster (S7-9)</span>.
+              </p>
+              <p className="font-light text-cream-300/80">
+                I also work with private clients, bridal bookings, photographers, agencies and
+                brands who need calm, efficient makeup support in Cape Town.
               </p>
             </div>
 
-            {/* Selected Credits */}
-            <div className="mt-10">
+            <div className="mt-9">
               <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-5">
                 Selected Credits
               </h4>
               <ul className="grid sm:grid-cols-2 gap-3 text-sm text-cream-400/80 font-light">
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />Blue Ice Africa – “HELP”</li>
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />Moonlighting – “Alphas”</li>
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />Film Afrika – “King Shaka”</li>
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />TriStar – “The Woman King”</li>
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />“Recipes for Love and Murder” S2</li>
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-rose-400 rounded-full" />“American Monster” S7–9</li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
+                  Blue Ice Africa - &quot;HELP&quot;
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
+                  Moonlighting - &quot;Alphas&quot;
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
+                  Film Afrika - &quot;King Shaka&quot;
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
+                  TriStar - &quot;The Woman King&quot;
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
+                  &quot;Recipes for Love and Murder&quot; S2
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
+                  &quot;American Monster&quot; S7-9
+                </li>
               </ul>
             </div>
 
-            {/* Skills */}
-            <div className="mt-12">
+            <div className="mt-10">
               <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-6">
                 Expertise
               </h4>
@@ -196,11 +207,8 @@ export function About() {
               </div>
             </div>
 
-            {/* Timeline */}
-            <div className="mt-12">
-              <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-6">
-                Journey
-              </h4>
+            <div className="mt-10">
+              <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-6">Journey</h4>
               <div className="space-y-4">
                 {timeline.map((item, idx) => (
                   <motion.div
@@ -219,15 +227,14 @@ export function About() {
               </div>
             </div>
 
-            {/* CTA */}
-            <div className="mt-12 flex flex-wrap items-center gap-4">
+            <div className="mt-10 flex flex-wrap items-center gap-4">
               <motion.a
                 href="https://instagram.com/amyb_mup"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-3 px-6 py-3 bg-cream-100 text-dark-950 text-xs tracking-[0.15em] uppercase hover:bg-gold-400 transition-colors duration-300"
+                className="inline-flex items-center gap-3 rounded-full px-6 py-3.5 bg-cream-100 text-dark-950 text-xs tracking-[0.15em] uppercase hover:bg-gold-400 transition-colors duration-300"
               >
                 <Instagram className="w-4 h-4" />
                 Follow @amyb_mup
@@ -236,9 +243,9 @@ export function About() {
                 href="#contact"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-3 px-6 py-3 border border-gold-500/30 text-cream-100 text-xs tracking-[0.15em] uppercase hover:border-gold-500/50 hover:bg-gold-500/5 transition-all duration-300"
+                className="inline-flex items-center gap-3 rounded-full px-6 py-3.5 border border-gold-500/30 text-cream-100 text-xs tracking-[0.15em] uppercase hover:border-gold-500/50 hover:bg-gold-500/5 transition-all duration-300"
               >
-                Let's Work Together
+                Let&apos;s Work Together
               </motion.a>
             </div>
           </motion.div>

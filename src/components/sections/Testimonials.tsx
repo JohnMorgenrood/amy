@@ -14,7 +14,8 @@ const testimonials = [
     name: 'Zanele Dlamini',
     role: 'Production Manager',
     company: 'Cape Town Studios',
-    content: "Amy's professionalism and talent are unmatched. She transformed our entire cast for a period piece and maintained perfect continuity throughout the 3-month shoot.",
+    content:
+      'Amy kept our department calm, organised and camera-ready throughout a demanding shoot. Her continuity and speed made a real difference on set.',
     rating: 5,
   },
   {
@@ -22,7 +23,8 @@ const testimonials = [
     name: 'Pieter van Rooyen',
     role: 'Director',
     company: 'Independent Films SA',
-    content: 'Working with Amy on our SFX sequences was incredible. Her prosthetic work is phenomenal and she brings such creativity to every project.',
+    content:
+      'Working with Amy on our SFX scenes was excellent. She understood the brief quickly and delivered makeup that looked strong on camera and held up through the day.',
     rating: 5,
   },
   {
@@ -30,7 +32,8 @@ const testimonials = [
     name: 'Annelie Botha',
     role: 'Bride',
     company: 'Wedding Client',
-    content: "Amy made me feel like the most beautiful bride. She listened to exactly what I wanted and created a look that was even better than I imagined. Lasted all day!",
+    content:
+      'Amy made the whole morning easy. My makeup still looked beautiful hours later and felt like me, just more polished and photo-ready.',
     rating: 5,
   },
   {
@@ -38,7 +41,8 @@ const testimonials = [
     name: 'Thabo Mokoena',
     role: 'Music Artist',
     company: 'Sony Music Africa',
-    content: "Amy did the makeup for my latest music video and absolutely killed it. She understood the concept instantly and created looks that perfectly matched the aesthetic.",
+    content:
+      'Amy understood the visual direction right away and translated it into a clean, strong look that worked perfectly for video and stills.',
     rating: 5,
   },
   {
@@ -46,7 +50,8 @@ const testimonials = [
     name: 'Lindiwe Nkosi',
     role: 'Lead Actress',
     company: 'Feature Film',
-    content: 'Having Amy on set was a dream. She made the long shoot days so much easier with her efficiency and the makeup always looked flawless on camera.',
+    content:
+      'Amy is efficient, warm and very steady under pressure. Long shoot days felt easier because the makeup always looked right and touch-ups were never a scramble.',
     rating: 5,
   },
 ]
@@ -54,14 +59,12 @@ const testimonials = [
 export function Testimonials() {
   return (
     <section className="relative py-32 overflow-hidden bg-dark-950">
-      {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -78,14 +81,14 @@ export function Testimonials() {
             Testimonials
           </motion.span>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
-            Client Love
+            What Clients Say
           </h2>
           <p className="text-cream-300/80 text-lg max-w-2xl mx-auto font-light">
-            Don't just take my word for it. Here's what clients have to say about working with me.
+            Feedback from production teams, private clients and bridal bookings who have worked
+            with Amy in Cape Town.
           </p>
         </motion.div>
 
-        {/* Testimonials Slider */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -120,22 +123,18 @@ export function Testimonials() {
                   transition={{ delay: index * 0.1 }}
                   className="h-full p-8 bg-dark-900/50 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-500"
                 >
-                  {/* Quote Icon */}
                   <Quote className="w-8 h-8 text-gold-500/20 mb-8" />
 
-                  {/* Content */}
                   <p className="text-cream-200/80 leading-relaxed mb-8 font-light italic">
                     "{testimonial.content}"
                   </p>
 
-                  {/* Rating */}
                   <div className="flex items-center gap-1 mb-8">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="w-3 h-3 text-gold-500/60 fill-gold-500/60" />
                     ))}
                   </div>
 
-                  {/* Author */}
                   <div className="flex items-center gap-4 pt-6 border-t border-gold-500/10">
                     <div className="relative w-12 h-12 overflow-hidden border border-gold-500/20 bg-gold-500/10 flex items-center justify-center">
                       <span className="text-gold-400 text-xl font-light">
@@ -145,7 +144,7 @@ export function Testimonials() {
                     <div>
                       <h4 className="font-light text-cream-100">{testimonial.name}</h4>
                       <p className="text-xs tracking-wide text-cream-500/50">
-                        {testimonial.role} · {testimonial.company}
+                        {testimonial.role} • {testimonial.company}
                       </p>
                     </div>
                   </div>

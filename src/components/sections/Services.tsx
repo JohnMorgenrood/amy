@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import { 
   Film, 
   Palette, 
@@ -9,8 +9,6 @@ import {
   Heart,
   Camera,
   Scissors,
-  Star,
-  Check,
   ArrowRight
 } from 'lucide-react'
 
@@ -19,55 +17,49 @@ const services = [
     id: 1,
     icon: Film,
     title: 'Film & TV Makeup',
-    description: 'Professional onset makeup for feature films, television series, and documentaries. Expert in continuity, character development, and working under production timelines.',
-    features: ['Continuity Management', 'Character Aging', 'Period Looks', 'HD/4K Ready'],
+    description: 'Professional on-set makeup and hair support for feature films, television, streaming, commercials and branded content in Cape Town.',
+    features: ['Continuity Support', 'Call Sheet Ready', 'Cast & Crowd Work', 'HD / 4K Friendly'],
     gradient: 'from-amber-500 to-orange-600',
-    image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=400&fit=crop',
   },
   {
     id: 2,
     icon: Sparkles,
     title: 'SFX & Prosthetics',
-    description: 'Specialized in special effects makeup including prosthetics, wounds, aging, creature designs, and character transformations.',
-    features: ['Prosthetic Application', 'Wound FX', 'Creature Design', 'Aging Effects'],
+    description: 'Special effects work for character transformations, prosthetics, wounds, ageing, horror looks and production-led concepts.',
+    features: ['Prosthetic Application', 'Wound FX', 'Aging Effects', 'Character Transformation'],
     gradient: 'from-red-500 to-rose-600',
-    image: 'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=400&h=400&fit=crop',
   },
   {
     id: 3,
     icon: Palette,
-    title: 'Beauty & Glam',
-    description: 'Flawless beauty makeup for editorial shoots, red carpet events, and special occasions. Creating stunning looks that photograph beautifully.',
-    features: ['Editorial Looks', 'Red Carpet Glam', 'Photoshoot Ready', 'Skin Prep'],
+    title: 'Private Makeup',
+    description: 'Simple, polished makeup for private clients in Cape Town including birthdays, dinners, functions, shoots and special occasions.',
+    features: ['Natural Glam', 'Soft Glam', 'Photo Ready Finish', 'Mobile Appointments'],
     gradient: 'from-pink-500 to-rose-500',
-    image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop',
   },
   {
     id: 4,
     icon: Camera,
-    title: 'Airbrush Makeup',
-    description: 'Precision airbrush application for flawless, long-lasting coverage. Perfect for film, bridal, and high-definition photography.',
-    features: ['Flawless Finish', 'Long-Lasting', 'Waterproof Options', 'Buildable Coverage'],
+    title: 'Commercial & Editorial',
+    description: 'Reliable makeup support for agencies, campaigns, lookbooks, editorials, tests, e-commerce shoots and branded content teams.',
+    features: ['Agency Friendly', 'Shoot Day Efficiency', 'Brand Consistency', 'Camera Ready Skin'],
     gradient: 'from-violet-500 to-purple-600',
-    image: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=400&fit=crop',
   },
   {
     id: 5,
     icon: Heart,
     title: 'Bridal Makeup',
-    description: 'Make your special day unforgettable with bespoke bridal makeup that enhances your natural beauty and lasts all day.',
-    features: ['Bridal Trials', 'Wedding Day Touch-ups', 'Bridal Party', 'Destination Weddings'],
+    description: 'Wedding makeup designed to last beautifully in person and on camera, from trial sessions through to the full wedding morning.',
+    features: ['Bridal Trials', 'Wedding Day Makeup', 'Bridal Party Bookings', 'Long-Wear Finish'],
     gradient: 'from-rose-400 to-pink-500',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop',
   },
   {
     id: 6,
     icon: Scissors,
     title: 'Hair Styling',
-    description: 'Complete hair styling services from everyday glamour to elaborate period pieces and special effects work.',
-    features: ['Styling & Updos', 'Period Hair', 'Wig Application', 'Hair Effects'],
+    description: 'Hair styling support for productions, editorials, bridal mornings and private appointments, including polished finishing and period styling.',
+    features: ['Styling & Updos', 'Period Hair', 'Set Styling Support', 'Wig Application'],
     gradient: 'from-gold-400 to-amber-500',
-    image: '/assets/thumbnails/hair-and-beauty.jpeg',
   },
 ]
 
@@ -75,7 +67,7 @@ export function Services() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [activeService, setActiveService] = useState<number | null>(null)
   
-  const { scrollYProgress } = useScroll({
+  useScroll({
     target: containerRef,
     offset: ['start end', 'end start']
   })
@@ -84,7 +76,7 @@ export function Services() {
     <section 
       id="services" 
       ref={containerRef}
-      className="relative py-32 overflow-hidden"
+      className="relative py-24 overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0 bg-dark-950" />
@@ -96,7 +88,7 @@ export function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
           <motion.span
             initial={{ opacity: 0, y: 20 }}
@@ -106,17 +98,16 @@ export function Services() {
           >
             What I Do
           </motion.span>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-8">
-            Professional Services
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-6">
+            Makeup Services in Cape Town
           </h2>
-          <p className="text-cream-300/80 text-lg max-w-2xl mx-auto font-light">
-            From film sets to wedding venues, I bring expertise and creativity to every project. 
-            Each service is tailored to meet your unique vision.
+          <p className="text-cream-300/80 text-lg max-w-[42rem] mx-auto font-light leading-relaxed">
+            Clear service options for productions, agencies, weddings, editorials and private clients. Every booking is built around the job, location and schedule.
           </p>
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -126,9 +117,9 @@ export function Services() {
               transition={{ delay: index * 0.1 }}
               onMouseEnter={() => setActiveService(service.id)}
               onMouseLeave={() => setActiveService(null)}
-              className="group relative"
+              className="group relative h-full"
             >
-              <div className="relative h-full p-8 bg-dark-900/50 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-500 overflow-hidden">
+              <div className="relative h-full rounded-2xl p-7 sm:p-8 bg-dark-900/50 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-500 overflow-hidden">
                 {/* Gradient Background on Hover */}
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -139,7 +130,7 @@ export function Services() {
                 {/* Icon */}
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className={`relative w-12 h-12 border border-gold-500/30 flex items-center justify-center mb-8`}
+                  className={`relative w-12 h-12 rounded-2xl border border-gold-500/30 flex items-center justify-center mb-6`}
                 >
                   <service.icon className="w-5 h-5 text-gold-500/80" />
                 </motion.div>
@@ -148,12 +139,12 @@ export function Services() {
                 <h3 className="font-display text-xl font-light text-cream-100 mb-4 group-hover:text-gold-400 transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-cream-300/70 text-sm leading-relaxed mb-8 font-light">
+                <p className="text-cream-300/70 text-sm leading-relaxed mb-7 font-light">
                   {service.description}
                 </p>
 
                 {/* Features */}
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-8 min-h-[116px]">
                   {service.features.map((feature, idx) => (
                     <motion.li
                       key={idx}
@@ -174,8 +165,8 @@ export function Services() {
                 {/* CTA */}
                 <motion.a
                   href="#contact"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: activeService === service.id ? 1 : 0 }}
+                  initial={{ opacity: 0.65 }}
+                  animate={{ opacity: activeService === service.id ? 1 : 0.65 }}
                   className="inline-flex items-center gap-2 text-gold-400/80 text-xs tracking-[0.15em] uppercase group/link"
                 >
                   <span>Book This Service</span>
@@ -195,10 +186,10 @@ export function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
-          className="text-center mt-20 pt-16 border-t border-gold-500/10"
+          className="text-center mt-16 pt-14 border-t border-gold-500/10"
         >
           <p className="text-cream-300/70 mb-8 text-sm tracking-wide">
-            Need something specific? Let's discuss your project requirements.
+            Need a day rate, private booking, or production quote? Send the brief and I will reply with the best fit.
           </p>
           <motion.a
             href="#contact"
@@ -206,7 +197,7 @@ export function Services() {
             whileTap={{ scale: 0.98 }}
             className="btn-primary inline-flex items-center gap-3"
           >
-            <span>Get Custom Quote</span>
+            <span>Request Quote</span>
             <ArrowRight className="w-3 h-3" />
           </motion.a>
         </motion.div>

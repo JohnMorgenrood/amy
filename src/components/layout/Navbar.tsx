@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Sparkles, Instagram, Mail, Phone, Youtube } from 'lucide-react'
+import { Menu, X, Instagram, Mail, Phone, Youtube } from 'lucide-react'
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -11,7 +11,6 @@ const navLinks = [
   { name: 'Services', href: '#services' },
   { name: 'Projects', href: '#projects' },
   { name: 'About', href: '#about' },
-  { name: 'Shop', href: '/shop' },
   { name: 'Contact', href: '#contact' },
 ]
 
@@ -46,7 +45,7 @@ export function Navbar() {
                   AMY MORGENROOD
                 </span>
                 <span className="text-[9px] tracking-[0.3em] uppercase text-gold-500/60">
-                  Makeup Artist
+                  Cape Town Makeup Artist
                 </span>
               </div>
             </Link>
@@ -108,7 +107,7 @@ export function Navbar() {
                 whileTap={{ scale: 0.98 }}
                 className="ml-2 px-5 py-2 bg-cream-100 text-dark-950 text-[10px] tracking-[0.15em] uppercase hover:bg-gold-400 transition-colors duration-300"
               >
-                Book Now
+                Check Availability
               </motion.a>
             </div>
 
