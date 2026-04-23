@@ -6,7 +6,6 @@ import Image from 'next/image'
 import {
   Send,
   Phone,
-  Mail,
   MapPin,
   Clock,
   Instagram,
@@ -25,12 +24,6 @@ const contactInfo = [
     label: 'Phone',
     value: '084 701 7012',
     href: 'tel:+27847017012',
-  },
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'golearnx@gmail.com',
-    href: 'mailto:golearnx@gmail.com',
   },
   {
     icon: MapPin,
@@ -138,7 +131,7 @@ export function Contact() {
       }, 5000)
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('Failed to send message. Please try emailing directly at golearnx@gmail.com')
+      alert('Failed to send message. Please try calling or sending a WhatsApp message instead.')
       setIsSubmitting(false)
     }
   }

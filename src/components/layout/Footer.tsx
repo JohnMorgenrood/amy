@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import {
   Instagram,
-  Mail,
   Phone,
   MapPin,
   Youtube,
@@ -191,15 +190,6 @@ export function SiteFooter() {
                 >
                   <Phone className="h-4 w-4" />
                   <span>084 701 7012</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:golearnx@gmail.com"
-                  className="flex items-center gap-3 text-sm font-light text-cream-300/70 transition-colors duration-300 hover:text-cream-100"
-                >
-                  <Mail className="h-4 w-4" />
-                  <span>golearnx@gmail.com</span>
                 </a>
               </li>
               <li>

@@ -192,8 +192,9 @@ export function Navbar() {
                   <Youtube className="w-5 h-5 text-cream-100" />
                 </a>
                 <a
-                  href="mailto:golearnx@gmail.com"
+                  href="/#contact"
                   className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
+                  aria-label="Contact"
                 >
                   <Mail className="w-5 h-5 text-cream-100" />
                 </a>
