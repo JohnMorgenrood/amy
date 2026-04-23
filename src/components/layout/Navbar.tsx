@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Instagram, Mail, Phone, Youtube } from 'lucide-react'
+
+const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-elegant-and-m.jpeg'
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -41,12 +44,22 @@ export function Navbar() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href="/" className="group flex items-center gap-3">
+              <div className="relative h-12 w-12 overflow-hidden rounded-full border border-gold-500/20 bg-dark-900/80 shadow-[0_0_24px_rgba(212,175,55,0.08)]">
+                <Image
+                  src={brandImagePath}
+                  alt="Amy MUP logo"
+                  fill
+                  sizes="48px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
               <div className="flex flex-col">
                 <span className="font-display text-xl font-light tracking-[0.1em] text-cream-100">
-                  AMY MORGENROOD
+                  AMY MUP
                 </span>
                 <span className="text-[9px] tracking-[0.3em] uppercase text-gold-500/60">
-                  Cape Town Makeup Artist
+                  Amy Morgenrood
                 </span>
               </div>
             </Link>

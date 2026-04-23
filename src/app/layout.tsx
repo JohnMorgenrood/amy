@@ -6,6 +6,9 @@ import { ConditionalFooter } from '@/components/layout/ConditionalFooter'
 import { FloatingElements } from '@/components/effects/FloatingElements'
 import { ImageProtection } from '@/components/ImageProtection'
 
+const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-elegant-and-m.jpeg'
+const socialImagePath = '/og-image-brand.jpg'
+
 // Modern sans-serif for body text
 const inter = Inter({
   subsets: ['latin'],
@@ -85,10 +88,10 @@ export const metadata: Metadata = {
     description: 'Cape Town makeup artist for film, TV, SFX, bridal, editorials, agencies and private bookings.',
     images: [
       {
-        url: '/og-image.svg',
+        url: socialImagePath,
         width: 1200,
         height: 630,
-        alt: 'Amy Morgenrood - Professional Makeup Artist Cape Town',
+        alt: 'Amy MUP social preview',
       }
     ],
   },
@@ -96,7 +99,12 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Amy Morgenrood | Cape Town Makeup Artist',
     description: 'Cape Town makeup artist for film, SFX, bridal, editorial and private bookings.',
-    images: ['/og-image.svg'],
+    images: [socialImagePath],
+  },
+  icons: {
+    icon: [{ url: brandImagePath, type: 'image/jpeg' }],
+    shortcut: [brandImagePath],
+    apple: [{ url: brandImagePath, type: 'image/jpeg' }],
   },
   robots: {
     index: true,
@@ -126,9 +134,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${dancingScript.variable}`}>
       <head>
-        <link rel="icon" href="/favicon-small.svg" type="image/svg+xml" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="512x512" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+        <link rel="icon" href={brandImagePath} type="image/jpeg" />
+        <link rel="apple-touch-icon" href={brandImagePath} />
+        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0a0a0a" />
         <meta name="geo.region" content="ZA-WC" />
         <meta name="geo.placename" content="Cape Town" />
@@ -147,8 +155,8 @@ export default function RootLayout({
                   url: 'https://www.amymup.shop',
                   telephone: '+27847017012',
                   email: 'rubyroyal1@gmail.com',
-                  image: 'https://www.amymup.shop/og-image.svg',
-                  logo: 'https://www.amymup.shop/icon.svg',
+                  image: `https://www.amymup.shop${socialImagePath}`,
+                  logo: `https://www.amymup.shop${brandImagePath}`,
                   address: {
                     '@type': 'PostalAddress',
                     streetAddress: '11 Tennessee St, Langeberg Heights',
@@ -227,7 +235,7 @@ export default function RootLayout({
                   jobTitle: 'Makeup Artist',
                   description: 'Cape Town makeup artist specializing in film, SFX, prosthetics, private makeup, bridal and beauty makeup.',
                   url: 'https://www.amymup.shop',
-                  image: 'https://www.amymup.shop/og-image.svg',
+                  image: `https://www.amymup.shop${socialImagePath}`,
                   address: {
                     '@type': 'PostalAddress',
                     addressLocality: 'Cape Town',

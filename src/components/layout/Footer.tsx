@@ -1,8 +1,11 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Instagram, Mail, Phone, MapPin, Youtube, ArrowUp, Heart } from 'lucide-react'
+
+const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-elegant-and-m.jpeg'
 
 const navigationLinks = [
   { name: 'Home', href: '/' },
@@ -36,13 +39,24 @@ export function SiteFooter() {
       <div className="relative mx-auto max-w-7xl px-4 pt-20 pb-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div>
-            <Link href="/" className="group mb-8 flex flex-col gap-1">
-              <span className="font-display text-xl font-light tracking-[0.1em] text-cream-100">
-                AMY MORGENROOD
-              </span>
-              <span className="text-[9px] uppercase tracking-[0.3em] text-gold-500/60">
-                Cape Town Makeup Artist
-              </span>
+            <Link href="/" className="group mb-8 flex items-center gap-4">
+              <div className="relative h-16 w-16 overflow-hidden rounded-full border border-gold-500/20 bg-dark-900/80 shadow-[0_0_32px_rgba(212,175,55,0.08)]">
+                <Image
+                  src={brandImagePath}
+                  alt="Amy MUP logo"
+                  fill
+                  sizes="64px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="font-display text-xl font-light tracking-[0.1em] text-cream-100">
+                  AMY MUP
+                </span>
+                <span className="text-[9px] uppercase tracking-[0.3em] text-gold-500/60">
+                  Amy Morgenrood
+                </span>
+              </div>
             </Link>
             <p className="mb-8 text-sm font-light leading-relaxed text-cream-300/70">
               Makeup artist in Cape Town for film, TV, SFX, private appointments, bridal bookings,
