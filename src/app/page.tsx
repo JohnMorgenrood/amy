@@ -7,6 +7,8 @@ import { Certificates } from '@/components/sections/Certificates'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { Contact } from '@/components/sections/Contact'
 
+const socialImagePath = '/og-image-brand.jpg'
+
 export default function Home() {
   return (
     <>
@@ -32,16 +34,16 @@ export const metadata = {
       'Makeup artist in Cape Town for film productions, agencies, bridal bookings, editorials and private appointments.',
     images: [
       {
-        url: '/og-image.svg',
+        url: socialImagePath,
         width: 1200,
         height: 630,
-        alt: 'Amy Morgenrood - Cape Town Makeup Artist',
+        alt: 'Amy MUP social preview',
       },
     ],
   },
   twitter: {
     title: 'Amy Morgenrood | Cape Town Makeup Artist',
     description: 'Cape Town makeup artist for film, SFX, bridal, editorial and private bookings.',
-    images: ['/og-image.svg'],
+    images: [socialImagePath],
   },
 }

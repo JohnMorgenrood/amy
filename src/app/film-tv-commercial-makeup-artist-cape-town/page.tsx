@@ -3,6 +3,7 @@ import Script from 'next/script'
 import { ServiceLandingPage } from '@/components/seo/ServiceLandingPage'
 
 const pageUrl = 'https://www.amymup.shop/film-tv-commercial-makeup-artist-cape-town'
+const socialImagePath = 'https://www.amymup.shop/og-image-brand.jpg'
 
 const faqs = [
   {
@@ -49,6 +50,21 @@ export const metadata: Metadata = {
     description:
       'Cape Town production makeup artist for film, TV commercials, campaigns, agencies, branded content and on-set support.',
     url: pageUrl,
+    images: [
+      {
+        url: socialImagePath,
+        width: 1200,
+        height: 630,
+        alt: 'Amy MUP social preview',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Film, TV and Commercial Makeup Artist Cape Town',
+    description:
+      'Cape Town production makeup artist for film, TV commercials, campaigns, agencies, branded content and on-set support.',
+    images: [socialImagePath],
   },
 }
 

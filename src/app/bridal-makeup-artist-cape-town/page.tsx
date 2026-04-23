@@ -3,6 +3,7 @@ import Script from 'next/script'
 import { ServiceLandingPage } from '@/components/seo/ServiceLandingPage'
 
 const pageUrl = 'https://www.amymup.shop/bridal-makeup-artist-cape-town'
+const socialImagePath = 'https://www.amymup.shop/og-image-brand.jpg'
 
 const faqs = [
   {
@@ -47,6 +48,21 @@ export const metadata: Metadata = {
     description:
       'Elegant wedding makeup in Cape Town for brides, bridal trials and bridal party bookings.',
     url: pageUrl,
+    images: [
+      {
+        url: socialImagePath,
+        width: 1200,
+        height: 630,
+        alt: 'Amy MUP social preview',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Bridal Makeup Artist Cape Town',
+    description:
+      'Elegant wedding makeup in Cape Town for brides, bridal trials and bridal party bookings.',
+    images: [socialImagePath],
   },
 }
 

@@ -3,6 +3,7 @@ import Script from 'next/script'
 import { ServiceLandingPage } from '@/components/seo/ServiceLandingPage'
 
 const pageUrl = 'https://www.amymup.shop/private-makeup-artist-cape-town'
+const socialImagePath = 'https://www.amymup.shop/og-image-brand.jpg'
 
 const faqs = [
   {
@@ -47,6 +48,21 @@ export const metadata: Metadata = {
     description:
       'Private makeup appointments in Cape Town for events, shoots, dinners and special occasions.',
     url: pageUrl,
+    images: [
+      {
+        url: socialImagePath,
+        width: 1200,
+        height: 630,
+        alt: 'Amy MUP social preview',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Private Makeup Artist Cape Town',
+    description:
+      'Private makeup appointments in Cape Town for events, shoots, dinners and special occasions.',
+    images: [socialImagePath],
   },
 }
 
