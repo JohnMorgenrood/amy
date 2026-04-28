@@ -171,7 +171,7 @@ export function Hero() {
                   <div className="absolute -inset-5 border border-gold-500/10" />
                   <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-cream-100/10 bg-dark-900">
                     <Image
-                      src="/assets/about/Amys portfolio Image Film Makeup Artist in Cape Town.jpg"
+                      src="/assets/about/Amys portfolio Image Film Makeup Artist in Cape Town2.jpeg"
                       alt="Amy Morgenrood portrait"
                       fill
                       priority
