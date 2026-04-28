@@ -24,8 +24,8 @@ const categories = [
     id: 'bridal',
     title: 'Bridal',
     description: 'Wedding day beauty, bridal parties, and special occasions',
-    image: '/assets/portfolio/IMG_20240713_075631_238.jpg',
-    count: 6,
+    image: '/assets/projects/Weddings/professional-wedding-makeup-portfolio-shots-for-an.jpeg',
+    count: 10,
   },
   {
     id: 'film',

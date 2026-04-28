@@ -33,7 +33,7 @@ const portfolioItems = [
     id: 3,
     title: 'Bridal Beauty',
     category: 'Bridal',
-    image: '/assets/portfolio/IMG_20240713_075631_238.jpg',
+    image: '/assets/projects/Weddings/professional-wedding-makeup-portfolio-shots-for-an.jpeg',
     likes: 312,
   },
   {

@@ -14,7 +14,7 @@ const categories: Record<string, { title: string; description: string; image: st
   bridal: {
     title: 'Bridal — Amy Morgenrood',
     description: 'Bridal makeup gallery and wedding-day beauty looks by Amy Morgenrood.',
-    image: '/assets/portfolio/IMG_20240713_075631_238.jpg',
+    image: '/assets/projects/Weddings/professional-wedding-makeup-portfolio-shots-for-an.jpeg',
   },
   film: {
     title: 'Film & TV — Amy Morgenrood',
