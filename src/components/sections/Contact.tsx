@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react'
 import { motion, useScroll } from 'framer-motion'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import {
   Send,
   Phone,
@@ -10,7 +11,6 @@ import {
   Clock,
   Instagram,
   Youtube,
-  CheckCircle,
   Loader2,
   Sparkles,
   ChevronLeft,
@@ -65,9 +65,9 @@ const instaFeed = [
 const weekdayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
 export function Contact() {
+  const router = useRouter()
   const containerRef = useRef<HTMLDivElement>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const [visibleMonth, setVisibleMonth] = useState(() => {
     const now = new Date()
     return new Date(now.getFullYear(), now.getMonth(), 1)
@@ -117,21 +117,7 @@ export function Contact() {
       }
 
       setIsSubmitting(false)
-      setIsSubmitted(true)
-
-      setTimeout(() => {
-        setIsSubmitted(false)
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          service: '',
-          date: '',
-          message: '',
-        })
-        const now = new Date()
-        setVisibleMonth(new Date(now.getFullYear(), now.getMonth(), 1))
-      }, 5000)
+      router.push('/thank-you')
     } catch (error) {
       console.error('Error submitting form:', error)
       alert('Failed to send message. Please try calling or sending a WhatsApp message instead.')
@@ -344,29 +330,7 @@ export function Contact() {
             className="lg:col-span-3"
           >
             <div className="rounded-[1.75rem] p-8 bg-dark-900/70 border border-gold-500/30">
-              {isSubmitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-16"
-                >
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                    className="w-16 h-16 border border-gold-500/30 flex items-center justify-center mx-auto mb-6"
-                  >
-                    <CheckCircle className="w-8 h-8 text-gold-500" />
-                  </motion.div>
-                  <h3 className="font-display text-2xl font-light text-cream-100 mb-3">
-                    Message Sent
-                  </h3>
-                  <p className="text-cream-500/60 font-light">
-                    Thank you for reaching out. I&apos;ll get back to you as soon as possible.
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="rounded-[1.5rem] border border-gold-500/10 bg-dark-950/35 p-5">
                     <div className="flex items-center gap-3">
                       <CalendarDays className="h-4 w-4 text-gold-500/80" />
@@ -570,8 +534,7 @@ export function Contact() {
                       </>
                     )}
                   </motion.button>
-                </form>
-              )}
+              </form>
             </div>
           </motion.div>
         </div>
