@@ -11,6 +11,7 @@ const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-
 const socialImagePath = '/og-image-brand.jpg'
 const facebookUrl = 'https://www.facebook.com/share/1CE4F4CZnP/'
 const metaPixelId = '2518102085371233'
+const googleAnalyticsId = 'G-EQ3YRDZR73'
 const tiktokUrl = 'https://www.tiktok.com/@amyb_mup?_r=1&_t=ZS-95umNruEh0q'
 
 // Modern sans-serif for body text
@@ -295,6 +296,18 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-dark-900 text-white antialiased">
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${googleAnalyticsId}');
+          `}
+        </Script>
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
