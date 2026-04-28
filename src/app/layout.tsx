@@ -8,6 +8,8 @@ import { ImageProtection } from '@/components/ImageProtection'
 
 const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-elegant-and-m.jpeg'
 const socialImagePath = '/og-image-brand.jpg'
+const facebookUrl = 'https://www.facebook.com/share/1CE4F4CZnP/'
+const tiktokUrl = 'https://www.tiktok.com/@amyb_mup?_r=1&_t=ZS-95umNruEh0q'
 
 // Modern sans-serif for body text
 const inter = Inter({
@@ -184,6 +186,8 @@ export default function RootLayout({
                   sameAs: [
                     'https://www.instagram.com/amyb_mup/',
                     'https://www.instagram.com/_amyy_mua/',
+                    tiktokUrl,
+                    facebookUrl,
                     'https://www.callacrew.co.za/crew/2839508/amy-morgenrood/bio?bf=1'
                   ],
                   hasOfferCatalog: {
@@ -270,7 +274,9 @@ export default function RootLayout({
                   ],
                   sameAs: [
                     'https://www.instagram.com/amyb_mup/',
-                    'https://www.instagram.com/_amyy_mua/'
+                    'https://www.instagram.com/_amyy_mua/',
+                    tiktokUrl,
+                    facebookUrl
                   ]
                 },
                 {

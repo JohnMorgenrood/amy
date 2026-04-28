@@ -39,6 +39,9 @@ const contactInfo = [
   },
 ]
 
+const facebookUrl = 'https://www.facebook.com/share/1CE4F4CZnP/'
+const tiktokUrl = 'https://www.tiktok.com/@amyb_mup?_r=1&_t=ZS-95umNruEh0q'
+
 const serviceTypes = [
   'Private Makeup Appointment',
   'Film & TV Production',
@@ -237,7 +240,9 @@ export function Contact() {
                     <Instagram className="w-4 h-4" />
                   </motion.a>
                   <motion.a
-                    href="#"
+                    href={tiktokUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                     className="rounded-full p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 text-cream-100 transition-all duration-300"
@@ -245,6 +250,19 @@ export function Contact() {
                   >
                     <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true" fill="currentColor">
                       <path d="M21 8.5c-1.8 0-3.4-.7-4.6-1.8v7.5a5.7 5.7 0 1 1-5.7-5.7c.3 0 .7 0 1 .1v2.4a3.2 3.2 0 1 0 2.2 3v-9h2.5c.6 1.6 2.1 2.7 3.9 2.9v2.6z" />
+                    </svg>
+                  </motion.a>
+                  <motion.a
+                    href={facebookUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="rounded-full p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 text-cream-100 transition-all duration-300"
+                    aria-label="Facebook"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true" fill="currentColor">
+                      <path d="M15.1 8.3h2.1V4.8c-.4-.1-1.6-.2-3-.2-3 0-5 1.8-5 5.2v2.9H5.9v3.9h3.3v7.1h4v-7.1h3.3l.5-3.9h-3.8v-2.5c0-1.1.3-1.9 1.9-1.9z" />
                     </svg>
                   </motion.a>
                   <motion.a
