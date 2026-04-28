@@ -9,7 +9,7 @@ Add these variables locally in `.env.local` and in your Vercel project settings:
 ```env
 RESEND_API_KEY=
 RESEND_FROM_EMAIL=
-CONTACT_EMAIL=amybinspiration@gmail.com
+CONTACT_EMAIL=
 ```
 
 ## What Each Variable Does
@@ -28,7 +28,7 @@ Example:
 ```env
 RESEND_API_KEY=re_xxxxxxxxx
 RESEND_FROM_EMAIL=Amy MUP <hello@amymup.shop>
-CONTACT_EMAIL=amybinspiration@gmail.com
+CONTACT_EMAIL=your-private-recipient-inbox
 ```
 
 ## Vercel Setup

@@ -12,12 +12,12 @@ type ContactPayload = {
 
 const resendApiKey = process.env.RESEND_API_KEY
 const resendFromEmail = process.env.RESEND_FROM_EMAIL
-const contactEmail = process.env.CONTACT_EMAIL || 'amybinspiration@gmail.com'
+const contactEmail = process.env.CONTACT_EMAIL
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export async function POST(request: Request) {
-  if (!resendApiKey || !resendFromEmail) {
+  if (!resendApiKey || !resendFromEmail || !contactEmail) {
     return NextResponse.json(
       { error: 'Email service is not configured yet.' },
       { status: 500 }

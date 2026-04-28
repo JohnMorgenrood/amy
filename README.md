@@ -135,7 +135,7 @@ For production, add these to your Vercel project:
 ```env
 RESEND_API_KEY=your-resend-api-key
 RESEND_FROM_EMAIL="Amy MUP <hello@yourdomain.com>"
-CONTACT_EMAIL=amybinspiration@gmail.com
+CONTACT_EMAIL=your-private-recipient-inbox
 
 # Optional - for analytics
 NEXT_PUBLIC_GA_ID=your-google-analytics-id
@@ -144,7 +144,6 @@ NEXT_PUBLIC_GA_ID=your-google-analytics-id
 ## 📱 Contact Information
 
 - **Phone**: 084 701 7012
-- **Email**: amybinspiration@gmail.com
 - **Location**: Cape Town, South Africa
 - **Instagram**: [@amyb_mup](https://instagram.com/amyb_mup)
 
