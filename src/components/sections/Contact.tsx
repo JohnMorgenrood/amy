@@ -236,6 +236,7 @@ export function Contact() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                     className="rounded-full p-3 border border-gold-500/20 hover:border-gold-500/40 hover:bg-gold-500/5 text-cream-100 transition-all duration-300"
+                    aria-label="Instagram"
                   >
                     <Instagram className="w-4 h-4" />
                   </motion.a>
@@ -451,6 +452,7 @@ export function Contact() {
                                 new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() - 1, 1)
                               )
                             }
+                            aria-label="Show previous month"
                             className="rounded-full border border-gold-500/20 p-2 text-cream-200 transition-colors duration-300 hover:border-gold-500/40 hover:text-gold-400"
                           >
                             <ChevronLeft className="h-4 w-4" />
@@ -468,6 +470,7 @@ export function Contact() {
                                 new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() + 1, 1)
                               )
                             }
+                            aria-label="Show next month"
                             className="rounded-full border border-gold-500/20 p-2 text-cream-200 transition-colors duration-300 hover:border-gold-500/40 hover:text-gold-400"
                           >
                             <ChevronRight className="h-4 w-4" />
@@ -501,6 +504,7 @@ export function Contact() {
                                 type="button"
                                 disabled={isPast}
                                 onClick={() => setFormData({ ...formData, date: day.key })}
+                                aria-label={`Select ${day.label}`}
                                 className={`aspect-square rounded-2xl border text-sm transition-all duration-300 ${
                                   isSelected
                                     ? 'border-gold-500/60 bg-gold-500/15 text-cream-100'
@@ -590,7 +594,7 @@ function getCalendarDays(visibleMonth: Date) {
   const firstDay = new Date(year, month, 1)
   const lastDay = new Date(year, month + 1, 0)
   const startOffset = (firstDay.getDay() + 6) % 7
-  const days: Array<{ day: number; key: string } | null> = []
+  const days: Array<{ day: number; key: string; label: string } | null> = []
 
   for (let i = 0; i < startOffset; i += 1) {
     days.push(null)
@@ -601,6 +605,12 @@ function getCalendarDays(visibleMonth: Date) {
     days.push({
       day,
       key: getDateKey(current),
+      label: current.toLocaleDateString('en-ZA', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }),
     })
   }
 

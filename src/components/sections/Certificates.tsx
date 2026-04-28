@@ -318,6 +318,7 @@ export function Certificates() {
                     setActiveIndex(idx)
                     setIsAutoPlaying(false)
                   }}
+                  aria-label={`Show certificate ${idx + 1}`}
                   className="group flex items-center gap-3"
                 >
                   <motion.div

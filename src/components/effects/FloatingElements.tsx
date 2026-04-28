@@ -14,11 +14,9 @@ interface Particle {
 
 export function FloatingElements() {
   const [particles, setParticles] = useState<Particle[]>([])
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
-    // Generate particles
-    const newParticles: Particle[] = Array.from({ length: 30 }, (_, i) => ({
+    const newParticles: Particle[] = Array.from({ length: 12 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -27,17 +25,6 @@ export function FloatingElements() {
       delay: Math.random() * 5,
     }))
     setParticles(newParticles)
-
-    // Track mouse movement for parallax effect
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      })
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
   return (
@@ -45,26 +32,26 @@ export function FloatingElements() {
       {/* Gradient Orbs - Subtle and elegant */}
       <motion.div
         animate={{
-          x: mousePosition.x,
-          y: mousePosition.y,
+          x: [0, 10, 0],
+          y: [0, -8, 0],
         }}
-        transition={{ type: 'spring', stiffness: 50, damping: 30 }}
+        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
         className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-gradient-to-r from-gold-500/10 to-transparent blur-[100px]"
       />
       <motion.div
         animate={{
-          x: -mousePosition.x,
-          y: -mousePosition.y,
+          x: [0, -8, 0],
+          y: [0, 10, 0],
         }}
-        transition={{ type: 'spring', stiffness: 50, damping: 30 }}
+        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
         className="absolute top-1/2 -right-32 w-[500px] h-[500px] rounded-full bg-gradient-to-l from-gold-600/8 to-transparent blur-[100px]"
       />
       <motion.div
         animate={{
-          x: mousePosition.x * 0.5,
-          y: mousePosition.y * 0.5,
+          x: [0, 6, 0],
+          y: [0, 6, 0],
         }}
-        transition={{ type: 'spring', stiffness: 50, damping: 30 }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-gold-500/5 to-transparent blur-[100px]"
       />
 

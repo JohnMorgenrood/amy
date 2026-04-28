@@ -421,7 +421,10 @@ export function Portfolio() {
                         <Eye className="w-3 h-3" />
                         View
                       </button>
-                      <button className="p-2.5 rounded-full border border-cream-500/20 hover:border-rose-500/40 transition-colors duration-300">
+                      <button
+                        className="p-2.5 rounded-full border border-cream-500/20 hover:border-rose-500/40 transition-colors duration-300"
+                        aria-label={`Open ${item.title} portfolio item`}
+                      >
                         <ExternalLink className="w-3 h-3 text-cream-100" />
                       </button>
                     </motion.div>
@@ -432,10 +435,16 @@ export function Portfolio() {
           </Swiper>
 
           {/* Navigation Buttons */}
-          <button className="portfolio-prev absolute left-4 lg:left-12 top-1/2 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300">
+          <button
+            className="portfolio-prev absolute left-4 lg:left-12 top-1/2 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300"
+            aria-label="Previous portfolio item"
+          >
             <ChevronLeft className="w-5 h-5 text-cream-100" />
           </button>
-          <button className="portfolio-next absolute right-4 lg:right-12 top-1/2 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300">
+          <button
+            className="portfolio-next absolute right-4 lg:right-12 top-1/2 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300"
+            aria-label="Next portfolio item"
+          >
             <ChevronRight className="w-5 h-5 text-cream-100" />
           </button>
         </motion.div>

@@ -282,6 +282,7 @@ export function SiteFooter() {
         onClick={scrollToTop}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.98 }}
+        aria-label="Scroll to top"
         className="absolute right-8 bottom-8 bg-cream-100 p-3 transition-colors duration-300 hover:bg-gold-400"
       >
         <ArrowUp className="h-4 w-4 text-dark-950" />

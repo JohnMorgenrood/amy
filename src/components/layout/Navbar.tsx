@@ -95,6 +95,7 @@ export function Navbar() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Instagram"
                 className="p-2 hover:bg-gold-500/5 transition-colors duration-300"
               >
                 <Instagram className="w-4 h-4 text-cream-500/50 hover:text-gold-400 transition-colors" />
@@ -131,6 +132,7 @@ export function Navbar() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label="YouTube"
                 className="p-2 hover:bg-gold-500/5 transition-colors duration-300"
               >
                 <Youtube className="w-4 h-4 text-cream-500/50 hover:text-gold-400 transition-colors" />
@@ -139,6 +141,7 @@ export function Navbar() {
                 href="tel:+27847017012"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Call Amy"
                 className="p-2 hover:bg-gold-500/5 transition-colors duration-300"
               >
                 <Phone className="w-4 h-4 text-cream-500/50 hover:text-gold-400 transition-colors" />
@@ -157,6 +160,8 @@ export function Navbar() {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isOpen}
               className="lg:hidden p-2 hover:bg-gold-500/5 transition-colors duration-300"
             >
               {isOpen ? (
@@ -208,6 +213,7 @@ export function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
+                  aria-label="Instagram"
                 >
                   <Instagram className="w-5 h-5 text-cream-100" />
                 </a>
@@ -238,6 +244,7 @@ export function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
+                  aria-label="YouTube"
                 >
                   <Youtube className="w-5 h-5 text-cream-100" />
                 </a>
@@ -251,6 +258,7 @@ export function Navbar() {
                 <a
                   href="tel:+27847017012"
                   className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
+                  aria-label="Call Amy"
                 >
                   <Phone className="w-5 h-5 text-cream-100" />
                 </a>

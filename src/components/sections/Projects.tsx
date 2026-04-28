@@ -335,10 +335,16 @@ export function Projects() {
           </Swiper>
 
           {/* Navigation Buttons */}
-          <button className="projects-prev absolute left-0 top-1/3 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300 hidden lg:block">
+          <button
+            className="projects-prev absolute left-0 top-1/3 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300 hidden lg:block"
+            aria-label="Previous project"
+          >
             <ChevronLeft className="w-5 h-5 text-cream-100" />
           </button>
-          <button className="projects-next absolute right-0 top-1/3 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300 hidden lg:block">
+          <button
+            className="projects-next absolute right-0 top-1/3 -translate-y-1/2 z-20 p-3 bg-dark-900/80 backdrop-blur-sm border border-gold-500/20 hover:border-gold-500/40 transition-all duration-300 hidden lg:block"
+            aria-label="Next project"
+          >
             <ChevronRight className="w-5 h-5 text-cream-100" />
           </button>
         </motion.div>
