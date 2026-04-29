@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CheckCircle, MessageCircle, Phone } from 'lucide-react'
+import { ThankYouLeadEvent } from '@/components/tracking/ThankYouLeadEvent'
 
 export const metadata: Metadata = {
   title: 'Thank You',
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function ThankYouPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-dark-950 px-4 py-32 sm:px-6 lg:px-8">
+      <ThankYouLeadEvent />
       <div className="absolute inset-0 bg-gradient-radial from-gold-500/5 via-transparent to-transparent" />
 
       <section className="relative z-10 mx-auto flex min-h-[60vh] max-w-3xl flex-col items-center justify-center text-center">
