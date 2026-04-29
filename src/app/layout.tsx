@@ -11,7 +11,7 @@ const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-
 const socialImagePath = '/og-image-brand.jpg'
 const facebookUrl = 'https://www.facebook.com/share/1CE4F4CZnP/'
 const metaPixelId = '2518102085371233'
-const googleAnalyticsId = 'G-EQ3YRDZR73'
+const googleAnalyticsId = 'G-2TD80J9N2X'
 const tiktokUrl = 'https://www.tiktok.com/@amyb_mup?_r=1&_t=ZS-95umNruEh0q'
 
 // Modern sans-serif for body text
