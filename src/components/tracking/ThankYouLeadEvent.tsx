@@ -16,6 +16,12 @@ export function ThankYouLeadEvent() {
       value: 0,
       currency: 'ZAR',
     })
+    window.gtag?.('event', 'ads_conversion_Submit_lead_form_1', {
+      event_category: 'booking',
+      event_label: 'thank_you_page',
+      value: 0,
+      currency: 'ZAR',
+    })
   }, [])
 
   return null
