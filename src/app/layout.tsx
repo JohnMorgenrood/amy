@@ -6,6 +6,7 @@ import { ConditionalNavbar } from '@/components/ConditionalNavbar'
 import { ConditionalFooter } from '@/components/layout/ConditionalFooter'
 import { FloatingElements } from '@/components/effects/FloatingElements'
 import { ImageProtection } from '@/components/ImageProtection'
+import { AttributionCapture } from '@/components/tracking/AttributionCapture'
 
 const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-elegant-and-m.jpeg'
 const socialImagePath = '/og-image-logo.jpg'
@@ -327,6 +328,7 @@ export default function RootLayout({
           />
         </noscript>
         <ImageProtection />
+        <AttributionCapture />
         <FloatingElements />
         <ConditionalNavbar />
         <main className="relative">

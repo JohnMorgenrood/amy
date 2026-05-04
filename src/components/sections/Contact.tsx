@@ -19,6 +19,7 @@ import {
   CalendarDays,
 } from 'lucide-react'
 import { trackLeadClick } from '@/components/tracking/TrackedContactLink'
+import { getLeadAttributionForSubmit } from '@/components/tracking/AttributionCapture'
 
 const contactInfo = [
   {
@@ -116,6 +117,7 @@ export function Contact() {
           service: formData.service,
           date: formData.date,
           message: formData.message,
+          attribution: getLeadAttributionForSubmit(),
         }),
       })
 

@@ -8,6 +8,7 @@ type ContactPayload = {
   service?: string
   date?: string
   message?: string
+  attribution?: Record<string, unknown>
 }
 
 const resendApiKey = process.env.RESEND_API_KEY
@@ -60,6 +61,7 @@ export async function POST(request: Request) {
     { label: 'Service Type', value: service },
     { label: 'Preferred Date', value: date || 'Not specified' },
   ]
+  const attributionDetails = getAttributionDetails(payload.attribution)
 
   const html = `
     <div style="font-family: Arial, sans-serif; color: #111827; line-height: 1.6;">
@@ -72,15 +74,38 @@ export async function POST(request: Request) {
               (detail) => `
                 <tr>
                   <td style="padding: 8px 0; font-weight: 700; width: 140px; vertical-align: top;">
-                    ${detail.label}
+                    ${escapeHtml(detail.label)}
                   </td>
-                  <td style="padding: 8px 0;">${detail.value}</td>
+                  <td style="padding: 8px 0;">${escapeHtml(detail.value)}</td>
                 </tr>
               `
             )
             .join('')}
         </tbody>
       </table>
+      ${
+        attributionDetails.length > 0
+          ? `
+            <h3 style="margin: 0 0 8px;">Lead Source</h3>
+            <table style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+              <tbody>
+                ${attributionDetails
+                  .map(
+                    (detail) => `
+                      <tr>
+                        <td style="padding: 8px 0; font-weight: 700; width: 140px; vertical-align: top;">
+                          ${escapeHtml(detail.label)}
+                        </td>
+                        <td style="padding: 8px 0;">${escapeHtml(detail.value)}</td>
+                      </tr>
+                    `
+                  )
+                  .join('')}
+              </tbody>
+            </table>
+          `
+          : ''
+      }
       <h3 style="margin: 0 0 8px;">Message</h3>
       <p style="white-space: pre-wrap; margin: 0;">${escapeHtml(message)}</p>
     </div>
@@ -91,6 +116,9 @@ export async function POST(request: Request) {
     '',
     ...details.map((detail) => `${detail.label}: ${detail.value}`),
     '',
+    ...(attributionDetails.length > 0
+      ? ['Lead Source:', ...attributionDetails.map((detail) => `${detail.label}: ${detail.value}`), '']
+      : []),
     'Message:',
     message,
   ].join('\n')
@@ -114,6 +142,38 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
+}
+
+function getAttributionDetails(attribution?: Record<string, unknown>) {
+  if (!attribution) {
+    return []
+  }
+
+  const allowedFields = [
+    ['utm_source', 'UTM Source'],
+    ['utm_medium', 'UTM Medium'],
+    ['utm_campaign', 'UTM Campaign'],
+    ['utm_term', 'UTM Term'],
+    ['utm_content', 'UTM Content'],
+    ['gclid', 'Google Click ID'],
+    ['landingPage', 'Landing Page'],
+    ['currentPage', 'Submitted From'],
+    ['referrer', 'Referrer'],
+    ['capturedAt', 'Captured At'],
+    ['submittedAt', 'Submitted At'],
+  ] as const
+
+  return allowedFields
+    .map(([key, label]) => ({ label, value: formatAttributionValue(attribution[key]) }))
+    .filter((detail) => detail.value)
+}
+
+function formatAttributionValue(value: unknown) {
+  if (typeof value !== 'string') {
+    return ''
+  }
+
+  return value.trim().slice(0, 500)
 }
 
 function escapeHtml(value: string) {
