@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { ArrowLeft, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowLeft, X, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 
 // Portfolio data organized by category
 const portfolioData: Record<string, {
@@ -173,6 +173,130 @@ const portfolioData: Record<string, {
   },
 }
 
+const categorySeoContent: Record<string, {
+  intro: string
+  bestFor: string[]
+  primaryLink: { href: string; label: string }
+  secondaryLink?: { href: string; label: string }
+  faqs: { question: string; answer: string }[]
+}> = {
+  sfx: {
+    intro:
+      'This SFX makeup portfolio shows prosthetic application, wounds, horror effects, creature detail and character makeup for productions, creative shoots and selected private bookings in Cape Town.',
+    bestFor: [
+      'Film and TV productions needing practical injury, horror or character effects.',
+      'Music videos, editorials and campaign concepts with stronger visual transformation.',
+      'Clients comparing SFX makeup, prosthetics and special effects work before enquiring.',
+    ],
+    primaryLink: { href: '/sfx-makeup-artist-cape-town', label: 'Book SFX Makeup' },
+    secondaryLink: { href: '/film-tv-commercial-makeup-artist-cape-town', label: 'Production Makeup Services' },
+    faqs: [
+      {
+        question: 'Can Amy create prosthetic and wound effects for shoots?',
+        answer:
+          'Yes. SFX bookings can include prosthetic application, scars, wounds, blood work, ageing, horror looks and character-focused detail depending on the brief.',
+      },
+      {
+        question: 'Is this portfolio relevant for production teams?',
+        answer:
+          'Yes. The SFX gallery is useful for producers, directors and creatives looking for Cape Town special effects makeup for film, TV, commercials and creative shoots.',
+      },
+    ],
+  },
+  beauty: {
+    intro:
+      'This beauty makeup portfolio highlights polished skin, soft glam, full glam and camera-ready finishes for private clients, content days, editorials and events in Cape Town.',
+    bestFor: [
+      'Private clients wanting natural glam, soft glam or elevated event makeup.',
+      'Photoshoots and content days where skin needs to look refined on camera.',
+      'Agencies and creatives looking for clean beauty makeup with a polished finish.',
+    ],
+    primaryLink: { href: '/private-makeup-artist-cape-town', label: 'Book Private Makeup' },
+    secondaryLink: { href: '/#contact', label: 'Request a Quote' },
+    faqs: [
+      {
+        question: 'Can Amy create both natural and full glam looks?',
+        answer:
+          'Yes. Beauty bookings can be tailored from soft, natural glam to a more defined full glam finish depending on the event, lighting and outfit.',
+      },
+      {
+        question: 'Is beauty makeup available for photoshoots?',
+        answer:
+          'Yes. Amy works with clients and creatives who need makeup that photographs well for portraits, content shoots, editorials and campaigns.',
+      },
+    ],
+  },
+  bridal: {
+    intro:
+      'This bridal makeup portfolio shows wedding-day beauty, soft bridal glam and elegant long-wear makeup for Cape Town and Western Cape brides.',
+    bestFor: [
+      'Brides comparing wedding makeup styles before enquiring about availability.',
+      'Bridal parties needing polished, coordinated makeup on the wedding morning.',
+      'Cape Town and Western Cape weddings where makeup needs to last and photograph well.',
+    ],
+    primaryLink: { href: '/bridal-makeup-artist-cape-town', label: 'Book Bridal Makeup' },
+    secondaryLink: { href: '/service-areas', label: 'View Service Areas' },
+    faqs: [
+      {
+        question: 'Does Amy offer bridal makeup trials?',
+        answer:
+          'Yes. Bridal trials can be arranged so the wedding-day look feels settled, flattering and aligned with the dress, venue and photography style.',
+      },
+      {
+        question: 'Can Amy travel for wedding bookings?',
+        answer:
+          'Yes. Amy is based in Cape Town and can travel for bridal bookings across the city, the Winelands and selected Western Cape locations by arrangement.',
+      },
+    ],
+  },
+  film: {
+    intro:
+      'This film and TV makeup portfolio highlights on-set makeup, character work, production support and camera-ready finishes for Cape Town productions.',
+    bestFor: [
+      'Production teams needing on-set makeup support for film, TV and commercials.',
+      'Agencies and producers reviewing character, continuity and production makeup experience.',
+      'Campaigns, branded content and shoots requiring reliable Cape Town makeup support.',
+    ],
+    primaryLink: { href: '/film-tv-commercial-makeup-artist-cape-town', label: 'Book Production Makeup' },
+    secondaryLink: { href: '/sfx-makeup-artist-cape-town', label: 'SFX Makeup Services' },
+    faqs: [
+      {
+        question: 'Does Amy work with production teams?',
+        answer:
+          'Yes. Amy is available for film, TV, commercials, branded content, music videos and agency-led shoots in Cape Town.',
+      },
+      {
+        question: 'Can film makeup include SFX support?',
+        answer:
+          'Yes. Depending on the brief, production makeup can include beauty, grooming, character detail, wounds, ageing or prosthetic support.',
+      },
+    ],
+  },
+  editorial: {
+    intro:
+      'This editorial makeup portfolio shows creative beauty, fashion makeup and campaign-ready looks for editorials, agencies, tests and branded shoots in Cape Town.',
+    bestFor: [
+      'Fashion, beauty and editorial teams looking for creative makeup direction.',
+      'Campaigns and branded content needing polished, camera-ready makeup.',
+      'Photographers and agencies planning tests, lookbooks, e-commerce or magazine-style shoots.',
+    ],
+    primaryLink: { href: '/film-tv-commercial-makeup-artist-cape-town', label: 'Book Editorial Makeup' },
+    secondaryLink: { href: '/private-makeup-artist-cape-town', label: 'Private Makeup Services' },
+    faqs: [
+      {
+        question: 'Does Amy work on editorial and fashion shoots?',
+        answer:
+          'Yes. Amy can support editorials, fashion stories, agency tests, campaigns, branded shoots and creative beauty concepts in Cape Town.',
+      },
+      {
+        question: 'Can editorial makeup be adapted for commercial work?',
+        answer:
+          'Yes. Looks can be refined for campaigns, e-commerce, brand shoots or more expressive editorial concepts depending on the brief.',
+      },
+    ],
+  },
+}
+
 const getImageAlt = (imageTitle: string, categoryTitle: string) =>
   `${imageTitle} by Amy Morgenrood, Cape Town ${categoryTitle.toLowerCase()} makeup portfolio`
 
@@ -180,6 +304,7 @@ export default function CategoryPage() {
   const params = useParams()
   const category = params.category as string
   const data = portfolioData[category]
+  const seoContent = categorySeoContent[category]
   
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
 
@@ -233,6 +358,56 @@ export default function CategoryPage() {
           </p>
         </motion.div>
 
+        {seoContent && (
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mb-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]"
+          >
+            <div className="border border-gold-500/10 bg-dark-900/45 p-6 sm:p-8">
+              <h2 className="font-display text-2xl font-light text-cream-100">
+                {data.title} makeup portfolio in Cape Town
+              </h2>
+              <p className="mt-4 text-sm font-light leading-relaxed text-cream-300/75">
+                {seoContent.intro}
+              </p>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href={seoContent.primaryLink.href}
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-cream-100 px-6 py-3 text-xs uppercase tracking-[0.15em] text-dark-950 transition-colors duration-300 hover:bg-gold-400"
+                >
+                  <span>{seoContent.primaryLink.label}</span>
+                  <ArrowRight className="h-3 w-3" />
+                </Link>
+                {seoContent.secondaryLink && (
+                  <Link
+                    href={seoContent.secondaryLink.href}
+                    className="inline-flex items-center justify-center gap-3 rounded-full border border-gold-500/30 px-6 py-3 text-xs uppercase tracking-[0.15em] text-cream-100 transition-colors duration-300 hover:border-gold-400 hover:text-gold-300"
+                  >
+                    <span>{seoContent.secondaryLink.label}</span>
+                  </Link>
+                )}
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="border border-gold-500/10 bg-dark-900/45 p-6">
+                <h2 className="text-sm uppercase tracking-[0.22em] text-gold-500/80">
+                  Useful for
+                </h2>
+                <ul className="mt-5 space-y-3">
+                  {seoContent.bestFor.map((item) => (
+                    <li key={item} className="text-sm font-light leading-relaxed text-cream-300/75">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.section>
+        )}
+
         {/* Image Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {data.images.map((image, index) => (
@@ -257,6 +432,27 @@ export default function CategoryPage() {
             </motion.div>
           ))}
         </div>
+
+        {seoContent && (
+          <section className="mt-16 border-t border-gold-500/10 pt-12">
+            <div className="mb-8 max-w-3xl">
+              <span className="text-xs uppercase tracking-[0.28em] text-gold-500/70">Portfolio FAQs</span>
+              <h2 className="mt-4 font-display text-3xl font-light text-cream-100">
+                Questions before booking
+              </h2>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              {seoContent.faqs.map((faq) => (
+                <div key={faq.question} className="border border-gold-500/10 bg-dark-900/45 p-6">
+                  <h3 className="text-base font-medium text-cream-100">{faq.question}</h3>
+                  <p className="mt-3 text-sm font-light leading-relaxed text-cream-300/75">
+                    {faq.answer}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
 
       {/* Lightbox */}
