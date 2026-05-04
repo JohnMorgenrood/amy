@@ -35,7 +35,7 @@ const navigationLinks = [
 
 const serviceLinks = [
   { name: 'Film & TV Makeup', href: '/film-tv-commercial-makeup-artist-cape-town' },
-  { name: 'SFX & Prosthetics', href: '/film-tv-commercial-makeup-artist-cape-town' },
+  { name: 'SFX & Prosthetics', href: '/sfx-makeup-artist-cape-town' },
   { name: 'Commercial & Editorial', href: '/film-tv-commercial-makeup-artist-cape-town' },
   { name: 'Hair Styling', href: '/film-tv-commercial-makeup-artist-cape-town' },
   { name: 'Private Makeup', href: '/private-makeup-artist-cape-town' },

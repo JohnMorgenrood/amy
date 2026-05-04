@@ -36,6 +36,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/wedding-makeup-artist-stellenbosch`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.78,
+    },
+    {
+      url: `${baseUrl}/bridal-makeup-artist-winelands`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.78,
+    },
+    {
+      url: `${baseUrl}/makeup-artist-northern-suburbs-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.76,
+    },
+    {
       url: `${baseUrl}/service-areas`,
       lastModified,
       changeFrequency: 'monthly',

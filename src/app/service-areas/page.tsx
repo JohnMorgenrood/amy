@@ -41,6 +41,27 @@ const areas = [
   },
 ]
 
+const locationPages = [
+  {
+    title: 'Wedding Makeup Artist Stellenbosch',
+    href: '/wedding-makeup-artist-stellenbosch',
+    description:
+      'For Stellenbosch brides, venue weddings, bridal trials and bridal party makeup bookings.',
+  },
+  {
+    title: 'Bridal Makeup Artist Winelands',
+    href: '/bridal-makeup-artist-winelands',
+    description:
+      'For Cape Winelands weddings around Stellenbosch, Franschhoek, Paarl and nearby venue areas.',
+  },
+  {
+    title: 'Makeup Artist Northern Suburbs',
+    href: '/makeup-artist-northern-suburbs-cape-town',
+    description:
+      'For Durbanville, Bellville, Brackenfell and nearby private, bridal, event or photoshoot bookings.',
+  },
+]
+
 export const metadata: Metadata = {
   title: 'Cape Town Makeup Artist Service Areas',
   description:
@@ -216,6 +237,39 @@ export default function ServiceAreasPage() {
                 For wedding mornings, bridal trials, bridal parties and Western Cape venue bookings.
               </p>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-gold-500/10 py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 max-w-3xl">
+            <span className="text-xs uppercase tracking-[0.28em] text-gold-500/70">Local Pages</span>
+            <h2 className="mt-4 font-display text-3xl font-light text-cream-100 sm:text-4xl">
+              Location-specific makeup services
+            </h2>
+            <p className="mt-5 text-sm font-light leading-relaxed text-cream-300/75">
+              These pages are useful when the booking is tied to a venue, suburb or wedding area
+              and you want a more specific view of Amy's availability.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {locationPages.map((page) => (
+              <Link
+                key={page.href}
+                href={page.href}
+                className="rounded-[1.75rem] border border-gold-500/10 bg-dark-900/45 p-6 transition-colors duration-300 hover:border-gold-500/25"
+              >
+                <h3 className="font-display text-xl font-light text-cream-100">{page.title}</h3>
+                <p className="mt-4 text-sm font-light leading-relaxed text-cream-300/75">
+                  {page.description}
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-gold-400/80">
+                  View Area
+                  <ArrowRight className="h-3 w-3" />
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
