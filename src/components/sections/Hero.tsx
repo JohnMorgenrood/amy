@@ -89,7 +89,7 @@ export function Hero() {
                 </span>
               </div>
 
-              <h1 className="font-display max-w-[11ch] text-5xl font-light leading-[0.94] tracking-[-0.03em] text-cream-100 sm:text-6xl lg:text-[5.25rem]">
+              <h1 className="font-display max-w-[12ch] text-4xl font-light leading-tight text-cream-100 sm:text-5xl lg:text-[4.25rem]">
                 Makeup for
                 <span className="block text-gold-300/95">TV ads, commercials and film in Cape Town.</span>
               </h1>
