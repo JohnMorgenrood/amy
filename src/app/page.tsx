@@ -7,7 +7,7 @@ import { Certificates } from '@/components/sections/Certificates'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { Contact } from '@/components/sections/Contact'
 
-const socialImagePath = '/og-image-brand.jpg'
+const socialImagePath = '/og-image-logo.jpg'
 
 export default function Home() {
   return (
@@ -37,7 +37,7 @@ export const metadata = {
         url: socialImagePath,
         width: 1200,
         height: 630,
-        alt: 'Amy MUP social preview',
+        alt: 'Amy MUP logo',
       },
     ],
   },

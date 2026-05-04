@@ -4,7 +4,7 @@ import Script from 'next/script'
 import { ArrowRight, MapPin } from 'lucide-react'
 
 const pageUrl = 'https://www.amymup.shop/service-areas'
-const socialImagePath = 'https://www.amymup.shop/og-image-brand.jpg'
+const socialImagePath = 'https://www.amymup.shop/og-image-logo.jpg'
 
 const areas = [
   {

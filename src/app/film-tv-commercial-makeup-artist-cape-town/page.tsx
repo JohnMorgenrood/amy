@@ -3,7 +3,7 @@ import Script from 'next/script'
 import { ServiceLandingPage } from '@/components/seo/ServiceLandingPage'
 
 const pageUrl = 'https://www.amymup.shop/film-tv-commercial-makeup-artist-cape-town'
-const socialImagePath = 'https://www.amymup.shop/og-image-brand.jpg'
+const socialImagePath = 'https://www.amymup.shop/og-image-logo.jpg'
 
 const faqs = [
   {

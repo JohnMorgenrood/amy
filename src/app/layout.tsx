@@ -8,10 +8,11 @@ import { FloatingElements } from '@/components/effects/FloatingElements'
 import { ImageProtection } from '@/components/ImageProtection'
 
 const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-elegant-and-m.jpeg'
-const socialImagePath = '/og-image-brand.jpg'
+const socialImagePath = '/og-image-logo.jpg'
 const facebookUrl = 'https://www.facebook.com/share/1CE4F4CZnP/'
 const metaPixelId = '2518102085371233'
 const googleAnalyticsId = 'G-2TD80J9N2X'
+const googleAdsId = 'AW-17034931777'
 const tiktokUrl = 'https://www.tiktok.com/@amyb_mup?_r=1&_t=ZS-95umNruEh0q'
 
 // Modern sans-serif for body text
@@ -96,7 +97,7 @@ export const metadata: Metadata = {
         url: socialImagePath,
         width: 1200,
         height: 630,
-        alt: 'Amy MUP social preview',
+        alt: 'Amy MUP logo',
       }
     ],
   },
@@ -306,6 +307,7 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${googleAnalyticsId}');
+            gtag('config', '${googleAdsId}');
           `}
         </Script>
         <Script id="meta-pixel" strategy="afterInteractive">
