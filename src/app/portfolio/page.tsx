@@ -11,6 +11,7 @@ const categories = [
     title: 'SFX & Prosthetics',
     description: 'Special effects makeup, prosthetics, wounds, and character transformations',
     image: '/assets/portfolio/FB_IMG_1487892884148.jpg',
+    alt: 'SFX prosthetic makeup by Amy Morgenrood in Cape Town',
     count: 8,
   },
   {
@@ -18,6 +19,7 @@ const categories = [
     title: 'Beauty & Glam',
     description: 'Glamour makeup, editorial beauty, and flawless looks',
     image: '/assets/portfolio/IMG_20240713_075631_187.jpg',
+    alt: 'Beauty makeup portfolio by Amy Morgenrood in Cape Town',
     count: 10,
   },
   {
@@ -25,6 +27,7 @@ const categories = [
     title: 'Bridal',
     description: 'Wedding day beauty, bridal parties, and special occasions',
     image: '/assets/projects/Weddings/professional-wedding-makeup-portfolio-shots-for-an.jpeg',
+    alt: 'Bridal makeup portfolio by Amy Morgenrood in Cape Town',
     count: 10,
   },
   {
@@ -32,6 +35,7 @@ const categories = [
     title: 'Film & TV',
     description: 'On-set work, character makeup, and production stills',
     image: '/assets/portfolio/1623238044587_20180608_131019.jpg',
+    alt: 'Film and TV makeup portfolio by Amy Morgenrood in Cape Town',
     count: 12,
   },
   {
@@ -39,6 +43,7 @@ const categories = [
     title: 'Editorial & Fashion',
     description: 'High fashion, magazine shoots, and creative concepts',
     image: '/assets/portfolio/IMG_20240713_075631_385.jpg',
+    alt: 'Editorial makeup portfolio by Amy Morgenrood in Cape Town',
     count: 8,
   },
 ]
@@ -83,7 +88,7 @@ export default function PortfolioPage() {
                 <div className="group relative aspect-[4/5] overflow-hidden border border-gold-500/10 hover:border-gold-500/30 transition-all duration-500">
                   <Image
                     src={category.image}
-                    alt={category.title}
+                    alt={category.alt}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />

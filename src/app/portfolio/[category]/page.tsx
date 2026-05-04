@@ -173,6 +173,9 @@ const portfolioData: Record<string, {
   },
 }
 
+const getImageAlt = (imageTitle: string, categoryTitle: string) =>
+  `${imageTitle} by Amy Morgenrood, Cape Town ${categoryTitle.toLowerCase()} makeup portfolio`
+
 export default function CategoryPage() {
   const params = useParams()
   const category = params.category as string
@@ -243,7 +246,7 @@ export default function CategoryPage() {
             >
               <Image
                 src={image.src}
-                alt={image.title}
+                alt={getImageAlt(image.title, data.title)}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
@@ -299,7 +302,7 @@ export default function CategoryPage() {
             >
               <Image
                 src={data.images[selectedImage].src}
-                alt={data.images[selectedImage].title}
+                alt={getImageAlt(data.images[selectedImage].title, data.title)}
                 fill
                 className="object-contain"
               />

@@ -194,6 +194,9 @@ const categories = [
   { name: 'Editorial', slug: 'editorial' },
 ]
 
+const getPortfolioAlt = (title: string, category: string) =>
+  `${title} by Amy Morgenrood, Cape Town ${category.toLowerCase()} makeup portfolio`
+
 export function Portfolio() {
   const [activeCategory, setActiveCategory] = useState('All')
   const [hoveredItem, setHoveredItem] = useState<number | null>(null)
@@ -369,7 +372,7 @@ export function Portfolio() {
                   {/* Image */}
                   <Image
                     src={item.image}
-                    alt={item.title}
+                    alt={getPortfolioAlt(item.title, item.category)}
                     fill
                     draggable={false}
                     className="object-cover transition-transform duration-1000 group-hover:scale-110 no-select"

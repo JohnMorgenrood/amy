@@ -31,8 +31,8 @@ const services = [
     description: 'Special effects work for character transformations, prosthetics, wounds, ageing, horror looks and production-led concepts.',
     features: ['Prosthetic Application', 'Wound FX', 'Aging Effects', 'Character Transformation'],
     gradient: 'from-red-500 to-rose-600',
-    href: '/film-tv-commercial-makeup-artist-cape-town',
-    cta: 'See Production Services',
+    href: '/sfx-makeup-artist-cape-town',
+    cta: 'Explore SFX Page',
   },
   {
     id: 3,
