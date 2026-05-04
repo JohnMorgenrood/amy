@@ -13,10 +13,12 @@ import {
   Youtube,
   Loader2,
   Sparkles,
+  MessageCircle,
   ChevronLeft,
   ChevronRight,
   CalendarDays,
 } from 'lucide-react'
+import { trackLeadClick } from '@/components/tracking/TrackedContactLink'
 
 const contactInfo = [
   {
@@ -24,6 +26,12 @@ const contactInfo = [
     label: 'Phone',
     value: '084 701 7012',
     href: 'tel:+27847017012',
+  },
+  {
+    icon: MessageCircle,
+    label: 'WhatsApp',
+    value: 'Message Amy directly',
+    href: 'https://wa.me/27847017012',
   },
   {
     icon: MapPin,
@@ -183,6 +191,14 @@ export function Contact() {
                         href={item.href}
                         target={item.href.startsWith('http') ? '_blank' : undefined}
                         rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        onClick={() => {
+                          if (item.href?.startsWith('tel:')) {
+                            trackLeadClick({ action: 'phone_call_click', label: 'contact_info_phone' })
+                          }
+                          if (item.href?.includes('wa.me/27847017012')) {
+                            trackLeadClick({ action: 'whatsapp_click', label: 'contact_info_whatsapp' })
+                          }
+                        }}
                         className="flex items-start gap-4 rounded-2xl p-4 bg-dark-950/50 border border-gold-500/5 hover:border-gold-500/20 transition-all duration-300 group"
                       >
                         <item.icon className="w-4 h-4 text-gold-500/60 mt-0.5" />

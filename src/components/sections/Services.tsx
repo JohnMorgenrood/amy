@@ -12,6 +12,7 @@ import {
   Scissors,
   ArrowRight
 } from 'lucide-react'
+import { trackLeadClick } from '@/components/tracking/TrackedContactLink'
 
 const services = [
   {
@@ -211,6 +212,7 @@ export function Services() {
             href="#contact"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            onClick={() => trackLeadClick({ action: 'quote_click', label: 'services_bottom_quote' })}
             className="btn-primary inline-flex items-center gap-3"
           >
             <span>Request Quote</span>

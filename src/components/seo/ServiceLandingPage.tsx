@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight, Check, ChevronRight, MapPin, Sparkles } from 'lucide-react'
+import { TrackedContactLink } from '@/components/tracking/TrackedContactLink'
 
 type LandingItem = {
   title: string
@@ -69,10 +70,15 @@ export function ServiceLandingPage({
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link href={primaryCtaHref} className="btn-primary inline-flex items-center gap-3">
+              <TrackedContactLink
+                href={primaryCtaHref}
+                action="quote_click"
+                label={`${eyebrow.toLowerCase().replace(/\s+/g, '_')}_hero_quote`}
+                className="btn-primary inline-flex items-center gap-3"
+              >
                 <span>{primaryCtaLabel}</span>
                 <ArrowRight className="h-3 w-3" />
-              </Link>
+              </TrackedContactLink>
               <Link
                 href={secondaryCtaHref}
                 className="inline-flex items-center justify-center gap-3 rounded-full border border-gold-500/30 px-6 py-3 text-xs uppercase tracking-[0.18em] text-cream-100 transition-colors duration-300 hover:border-gold-400 hover:text-gold-300"
@@ -211,16 +217,23 @@ export function ServiceLandingPage({
               you need. The clearer the brief, the faster the quote.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-              <Link href={primaryCtaHref} className="btn-primary inline-flex items-center gap-3">
+              <TrackedContactLink
+                href={primaryCtaHref}
+                action="quote_click"
+                label={`${eyebrow.toLowerCase().replace(/\s+/g, '_')}_bottom_quote`}
+                className="btn-primary inline-flex items-center gap-3"
+              >
                 <span>{primaryCtaLabel}</span>
                 <ArrowRight className="h-3 w-3" />
-              </Link>
-              <Link
+              </TrackedContactLink>
+              <TrackedContactLink
                 href="tel:+27847017012"
+                action="phone_call_click"
+                label={`${eyebrow.toLowerCase().replace(/\s+/g, '_')}_bottom_phone`}
                 className="inline-flex items-center justify-center rounded-full border border-gold-500/30 px-6 py-3 text-xs uppercase tracking-[0.18em] text-cream-100 transition-colors duration-300 hover:border-gold-400 hover:text-gold-300"
               >
                 Call 084 701 7012
-              </Link>
+              </TrackedContactLink>
             </div>
           </div>
         </div>

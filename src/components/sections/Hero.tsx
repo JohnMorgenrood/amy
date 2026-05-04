@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { ArrowRight, MapPin, Sparkles, Clapperboard, Clock3, ShieldCheck } from 'lucide-react'
+import { trackLeadClick } from '@/components/tracking/TrackedContactLink'
 
 const serviceHighlights = [
   'TV Ads & Commercials',
@@ -122,6 +123,7 @@ export function Hero() {
                   href="/#contact"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => trackLeadClick({ action: 'quote_click', label: 'homepage_hero_quote' })}
                   className="inline-flex min-h-12 items-center gap-3 rounded-full bg-cream-100 px-7 py-3.5 text-[11px] uppercase tracking-[0.22em] text-dark-950 transition-colors duration-300 hover:bg-gold-400"
                 >
                   Request Production Quote

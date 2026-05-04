@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Instagram, Mail, Phone, Youtube } from 'lucide-react'
+import { trackLeadClick } from '@/components/tracking/TrackedContactLink'
 
 const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-elegant-and-m.jpeg'
 const facebookUrl = 'https://www.facebook.com/share/1CE4F4CZnP/'
@@ -142,6 +143,7 @@ export function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 aria-label="Call Amy"
+                onClick={() => trackLeadClick({ action: 'phone_call_click', label: 'desktop_nav_phone' })}
                 className="p-2 hover:bg-gold-500/5 transition-colors duration-300"
               >
                 <Phone className="w-4 h-4 text-cream-500/50 hover:text-gold-400 transition-colors" />
@@ -150,6 +152,7 @@ export function Navbar() {
                 href="/#contact"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => trackLeadClick({ action: 'quote_click', label: 'desktop_nav_availability' })}
                 className="ml-2 px-5 py-2 bg-cream-100 text-dark-950 text-[10px] tracking-[0.15em] uppercase hover:bg-gold-400 transition-colors duration-300"
               >
                 Check Availability
@@ -250,6 +253,10 @@ export function Navbar() {
                 </a>
                 <a
                   href="/#contact"
+                  onClick={() => {
+                    trackLeadClick({ action: 'quote_click', label: 'mobile_nav_contact' })
+                    setIsOpen(false)
+                  }}
                   className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
                   aria-label="Contact form"
                 >
@@ -257,6 +264,10 @@ export function Navbar() {
                 </a>
                 <a
                   href="tel:+27847017012"
+                  onClick={() => {
+                    trackLeadClick({ action: 'phone_call_click', label: 'mobile_nav_phone' })
+                    setIsOpen(false)
+                  }}
                   className="p-3 border border-gold-500/20 hover:border-gold-500/40 transition-colors duration-300"
                   aria-label="Call Amy"
                 >

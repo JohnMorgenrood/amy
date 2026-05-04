@@ -16,6 +16,7 @@ import {
   Check,
   MessageCircle,
 } from 'lucide-react'
+import { trackLeadClick } from '@/components/tracking/TrackedContactLink'
 
 const brandImagePath = '/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-elegant-and-m.jpeg'
 const facebookUrl = 'https://www.facebook.com/share/1CE4F4CZnP/'
@@ -111,6 +112,7 @@ export function SiteFooter() {
             </p>
             <Link
               href="/#contact"
+              onClick={() => trackLeadClick({ action: 'quote_click', label: 'footer_request_booking' })}
               className="inline-flex items-center justify-center border border-gold-500/40 px-4 py-2.5 text-[11px] uppercase tracking-[0.2em] text-gold-200 transition-colors duration-300 hover:bg-gold-400 hover:text-dark-950"
             >
               Request Booking
@@ -133,6 +135,7 @@ export function SiteFooter() {
                   href={whatsappShareHref}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackLeadClick({ action: 'whatsapp_click', label: 'footer_share_whatsapp' })}
                   className="inline-flex items-center gap-2 rounded-full border border-gold-500/25 px-4 py-2.5 text-[11px] uppercase tracking-[0.18em] text-cream-100 transition-colors duration-300 hover:border-gold-500/45 hover:bg-gold-500/8"
                 >
                   <MessageCircle className="h-3.5 w-3.5" />
@@ -188,6 +191,7 @@ export function SiteFooter() {
               <li>
                 <a
                   href="tel:+27847017012"
+                  onClick={() => trackLeadClick({ action: 'phone_call_click', label: 'footer_phone' })}
                   className="flex items-center gap-3 text-sm font-light text-cream-300/70 transition-colors duration-300 hover:text-cream-100"
                 >
                   <Phone className="h-4 w-4" />

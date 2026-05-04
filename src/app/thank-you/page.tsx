@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CheckCircle, MessageCircle, Phone } from 'lucide-react'
 import { ThankYouLeadEvent } from '@/components/tracking/ThankYouLeadEvent'
+import { TrackedContactLink } from '@/components/tracking/TrackedContactLink'
 
 export const metadata: Metadata = {
   title: 'Thank You',
@@ -37,22 +38,26 @@ export default function ThankYouPage() {
         </p>
 
         <div className="mt-10 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center sm:justify-center">
-          <a
+          <TrackedContactLink
             href="tel:+27847017012"
+            action="phone_call_click"
+            label="thank_you_phone"
             className="inline-flex items-center justify-center gap-3 rounded-full bg-cream-100 px-6 py-3 text-xs uppercase tracking-[0.15em] text-dark-950 transition-colors duration-300 hover:bg-gold-400"
           >
             <Phone className="h-4 w-4" />
             Call Amy
-          </a>
-          <a
+          </TrackedContactLink>
+          <TrackedContactLink
             href="https://wa.me/27847017012"
+            action="whatsapp_click"
+            label="thank_you_whatsapp"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 rounded-full border border-gold-500/30 px-6 py-3 text-xs uppercase tracking-[0.15em] text-cream-100 transition-colors duration-300 hover:border-gold-500/60 hover:text-gold-300"
           >
             <MessageCircle className="h-4 w-4" />
             WhatsApp
-          </a>
+          </TrackedContactLink>
         </div>
 
         <Link
