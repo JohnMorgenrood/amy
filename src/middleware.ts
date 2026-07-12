@@ -1,13 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-async function accessToken(password: string) {
-  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`amy-portfolio:${password}`))
-  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('')
+const encoder = new TextEncoder()
+
+const toHex = (bytes: ArrayBuffer) =>
+  Array.from(new Uint8Array(bytes), byte => byte.toString(16).padStart(2, '0')).join('')
+
+async function signatureFor(expires: string, password: string) {
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(password),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  )
+  return toHex(await crypto.subtle.sign('HMAC', key, encoder.encode(`amy-portfolio:${expires}`)))
+}
+
+async function hasValidSession(token: string | undefined, password: string | undefined) {
+  if (!token || !password) return false
+  const [expires, suppliedSignature, ...extra] = token.split('.')
+  if (!expires || !suppliedSignature || extra.length || !/^\d+$/.test(expires)) return false
+  if (Number(expires) <= Date.now()) return false
+  return suppliedSignature === await signatureFor(expires, password)
 }
 
 export async function middleware(request: NextRequest) {
   const password = process.env.PORTFOLIO_PASSWORD
-  const authorised = password && request.cookies.get('amy_portfolio_access')?.value === await accessToken(password)
+  const authorised = await hasValidSession(request.cookies.get('amy_portfolio_access')?.value, password)
   if (!authorised) {
     const url = new URL('/portfolio-access', request.url)
     url.searchParams.set('from', request.nextUrl.pathname)
