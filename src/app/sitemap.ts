@@ -24,6 +24,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/makeup-continuity-standby-artist-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.86,
+    },
+    {
+      url: `${baseUrl}/international-film-production-makeup-support-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.86,
+    },
+    {
       url: `${baseUrl}/sfx-makeup-artist-cape-town`,
       lastModified,
       changeFrequency: 'weekly',

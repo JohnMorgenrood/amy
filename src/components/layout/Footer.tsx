@@ -35,6 +35,9 @@ const navigationLinks = [
 
 const serviceLinks = [
   { name: 'Film & TV Makeup', href: '/film-tv-commercial-makeup-artist-cape-town' },
+  { name: 'Makeup Coordination', href: '/makeup-department-coordinator-cape-town' },
+  { name: 'Continuity & Standby', href: '/makeup-continuity-standby-artist-cape-town' },
+  { name: 'International Productions', href: '/international-film-production-makeup-support-cape-town' },
   { name: 'SFX & Prosthetics', href: '/sfx-makeup-artist-cape-town' },
   { name: 'Commercial & Editorial', href: '/film-tv-commercial-makeup-artist-cape-town' },
   { name: 'Hair Styling', href: '/film-tv-commercial-makeup-artist-cape-town' },
