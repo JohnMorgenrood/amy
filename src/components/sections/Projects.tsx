@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { 
@@ -13,7 +14,9 @@ import {
   Play,
   ChevronLeft,
   ChevronRight,
-  Award
+  Award,
+  ClipboardList,
+  ArrowRight
 } from 'lucide-react'
 
 import 'swiper/css'
@@ -164,7 +167,7 @@ const additionalCredits = [
 ]
 
 const credentials = [
-  { name: 'IMDb', logo: '/logos/imdb.svg', url: 'https://www.imdb.com/name/nm12345678/' },
+  { name: 'IMDb', logo: '/logos/imdb.svg', url: 'https://www.imdb.com/user/p.ne4ljimtpenzih3arb2ubztgzy?ref_=ext_shr_lnk' },
   { name: 'Call a Crew', logo: '/logos/callacrew.svg', url: 'https://www.callacrew.co.za/crew/amy-morgenrood' },
   { name: 'Metacritic', logo: '/logos/metacritic.svg', url: 'https://www.metacritic.com/person/amy-morgenrood' },
 ]
@@ -402,6 +405,33 @@ export function Projects() {
           </div>
         </motion.div>
 
+        {/* Coordination & Production Support */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16 rounded-2xl border border-gold-500/20 bg-gradient-to-br from-dark-900/80 to-dark-950 p-8 sm:p-10"
+        >
+          <div className="flex flex-col gap-7 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-3xl">
+              <div className="mb-4 flex items-center gap-3 text-gold-400">
+                <ClipboardList className="h-5 w-5" />
+                <span className="text-xs uppercase tracking-[0.22em]">Department Experience</span>
+              </div>
+              <h3 className="font-display text-3xl font-light text-cream-100">Makeup Coordination &amp; Production Support</h3>
+              <p className="mt-4 font-light leading-relaxed text-cream-300/70">
+                In addition to working as a makeup and hair artist, Amy has experience assisting with makeup department coordination, continuity, scheduling, artist requirements, product organisation and day-to-day production communication.
+              </p>
+              <p className="mt-3 font-light leading-relaxed text-cream-300/70">
+                Her production experience includes <em>Recipes for Love and Murder – Season 2</em>, <em>Alphas</em>, <em>Strung</em> and <em>Invisible</em>. Amy is available for on-set makeup and hair work, department support, assisting coordination and junior coordination opportunities.
+              </p>
+            </div>
+            <Link href="/makeup-department-coordinator-cape-town" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-6 py-3 text-xs uppercase tracking-[0.16em] text-gold-400 transition-colors hover:bg-gold-500/20">
+              Read more <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </motion.div>
+
         {/* Credentials Bar */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -421,7 +451,7 @@ export function Projects() {
 
             <div className="flex items-center gap-4">
               <a
-                href="https://www.imdb.com/name/nm12345678/"
+                href="https://www.imdb.com/user/p.ne4ljimtpenzih3arb2ubztgzy?ref_=ext_shr_lnk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-2.5 bg-[#f5c518]/10 border border-[#f5c518]/30 text-[#f5c518] text-xs tracking-[0.1em] uppercase hover:bg-[#f5c518]/20 transition-colors duration-300"

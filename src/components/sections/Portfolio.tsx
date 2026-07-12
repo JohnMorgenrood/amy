@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectCoverflow, FreeMode, Navigation, Pagination } from 'swiper/modules'
-import { ExternalLink, Eye, Heart, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
+import { ExternalLink, Eye, Heart, ChevronLeft, ChevronRight, ArrowRight, LockKeyhole } from 'lucide-react'
 
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
@@ -464,7 +464,8 @@ export function Portfolio() {
             href="/portfolio"
             className="inline-flex items-center gap-3 rounded-full px-8 py-3.5 bg-gold-500/10 border border-gold-500/30 text-gold-400 hover:bg-gold-500/20 transition-all duration-300 text-xs tracking-[0.2em] uppercase"
           >
-            <span>View Full Portfolio</span>
+            <LockKeyhole className="w-4 h-4" />
+            <span>Request Private Portfolio Access</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
           
