@@ -150,8 +150,17 @@ export function About() {
                 <span className="text-rose-200"> American Monster (S7-9)</span>.
               </p>
               <p className="font-light text-cream-300/80">
-                My strongest focus is production work for film, TV, commercials and branded
-                content, with bridal, private and beauty bookings available around that work.
+                My strongest focus is production work for film, television, commercials and
+                branded content. Through recent productions, I have also developed a real passion
+                for makeup department coordination and the organisation that supports a successful
+                shoot—from continuity records, schedules and artist requirements to product
+                preparation and day-to-day production communication.
+              </p>
+              <p className="font-light text-cream-300/80">
+                I enjoy combining practical on-set makeup and hair work with calm, organised
+                department support, and I&apos;m available for artist, assistant, standby and junior or
+                assisting coordination roles. Bridal, private and beauty bookings remain available
+                around my production schedule.
               </p>
             </div>
 
@@ -161,8 +170,9 @@ export function About() {
               </h4>
               <p className="text-sm font-light leading-relaxed text-cream-300/75">
                 Production companies, agencies, coordinators and brands looking for a Cape Town
-                makeup artist who can handle TV commercials, on-set work, campaign shoots and
-                continuity-aware makeup support without overcomplicating the booking process.
+                makeup artist who can handle TV commercials, on-set work, campaign shoots,
+                continuity-aware makeup and practical department coordination support without
+                overcomplicating the booking process.
               </p>
             </div>
 

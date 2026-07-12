@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     default: 'Amy Morgenrood | Cape Town Makeup Artist for Film, Private Clients and Bridal',
     template: '%s | Amy Morgenrood - Cape Town Makeup Artist'
   },
-  description: 'Amy Morgenrood is a Cape Town makeup artist offering film and TV makeup, SFX and prosthetics, bridal makeup, beauty makeup, hair styling, commercial bookings and private appointments across Cape Town and the Western Cape.',
+  description: 'Amy Morgenrood is a Cape Town makeup and hair artist offering film and TV makeup, SFX, continuity, standby and makeup department coordination support, plus bridal and private bookings.',
   keywords: [
     'makeup artist cape town',
     'cape town makeup artist',
@@ -81,6 +81,10 @@ export const metadata: Metadata = {
     'film industry makeup cape town',
     'movie makeup artist south africa',
     'tv makeup artist cape town',
+    'makeup department coordinator cape town',
+    'makeup continuity artist cape town',
+    'standby makeup artist cape town',
+    'film production makeup support cape town',
     'best makeup artist cape town'
   ],
   authors: [{ name: 'Amy Morgenrood' }],
