@@ -86,7 +86,7 @@ export function About() {
             <motion.div style={{ y }} className="relative">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-gold-500/20">
                 <Image
-                  src="/assets/about/Amys portfolio Image Film Makeup Artist in Cape Town2.jpeg"
+                  src="/assets/about/amy-morgenrood-watermarked-hero.png"
                   alt="Amy Morgenrood - Cape Town makeup artist"
                   fill
                   className="object-cover"

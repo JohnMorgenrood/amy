@@ -74,6 +74,8 @@ const instaFeed = [
 ]
 
 const weekdayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const firstAvailableDate = '2026-08-19'
+const firstAvailableMonth = new Date(2026, 7, 1)
 
 export function Contact() {
   const router = useRouter()
@@ -81,7 +83,8 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [visibleMonth, setVisibleMonth] = useState(() => {
     const now = new Date()
-    return new Date(now.getFullYear(), now.getMonth(), 1)
+    const currentMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+    return currentMonth < firstAvailableMonth ? firstAvailableMonth : currentMonth
   })
   const [formData, setFormData] = useState({
     name: '',
@@ -97,8 +100,6 @@ export function Contact() {
     offset: ['start end', 'end start'],
   })
 
-  const today = new Date()
-  const todayKey = getDateKey(today)
   const calendarDays = getCalendarDays(visibleMonth)
   const selectedDateLabel = formData.date ? formatSelectedDate(formData.date) : 'No date selected yet'
 
@@ -427,6 +428,9 @@ export function Contact() {
                         </label>
                         <span className="text-xs font-light text-gold-400/75">{selectedDateLabel}</span>
                       </div>
+                      <p className="mb-3 text-sm font-light text-cream-300/65">
+                        New bookings are available from 19 August 2026 onward, including weekends.
+                      </p>
                       <div className="rounded-[1.5rem] border border-gold-500/20 bg-dark-800/75 p-4 sm:p-5">
                         <div className="mb-4 flex items-center justify-between">
                           <button
@@ -478,25 +482,22 @@ export function Contact() {
                               return <div key={`empty-${index}`} className="aspect-square" />
                             }
 
-                            const isPast = day.key < todayKey
+                            const isUnavailable = day.key < firstAvailableDate
                             const isSelected = formData.date === day.key
-                            const isToday = day.key === todayKey
 
                             return (
                               <button
                                 key={day.key}
                                 type="button"
-                                disabled={isPast}
+                                disabled={isUnavailable}
                                 onClick={() => setFormData({ ...formData, date: day.key })}
                                 aria-label={`Select ${day.label}`}
                                 className={`aspect-square rounded-2xl border text-sm transition-all duration-300 ${
                                   isSelected
                                     ? 'border-gold-500/60 bg-gold-500/15 text-cream-100'
-                                    : isPast
+                                    : isUnavailable
                                       ? 'cursor-not-allowed border-gold-500/5 bg-dark-950/30 text-cream-500/20'
-                                      : isToday
-                                        ? 'border-rose-400/40 bg-rose-400/10 text-cream-100 hover:border-gold-500/40 hover:text-gold-300'
-                                        : 'border-gold-500/10 bg-dark-950/30 text-cream-300/80 hover:border-gold-500/35 hover:text-gold-300'
+                                      : 'border-gold-500/10 bg-dark-950/30 text-cream-300/80 hover:border-gold-500/35 hover:text-gold-300'
                                 }`}
                               >
                                 {day.day}

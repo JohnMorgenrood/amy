@@ -16,6 +16,7 @@ const resendFromEmail = process.env.RESEND_FROM_EMAIL
 const contactEmail = process.env.CONTACT_EMAIL
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const firstAvailableDate = '2026-08-19'
 
 export async function POST(request: Request) {
   if (!resendApiKey || !resendFromEmail || !contactEmail) {
@@ -49,6 +50,13 @@ export async function POST(request: Request) {
 
   if (!emailPattern.test(email)) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 })
+  }
+
+  if (date && (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < firstAvailableDate)) {
+    return NextResponse.json(
+      { error: 'Please choose a booking date on or after 19 August 2026.' },
+      { status: 400 }
+    )
   }
 
   const resend = new Resend(resendApiKey)
