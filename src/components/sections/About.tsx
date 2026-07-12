@@ -151,16 +151,17 @@ export function About() {
               </p>
               <p className="font-light text-cream-300/80">
                 My strongest focus is production work for film, television, commercials and
-                branded content. Through recent productions, I have also developed a real passion
+                branded content. Through recent film shoots, I have also developed a real passion
                 for makeup department coordination and the organisation that supports a successful
-                shoot—from continuity records, schedules and artist requirements to product
+                film set—from continuity records, schedules and artist requirements to product
                 preparation and day-to-day production communication.
               </p>
               <p className="font-light text-cream-300/80">
-                I enjoy combining practical on-set makeup and hair work with calm, organised
-                department support, and I&apos;m available for artist, assistant, standby and junior or
-                assisting coordination roles. Bridal, private and beauty bookings remain available
-                around my production schedule.
+                My coordination and department-support work is specifically for film shoots, where
+                I combine practical on-set makeup and hair experience with calm organisation. I&apos;m
+                available for film makeup artist, assistant, standby and junior or assisting
+                coordination roles. Bridal, private and beauty makeup are separate services and do
+                not include production coordination.
               </p>
             </div>
 
@@ -171,7 +172,7 @@ export function About() {
               <p className="text-sm font-light leading-relaxed text-cream-300/75">
                 Production companies, agencies, coordinators and brands looking for a Cape Town
                 makeup artist who can handle TV commercials, on-set work, campaign shoots,
-                continuity-aware makeup and practical department coordination support without
+                continuity-aware makeup and practical film-department coordination support without
                 overcomplicating the booking process.
               </p>
             </div>

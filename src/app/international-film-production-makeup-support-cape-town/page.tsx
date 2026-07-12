@@ -42,7 +42,7 @@ export default function InternationalProductionSupportPage() {
       { title: 'Local makeup and hair crew support', description: 'Practical assistance for cast preparation, grooming, hair finishing, touch-ups and department workflows.' },
       { title: 'Continuity and standby assistance', description: 'Reference records, on-set monitoring, resets and communication that support visual consistency during production.' },
       { title: 'SFX and character work', description: 'Prosthetic application, wounds, ageing and character detail where the approved production brief requires it.' },
-      { title: 'Coordination and organisation support', description: 'Assistance with schedules, artist requirements, products, call times, paperwork and day-to-day department communication.' },
+      { title: 'Film-shoot coordination support', description: 'For film shoots specifically: assistance with schedules, artist requirements, products, call times, paperwork and day-to-day department communication.' },
     ]}
     strengths={['Cape Town based with knowledge of local production rhythms and location work.', 'Experience on major film and television productions alongside commercial and agency work.', 'Able to support visiting creative leadership without overstating or disrupting assigned roles.', 'Combination of beauty, hair, SFX, character and continuity-aware experience.', 'Clear English communication with producers, coordinators, artists and other departments.', 'Flexible enquiries for artist, assistant, standby, day-player and junior coordination support.']}
     faqs={faqs}

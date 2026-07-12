@@ -54,7 +54,7 @@ const tiktokUrl = 'https://www.tiktok.com/@amyb_mup?_r=1&_t=ZS-95umNruEh0q'
 const serviceTypes = [
   'Private Makeup Appointment',
   'Film & TV Production',
-  'Makeup Department Coordination / Production Support',
+  'Film Shoot Makeup Department Coordination / Support',
   'Continuity / Standby Makeup Support',
   'SFX & Prosthetics',
   'Agency / Commercial Booking',

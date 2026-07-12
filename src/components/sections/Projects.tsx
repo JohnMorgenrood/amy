@@ -420,10 +420,10 @@ export function Projects() {
               </div>
               <h3 className="font-display text-3xl font-light text-cream-100">Makeup Coordination &amp; Production Support</h3>
               <p className="mt-4 font-light leading-relaxed text-cream-300/70">
-                In addition to working as a makeup and hair artist, Amy has experience assisting with makeup department coordination, continuity, scheduling, artist requirements, product organisation and day-to-day production communication.
+                In addition to working as a makeup and hair artist, Amy has experience assisting film-shoot makeup departments with coordination, continuity, scheduling, artist requirements, product organisation and day-to-day production communication.
               </p>
               <p className="mt-3 font-light leading-relaxed text-cream-300/70">
-                Her production experience includes <em>Recipes for Love and Murder – Season 2</em>, <em>Alphas</em>, <em>Strung</em> and <em>Invisible</em>. Amy is available for on-set makeup and hair work, department support, assisting coordination and junior coordination opportunities.
+                Her production experience includes <em>Recipes for Love and Murder – Season 2</em>, <em>Alphas</em>, <em>Strung</em> and <em>Invisible</em>. Her coordination service is specifically for film shoots, including on-set makeup and hair work, department support, assisting coordination and junior coordination opportunities.
               </p>
             </div>
             <Link href="/makeup-department-coordinator-cape-town" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-6 py-3 text-xs uppercase tracking-[0.16em] text-gold-400 transition-colors hover:bg-gold-500/20">
