@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import { Award, MapPin, Calendar, Film, Star, Instagram } from 'lucide-react'
+import { Award, Calendar, Film, Star, Instagram } from 'lucide-react'
 
 const achievements = [
   { icon: Film, label: 'Film & TV Credits', value: '50+' },
@@ -84,45 +84,32 @@ export function About() {
             className="relative"
           >
             <motion.div style={{ y }} className="relative">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-gold-500/20">
-                <Image
-                  src="/assets/about/amy-morgenrood-watermarked-hero.png"
-                  alt="Amy Morgenrood - Cape Town makeup artist"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent" />
+              <div className="grid grid-cols-5 gap-3 sm:gap-4">
+                <div className="relative col-span-3 aspect-[3/5] overflow-hidden rounded-[1.5rem] border border-gold-500/20">
+                  <Image src="/assets/about/amy-morgenrood-watermarked-hero.png" alt="Amy Morgenrood - Cape Town makeup artist" fill draggable={false} className="object-cover" sizes="(max-width: 1024px) 58vw, 28vw" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950/45 via-transparent to-transparent" />
+                </div>
+                <div className="col-span-2 grid gap-3 sm:gap-4">
+                  <div className="relative overflow-hidden rounded-[1.25rem] border border-gold-500/15">
+                    <Image src="/assets/portfolio/1623238044587_20180608_131019.jpg" alt="Cape Town film production set" fill draggable={false} className="object-cover" sizes="(max-width: 1024px) 36vw, 18vw" />
+                    <span className="absolute bottom-3 left-3 text-[9px] uppercase tracking-[0.22em] text-cream-100/80">On set</span>
+                  </div>
+                  <div className="relative overflow-hidden rounded-[1.25rem] border border-gold-500/15">
+                    <Image src="/assets/portfolio/FB_IMG_1487892884148.jpg" alt="Character makeup by Amy Morgenrood" fill draggable={false} className="object-cover" sizes="(max-width: 1024px) 36vw, 18vw" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark-950/45 to-transparent" />
+                    <span className="absolute bottom-3 left-3 text-[9px] uppercase tracking-[0.22em] text-cream-100/80">Character work</span>
+                  </div>
+                </div>
               </div>
 
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-8 -right-8 rounded-2xl p-8 bg-dark-900/95 backdrop-blur-sm border border-gold-500/20"
-              >
-                <div className="grid grid-cols-2 gap-6">
-                  {achievements.map((item, idx) => (
-                    <div key={idx} className="text-center">
-                      <div className="font-display text-xl font-light text-cream-100">
-                        {item.value}
-                      </div>
-                      <div className="text-[10px] tracking-[0.15em] uppercase text-cream-500/50 mt-1">
-                        {item.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="absolute top-8 -left-4 rounded-full px-5 py-2.5 bg-dark-900/95 backdrop-blur-sm border border-gold-500/20"
-              >
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-3 h-3 text-gold-500/80" />
-                  <span className="text-xs tracking-wider text-cream-100">Cape Town, SA</span>
-                </div>
-              </motion.div>
+              <div className="mt-4 grid grid-cols-4 gap-2 rounded-2xl border border-gold-500/15 bg-dark-900/75 p-4 sm:p-5">
+                {achievements.map((item) => (
+                  <div key={item.label} className="text-center">
+                    <div className="font-display text-lg font-light text-cream-100 sm:text-xl">{item.value}</div>
+                    <div className="mt-1 text-[8px] uppercase tracking-[0.12em] text-cream-500/50 sm:text-[9px]">{item.label}</div>
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </motion.div>
 
@@ -132,36 +119,23 @@ export function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="space-y-6 rounded-[1.75rem] border border-rose-500/20 bg-rose-500/10 p-6 sm:p-7">
+            <div className="space-y-5 rounded-[1.75rem] border border-rose-500/20 bg-rose-500/10 p-6 sm:p-7">
               <p className="font-script text-cream-100 text-xl leading-relaxed">
                 I&apos;m <span className="text-rose-200">Amy Morgenrood</span>, a Cape Town-based
-                makeup and hair artist with
-                <span className="text-rose-200"> 8+ years on-set experience</span> in film and
-                television.
+                makeup and hair artist with <span className="text-rose-200">8+ years of on-set
+                experience</span> in film and television.
               </p>
-              <p className="font-script text-cream-100/90 text-lg leading-relaxed">
-                I&apos;m <span className="text-cream-100">ITEC certified</span> and specialize in
-                SFX, prosthetics, continuity-driven character work, and camera-ready beauty.
+              <p className="font-light leading-relaxed text-cream-300/80">
+                I&apos;m ITEC certified, specialising in SFX, prosthetics, continuity-led character
+                work and camera-ready beauty. Credits include <span className="text-rose-200">The
+                Woman King</span>, <span className="text-rose-200">Recipes for Love and Murder
+                (S2)</span>, <span className="text-rose-200">King Shaka</span> and <span className="text-rose-200">American Monster (S7–9)</span>.
               </p>
-              <p className="font-script text-cream-100/90 text-lg leading-relaxed">
-                Selected credits include <span className="text-rose-200">The Woman King</span>,
-                <span className="text-rose-200"> Recipes for Love and Murder (S2)</span>,
-                <span className="text-rose-200"> King Shaka</span>, and
-                <span className="text-rose-200"> American Monster (S7-9)</span>.
-              </p>
-              <p className="font-light text-cream-300/80">
-                My strongest focus is production work for film, television, commercials and
-                branded content. Through recent film shoots, I have also developed a real passion
-                for makeup department coordination and the organisation that supports a successful
-                film set—from continuity records, schedules and artist requirements to product
-                preparation and day-to-day production communication.
-              </p>
-              <p className="font-light text-cream-300/80">
-                My coordination and department-support work is specifically for film shoots, where
-                I combine practical on-set makeup and hair experience with calm organisation. I&apos;m
-                available for film makeup artist, assistant, standby and junior or assisting
-                coordination roles. Bridal, private and beauty makeup are separate services and do
-                not include production coordination.
+              <p className="font-light leading-relaxed text-cream-300/80">
+                Film production is my main focus. I also support film-shoot makeup departments with
+                continuity, scheduling and calm day-to-day organisation, and I&apos;m available for
+                artist, assistant, standby and assisting coordination roles. Bridal, private and
+                beauty makeup remain separate services.
               </p>
             </div>
 
