@@ -126,8 +126,7 @@ export function About() {
               <p className="font-light leading-relaxed text-cream-300/80">
                 Film production is my main focus. I also support film-shoot makeup departments with
                 continuity, scheduling and calm day-to-day organisation, and I&apos;m available for
-                artist, assistant, standby and assisting coordination roles. Bridal, private and
-                beauty makeup remain separate services.
+                artist, assistant, standby and assisting coordination roles.
               </p>
             </div>
 
