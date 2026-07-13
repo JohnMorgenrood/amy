@@ -121,7 +121,7 @@ export function About() {
                 I&apos;m ITEC certified, specialising in SFX, prosthetics, continuity-led character
                 work and camera-ready beauty. Credits include <span className="text-rose-200">The
                 Woman King</span>, <span className="text-rose-200">Recipes for Love and Murder
-                (S2)</span>, <span className="text-rose-200">King Shaka</span> and <span className="text-rose-200">American Monster (S7–9)</span>.
+                (S2)</span>, <span className="text-rose-200">Shaka Zulu</span> and <span className="text-rose-200">American Monster (S7–9)</span>.
               </p>
               <p className="font-light leading-relaxed text-cream-300/80">
                 Film production is my main focus. I also support film-shoot makeup departments with

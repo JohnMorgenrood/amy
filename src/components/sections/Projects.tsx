@@ -72,14 +72,14 @@ const featuredProjects = [
   },
   {
     id: 4,
-    title: 'Shaka iLembe',
+    title: 'Shaka Zulu',
     year: '2023-2024',
     type: 'TV Series',
     role: 'Makeup & SFX Artist',
-    description: 'Epic Mzansi Magic/Showmax production telling the story of the legendary Zulu king.',
-    image: 'https://image.tmdb.org/t/p/w780/unst24GN4ide77Sa0FWrp6mdVGC.jpg',
+    description: 'Historical screen production featuring Amy\'s professional makeup and special-effects work.',
+    image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1200&h=675&fit=crop',
     rating: null,
-    link: 'https://www.imdb.com/title/tt21996218/',
+    link: 'https://www.imdb.com/find/?q=Shaka%20Zulu',
   },
   {
     id: 5,
