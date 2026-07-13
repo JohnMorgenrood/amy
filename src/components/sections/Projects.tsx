@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { WatermarkOverlay } from '@/components/WatermarkOverlay'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { 
@@ -388,6 +389,38 @@ export function Projects() {
                 The project brought together the pace of commercial production, polished on-camera grooming and the calm attention to detail Amy brings to every set.
               </p>
             </div>
+          </div>
+          <div className="grid gap-px border-t border-gold-500/15 bg-gold-500/15 md:grid-cols-[0.72fr_1.28fr]">
+            <figure className="relative min-h-[420px] overflow-hidden bg-dark-950 sm:min-h-[500px] md:min-h-[430px]">
+              <Image
+                src="/assets/Kolisi & Amy Morgenrood.jpeg"
+                alt="Amy Morgenrood with Springbok captain Siya Kolisi"
+                fill
+                draggable={false}
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 36vw"
+              />
+              <WatermarkOverlay />
+              <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <figcaption className="absolute bottom-5 left-5 z-30 text-[10px] uppercase tracking-[0.22em] text-white/85">
+                Amy with Siya Kolisi
+              </figcaption>
+            </figure>
+            <figure className="relative min-h-[330px] overflow-hidden bg-dark-950 sm:min-h-[430px]">
+              <Image
+                src="/assets/Getting the Spring boks ready for the coca cola ad.jpeg"
+                alt="Amy Morgenrood preparing Springbok players for the Coca-Cola campaign"
+                fill
+                draggable={false}
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 64vw"
+              />
+              <WatermarkOverlay />
+              <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
+              <figcaption className="absolute bottom-5 left-5 z-30 text-[10px] uppercase tracking-[0.22em] text-white/85">
+                Behind the scenes · Camera-ready preparation
+              </figcaption>
+            </figure>
           </div>
         </motion.div>
 
