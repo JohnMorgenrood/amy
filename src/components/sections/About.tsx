@@ -18,20 +18,8 @@ const skills = [
   'SFX Makeup',
   'Prosthetics Application',
   'Continuity & On-Set Workflow',
-  'Film & Television',
-  'Beauty & Bridal',
-  'Private Makeup',
   'Period & Character Makeup',
   'Wig & Hair Styling',
-  'Body Painting',
-]
-
-const timeline = [
-  { year: '2016', event: 'Started professional makeup career' },
-  { year: '2018', event: 'Obtained ITEC International Qualification' },
-  { year: '2020', event: 'Joined Call a Crew roster' },
-  { year: '2022', event: 'Worked on "The Woman King"' },
-  { year: '2024', event: '50+ productions completed' },
 ]
 
 export function About() {
@@ -76,7 +64,7 @@ export function About() {
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-center">
+        <div className="grid gap-12 lg:grid-cols-[1.12fr_0.88fr] lg:items-start lg:gap-14">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -143,53 +131,9 @@ export function About() {
               </p>
             </div>
 
-            <div className="mt-6 rounded-[1.5rem] border border-gold-500/15 bg-dark-900/40 p-5 sm:p-6">
-              <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-3">
-                Best Fit For
-              </h4>
-              <p className="text-sm font-light leading-relaxed text-cream-300/75">
-                Production companies, agencies, coordinators and brands looking for a Cape Town
-                makeup artist who can handle TV commercials, on-set work, campaign shoots,
-                continuity-aware makeup and practical film-department coordination support without
-                overcomplicating the booking process.
-              </p>
-            </div>
-
-            <div className="mt-9">
-              <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-5">
-                Selected Credits
-              </h4>
-              <ul className="grid sm:grid-cols-2 gap-3 text-sm text-cream-400/80 font-light">
-                <li className="flex items-center gap-2">
-                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
-                  Blue Ice Africa - &quot;HELP&quot;
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
-                  Moonlighting - &quot;Alphas&quot;
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
-                  Film Afrika - &quot;King Shaka&quot;
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
-                  TriStar - &quot;The Woman King&quot;
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
-                  &quot;Recipes for Love and Murder&quot; S2
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1 h-1 bg-rose-400 rounded-full" />
-                  &quot;American Monster&quot; S7-9
-                </li>
-              </ul>
-            </div>
-
-            <div className="mt-10">
+            <div className="mt-8 rounded-[1.5rem] border border-gold-500/15 bg-dark-900/40 p-5 sm:p-6">
               <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-6">
-                Expertise
+                Core Expertise
               </h4>
               <div className="flex flex-wrap gap-3">
                 {skills.map((skill, idx) => (
@@ -207,27 +151,7 @@ export function About() {
               </div>
             </div>
 
-            <div className="mt-10">
-              <h4 className="text-xs tracking-[0.2em] uppercase text-gold-500/80 mb-6">Journey</h4>
-              <div className="space-y-4">
-                {timeline.map((item, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="flex items-center gap-6"
-                  >
-                    <span className="text-gold-400/80 text-xs tracking-wider w-12">{item.year}</span>
-                    <span className="w-px h-4 bg-gold-500/30" />
-                    <span className="text-cream-500/60 text-sm font-light">{item.event}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <motion.a
                 href="https://instagram.com/amyb_mup"
                 target="_blank"
