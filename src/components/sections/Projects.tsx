@@ -37,6 +37,17 @@ const featuredProjects = [
     link: '#',
   },
   {
+    id: 12,
+    title: 'The Invisible',
+    year: '2026',
+    type: 'TV Series',
+    role: 'Makeup & Hair / Department Support',
+    description: 'South African action-thriller series based on Deon Meyer’s Blood Safari, starring Abbie Cornish, Dougray Scott and Kim Engelbrecht.',
+    image: '/assets/Invisible Movie Thumb Nail.jpeg',
+    rating: null,
+    link: 'https://www.imdb.com/title/tt38682729/',
+  },
+  {
     id: 2,
     title: 'Alphas',
     year: '2024',
@@ -350,6 +361,34 @@ export function Projects() {
           >
             <ChevronRight className="w-5 h-5 text-cream-100" />
           </button>
+        </motion.div>
+
+        {/* Latest Commercial Work */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mt-16 overflow-hidden rounded-[1.75rem] border border-gold-500/15 bg-dark-900/45"
+        >
+          <div className="grid items-center lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="relative bg-black">
+              <video controls playsInline preload="metadata" controlsList="nodownload" disablePictureInPicture className="aspect-video w-full object-cover" aria-label="Coca-Cola campaign featuring Springbok rugby players">
+                <source src="/assets/Coca cola ad.mp4" type="video/mp4" />
+                Your browser does not support video playback.
+              </video>
+            </div>
+            <div className="p-7 sm:p-10 lg:p-12">
+              <p className="text-[10px] uppercase tracking-[0.28em] text-gold-400/80">Latest commercial work</p>
+              <h3 className="mt-4 font-display text-3xl font-light leading-tight text-cream-100 sm:text-4xl">Coca-Cola × Springbok talent</h3>
+              <p className="mt-5 font-light leading-relaxed text-cream-300/75">
+                A standout recent experience was preparing Siya Kolisi and fellow Springbok players for camera on a Coca-Cola campaign. Meeting some of South Africa&apos;s most recognised sporting talent—and helping them look screen-ready on set—was a genuine honour and an unforgettable production day.
+              </p>
+              <p className="mt-4 text-sm font-light leading-relaxed text-cream-400/60">
+                The project brought together the pace of commercial production, polished on-camera grooming and the calm attention to detail Amy brings to every set.
+              </p>
+            </div>
+          </div>
         </motion.div>
 
         {/* Additional Credits Table */}
