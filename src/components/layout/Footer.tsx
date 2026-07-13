@@ -39,8 +39,8 @@ const serviceLinks = [
   { name: 'Continuity & Standby', href: '/makeup-continuity-standby-artist-cape-town' },
   { name: 'International Productions', href: '/international-film-production-makeup-support-cape-town' },
   { name: 'SFX & Prosthetics', href: '/sfx-makeup-artist-cape-town' },
-  { name: 'Commercial & Editorial', href: '/film-tv-commercial-makeup-artist-cape-town' },
-  { name: 'Hair Styling', href: '/film-tv-commercial-makeup-artist-cape-town' },
+  { name: 'Commercial & Editorial', href: '/commercial-editorial-makeup-artist-cape-town' },
+  { name: 'Hair Styling', href: '/hair-stylist-cape-town' },
   { name: 'Private Makeup', href: '/private-makeup-artist-cape-town' },
   { name: 'Bridal Makeup', href: '/bridal-makeup-artist-cape-town' },
 ]

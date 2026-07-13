@@ -52,8 +52,8 @@ const services = [
     description: 'Reliable makeup support for agencies, campaigns, lookbooks, editorials, tests, e-commerce shoots and branded content teams.',
     features: ['Agency Friendly', 'Shoot Day Efficiency', 'Brand Consistency', 'Camera Ready Skin'],
     gradient: 'from-violet-500 to-purple-600',
-    href: '/film-tv-commercial-makeup-artist-cape-town',
-    cta: 'Explore Production Page',
+    href: '/commercial-editorial-makeup-artist-cape-town',
+    cta: 'Explore Commercial Page',
   },
   {
     id: 5,
@@ -72,8 +72,8 @@ const services = [
     description: 'Hair styling support for productions, editorials, bridal mornings and private appointments, including polished finishing and period styling.',
     features: ['Styling & Updos', 'Period Hair', 'Set Styling Support', 'Wig Application'],
     gradient: 'from-gold-400 to-amber-500',
-    href: '/film-tv-commercial-makeup-artist-cape-town',
-    cta: 'See Production Services',
+    href: '/hair-stylist-cape-town',
+    cta: 'Explore Hair Styling',
   },
 ]
 

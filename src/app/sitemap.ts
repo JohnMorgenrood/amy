@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.amymup.shop'
-  const lastModified = new Date('2026-07-12')
+  const lastModified = new Date('2026-07-13')
 
   return [
     {
@@ -40,6 +40,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'weekly',
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/commercial-editorial-makeup-artist-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.86,
+    },
+    {
+      url: `${baseUrl}/hair-stylist-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.84,
     },
     {
       url: `${baseUrl}/private-makeup-artist-cape-town`,
