@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { WatermarkOverlay } from '@/components/WatermarkOverlay'
 import Link from 'next/link'
 
 export function WelcomePopup() {
@@ -41,6 +42,7 @@ export function WelcomePopup() {
               className="object-cover"
               priority
             />
+            <WatermarkOverlay compact />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
             <div className="absolute bottom-6 left-6">
               <p className="text-[#D4AF37]/80 text-[10px] tracking-[0.35em] uppercase">Welcome</p>
@@ -63,6 +65,7 @@ export function WelcomePopup() {
                     fill
                     className="object-cover"
                   />
+                  <WatermarkOverlay compact />
                 </div>
                 <div>
                   <p className="text-white text-lg font-semibold">Would you like to work with Amy?</p>

@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
+import { WatermarkOverlay } from '@/components/WatermarkOverlay'
 import { Award, Calendar, Film, Star, Instagram } from 'lucide-react'
 
 const achievements = [
@@ -87,15 +88,18 @@ export function About() {
               <div className="grid grid-cols-5 gap-3 sm:gap-4">
                 <div className="relative col-span-3 aspect-[3/5] overflow-hidden rounded-[1.5rem] border border-gold-500/20">
                   <Image src="/assets/about/amy-morgenrood-watermarked-hero.png" alt="Amy Morgenrood - Cape Town makeup artist" fill draggable={false} className="object-cover" sizes="(max-width: 1024px) 58vw, 28vw" />
+                  <WatermarkOverlay compact />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-950/45 via-transparent to-transparent" />
                 </div>
                 <div className="col-span-2 grid gap-3 sm:gap-4">
                   <div className="relative overflow-hidden rounded-[1.25rem] border border-gold-500/15">
                     <Image src="/assets/portfolio/1623238044587_20180608_131019.jpg" alt="Cape Town film production set" fill draggable={false} className="object-cover" sizes="(max-width: 1024px) 36vw, 18vw" />
+                    <WatermarkOverlay compact />
                     <span className="absolute bottom-3 left-3 text-[9px] uppercase tracking-[0.22em] text-cream-100/80">On set</span>
                   </div>
                   <div className="relative overflow-hidden rounded-[1.25rem] border border-gold-500/15">
                     <Image src="/assets/portfolio/FB_IMG_1487892884148.jpg" alt="Character makeup by Amy Morgenrood" fill draggable={false} className="object-cover" sizes="(max-width: 1024px) 36vw, 18vw" />
+                    <WatermarkOverlay compact />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark-950/45 to-transparent" />
                     <span className="absolute bottom-3 left-3 text-[9px] uppercase tracking-[0.22em] text-cream-100/80">Character work</span>
                   </div>

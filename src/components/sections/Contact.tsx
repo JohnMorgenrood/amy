@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { trackLeadClick } from '@/components/tracking/TrackedContactLink'
 import { getLeadAttributionForSubmit } from '@/components/tracking/AttributionCapture'
+import { WatermarkOverlay } from '@/components/WatermarkOverlay'
 
 const contactInfo = [
   {
@@ -317,6 +318,7 @@ export function Contact() {
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                           sizes="(max-width: 768px) 30vw, 120px"
                         />
+                        <WatermarkOverlay compact />
                         <span className="absolute inset-0 bg-gradient-to-t from-dark-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       </a>
                     ))}

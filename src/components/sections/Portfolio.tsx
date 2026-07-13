@@ -5,6 +5,7 @@ import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { WatermarkOverlay } from '@/components/WatermarkOverlay'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectCoverflow, FreeMode, Navigation, Pagination } from 'swiper/modules'
 import { ExternalLink, Eye, Heart, ChevronLeft, ChevronRight, ArrowRight, LockKeyhole } from 'lucide-react'
@@ -378,6 +379,7 @@ export function Portfolio() {
                     className="object-cover transition-transform duration-1000 group-hover:scale-110 no-select"
                     onContextMenu={(e) => e.preventDefault()}
                   />
+                  <WatermarkOverlay />
                   
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/50 to-transparent opacity-70 group-hover:opacity-95 transition-opacity duration-500" />
