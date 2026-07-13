@@ -28,14 +28,14 @@ import 'swiper/css/pagination'
 const featuredProjects = [
   {
     id: 1,
-    title: 'HELP',
-    year: '2025',
+    title: 'Strung',
+    year: '2026',
     type: 'Feature Film',
     role: 'Makeup & Hair Coordinator / Key Makeup & SFX Artist',
-    description: 'Blue Ice Africa production - Lead coordinator managing hair and makeup department with special effects expertise.',
-    image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&h=900&fit=crop',
+    description: 'Psychological thriller filmed in Cape Town, formerly titled Help, with makeup department coordination and key makeup and SFX work.',
+    image: '/assets/strung-2026-trailer.jpeg',
     rating: null,
-    link: '#',
+    link: 'https://www.imdb.com/title/tt15532464/',
   },
   {
     id: 12,
