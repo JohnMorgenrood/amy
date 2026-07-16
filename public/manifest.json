@@ -1,7 +1,7 @@
 {
   "name": "Amy Morgenrood - Makeup Artist",
-  "short_name": "Makeup by Amy",
-  "description": "Professional makeup artist in Cape Town specializing in Film, SFX, Beauty, Airbrush & Hair Styling",
+  "short_name": "Amy MUP",
+  "description": "Cape Town makeup and hair artist for film, television, commercials, SFX, editorials and private clients.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
@@ -9,10 +9,16 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/assets/thumbnails/logo-design-for-amy-mup-makeup-brand-elegant-and-m.jpeg",
-      "sizes": "810x1440",
-      "type": "image/jpeg",
-      "purpose": "maskable any"
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
   ],
   "categories": ["beauty", "lifestyle", "business"],

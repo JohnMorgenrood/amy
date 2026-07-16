@@ -113,9 +113,12 @@ export const metadata: Metadata = {
     images: [socialImagePath],
   },
   icons: {
-    icon: [{ url: brandImagePath, type: 'image/jpeg' }],
-    shortcut: [brandImagePath],
-    apple: [{ url: brandImagePath, type: 'image/jpeg' }],
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml', sizes: 'any' },
+      { url: '/favicon-small.svg', type: 'image/svg+xml', sizes: 'any' },
+    ],
+    shortcut: ['/favicon.svg'],
+    apple: [{ url: '/apple-touch-icon.svg', type: 'image/svg+xml', sizes: '180x180' }],
   },
   robots: {
     index: true,
@@ -143,10 +146,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${dancingScript.variable}`}>
+    <html lang="en-ZA" className={`${inter.variable} ${spaceGrotesk.variable} ${dancingScript.variable}`}>
       <head>
-        <link rel="icon" href={brandImagePath} type="image/jpeg" />
-        <link rel="apple-touch-icon" href={brandImagePath} />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0a0a0a" />
         <meta name="geo.region" content="ZA-WC" />

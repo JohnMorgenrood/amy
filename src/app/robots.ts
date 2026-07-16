@@ -8,5 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: ['/api/', '/admin/', '/shop', '/checkout', '/login', '/account'],
     },
     sitemap: 'https://www.amymup.shop/sitemap.xml',
+    host: 'https://www.amymup.shop',
   }
 }
