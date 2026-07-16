@@ -13,11 +13,10 @@ const tiktokUrl = 'https://www.tiktok.com/@amyb_mup?_r=1&_t=ZS-95umNruEh0q'
 
 const navLinks = [
   { name: 'Home', href: '/' },
-  { name: 'Production', href: '/film-tv-commercial-makeup-artist-cape-town' },
-  { name: 'Portfolio', href: '/#portfolio' },
-  { name: 'Services', href: '/#services' },
-  { name: 'Bridal', href: '/bridal-makeup-artist-cape-town' },
+  { name: 'Selected Work', href: '/#portfolio' },
+  { name: 'Film & TV', href: '/film-tv-commercial-makeup-artist-cape-town' },
   { name: 'Journal', href: '/blog' },
+  { name: 'Expertise', href: '/#services' },
   { name: 'About', href: '/#about' },
   { name: 'Contact', href: '/#contact' },
 ]
