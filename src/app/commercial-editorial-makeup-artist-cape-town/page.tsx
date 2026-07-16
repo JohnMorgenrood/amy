@@ -5,7 +5,7 @@ import { ServiceLandingPage } from '@/components/seo/ServiceLandingPage'
 const pageUrl = 'https://www.amymup.shop/commercial-editorial-makeup-artist-cape-town'
 const faqs = [
   { question: 'Does Amy work with agencies and production companies?', answer: 'Yes. Amy is available for agency bookings, commercial productions, branded content, campaigns, lookbooks and editorial shoots in Cape Town.' },
-  { question: 'Can makeup be adapted for HD and 4K camera work?', answer: 'Yes. Product choice, skin preparation and finishing are adapted to the lighting, camera format, creative direction and expected shooting conditions.' },
+  { question: 'Can makeup be adapted for high-resolution camera work?', answer: 'Yes. Product choice, skin preparation and finishing are adapted to the camera format, lenses, lighting, creative direction and expected shooting conditions.' },
   { question: 'Is Amy available for e-commerce and content days?', answer: 'Yes. Amy can support efficient e-commerce shoots, campaign content days and multiple-look schedules where consistency and fast changes matter.' },
   { question: 'Can hair styling be included?', answer: 'Yes. Makeup and hair support can be discussed together depending on the brief, talent numbers, schedule and complexity of the required looks.' },
 ]
@@ -39,7 +39,7 @@ export default function CommercialEditorialPage() {
       { title: 'Content and test days', description: 'Polished skin and adaptable looks for portfolios, agency tests, social campaigns and creator content.' },
     ]}
     services={[
-      { title: 'Camera-ready beauty makeup', description: 'Skin preparation and refined makeup that reads naturally in person while remaining polished under HD and 4K cameras.' },
+      { title: 'Camera-ready beauty makeup', description: 'Skin preparation and refined makeup designed to read naturally in person and remain polished under modern high-resolution cinema and stills cameras.' },
       { title: 'Brand and campaign consistency', description: 'Repeatable makeup choices that stay aligned across talent, setups, deliverables and consecutive shoot days.' },
       { title: 'Editorial and creative looks', description: 'From clean beauty to more directional concepts, developed in collaboration with the wider creative team.' },
       { title: 'On-set maintenance', description: 'Touch-ups, shine control, quick changes and continuity-aware support throughout the working day.' },

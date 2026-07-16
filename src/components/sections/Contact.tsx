@@ -16,6 +16,7 @@ import {
   MessageCircle,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   CalendarDays,
 } from 'lucide-react'
 import { trackLeadClick } from '@/components/tracking/TrackedContactLink'
@@ -53,15 +54,14 @@ const facebookUrl = 'https://www.facebook.com/share/1CE4F4CZnP/'
 const tiktokUrl = 'https://www.tiktok.com/@amyb_mup?_r=1&_t=ZS-95umNruEh0q'
 
 const serviceTypes = [
-  'Private Makeup Appointment',
   'Film & TV Production',
-  'Film Shoot Makeup Department Coordination / Support',
-  'Continuity / Standby Makeup Support',
+  'Makeup Department Coordination',
   'SFX & Prosthetics',
-  'Agency / Commercial Booking',
-  'Beauty & Editorial',
-  'Bridal & Events',
+  'Commercial & Editorial',
   'Hair Styling',
+  'Private Makeup Appointment',
+  'Continuity & Standby Makeup',
+  'Bridal Makeup',
   'Other',
 ]
 
@@ -398,28 +398,24 @@ export function Contact() {
                     </div>
 
                     <div className="sm:col-span-2">
-                      <label className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
+                      <label htmlFor="service" className="block text-[10px] tracking-[0.15em] uppercase text-cream-300/80 mb-3">
                         Service Type *
                       </label>
-                      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                        {serviceTypes.map((service) => {
-                          const isActive = formData.service === service
-
-                          return (
-                            <button
-                              key={service}
-                              type="button"
-                              onClick={() => setFormData({ ...formData, service })}
-                              className={`rounded-2xl border px-4 py-4 text-left transition-all duration-300 ${
-                                isActive
-                                  ? 'border-gold-500/50 bg-gold-500/10 text-cream-100'
-                                  : 'border-gold-500/10 bg-dark-800/70 text-cream-300/75 hover:border-gold-500/30 hover:bg-dark-800'
-                              }`}
-                            >
-                              <span className="block text-sm font-light leading-relaxed">{service}</span>
-                            </button>
-                          )
-                        })}
+                      <div className="relative">
+                        <select
+                          id="service"
+                          name="service"
+                          required
+                          value={formData.service}
+                          onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                          className="w-full appearance-none rounded-2xl border border-gold-500/30 bg-dark-800/80 px-4 py-3.5 pr-12 font-light text-cream-100 outline-none transition-all focus:border-gold-500/60 focus:ring-2 focus:ring-gold-500/10"
+                        >
+                          <option value="" disabled>Select the service you need</option>
+                          {serviceTypes.map((service) => (
+                            <option key={service} value={service}>{service}</option>
+                          ))}
+                        </select>
+                        <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gold-400" aria-hidden="true" />
                       </div>
                     </div>
 

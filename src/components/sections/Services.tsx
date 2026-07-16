@@ -7,7 +7,7 @@ import {
   Film, 
   Palette, 
   Sparkles, 
-  Heart,
+  ClipboardList,
   Camera,
   Scissors,
   ArrowRight
@@ -20,13 +20,23 @@ const services = [
     icon: Film,
     title: 'Film & TV Makeup',
     description: 'Professional on-set makeup and hair support for feature films, television, streaming, commercials and branded content in Cape Town.',
-    features: ['Continuity Support', 'Call Sheet Ready', 'Cast & Crowd Work', 'HD / 4K Friendly'],
+    features: ['Continuity Support', 'Call Sheet Ready', 'Cast & Crowd Work', 'High-Resolution Camera Ready'],
     gradient: 'from-amber-500 to-orange-600',
     href: '/film-tv-commercial-makeup-artist-cape-town',
     cta: 'Explore Production Page',
   },
   {
     id: 2,
+    icon: ClipboardList,
+    title: 'Makeup Coordination',
+    description: 'Organised makeup department support for productions, connecting the creative brief, crew, schedule, continuity and daily set requirements.',
+    features: ['Crew & Schedule Support', 'Department Planning', 'Continuity Workflow', 'Production Communication'],
+    gradient: 'from-blue-500 to-cyan-600',
+    href: '/makeup-department-coordinator-cape-town',
+    cta: 'Explore Coordination',
+  },
+  {
+    id: 3,
     icon: Sparkles,
     title: 'SFX & Prosthetics',
     description: 'Special effects work for character transformations, prosthetics, wounds, ageing, horror looks and production-led concepts.',
@@ -34,16 +44,6 @@ const services = [
     gradient: 'from-red-500 to-rose-600',
     href: '/sfx-makeup-artist-cape-town',
     cta: 'Explore SFX Page',
-  },
-  {
-    id: 3,
-    icon: Palette,
-    title: 'Private Makeup',
-    description: 'Simple, polished makeup for private clients in Cape Town including birthdays, dinners, functions, shoots and special occasions.',
-    features: ['Natural Glam', 'Soft Glam', 'Photo Ready Finish', 'Mobile Appointments'],
-    gradient: 'from-pink-500 to-rose-500',
-    href: '/private-makeup-artist-cape-town',
-    cta: 'Explore Private Bookings',
   },
   {
     id: 4,
@@ -57,16 +57,6 @@ const services = [
   },
   {
     id: 5,
-    icon: Heart,
-    title: 'Bridal Makeup',
-    description: 'Wedding makeup designed to last beautifully in person and on camera, from trial sessions through to the full wedding morning.',
-    features: ['Bridal Trials', 'Wedding Day Makeup', 'Bridal Party Bookings', 'Long-Wear Finish'],
-    gradient: 'from-rose-400 to-pink-500',
-    href: '/bridal-makeup-artist-cape-town',
-    cta: 'Explore Bridal Page',
-  },
-  {
-    id: 6,
     icon: Scissors,
     title: 'Hair Styling',
     description: 'Hair styling support for productions, editorials, bridal mornings and private appointments, including polished finishing and period styling.',
@@ -74,6 +64,16 @@ const services = [
     gradient: 'from-gold-400 to-amber-500',
     href: '/hair-stylist-cape-town',
     cta: 'Explore Hair Styling',
+  },
+  {
+    id: 6,
+    icon: Palette,
+    title: 'Private Makeup',
+    description: 'Simple, polished makeup for private clients in Cape Town including birthdays, dinners, functions, shoots and special occasions.',
+    features: ['Natural Glam', 'Soft Glam', 'Photo Ready Finish', 'Mobile Appointments'],
+    gradient: 'from-pink-500 to-rose-500',
+    href: '/private-makeup-artist-cape-town',
+    cta: 'Explore Private Bookings',
   },
 ]
 
@@ -110,13 +110,13 @@ export function Services() {
             viewport={{ once: true }}
             className="inline-block text-gold-500/80 text-xs tracking-[0.3em] uppercase mb-6"
           >
-            What I Do
+            Production & Creative Expertise
           </motion.span>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-cream-100 mb-6">
-            Makeup Services in Cape Town
+            More than makeup in the chair
           </h2>
           <p className="text-cream-300/80 text-lg max-w-[42rem] mx-auto font-light leading-relaxed">
-            Clear service options for productions, agencies, weddings, editorials and private clients. Every booking is built around the job, location and schedule.
+            Specialist artistry and dependable department support for film, television, commercials, campaigns and private clients. Every booking is shaped around the creative brief, crew and schedule.
           </p>
         </motion.div>
 
