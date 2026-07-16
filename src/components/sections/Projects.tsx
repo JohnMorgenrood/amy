@@ -388,6 +388,12 @@ export function Projects() {
               <p className="mt-4 text-sm font-light leading-relaxed text-cream-400/60">
                 The project brought together the pace of commercial production, polished on-camera grooming and the calm attention to detail Amy brings to every set.
               </p>
+              <Link
+                href="/blog/coca-cola-springbok-rugby-commercial-makeup"
+                className="mt-7 inline-flex items-center gap-2 border-b border-gold-500/40 pb-2 text-[10px] uppercase tracking-[0.2em] text-gold-300 transition-colors hover:text-cream-100"
+              >
+                Read the behind-the-scenes story <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </div>
           <div className="grid gap-px border-t border-gold-500/15 bg-gold-500/15 md:grid-cols-[0.72fr_1.28fr]">

@@ -18,14 +18,19 @@ export default function BlogPage() {
         <p className="mt-7 max-w-2xl text-lg leading-8 text-cream-300/70">Selected commercial and editorial work by Cape Town makeup artist Amy Morgenrood—shared through the practical decisions, collaboration and small details that make an image work.</p>
       </header>
       <section aria-label="Featured makeup stories"><BlogStorySlider /></section>
-      <section className="mx-auto grid max-w-7xl gap-px bg-gold-500/15 px-6 py-24 sm:px-10 md:grid-cols-2 lg:px-16">
+      <section className="mx-auto grid max-w-7xl gap-px bg-gold-500/15 px-6 py-24 sm:px-10 md:grid-cols-3 lg:px-16">
         <Link href="/blog/corona-100-years-of-living-commercial" className="group bg-dark-900 p-8 sm:p-12">
           <span className="text-[10px] uppercase tracking-[0.25em] text-gold-400">01 · Commercial</span>
           <h2 className="mt-5 font-display text-3xl font-light text-cream-50 group-hover:text-gold-300">Corona: 100 Years of Living</h2>
           <p className="mt-4 leading-7 text-cream-300/65">Screen-ready restraint, continuity and production thinking for a story-led commercial.</p>
         </Link>
+        <Link href="/blog/coca-cola-springbok-rugby-commercial-makeup" className="group bg-dark-900 p-8 sm:p-12">
+          <span className="text-[10px] uppercase tracking-[0.25em] text-gold-400">02 · Sports commercial</span>
+          <h2 className="mt-5 font-display text-3xl font-light text-cream-50 group-hover:text-gold-300">Coca-Cola × Springbok Talent</h2>
+          <p className="mt-4 leading-7 text-cream-300/65">Camera-ready grooming for Siya Kolisi and fellow Springbok players on a commercial set.</p>
+        </Link>
         <Link href="/blog/hunter-kennedy-fashion-shoot-body-painting" className="group bg-dark-900 p-8 sm:p-12">
-          <span className="text-[10px] uppercase tracking-[0.25em] text-gold-400">02 · Fashion & body art</span>
+          <span className="text-[10px] uppercase tracking-[0.25em] text-gold-400">03 · Fashion & body art</span>
           <h2 className="mt-5 font-display text-3xl font-light text-cream-50 group-hover:text-gold-300">The Hunter Kennedy Shoot</h2>
           <p className="mt-4 leading-7 text-cream-300/65">A hand-painted logo becomes part of the styling, made to read clearly on camera.</p>
         </Link>

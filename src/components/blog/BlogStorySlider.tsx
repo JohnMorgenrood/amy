@@ -12,10 +12,21 @@ import 'swiper/css/pagination'
 const stories = [
   {
     type: 'video' as const,
+    video: '/assets/Makeup blog/Corona ad.mp4',
+    videoLabel: 'Corona 100 Years of Living commercial',
     eyebrow: 'Commercial makeup · On-set craft',
     title: 'Corona: 100 Years of Living',
     description: 'A closer look at the makeup discipline and production awareness behind a cinematic beer commercial.',
     href: '/blog/corona-100-years-of-living-commercial',
+  },
+  {
+    type: 'video' as const,
+    video: '/assets/Coca cola ad.mp4',
+    videoLabel: 'Coca-Cola commercial featuring Springbok rugby players',
+    eyebrow: 'Sports commercial · Men’s grooming',
+    title: 'Coca-Cola × Springbok Talent',
+    description: 'Preparing Siya Kolisi and fellow Springbok players for camera on a fast-moving commercial set.',
+    href: '/blog/coca-cola-springbok-rugby-commercial-makeup',
   },
   {
     type: 'image' as const,
@@ -51,8 +62,8 @@ export function BlogStorySlider() {
         <SwiperSlide key={`${story.title}-${index}`}>
           <article className="relative min-h-[620px] overflow-hidden bg-dark-800 md:min-h-[680px]">
             {story.type === 'video' ? (
-              <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted loop playsInline preload="metadata" aria-label="Corona 100 Years of Living commercial">
-                <source src="/assets/Makeup blog/Corona ad.mp4" type="video/mp4" />
+              <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted loop playsInline preload="metadata" aria-label={story.videoLabel}>
+                <source src={story.video} type="video/mp4" />
               </video>
             ) : (
               <Image src={story.image} alt={story.alt} fill priority={index === 1} sizes="100vw" className="object-cover" />
