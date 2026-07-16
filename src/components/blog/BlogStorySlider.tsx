@@ -29,6 +29,15 @@ const stories = [
     href: '/blog/coca-cola-springbok-rugby-commercial-makeup',
   },
   {
+    type: 'video' as const,
+    video: '/assets/portfolio/pep_southafrica_20250204_2.mp4',
+    videoLabel: 'PEP South Africa Valentines commercial',
+    eyebrow: 'Retail campaign · Makeup & hair',
+    title: 'PEP South Africa: Valentines',
+    description: 'Fresh, relatable beauty and coordinated hair for a warm, people-first South African retail campaign.',
+    href: '/blog/pep-south-africa-valentines-commercial-makeup-hair',
+  },
+  {
     type: 'image' as const,
     image: '/assets/Makeup blog/hunter kennedy 1.jpeg',
     alt: 'Hunter Kennedy fashion shoot with hand-painted logo body art',

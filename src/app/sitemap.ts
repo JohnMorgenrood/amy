@@ -108,6 +108,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.72,
     },
     {
+      url: `${baseUrl}/blog/pep-south-africa-valentines-commercial-makeup-hair`,
+      lastModified,
+      changeFrequency: 'yearly',
+      priority: 0.72,
+    },
+    {
       url: `${baseUrl}/blog/hunter-kennedy-fashion-shoot-body-painting`,
       lastModified,
       changeFrequency: 'yearly',
