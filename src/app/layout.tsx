@@ -41,10 +41,10 @@ const dancingScript = Dancing_Script({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.amymup.shop'),
   title: {
-    default: 'Amy Morgenrood | Cape Town Makeup Artist for Film, Private Clients and Bridal',
+    default: 'Amy Morgenrood | Film & Commercial Makeup Artist Cape Town',
     template: '%s | Amy Morgenrood - Cape Town Makeup Artist'
   },
-  description: 'Amy Morgenrood is a Cape Town makeup and hair artist offering film and TV makeup, SFX, continuity, standby and makeup department coordination support, plus bridal and private bookings.',
+  description: 'Amy Morgenrood is a Cape Town makeup and hair artist for film, television, commercials, SFX, continuity, standby and makeup department coordination.',
   keywords: [
     'makeup artist cape town',
     'cape town makeup artist',
@@ -60,8 +60,6 @@ export const metadata: Metadata = {
     'beauty makeup cape town',
     'airbrush makeup cape town',
     'hair styling cape town',
-    'wedding makeup artist cape town',
-    'bridal makeup cape town',
     'commercial makeup artist south africa',
     'onset makeup artist',
     'Amy Morgenrood',
@@ -72,7 +70,6 @@ export const metadata: Metadata = {
     'prosthetic makeup artist',
     'special effects makeup cape town',
     'sfx makeup cape town',
-    'bridal makeup western cape',
     'editorial makeup artist cape town',
     'fashion makeup artist south africa',
     'ITEC qualified makeup artist',
@@ -96,7 +93,7 @@ export const metadata: Metadata = {
     url: 'https://www.amymup.shop',
     siteName: 'Amy Morgenrood - Cape Town Makeup Artist',
     title: 'Amy Morgenrood | Cape Town Makeup Artist',
-    description: 'Cape Town makeup artist for film, TV, SFX, bridal, editorials, agencies and private bookings.',
+    description: 'Cape Town makeup artist for film, television, commercials, SFX, editorials, agencies and production support.',
     images: [
       {
         url: socialImagePath,
@@ -109,7 +106,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Amy Morgenrood | Cape Town Makeup Artist',
-    description: 'Cape Town makeup artist for film, SFX, bridal, editorial and private bookings.',
+    description: 'Cape Town makeup artist for film, television, commercials, SFX, editorial and production support.',
     images: [socialImagePath],
   },
   icons: {
@@ -165,7 +162,7 @@ export default function RootLayout({
                   '@id': 'https://www.amymup.shop/#business',
                   name: 'Amy Morgenrood - Cape Town Makeup Artist',
                   alternateName: 'Amy Morgenrood Makeup Artist',
-                  description: 'Cape Town makeup artist offering film and TV makeup, SFX, prosthetics, bridal makeup, beauty makeup, private appointments and hair styling.',
+                  description: 'Cape Town makeup artist offering film and television makeup, commercial makeup, SFX, prosthetics, continuity, coordination and hair styling.',
                   url: 'https://www.amymup.shop',
                   telephone: '+27847017012',
                   image: `https://www.amymup.shop${socialImagePath}`,
@@ -226,8 +223,8 @@ export default function RootLayout({
                         '@type': 'Offer',
                         itemOffered: {
                           '@type': 'Service',
-                          name: 'Private, Bridal & Event Makeup',
-                          description: 'Professional makeup for weddings, private clients, photo shoots and events'
+                          name: 'Private, Portrait & Event Makeup',
+                          description: 'Professional makeup for private clients, actor portfolios, photo shoots and events'
                         }
                       },
                       {
@@ -248,7 +245,7 @@ export default function RootLayout({
                   givenName: 'Amy',
                   familyName: 'Morgenrood',
                   jobTitle: 'Makeup Artist',
-                  description: 'Cape Town makeup artist specializing in film, SFX, prosthetics, private makeup, bridal and beauty makeup.',
+                  description: 'Cape Town makeup artist specializing in film, television, commercials, SFX, prosthetics, continuity and camera-ready beauty.',
                   url: 'https://www.amymup.shop',
                   image: `https://www.amymup.shop${socialImagePath}`,
                   address: {
@@ -277,7 +274,7 @@ export default function RootLayout({
                     'Television Makeup',
                     'Special Effects Makeup',
                     'Prosthetic Makeup',
-                    'Bridal Makeup',
+                    'Actor Portfolio Makeup',
                     'Private Makeup',
                     'Commercial Makeup',
                     'Beauty Makeup',

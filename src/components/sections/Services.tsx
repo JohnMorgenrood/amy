@@ -59,7 +59,7 @@ const services = [
     id: 5,
     icon: Scissors,
     title: 'Hair Styling',
-    description: 'Hair styling support for productions, editorials, bridal mornings and private appointments, including polished finishing and period styling.',
+    description: 'Hair styling support for productions, commercials, editorials and actor portfolios, including polished finishing, period styling and wig application.',
     features: ['Styling & Updos', 'Period Hair', 'Set Styling Support', 'Wig Application'],
     gradient: 'from-gold-400 to-amber-500',
     href: '/hair-stylist-cape-town',
@@ -75,6 +75,15 @@ const services = [
     href: '/private-makeup-artist-cape-town',
     cta: 'Explore Private Bookings',
   },
+]
+
+const specialistServices = [
+  { title: 'TV Commercial Makeup', href: '/makeup-artist-tv-commercials-cape-town' },
+  { title: 'Production Hair & Makeup Teams', href: '/production-hair-makeup-team-cape-town' },
+  { title: 'Period & Character Makeup', href: '/period-character-makeup-artist-cape-town' },
+  { title: 'Body Painting', href: '/body-painting-artist-cape-town' },
+  { title: 'Actor Headshot Makeup', href: '/actor-headshot-makeup-cape-town' },
+  { title: 'Wardrobe, Hair & Makeup Support', href: '/wardrobe-hair-makeup-production-support-cape-town' },
 ]
 
 export function Services() {
@@ -196,6 +205,17 @@ export function Services() {
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-12 border-t border-gold-500/10 pt-10">
+          <p className="mb-6 text-center text-[10px] uppercase tracking-[0.28em] text-gold-400/80">Specialist production services</p>
+          <div className="grid gap-px overflow-hidden rounded-2xl bg-gold-500/10 sm:grid-cols-2 lg:grid-cols-3">
+            {specialistServices.map((service) => (
+              <Link key={service.href} href={service.href} className="group flex items-center justify-between bg-dark-900/90 px-5 py-5 text-sm text-cream-200 transition-colors hover:bg-gold-500/10 hover:text-gold-300">
+                <span>{service.title}</span><ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            ))}
+          </div>
         </div>
 
         {/* Bottom CTA */}

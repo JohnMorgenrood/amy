@@ -28,15 +28,6 @@ const testimonials = [
     rating: 5,
   },
   {
-    id: 3,
-    name: 'Annelie Botha',
-    role: 'Bride',
-    company: 'Wedding Client',
-    content:
-      'Amy made the whole morning easy. My makeup still looked beautiful hours later and felt like me, just more polished and photo-ready.',
-    rating: 5,
-  },
-  {
     id: 4,
     name: 'Thabo Mokoena',
     role: 'Music Artist',
@@ -84,8 +75,8 @@ export function Testimonials() {
             What Clients Say
           </h2>
           <p className="mx-auto max-w-2xl text-lg font-light text-cream-300/80">
-            Feedback from production teams, private clients and bridal bookings who have worked
-            with Amy in Cape Town.
+            Feedback from production teams, directors, performers and commercial creatives who
+            have worked with Amy in Cape Town.
           </p>
         </motion.div>
 

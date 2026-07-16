@@ -25,13 +25,13 @@ export default function Home() {
 }
 
 export const metadata = {
-  title: 'Amy Morgenrood | Makeup Artist Cape Town for Film, Private Clients and Bridal',
+  title: 'Amy Morgenrood | Film & Commercial Makeup Artist Cape Town',
   description:
-    'Cape Town makeup and hair artist Amy Morgenrood offers film and TV makeup, SFX, continuity, standby and department coordination support, plus bridal and private bookings.',
+    'Cape Town makeup and hair artist Amy Morgenrood for film, television, commercials, SFX, continuity, standby and makeup department coordination.',
   openGraph: {
     title: 'Amy Morgenrood | Cape Town Makeup Artist',
     description:
-      'Cape Town makeup artist for film productions, continuity, standby and makeup department support, agencies, bridal bookings and private appointments.',
+      'Cape Town makeup artist for film productions, commercials, continuity, standby, SFX and makeup department support.',
     images: [
       {
         url: socialImagePath,
@@ -43,7 +43,7 @@ export const metadata = {
   },
   twitter: {
     title: 'Amy Morgenrood | Cape Town Makeup Artist',
-    description: 'Cape Town makeup artist for film, SFX, bridal, editorial and private bookings.',
+    description: 'Cape Town makeup artist for film, television, commercials, SFX, editorial and production support.',
     images: [socialImagePath],
   },
 }

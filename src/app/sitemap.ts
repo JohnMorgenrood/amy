@@ -90,6 +90,48 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/production-credits`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/makeup-artist-tv-commercials-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/production-hair-makeup-team-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.86,
+    },
+    {
+      url: `${baseUrl}/period-character-makeup-artist-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.86,
+    },
+    {
+      url: `${baseUrl}/body-painting-artist-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.84,
+    },
+    {
+      url: `${baseUrl}/actor-headshot-makeup-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.82,
+    },
+    {
+      url: `${baseUrl}/wardrobe-hair-makeup-production-support-cape-town`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/blog`,
       lastModified,
       changeFrequency: 'monthly',

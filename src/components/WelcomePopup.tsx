@@ -61,7 +61,7 @@ export function WelcomePopup() {
                 <div className="relative h-20 w-20 overflow-hidden rounded-2xl border border-[#D4AF37]/30">
                   <Image
                     src="/assets/portfolio/IMG_20240713_075631_238.jpg"
-                    alt="Bridal glamour look"
+                    alt="Camera-ready beauty makeup by Amy Morgenrood"
                     fill
                     className="object-cover"
                   />

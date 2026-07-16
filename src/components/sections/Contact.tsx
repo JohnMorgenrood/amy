@@ -68,7 +68,7 @@ const serviceTypes = [
 const instaFeed = [
   { src: '/assets/portfolio/IMG_20240713_075631_187.jpg', alt: 'Beauty makeup post' },
   { src: '/assets/portfolio/FB_IMG_1487892884148.jpg', alt: 'SFX makeup post' },
-  { src: '/assets/portfolio/IMG_20240713_075631_238.jpg', alt: 'Bridal makeup post' },
+  { src: '/assets/portfolio/IMG_20240713_075631_238.jpg', alt: 'Polished beauty makeup post' },
   { src: '/assets/portfolio/IMG_20240713_080002_348.jpg', alt: 'Glamour makeup post' },
   { src: '/assets/portfolio/FB_IMG_1487892965084.jpg', alt: 'Special effects makeup post' },
   { src: '/assets/portfolio/IMG_20240713_080002_434.jpg', alt: 'Editorial makeup post' },
@@ -165,7 +165,7 @@ export function Contact() {
             Book Amy
           </h2>
           <p className="text-cream-300/80 text-lg max-w-[42rem] mx-auto font-light leading-relaxed">
-            Send a private booking, bridal enquiry, film brief or agency request. The form is
+            Send a film brief, commercial enquiry, agency request or private booking. The form is
             kept simple so you can get a fast reply.
           </p>
         </motion.div>

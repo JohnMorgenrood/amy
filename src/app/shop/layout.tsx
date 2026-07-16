@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Amy Morgenrood | Cape Town Makeup Artist',
-  description: 'Amy Morgenrood is a Cape Town makeup artist for film, SFX, private, bridal and commercial bookings.',
+  description: 'Amy Morgenrood is a Cape Town makeup artist for film, television, SFX, private and commercial bookings.',
   robots: {
     index: false,
     follow: true,

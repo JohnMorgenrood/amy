@@ -31,13 +31,6 @@ const portfolioItems = [
     likes: 456,
   },
   {
-    id: 3,
-    title: 'Bridal Beauty',
-    category: 'Bridal',
-    image: '/assets/projects/Weddings/professional-wedding-makeup-portfolio-shots-for-an.jpeg',
-    likes: 312,
-  },
-  {
     id: 4,
     title: 'Film Production',
     category: 'Film',
@@ -191,7 +184,6 @@ const categories = [
   { name: 'Beauty', slug: 'beauty' },
   { name: 'SFX', slug: 'sfx' },
   { name: 'Film', slug: 'film' },
-  { name: 'Bridal', slug: 'bridal' },
   { name: 'Editorial', slug: 'editorial' },
 ]
 
@@ -253,7 +245,7 @@ export function Portfolio() {
               Featured Work
             </h2>
             <p className="text-cream-300/80 text-lg max-w-[42rem] mx-auto font-light leading-relaxed">
-              A fast look at Amy&apos;s work across beauty, bridal, film, editorial and special effects so clients can see style and range immediately.
+              A fast look at Amy&apos;s work across film, beauty, editorial and special effects so production teams can see her range immediately.
             </p>
           </motion.div>
 

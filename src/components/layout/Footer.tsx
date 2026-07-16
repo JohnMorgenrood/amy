@@ -26,8 +26,8 @@ const navigationLinks = [
   { name: 'Home', href: '/' },
   { name: 'Production Makeup', href: '/film-tv-commercial-makeup-artist-cape-town' },
   { name: 'Private Makeup', href: '/private-makeup-artist-cape-town' },
-  { name: 'Bridal Makeup', href: '/bridal-makeup-artist-cape-town' },
   { name: 'Journal', href: '/blog' },
+  { name: 'Production Credits', href: '/production-credits' },
   { name: 'Service Areas', href: '/service-areas' },
   { name: 'Portfolio', href: '/#portfolio' },
   { name: 'About', href: '/#about' },
@@ -42,15 +42,17 @@ const serviceLinks = [
   { name: 'SFX & Prosthetics', href: '/sfx-makeup-artist-cape-town' },
   { name: 'Commercial & Editorial', href: '/commercial-editorial-makeup-artist-cape-town' },
   { name: 'Hair Styling', href: '/hair-stylist-cape-town' },
+  { name: 'TV Commercial Makeup', href: '/makeup-artist-tv-commercials-cape-town' },
+  { name: 'Body Painting', href: '/body-painting-artist-cape-town' },
+  { name: 'Production Teams', href: '/production-hair-makeup-team-cape-town' },
   { name: 'Private Makeup', href: '/private-makeup-artist-cape-town' },
-  { name: 'Bridal Makeup', href: '/bridal-makeup-artist-cape-town' },
 ]
 
 export function SiteFooter() {
   const [copied, setCopied] = useState(false)
   const siteUrl = 'https://www.amymup.shop'
   const shareText =
-    'Take a look at Amy MUP - Cape Town makeup artist for film, bridal, private and production bookings.'
+    'Take a look at Amy MUP - Cape Town makeup artist for film, television, commercials, SFX and production support.'
   const whatsappShareHref = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${siteUrl}`)}`
 
   const scrollToTop = () => {
@@ -111,8 +113,8 @@ export function SiteFooter() {
               </div>
             </Link>
             <p className="mb-8 text-sm font-light leading-relaxed text-cream-300/70">
-              Makeup artist in Cape Town for film, TV, SFX, private appointments, bridal bookings,
-              editorial work and commercial productions.
+              Makeup artist in Cape Town for film, television, SFX, commercials, editorial work,
+              continuity and production support.
             </p>
             <Link
               href="/#contact"
