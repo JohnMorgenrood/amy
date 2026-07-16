@@ -27,6 +27,7 @@ const navigationLinks = [
   { name: 'Production Makeup', href: '/film-tv-commercial-makeup-artist-cape-town' },
   { name: 'Private Makeup', href: '/private-makeup-artist-cape-town' },
   { name: 'Bridal Makeup', href: '/bridal-makeup-artist-cape-town' },
+  { name: 'Journal', href: '/blog' },
   { name: 'Service Areas', href: '/service-areas' },
   { name: 'Portfolio', href: '/#portfolio' },
   { name: 'About', href: '/#about' },

@@ -17,6 +17,7 @@ const navLinks = [
   { name: 'Portfolio', href: '/#portfolio' },
   { name: 'Services', href: '/#services' },
   { name: 'Bridal', href: '/bridal-makeup-artist-cape-town' },
+  { name: 'Journal', href: '/blog' },
   { name: 'About', href: '/#about' },
   { name: 'Contact', href: '/#contact' },
 ]
