@@ -18,35 +18,39 @@ import 'swiper/css/pagination'
 const portfolioItems = [
   {
     id: 1,
-    title: 'Beauty Makeup',
+    title: 'Commercial Beauty',
     category: 'Beauty',
-    image: '/assets/portfolio/IMG_20240713_075631_187.jpg',
+    image: '/assets/featured-work/commercial-beauty-concept.png',
+    concept: true,
     likes: 234,
   },
   {
     id: 2,
     title: 'SFX Prosthetics',
     category: 'SFX',
-    image: '/assets/portfolio/FB_IMG_1487892884148.jpg',
+    image: '/assets/featured-work/sfx-prosthetics-concept.png',
+    concept: true,
     likes: 456,
   },
   {
     id: 4,
     title: 'Film Production',
     category: 'Film',
-    image: '/assets/portfolio/1623238044587_20180608_131019.jpg',
+    image: '/assets/featured-work/film-production-concept.png',
+    concept: true,
     likes: 567,
   },
   {
     id: 5,
-    title: 'Editorial Look',
+    title: 'Fashion Editorial',
     category: 'Editorial',
-    image: '/assets/portfolio/IMG_20240713_075631_385.jpg',
+    image: '/assets/featured-work/fashion-editorial-concept.png',
+    concept: true,
     likes: 289,
   },
   {
     id: 6,
-    title: 'Fashion Editorial',
+    title: 'Editorial Beauty Study',
     category: 'Editorial',
     image: '/assets/portfolio/IMG_20240713_075631_461.jpg',
     likes: 423,
@@ -365,7 +369,7 @@ export function Portfolio() {
                   {/* Image */}
                   <Image
                     src={item.image}
-                    alt={getPortfolioAlt(item.title, item.category)}
+                    alt={'concept' in item && item.concept ? `${item.title} visual concept for Amy MUP Featured Work` : getPortfolioAlt(item.title, item.category)}
                     fill
                     draggable={false}
                     className="object-cover transition-transform duration-1000 group-hover:scale-110 no-select"
@@ -389,7 +393,7 @@ export function Portfolio() {
                       className="inline-flex items-center gap-2 text-rose-300/90 text-[10px] tracking-[0.25em] uppercase w-fit mb-3"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
-                      {item.category}
+                      {'concept' in item && item.concept ? `Concept Direction · ${item.category}` : item.category}
                     </motion.span>
                     
                     {/* Title */}
