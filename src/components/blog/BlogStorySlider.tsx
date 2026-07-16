@@ -39,6 +39,15 @@ const stories = [
   },
   {
     type: 'image' as const,
+    image: '/assets/Makeup blog/Still Shoot.jpeg',
+    alt: 'Actor portfolio still shoot with natural makeup and styled curly hair in Cape Town',
+    eyebrow: 'Actor portfolios · Still photography',
+    title: 'Makeup for the Casting Frame',
+    description: 'Natural, expressive makeup and hair designed to help actors look recognisable, versatile and confident in professional portfolio photographs.',
+    href: '/blog/actor-headshot-portfolio-shoot-makeup-cape-town',
+  },
+  {
+    type: 'image' as const,
     image: '/assets/Makeup blog/hunter kennedy 1.jpeg',
     alt: 'Hunter Kennedy fashion shoot with hand-painted logo body art',
     eyebrow: 'Fashion editorial · Body painting',

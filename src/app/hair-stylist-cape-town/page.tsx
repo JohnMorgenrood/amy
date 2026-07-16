@@ -7,13 +7,14 @@ const faqs = [
   { question: 'What types of hair styling does Amy offer?', answer: 'Amy offers polished styling, updos, waves, curls, period and character support, set-ready finishing and wig application depending on the brief.' },
   { question: 'Is hair styling available for film productions?', answer: 'Yes. Amy is available for suitable production hair roles, character and period styling support, cast preparation, standby assistance and wig application.' },
   { question: 'Can I book both makeup and hair?', answer: 'Yes. Combined makeup and hair bookings are available when the number of people, timing and complexity can be handled properly by one artist or an agreed team.' },
+  { question: 'Can Amy arrange additional or specialist hair and makeup artists?', answer: 'Yes. Amy has built trusted working relationships with highly skilled Cape Town hair and makeup artists. When a brief calls for another speciality, more hands or a larger talent schedule, she can recommend and coordinate suitable collaborators so the team is matched to the production and works to one clear standard.' },
   { question: 'Does Amy travel for bridal or private hair appointments?', answer: 'Mobile appointments are available across Cape Town and selected Western Cape areas, subject to the date, location, schedule and travel requirements.' },
 ]
 
 export const metadata: Metadata = {
   title: 'Hair Stylist Cape Town | Film, Editorial, Bridal & Private',
-  description: 'Cape Town hair stylist for film productions, editorials, bridal mornings and private appointments. Styling, updos, period hair, set support and wig application.',
-  keywords: ['hair stylist cape town', 'film hair stylist cape town', 'editorial hair stylist cape town', 'bridal hair stylist cape town', 'period hair stylist cape town', 'wig application cape town', 'mobile hair stylist cape town'],
+  description: 'Cape Town hair stylist and trusted hair and makeup team support for film productions, editorials, bridal mornings and private appointments.',
+  keywords: ['hair stylist cape town', 'film hair stylist cape town', 'editorial hair stylist cape town', 'bridal hair stylist cape town', 'period hair stylist cape town', 'wig application cape town', 'mobile hair stylist cape town', 'hair and makeup team cape town', 'production hair crew cape town'],
   alternates: { canonical: pageUrl },
   openGraph: { title: 'Hair Stylist Cape Town | Amy Morgenrood', description: 'Hair styling for Cape Town productions, editorials, bridal mornings and private bookings.', url: pageUrl, images: ['https://www.amymup.shop/og-image-logo.jpg'] },
 }
@@ -27,7 +28,7 @@ export default function HairStylistPage() {
     eyebrow="Production · Editorial · Bridal"
     title="Hair stylist in Cape Town"
     description="Professional hair styling support for film productions, editorials, bridal mornings and private appointments, including polished finishing, period styling and wig application."
-    intro="Hair needs to suit the person, the brief and the working environment. Amy offers considered styling for camera, events and private clients, with practical preparation and an honest assessment of what can be achieved within the available time."
+    intro="Hair needs to suit the person, the brief and the working environment. Amy offers considered styling for camera, events and private clients, backed by a trusted professional network. When a project needs a different specialist skill, a larger team or simultaneous talent preparation, she can bring together the right hair and makeup collaborators while keeping communication, creative direction and quality consistent."
     locationNote="Mobile across Cape Town, with wider Western Cape travel available by arrangement."
     primaryCtaHref="/#contact" primaryCtaLabel="Request Hair Styling"
     secondaryCtaHref="/film-tv-commercial-makeup-artist-cape-town" secondaryCtaLabel="Production Hair & Makeup"
@@ -43,8 +44,9 @@ export default function HairStylistPage() {
       { title: 'Period and character hair', description: 'Brief-led styling support for characters, historical references and production continuity requirements.' },
       { title: 'On-set hair support', description: 'Preparation, finishing, maintenance and practical assistance around production schedules and camera needs.' },
       { title: 'Wig application', description: 'Careful wig preparation and application for suitable production, character and private creative briefs.' },
+      { title: 'Collaborative hair and makeup teams', description: 'Access to trusted Cape Town artists for specialist techniques, larger cast or client numbers, parallel preparation and briefs that benefit from a carefully selected team.' },
     ]}
-    strengths={['Combined makeup and hair capability for briefs that benefit from one point of contact.', 'Production-aware approach to schedules, continuity and on-set maintenance.', 'Styling options for polished contemporary, bridal, editorial and period looks.', 'Clear planning around hair length, texture, references, accessories and timing.', 'Mobile service across Cape Town for appropriate bookings.', 'Additional artists can be discussed when the schedule or party size requires a team.']}
+    strengths={['Combined makeup and hair capability for briefs that benefit from one point of contact.', 'Production-aware approach to schedules, continuity and on-set maintenance.', 'Styling options for polished contemporary, bridal, editorial and period looks.', 'Clear planning around hair length, texture, references, accessories and timing.', 'Mobile service across Cape Town for appropriate bookings.', 'Trusted relationships with highly skilled hair and makeup professionals allow Amy to scale a team or bring in the right specialist for the brief.', 'One coordinated point of contact helps keep references, timings, responsibilities and finish consistent across the team.']}
     faqs={faqs}
   /></>
 }

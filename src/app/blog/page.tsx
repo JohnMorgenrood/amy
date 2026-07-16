@@ -39,6 +39,11 @@ export default function BlogPage() {
           <h2 className="mt-5 font-display text-3xl font-light text-cream-50 group-hover:text-gold-300">The Hunter Kennedy Shoot</h2>
           <p className="mt-4 leading-7 text-cream-300/65">A hand-painted logo becomes part of the styling, made to read clearly on camera.</p>
         </Link>
+        <Link href="/blog/actor-headshot-portfolio-shoot-makeup-cape-town" className="group bg-dark-900 p-8 sm:p-12">
+          <span className="text-[10px] uppercase tracking-[0.25em] text-gold-400">05 · Actor portfolios</span>
+          <h2 className="mt-5 font-display text-3xl font-light text-cream-50 group-hover:text-gold-300">Makeup for the Casting Frame</h2>
+          <p className="mt-4 leading-7 text-cream-300/65">Natural makeup and hair that keeps an actor recognisable while giving every portrait a polished, professional finish.</p>
+        </Link>
       </section>
     </div>
   )

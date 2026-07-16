@@ -114,6 +114,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.72,
     },
     {
+      url: `${baseUrl}/blog/actor-headshot-portfolio-shoot-makeup-cape-town`,
+      lastModified,
+      changeFrequency: 'yearly',
+      priority: 0.74,
+    },
+    {
       url: `${baseUrl}/blog/hunter-kennedy-fashion-shoot-body-painting`,
       lastModified,
       changeFrequency: 'yearly',
