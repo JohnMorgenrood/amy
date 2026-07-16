@@ -24,7 +24,7 @@ const faqs = [
   {
     question: 'Which areas does Amy cover for production work?',
     answer:
-      'Amy is based in Cape Town and can travel across the city, surrounding suburbs and the wider Western Cape by arrangement.',
+      'Amy is based in Cape Town and available for productions across South Africa and internationally. Travel is arranged around the production schedule, destination, scope, work permissions and agreed travel requirements.',
   },
 ]
 
@@ -133,7 +133,7 @@ export default function FilmTvCommercialPage() {
         title="Film, TV and commercial makeup artist in Cape Town"
         description="Amy Morgenrood provides professional makeup support for film productions, TV ads, commercials, branded content, campaigns and agency shoots across Cape Town."
         intro="If you need a Cape Town makeup artist for a TV commercial, film production, branded shoot or agency campaign, this page gives a clear view of the kind of on-set support Amy offers and how to enquire quickly."
-        locationNote="Based in Cape Town and available for productions, TVCs, campaign shoots, agency work, editorials and location work across the Western Cape."
+        locationNote="Based in Cape Town and available across South Africa and internationally for the right production, subject to dates, travel logistics, work permissions and scope."
         primaryCtaHref="/#contact"
         primaryCtaLabel="Request Production Quote"
         secondaryCtaHref="/portfolio/film"
@@ -191,7 +191,7 @@ export default function FilmTvCommercialPage() {
           'Comfortable working to production schedules, call times and changing on-set demands.',
           'Clear communication for producers, coordinators, agencies and creative teams.',
           'Strong mix of beauty polish, practical set-readiness and SFX capability when needed.',
-          'Cape Town based, making local travel and location work easier to arrange.',
+          'Cape Town based, with South African and international production travel available by arrangement.',
           'Suitable for TV commercials, music videos, editorials, branded campaigns and film work.',
           'Easy booking path for both direct clients and production teams who need a quote quickly.',
         ]}

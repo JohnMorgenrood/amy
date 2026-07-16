@@ -2,6 +2,131 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { ServiceLandingPage } from '@/components/seo/ServiceLandingPage'
 const pageUrl = 'https://www.amymup.shop/production-hair-makeup-team-cape-town'
-const faqs = [{ question: 'Can Amy assemble a hair and makeup team?', answer: 'Yes. Amy can recommend and coordinate trusted Cape Town collaborators according to the creative brief, specialist needs, cast numbers and preparation schedule.' }, { question: 'Can the team support multiple talent at once?', answer: 'Yes. Parallel preparation can be planned when the call sheet, workstations, access and agreed crew size allow it.' }, { question: 'Who remains the production contact?', answer: 'The working structure is agreed before the job. Amy can provide one coordinated point of contact for references, timings, responsibilities and daily requirements.' }]
-export const metadata: Metadata = { title: 'Production Hair and Makeup Team Cape Town', description: 'Scalable Cape Town production hair and makeup teams for film, television, commercials and campaigns, coordinated through Amy Morgenrood’s trusted artist network.', keywords: ['production hair and makeup team cape town', 'film hair makeup crew cape town', 'commercial makeup team south africa', 'makeup department crew cape town'], alternates: { canonical: pageUrl } }
-export default function ProductionTeamPage() { const schema = { '@context': 'https://schema.org', '@graph': [{ '@type': 'Service', name: 'Production Hair and Makeup Team Cape Town', provider: { '@id': 'https://www.amymup.shop/#person' }, areaServed: { '@type': 'City', name: 'Cape Town' }, url: pageUrl }, { '@type': 'FAQPage', mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }] }; return <><Script id="production-team-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} /><ServiceLandingPage eyebrow="Crew · Scale · Coordination" title="Production hair and makeup teams in Cape Town" description="Trusted, scalable hair and makeup support for film, television, commercials, campaigns and multi-talent shoot days." intro="Some briefs need more than one artist. Amy can bring together trusted Cape Town hair and makeup professionals whose strengths match the creative direction, then help align references, timings, workstations and responsibilities so production has a clear, dependable department." locationNote="Cape Town based, with Western Cape location support and crew requirements scoped per production." primaryCtaHref="/#contact" primaryCtaLabel="Discuss Crew Requirements" secondaryCtaHref="/makeup-department-coordinator-cape-town" secondaryCtaLabel="Coordination Support" stats={[{ label: 'Crew', value: 'Scalable' }, { label: 'Contact', value: 'Coordinated' }, { label: 'Base', value: 'Cape Town' }]} perfectFor={[{ title: 'Multiple cast members', description: 'Parallel preparation for cast, contributors, athletes, presenters or campaign talent.' }, { title: 'Specialist briefs', description: 'The right mix of beauty, grooming, hair, SFX, wigs or body-painting capability.' }, { title: 'Commercial content days', description: 'Efficient support across moving shot lists, look changes and stills-plus-video deliverables.' }, { title: 'Film and television departments', description: 'Additional artists, daily support and clearly assigned responsibilities around the HOD structure.' }]} services={[{ title: 'Crew matching', description: 'Artists selected according to the look, format, cast, schedule and specialist requirements.' }, { title: 'Pre-production alignment', description: 'References, talent notes, timings, kit needs and department responsibilities clarified in advance.' }, { title: 'Shoot-day workflow', description: 'Workstations, preparation order, handovers and touch-up coverage planned around the call sheet.' }, { title: 'One quality direction', description: 'Shared references and communication help the department deliver a coherent finish across talent.' }]} strengths={['Trusted relationships with highly skilled Cape Town hair and makeup professionals.', 'Amy’s own experience spans makeup, hair, SFX, body painting, continuity and coordination.', 'Flexible enough for commercials, film departments, editorials and campaign content days.', 'Clear scope and honest specialist matching rather than claiming one artist does everything.', 'Local crew knowledge can support visiting and international productions.']} faqs={faqs} /></> }
+const faqs = [
+  {
+    question: 'Can Amy assemble a hair and makeup team?',
+    answer:
+      'Yes. Amy can recommend and coordinate trusted Cape Town collaborators according to the creative brief, specialist needs, cast numbers and preparation schedule.',
+  },
+  {
+    question: 'Can the team support multiple talent at once?',
+    answer:
+      'Yes. Parallel preparation can be planned when the call sheet, workstations, access and agreed crew size allow it.',
+  },
+  {
+    question: 'Who remains the production contact?',
+    answer:
+      'The working structure is agreed before the job. Amy can provide one coordinated point of contact for references, timings, responsibilities and daily requirements.',
+  },
+]
+export const metadata: Metadata = {
+  title: 'Production Hair and Makeup Team Cape Town',
+  description:
+    'Scalable Cape Town production hair and makeup teams for film, television, commercials and campaigns, coordinated through Amy Morgenrood’s trusted artist network.',
+  keywords: [
+    'production hair and makeup team cape town',
+    'film hair makeup crew cape town',
+    'commercial makeup team south africa',
+    'makeup department crew cape town',
+  ],
+  alternates: { canonical: pageUrl },
+}
+export default function ProductionTeamPage() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        name: 'Production Hair and Makeup Team Cape Town',
+        provider: { '@id': 'https://www.amymup.shop/#person' },
+        areaServed: { '@type': 'City', name: 'Cape Town' },
+        url: pageUrl,
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.question,
+          acceptedAnswer: { '@type': 'Answer', text: f.answer },
+        })),
+      },
+    ],
+  }
+  return (
+    <>
+      <Script
+        id="production-team-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <ServiceLandingPage
+        eyebrow="Crew · Scale · Coordination"
+        title="Production hair and makeup teams in Cape Town"
+        description="Trusted, scalable hair and makeup support for film, television, commercials, campaigns and multi-talent shoot days."
+        intro="Some briefs need more than one artist. Amy can bring together trusted Cape Town hair and makeup professionals whose strengths match the creative direction, then help align references, timings, workstations and responsibilities so production has a clear, dependable department."
+        locationNote="Cape Town based, with South African and international production travel and crew requirements scoped per project."
+        primaryCtaHref="/#contact"
+        primaryCtaLabel="Discuss Crew Requirements"
+        secondaryCtaHref="/makeup-department-coordinator-cape-town"
+        secondaryCtaLabel="Coordination Support"
+        stats={[
+          { label: 'Crew', value: 'Scalable' },
+          { label: 'Contact', value: 'Coordinated' },
+          { label: 'Base', value: 'Cape Town' },
+        ]}
+        perfectFor={[
+          {
+            title: 'Multiple cast members',
+            description:
+              'Parallel preparation for cast, contributors, athletes, presenters or campaign talent.',
+          },
+          {
+            title: 'Specialist briefs',
+            description:
+              'The right mix of beauty, grooming, hair, SFX, wigs or body-painting capability.',
+          },
+          {
+            title: 'Commercial content days',
+            description:
+              'Efficient support across moving shot lists, look changes and stills-plus-video deliverables.',
+          },
+          {
+            title: 'Film and television departments',
+            description:
+              'Additional artists, daily support and clearly assigned responsibilities around the HOD structure.',
+          },
+        ]}
+        services={[
+          {
+            title: 'Crew matching',
+            description:
+              'Artists selected according to the look, format, cast, schedule and specialist requirements.',
+          },
+          {
+            title: 'Pre-production alignment',
+            description:
+              'References, talent notes, timings, kit needs and department responsibilities clarified in advance.',
+          },
+          {
+            title: 'Shoot-day workflow',
+            description:
+              'Workstations, preparation order, handovers and touch-up coverage planned around the call sheet.',
+          },
+          {
+            title: 'One quality direction',
+            description:
+              'Shared references and communication help the department deliver a coherent finish across talent.',
+          },
+        ]}
+        strengths={[
+          'Trusted relationships with highly skilled Cape Town hair and makeup professionals.',
+          'Amy’s own experience spans makeup, hair, SFX, body painting, continuity and coordination.',
+          'Flexible enough for commercials, film departments, editorials and campaign content days.',
+          'Clear scope and honest specialist matching rather than claiming one artist does everything.',
+          'Local crew knowledge can support visiting and international productions.',
+        ]}
+        faqs={faqs}
+      />
+    </>
+  )
+}

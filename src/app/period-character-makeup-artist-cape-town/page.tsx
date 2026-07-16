@@ -2,6 +2,131 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { ServiceLandingPage } from '@/components/seo/ServiceLandingPage'
 const pageUrl = 'https://www.amymup.shop/period-character-makeup-artist-cape-town'
-const faqs = [{ question: 'What informs a period or character look?', answer: 'The script, period references, character background, costume, hair, lighting, camera distance and continuity requirements all shape the design and application.' }, { question: 'Can SFX and prosthetics be included?', answer: 'Yes. Ageing, injuries, breakdown, prosthetic application and other SFX elements can be discussed according to the character brief.' }, { question: 'Does Amy support crowd and principal cast work?', answer: 'Amy’s credits include principal, cast, crowd and daily makeup roles across film and television productions.' }]
-export const metadata: Metadata = { title: 'Period & Character Makeup Artist Cape Town', description: 'Cape Town period and character makeup artist for film and television. Research-led makeup, ageing, SFX, hair support and continuity by Amy Morgenrood.', keywords: ['period makeup artist cape town', 'character makeup artist south africa', 'film ageing makeup cape town', 'historical film makeup artist'], alternates: { canonical: pageUrl } }
-export default function PeriodCharacterPage() { const schema = { '@context': 'https://schema.org', '@graph': [{ '@type': 'Service', name: 'Period and Character Makeup Artist Cape Town', provider: { '@id': 'https://www.amymup.shop/#person' }, areaServed: { '@type': 'City', name: 'Cape Town' }, url: pageUrl }, { '@type': 'FAQPage', mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }] }; return <><Script id="period-character-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} /><ServiceLandingPage eyebrow="Film · Television · Character" title="Period and character makeup artist in Cape Town" description="Research-led period, character and continuity-aware makeup for film and television productions." intro="Character work connects story, performance and visual detail. Amy works from references and department direction to create believable faces that sit naturally beside costume, hair, production design and the world of the script." locationNote="Cape Town based and available for production work across the Western Cape by arrangement." primaryCtaHref="/#contact" primaryCtaLabel="Send a Character Brief" secondaryCtaHref="/sfx-makeup-artist-cape-town" secondaryCtaLabel="Explore SFX Services" stats={[{ label: 'Focus', value: 'Believability' }, { label: 'Workflow', value: 'Continuity' }, { label: 'Base', value: 'Cape Town' }]} perfectFor={[{ title: 'Historical productions', description: 'Period-aware skin, grooming, hair support and character detail informed by visual research.' }, { title: 'Character transformation', description: 'Age, occupation, environment and story translated into controlled makeup choices.' }, { title: 'Crowd and ensemble work', description: 'Repeatable, department-led looks for supporting cast, crowds and busy preparation calls.' }, { title: 'Breakdown and SFX', description: 'Weathering, fatigue, injuries, ageing and prosthetic elements where the brief requires them.' }]} services={[{ title: 'Reference and look development', description: 'Interpreting the script, visual references and HOD direction into a workable application plan.' }, { title: 'Period makeup and grooming', description: 'Texture, colour and grooming choices designed to belong in the production’s time and place.' }, { title: 'Character ageing and breakdown', description: 'Subtle or stronger transformation shaped around story, camera distance and performance.' }, { title: 'Continuity support', description: 'Reference photographs, notes, product tracking and resets across scenes and shoot days.' }]} strengths={['Credits include The Woman King, Shaka Zulu, Black Sails and Troy: Fall of a City.', 'Experience across principal, cast, crowd and daily production makeup roles.', 'SFX and prosthetic capability for character-led details and transformation.', 'Comfortable working within established departments and following HOD direction.', 'Continuity-aware approach to repeatable applications and changing story states.']} faqs={faqs} /></> }
+const faqs = [
+  {
+    question: 'What informs a period or character look?',
+    answer:
+      'The script, period references, character background, costume, hair, lighting, camera distance and continuity requirements all shape the design and application.',
+  },
+  {
+    question: 'Can SFX and prosthetics be included?',
+    answer:
+      'Yes. Ageing, injuries, breakdown, prosthetic application and other SFX elements can be discussed according to the character brief.',
+  },
+  {
+    question: 'Does Amy support crowd and principal cast work?',
+    answer:
+      'Amy’s credits include principal, cast, crowd and daily makeup roles across film and television productions.',
+  },
+]
+export const metadata: Metadata = {
+  title: 'Period & Character Makeup Artist Cape Town',
+  description:
+    'Cape Town period and character makeup artist for film and television. Research-led makeup, ageing, SFX, hair support and continuity by Amy Morgenrood.',
+  keywords: [
+    'period makeup artist cape town',
+    'character makeup artist south africa',
+    'film ageing makeup cape town',
+    'historical film makeup artist',
+  ],
+  alternates: { canonical: pageUrl },
+}
+export default function PeriodCharacterPage() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        name: 'Period and Character Makeup Artist Cape Town',
+        provider: { '@id': 'https://www.amymup.shop/#person' },
+        areaServed: { '@type': 'City', name: 'Cape Town' },
+        url: pageUrl,
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.question,
+          acceptedAnswer: { '@type': 'Answer', text: f.answer },
+        })),
+      },
+    ],
+  }
+  return (
+    <>
+      <Script
+        id="period-character-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <ServiceLandingPage
+        eyebrow="Film · Television · Character"
+        title="Period and character makeup artist in Cape Town"
+        description="Research-led period, character and continuity-aware makeup for film and television productions."
+        intro="Character work connects story, performance and visual detail. Amy works from references and department direction to create believable faces that sit naturally beside costume, hair, production design and the world of the script."
+        locationNote="Cape Town based and available for period and character work across South Africa and internationally by arrangement."
+        primaryCtaHref="/#contact"
+        primaryCtaLabel="Send a Character Brief"
+        secondaryCtaHref="/sfx-makeup-artist-cape-town"
+        secondaryCtaLabel="Explore SFX Services"
+        stats={[
+          { label: 'Focus', value: 'Believability' },
+          { label: 'Workflow', value: 'Continuity' },
+          { label: 'Base', value: 'Cape Town' },
+        ]}
+        perfectFor={[
+          {
+            title: 'Historical productions',
+            description:
+              'Period-aware skin, grooming, hair support and character detail informed by visual research.',
+          },
+          {
+            title: 'Character transformation',
+            description:
+              'Age, occupation, environment and story translated into controlled makeup choices.',
+          },
+          {
+            title: 'Crowd and ensemble work',
+            description:
+              'Repeatable, department-led looks for supporting cast, crowds and busy preparation calls.',
+          },
+          {
+            title: 'Breakdown and SFX',
+            description:
+              'Weathering, fatigue, injuries, ageing and prosthetic elements where the brief requires them.',
+          },
+        ]}
+        services={[
+          {
+            title: 'Reference and look development',
+            description:
+              'Interpreting the script, visual references and HOD direction into a workable application plan.',
+          },
+          {
+            title: 'Period makeup and grooming',
+            description:
+              'Texture, colour and grooming choices designed to belong in the production’s time and place.',
+          },
+          {
+            title: 'Character ageing and breakdown',
+            description:
+              'Subtle or stronger transformation shaped around story, camera distance and performance.',
+          },
+          {
+            title: 'Continuity support',
+            description:
+              'Reference photographs, notes, product tracking and resets across scenes and shoot days.',
+          },
+        ]}
+        strengths={[
+          'Credits include The Woman King, Shaka Zulu, Black Sails and Troy: Fall of a City.',
+          'Experience across principal, cast, crowd and daily production makeup roles.',
+          'SFX and prosthetic capability for character-led details and transformation.',
+          'Comfortable working within established departments and following HOD direction.',
+          'Continuity-aware approach to repeatable applications and changing story states.',
+        ]}
+        faqs={faqs}
+      />
+    </>
+  )
+}

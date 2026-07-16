@@ -8,7 +8,7 @@ const faqs = [
   { question: 'Is hair styling available for film productions?', answer: 'Yes. Amy is available for suitable production hair roles, character and period styling support, cast preparation, standby assistance and wig application.' },
   { question: 'Can I book both makeup and hair?', answer: 'Yes. Combined makeup and hair bookings are available when the number of people, timing and complexity can be handled properly by one artist or an agreed team.' },
   { question: 'Can Amy arrange additional or specialist hair and makeup artists?', answer: 'Yes. Amy has built trusted working relationships with highly skilled Cape Town hair and makeup artists. When a brief calls for another speciality, more hands or a larger talent schedule, she can recommend and coordinate suitable collaborators so the team is matched to the production and works to one clear standard.' },
-  { question: 'Does Amy travel for production or private hair bookings?', answer: 'Yes. Mobile and location bookings are available across Cape Town and selected Western Cape areas, subject to the date, call time, location, schedule and travel requirements.' },
+  { question: 'Does Amy travel for production hair bookings?', answer: 'Yes. Amy is Cape Town based and available for production work across South Africa and internationally, subject to dates, call times, travel logistics, work permissions and the agreed scope.' },
 ]
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default function HairStylistPage() {
     title="Hair stylist in Cape Town"
     description="Professional hair styling support for film, television, commercials, editorials and portfolio shoots, including polished finishing, period styling, on-set maintenance and wig application."
     intro="Hair needs to suit the person, the brief and the working environment. Amy offers considered styling for camera, events and private clients, backed by a trusted professional network. When a project needs a different specialist skill, a larger team or simultaneous talent preparation, she can bring together the right hair and makeup collaborators while keeping communication, creative direction and quality consistent."
-    locationNote="Mobile across Cape Town, with wider Western Cape travel available by arrangement."
+    locationNote="Cape Town based and available across South Africa and internationally for suitable film, television, commercial and editorial work."
     primaryCtaHref="/#contact" primaryCtaLabel="Request Hair Styling"
     secondaryCtaHref="/film-tv-commercial-makeup-artist-cape-town" secondaryCtaLabel="Production Hair & Makeup"
     stats={[{ label: 'Services', value: 'Hair + Makeup' }, { label: 'Bookings', value: 'Mobile' }, { label: 'Base', value: 'Cape Town' }]}

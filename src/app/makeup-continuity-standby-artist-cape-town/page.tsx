@@ -7,7 +7,7 @@ const faqs = [
   { question: 'What does makeup continuity support include?', answer: 'Continuity support can include reference photographs, written look notes, product records, scene-aware checks, resets and communication about changes that affect a cast member’s makeup or hair.' },
   { question: 'Is Amy available for standby work on set?', answer: 'Yes. Amy is available in Cape Town for suitable standby, assistant and on-set makeup and hair roles, subject to dates, production requirements and the agreed scope.' },
   { question: 'Can Amy assist a department rather than lead it?', answer: 'Yes. Amy can work under an HOD, key artist or coordinator and support established department systems, schedules and continuity processes.' },
-  { question: 'Does Amy work on commercials as well as long-form productions?', answer: 'Yes. Enquiries are welcome for film, television, commercials, branded content, music videos and other camera-led productions in Cape Town and the Western Cape.' },
+  { question: 'Does Amy work on commercials as well as long-form productions?', answer: 'Yes. Enquiries are welcome for film, television, commercials, branded content, music videos and other camera-led productions in Cape Town, across South Africa and internationally.' },
 ]
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ export default function ContinuityStandbyPage() {
     title="Makeup continuity and standby artist in Cape Town"
     description="Amy Morgenrood provides continuity-aware makeup, hair and standby support for film, television, commercials and camera-led productions in Cape Town."
     intro="Reliable continuity depends on more than taking photographs. It requires careful observations, consistent records, communication with the department and practical checks throughout the shooting day. Amy can assist established teams with both the creative work and the behind-the-scenes organisation needed to maintain a look."
-    locationNote="Cape Town based and available across the city and wider Western Cape by arrangement."
+    locationNote="Cape Town based and available across South Africa and internationally, subject to production dates, travel logistics and work permissions."
     primaryCtaHref="/#contact" primaryCtaLabel="Check Standby Availability"
     secondaryCtaHref="/makeup-department-coordinator-cape-town" secondaryCtaLabel="Coordination Support"
     stats={[{ label: 'Support', value: 'Continuity' }, { label: 'Working Area', value: 'Cape Town' }, { label: 'Environment', value: 'On Set' }]}

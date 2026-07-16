@@ -45,7 +45,7 @@ const contactInfo = [
   {
     icon: Clock,
     label: 'Availability',
-    value: 'Cape Town bookings available by enquiry',
+    value: 'South African & international productions by enquiry',
     href: null,
   },
 ]
@@ -55,6 +55,7 @@ const tiktokUrl = 'https://www.tiktok.com/@amyb_mup?_r=1&_t=ZS-95umNruEh0q'
 
 const serviceTypes = [
   'Film & TV Production',
+  'International Production / Travel Crew',
   'Makeup Department Coordination',
   'SFX & Prosthetics',
   'Commercial & Editorial',

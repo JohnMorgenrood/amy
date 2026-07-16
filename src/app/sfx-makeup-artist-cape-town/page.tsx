@@ -133,7 +133,7 @@ export default function SfxMakeupPage() {
         title="SFX makeup artist in Cape Town"
         description="Amy Morgenrood provides special effects makeup, prosthetic application, wounds, scars, ageing, horror effects and character makeup for productions and creative bookings in Cape Town."
         intro="This page is for producers, directors, photographers and private clients who need practical SFX makeup in Cape Town, from subtle injury detail to stronger character and horror effects."
-        locationNote="Based in Cape Town and available for film, TV, commercial, editorial, themed shoot and selected private SFX bookings across the Western Cape."
+        locationNote="Based in Cape Town and available for film, television, commercial and editorial SFX work across South Africa and internationally by arrangement."
         primaryCtaHref="/#contact"
         primaryCtaLabel="Request SFX Quote"
         secondaryCtaHref="/portfolio/sfx"

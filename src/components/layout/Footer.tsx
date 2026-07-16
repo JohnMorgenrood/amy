@@ -114,7 +114,8 @@ export function SiteFooter() {
             </Link>
             <p className="mb-8 text-sm font-light leading-relaxed text-cream-300/70">
               Makeup artist in Cape Town for film, television, SFX, commercials, editorial work,
-              continuity and production support.
+              continuity and production support. Cape Town based and available for South African
+              and international productions by arrangement.
             </p>
             <Link
               href="/#contact"

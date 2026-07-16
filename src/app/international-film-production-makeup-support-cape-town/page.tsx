@@ -28,7 +28,7 @@ export default function InternationalProductionSupportPage() {
     title="Cape Town makeup support for international film productions"
     description="Local makeup, hair, continuity, standby and department support for overseas producers, visiting HODs, service companies and international shoots in Cape Town."
     intro="Cape Town hosts film, television, commercial, fashion and branded productions from around the world. Amy offers local on-set knowledge and practical makeup department support to help visiting creative teams work efficiently while maintaining their approved visual direction."
-    locationNote="Based in Cape Town, South Africa, with Western Cape location travel available by arrangement."
+    locationNote="Based in Cape Town, South Africa, and available to travel nationally or internationally for suitable productions by arrangement."
     primaryCtaHref="/#contact" primaryCtaLabel="Send an International Brief"
     secondaryCtaHref="/film-tv-commercial-makeup-artist-cape-town" secondaryCtaLabel="Production Makeup Services"
     stats={[{ label: 'Base', value: 'Cape Town' }, { label: 'Clients', value: 'Global Crews' }, { label: 'Support', value: 'On Set' }]}
@@ -44,7 +44,7 @@ export default function InternationalProductionSupportPage() {
       { title: 'SFX and character work', description: 'Prosthetic application, wounds, ageing and character detail where the approved production brief requires it.' },
       { title: 'Film-shoot coordination support', description: 'For film shoots specifically: assistance with schedules, artist requirements, products, call times, paperwork and day-to-day department communication.' },
     ]}
-    strengths={['Cape Town based with knowledge of local production rhythms and location work.', 'Experience on major film and television productions alongside commercial and agency work.', 'Able to support visiting creative leadership without overstating or disrupting assigned roles.', 'Combination of beauty, hair, SFX, character and continuity-aware experience.', 'Clear English communication with producers, coordinators, artists and other departments.', 'Flexible enquiries for artist, assistant, standby, day-player and junior coordination support.']}
+    strengths={['Cape Town based with knowledge of local production rhythms and location work.', 'Available for South African and international production travel subject to dates, logistics and work permissions.', 'Experience on major film and television productions alongside commercial and agency work.', 'Able to support visiting creative leadership without overstating or disrupting assigned roles.', 'Combination of beauty, hair, SFX, character and continuity-aware experience.', 'Clear English communication with producers, coordinators, artists and other departments.', 'Flexible enquiries for artist, assistant, standby, day-player and junior coordination support.']}
     faqs={faqs}
   /></>
 }

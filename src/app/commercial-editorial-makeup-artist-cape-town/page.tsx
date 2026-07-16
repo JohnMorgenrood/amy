@@ -28,7 +28,7 @@ export default function CommercialEditorialPage() {
     title="Commercial and editorial makeup artist in Cape Town"
     description="Reliable, camera-ready makeup for agencies, campaigns, editorials, lookbooks, e-commerce shoots and branded content teams across Cape Town."
     intro="Commercial and editorial sets need polish without slowing down the day. Amy works from the creative brief, lighting and camera requirements to deliver consistent skin, efficient changes and makeup that holds up through close camera work."
-    locationNote="Cape Town based and available for studio and location shoots across the Western Cape by arrangement."
+    locationNote="Cape Town based and available for studio and location shoots across South Africa and internationally by arrangement."
     primaryCtaHref="/#contact" primaryCtaLabel="Send a Commercial Brief"
     secondaryCtaHref="/film-tv-commercial-makeup-artist-cape-town" secondaryCtaLabel="View Production Services"
     stats={[{ label: 'Clients', value: 'Agencies' }, { label: 'Focus', value: 'Camera Ready' }, { label: 'Location', value: 'Cape Town' }]}
