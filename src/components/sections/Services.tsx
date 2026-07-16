@@ -133,12 +133,16 @@ export function Services() {
               onMouseLeave={() => setActiveService(null)}
               className="group relative h-full"
             >
-              <div className="relative h-full rounded-2xl p-7 sm:p-8 bg-dark-900/50 border border-gold-500/10 hover:border-gold-500/20 transition-all duration-500 overflow-hidden">
+              <Link
+                href={service.href}
+                aria-label={`${service.title}: ${service.cta}`}
+                className="relative block h-full overflow-hidden rounded-2xl border border-gold-500/10 bg-dark-900/50 p-7 transition-all duration-500 hover:border-gold-500/30 focus-visible:border-gold-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400/30 sm:p-8"
+              >
                 {/* Gradient Background on Hover */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: activeService === service.id ? 0.05 : 0 }}
-                  className={`absolute inset-0 bg-gradient-to-br from-gold-500/20 to-transparent`}
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-gold-500/20 to-transparent"
                 />
 
                 {/* Icon */}
@@ -181,18 +185,15 @@ export function Services() {
                   initial={{ opacity: 0.65 }}
                   animate={{ opacity: activeService === service.id ? 1 : 0.65 }}
                 >
-                  <Link
-                    href={service.href}
-                    className="inline-flex items-center gap-2 text-gold-400/80 text-xs tracking-[0.15em] uppercase group/link"
-                  >
+                  <span className="group/link inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-gold-400/80">
                     <span>{service.cta}</span>
                     <ArrowRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
-                  </Link>
+                  </span>
                 </motion.div>
 
                 {/* Corner Accent */}
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-gold-500/5 blur-3xl group-hover:bg-gold-500/10 transition-all duration-700" />
-              </div>
+                <div className="pointer-events-none absolute -top-20 -right-20 w-40 h-40 bg-gold-500/5 blur-3xl group-hover:bg-gold-500/10 transition-all duration-700" />
+              </Link>
             </motion.div>
           ))}
         </div>
