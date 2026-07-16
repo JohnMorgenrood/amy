@@ -55,15 +55,6 @@ const stories = [
     description: 'Turning a logo into precise, camera-ready body art while supporting the pace of a fashion set.',
     href: '/blog/hunter-kennedy-fashion-shoot-body-painting',
   },
-  {
-    type: 'image' as const,
-    image: '/assets/Makeup blog/hunter kennedy 2.jpeg',
-    alt: 'Close view of logo body painting for the Hunter Kennedy fashion shoot',
-    eyebrow: 'Behind the work · Branded detail',
-    title: 'Paint Made for the Frame',
-    description: 'Clean edges, skin-safe application and a finish designed to hold its shape under editorial lighting.',
-    href: '/blog/hunter-kennedy-fashion-shoot-body-painting',
-  },
 ]
 
 export function BlogStorySlider() {
